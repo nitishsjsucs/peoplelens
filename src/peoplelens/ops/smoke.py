@@ -77,30 +77,40 @@ def step_cost_limit(client, project: str) -> dict:
     return {"ok": False, "message": "BigQuery ran the query despite maximumBytesBilled = 1 MiB"}
 
 
-def step_service_tokens(base_url: str) -> dict:
+def _role_checks(client: WorkerClient, role: str, policy, logs: list) -> dict:
+    results: dict = {}
+    session = client.session()
+    for metric in policy.roles[role]["metrics"]:
+        question = f"What is the {policy.metrics[metric]['label'].lower()} in 2025?"
+        r = client.ask(session, question)
+        results[metric] = r.body.get("type")
+        if r.body.get("meta", {}).get("gateway_log_id"):
+            logs.append((r.body["meta"]["gateway_log_id"], question))
+    gender = client.ask(client.session(), "headcount by gender")
+    results["unapproved_refused"] = (gender.body.get("refusal") or {}).get("code") == "DIMENSION_NOT_APPROVED"
+    if role in ("people_analytics", "executive"):
+        r = client.ask(client.session(), "headcount by department")
+        rows = (r.body.get("answer") or {}).get("rows", [])
+        results["legal_suppressed"] = any(x.get("department") == "Legal" and x.get("suppressed") for x in rows)
+        r = client.ask(client.session(), "headcount right now excluding Legal")
+        cells = (r.body.get("answer") or {}).get("suppressed_cells", {})
+        results["complement_suppressed"] = cells.get("complement", 0) >= 1
+    return results
+
+
+def step_service_tokens(base_url: str, client_factory=WorkerClient) -> dict:
     policy = load()
     env = read_env_file(PROD_EVAL_ENV)
     out = {"ok": True, "roles": {}, "gateway_logs": []}
     for role, key in ROLE_KEYS.items():
-        client = WorkerClient(base_url, {"CF-Access-Client-Id": env[f"{key}_CLIENT_ID"], "CF-Access-Client-Secret": env[f"{key}_CLIENT_SECRET"]})
-        results = {}
-        session = client.session()
-        for metric in policy.roles[role]["metrics"]:
-            question = f"What is the {policy.metrics[metric]['label'].lower()} in 2025?"
-            r = client.ask(session, question)
-            results[metric] = r.body.get("type")
-            if r.body.get("meta", {}).get("gateway_log_id"):
-                out["gateway_logs"].append((r.body["meta"]["gateway_log_id"], question))
-        gender = client.ask(client.session(), "headcount by gender")
-        results["unapproved_refused"] = (gender.body.get("refusal") or {}).get("code") == "DIMENSION_NOT_APPROVED"
-        if role in ("people_analytics", "executive"):
-            r = client.ask(client.session(), "headcount by department")
-            rows = (r.body.get("answer") or {}).get("rows", [])
-            results["legal_suppressed"] = any(x.get("department") == "Legal" and x.get("suppressed") for x in rows)
-            s = client.session()
-            r = client.ask(s, "headcount right now excluding Legal")
-            cells = (r.body.get("answer") or {}).get("suppressed_cells", {})
-            results["complement_suppressed"] = cells.get("complement", 0) >= 1
+        client = client_factory(base_url, {"CF-Access-Client-Id": env.get(f"{key}_CLIENT_ID", ""),
+                                           "CF-Access-Client-Secret": env.get(f"{key}_CLIENT_SECRET", "")})
+        try:
+            results = _role_checks(client, role, policy, out["gateway_logs"])
+        except Exception as exc:  # noqa: BLE001 - report the role (for example an Access redirect) and go on
+            out["roles"][role] = {"ok": False, "error": str(exc)[:200]}
+            out["ok"] = False
+            continue
         ok = all(v == "answer" for k, v in results.items() if k in policy.metrics) and all(
             v is True for k, v in results.items() if k not in policy.metrics
         )

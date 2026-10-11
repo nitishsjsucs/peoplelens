@@ -179,3 +179,42 @@ def test_gateway_check_reports_an_unreadable_payload_as_unknown():
 
 def test_gateway_check_needs_a_log_id():
     assert smoke.step_gateway(CloudflareApi("acc", "tok", GatewayTransport(GOOD_LOG)), [])["ok"] is False
+
+
+class Reply:
+    def __init__(self, status, body):
+        self.status, self.body = status, body
+
+
+class FakeWorker:
+    """Answers like a healthy production Worker; the HRBP token is rejected by Access."""
+
+    def __init__(self, base_url, headers):
+        self.secret = headers["CF-Access-Client-Secret"]
+
+    def session(self):
+        if self.secret == "bad":
+            raise RuntimeError("could not create a session: HTTP 302 {}")
+        return "s1"
+
+    def ask(self, session, message):
+        if "gender" in message:
+            return Reply(200, {"type": "refusal", "refusal": {"code": "DIMENSION_NOT_APPROVED"}})
+        if "by department" in message:
+            return Reply(200, {"type": "answer", "answer": {"rows": [{"department": "Legal", "suppressed": True}]}})
+        if "excluding Legal" in message:
+            return Reply(200, {"type": "answer", "answer": {"rows": [], "suppressed_cells": {"complement": 1}}})
+        return Reply(200, {"type": "answer", "meta": {"gateway_log_id": "L1"}})
+
+
+def test_service_token_step_reports_a_rejected_role_and_keeps_going(tmp_path, monkeypatch):
+    env = tmp_path / "prod_eval.env"
+    keys = ["PEOPLE_ANALYTICS", "HR_BUSINESS_PARTNER", "TALENT_ACQUISITION", "EXECUTIVE"]
+    env.write_text("".join(f"{k}_CLIENT_ID={k.lower()}.access\n{k}_CLIENT_SECRET={'bad' if k == 'HR_BUSINESS_PARTNER' else 's'}\n" for k in keys))
+    monkeypatch.setattr(smoke, "PROD_EVAL_ENV", env)
+    out = smoke.step_service_tokens("https://peoplelens.example.workers.dev", client_factory=FakeWorker)
+    assert out["ok"] is False
+    assert out["roles"]["hr_business_partner"]["ok"] is False and "302" in out["roles"]["hr_business_partner"]["error"]
+    assert all(out["roles"][r]["ok"] for r in ("people_analytics", "talent_acquisition", "executive"))
+    assert out["roles"]["executive"]["legal_suppressed"] and out["roles"]["executive"]["complement_suppressed"]
+    assert out["gateway_logs"][0] == ("L1", "What is the headcount in 2025?")

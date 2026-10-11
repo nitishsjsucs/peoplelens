@@ -190,10 +190,11 @@ Nothing below has been run yet: this machine has no Google Cloud CLI, no Google 
    make doctor
    make bootstrap ARGS="--gcp-project peoplelens-<suffix> --role-emails analyst=<email>,hrbp=<email>:Engineering+Sales,recruiter=<email>,exec=<email>"
    make doctor
-   make smoke
-   make eval-prod
+   make smoke                                   # writes eval/results/<date>-prod-smoke.json
+   git add eval/results && git commit -m "eval: production smoke"
+   make eval-prod ARGS="--official"             # an official run needs a clean working tree
    ```
-   Gmail plus-addresses (`you+exec@gmail.com`) work with One-time PIN.
+   Gmail plus-addresses (`you+exec@gmail.com`) work with One-time PIN. Every step is safe to rerun; `make bootstrap ARGS="--phase b ..."` reruns one phase.
 
 ### What the bootstrap does
 

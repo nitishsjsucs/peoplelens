@@ -11,6 +11,18 @@ from dataclasses import dataclass
 USER_AGENT = "peoplelens-cli/0.1"
 
 
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    """Never follow redirects: in production a redirect means Cloudflare Access did not
+    accept the credentials and is sending the caller to its login page. Following it
+    would turn an authentication failure into a 200 HTML page."""
+
+    def redirect_request(self, *args, **kwargs):  # noqa: ANN002, ANN003
+        return None
+
+
+_OPENER = urllib.request.build_opener(_NoRedirect)
+
+
 @dataclass
 class Reply:
     status: int
@@ -35,7 +47,7 @@ class WorkerClient:
             req.add_header("content-type", "application/json")
         started = time.perf_counter()
         try:
-            with urllib.request.urlopen(req, timeout=self.timeout) as resp:
+            with _OPENER.open(req, timeout=self.timeout) as resp:
                 raw = resp.read()
                 status = resp.status
         except urllib.error.HTTPError as exc:

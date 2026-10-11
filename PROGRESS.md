@@ -33,6 +33,7 @@ Commit 17 of 17 (plus inserted commits): the commit plan is complete (core cut l
 17. `feat(ops): masking demo and time-travel drill`
 17a. `eval: third official local run on the completed plan`; `docs: report all three official local runs; resume-claims table`; `eval: official stub run on the completed plan`
 18. `fix(ops): production BigQuery, gateway-log, bq and deploy fixes from an API review` (builder 2): the eval service account's Python BigQuery calls used `Client.query`, which calls jobs.insert, and jobs.insert does not accept the `bigquery.readonly` scope (it accepts bigquery, cloud-platform and devstorage scopes only; jobs.query, jobs.get and jobs.getQueryResults accept bigquery.readonly), so smoke, parity and the production baseline would all have failed with insufficient scopes; smoke step 5 read the `/logs/{id}/request` and `/response` payload endpoints as `{result}` envelopes, so a stored payload would have passed as "absent"; logs are written asynchronously and step 5 did not wait; governance SQL now goes to `bq` as the query argument after the global flags (documented form) instead of stdin; IAM grants retry while new service accounts propagate; every deploy rebuilds the web UI (a fresh clone has no `web/dist`) and keeps the audit bindings once the audit trail is enabled; wrangler gets the account id from `.secrets/cloudflare.env` and every ops CLI runs with stdin closed so no prompt can hang; HTTP calls send an explicit user agent.
+19. `fix(eval): never follow Access redirects; production health with a service token` (builder 2): the Worker client followed redirects, so an Access login redirect (rejected or missing service token) became a 200 HTML page that the eval would have scored as schema-invalid answers; it now reports the 302. The production eval checks `/api/health` with a service token (Access guards every path) and stops if it is not 200. Smoke step 4 reports a rejected role instead of crashing. README: commit the smoke record, then `make eval-prod ARGS="--official"`.
 
 ## Next
 
@@ -49,7 +50,7 @@ Plan complete. Remaining work needs the owner: the production setup (README Prod
 | `uv run pl mf validate` | pass (0 errors, 0 warnings) |
 | `uv run pl catalog build --check` | pass: 312 entries per dialect, BigQuery compiled first, then DuckDB |
 | `uv run pl-eval gold --check`; frozen eval set equals a fresh generation (pytest) | pass |
-| `uv run pytest -q` | 515 passed (includes the 312 x 3 parity sweep; 493 at builder 1's last commit, re-run by builder 2 before any change, plus 22 ops tests added in commit 18) |
+| `uv run pytest -q` | 518 passed (includes the 312 x 3 parity sweep; 493 at builder 1's last commit, re-run by builder 2 before any change, plus 22 ops tests in commit 18 and 3 in commit 19; 518 now) |
 | `npm run typecheck` (worker and web) | pass |
 | `npm test` (web build, web vitest, worker vitest in workerd) | web 3 passed; worker 267 passed (includes 4 x 2,000 fuzzed planner outputs and a check that every templated eval and dev question resolves to its gold period and grain) |
 | `npx wrangler deploy --env production --dry-run --outdir .wrangler/dry` (CI=true, no token) | pass; 2,471 KiB (gzip 223 KiB) including the UI assets; BigQuery catalog only |

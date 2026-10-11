@@ -245,7 +245,11 @@ def main(args) -> int:
     if args.limit:
         items = items[: args.limit]
     base_url, headers = identities(args.target)
-    health = WorkerClient(base_url, {}).health()
+    # In production Access guards every path, /api/health included, so ask with a service token.
+    health = WorkerClient(base_url, {} if args.target == "local" else next(iter(headers.values()))).health()
+    if args.target == "prod" and health.status != 200:
+        print(f"production Worker is not healthy behind Access: {health.status} {health.body}; run `make doctor`", file=sys.stderr)
+        return 2
     if args.target == "local":
         if health.status != 200 or health.body.get("llm_provider") != args.llm:
             print(f"local Worker is not up with LLM_PROVIDER={args.llm}: {health.status} {health.body}", file=sys.stderr)
