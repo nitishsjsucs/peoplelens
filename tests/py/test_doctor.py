@@ -394,7 +394,7 @@ def test_audit_group(tmp_path, monkeypatch, cf_env):
     before = by_name(doctor.audit_checks(ScriptRunner({get: Result(0, off)}), "shared-project-123"))
     assert before["Basin Catalog active on peoplelens-audit"].status == WARN and not before["Basin Catalog active on peoplelens-audit"].required
     assert before["generated config (worker/wrangler.audit.generated.jsonc)"].status == WARN
-    assert "--gcp-project shared-project-123 --phase a --with-audit" in before["Basin Catalog active on peoplelens-audit"].fix
+    assert "--gcp-project shared-project-123 --phase audit" in before["Basin Catalog active on peoplelens-audit"].fix
     assert before["permission Queues: Edit (list queues)"].status == SKIP
     checks.save_state({"audit_enabled": True})
     after = by_name(doctor.audit_checks(ScriptRunner({get: Result(0, off)})))
@@ -416,3 +416,29 @@ def test_audit_token_permissions(tmp_path, monkeypatch):
     r2 = c["permission Workers R2 Storage: Edit (list buckets)"]
     assert r2.status == MISSING and r2.required and "R2 must be activated" in r2.fix
 
+
+
+TAG_NAMES = {"pii_high": "projects/p/locations/us/taxonomies/1/policyTags/11",
+             "protected_class": "projects/p/locations/us/taxonomies/1/policyTags/12",
+             "compensation": "projects/p/locations/us/taxonomies/1/policyTags/13"}
+
+
+def test_governance_is_required_once_phase_c_recorded_its_tags(tmp_path, monkeypatch):
+    """A rebuild without the phase C vars drops every policy tag; the doctor must fail then."""
+    monkeypatch.setattr(checks, "STATE_PATH", tmp_path / "state.json")
+    monkeypatch.setattr(doctor, "cloudflare_api_from_env", lambda: None)
+    assert all(not c.required for c in doctor.governance_checks(ScriptRunner({}), "p"))  # before phase C
+    checks.save_state({"gcp_project": "p", "policy_tags": TAG_NAMES})
+    untagged = ScriptRunner({"bq show": Result(0, json.dumps([{"name": "base_salary_eom"}]))})
+    c = by_name(doctor.governance_checks(untagged, "p"))
+    assert c["policy tags on the eight columns"].status == MISSING and c["policy tags on the eight columns"].required
+    assert doctor.run(["governance"], "p", strict_governance=False, fast=True, runner=untagged) == 1
+    schemas = {
+        "p:peoplelens_raw.raw_employees": ["full_name", "work_email", "date_of_birth", "gender"],
+        "p:peoplelens_raw.raw_candidates": ["full_name", "email"],
+        "p:peoplelens_raw.raw_compensation_history": ["base_salary_usd"],
+        "p:peoplelens_core.fct_workforce_monthly": ["base_salary_eom"],
+    }
+    tagged = ScriptRunner({f"bq show --schema --format=json {t}": Result(0, json.dumps([{"name": col, "policyTags": {"names": ["x"]}} for col in cols]))
+                           for t, cols in schemas.items()})
+    assert by_name(doctor.governance_checks(tagged, "p"))["policy tags on the eight columns"].status == OK

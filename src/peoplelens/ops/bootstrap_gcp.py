@@ -8,6 +8,7 @@ created only when absent. No write role is granted anywhere.
 
 from __future__ import annotations
 
+import json
 import os
 import re
 import time
@@ -28,7 +29,7 @@ APIS = [
 SERVICE_ACCOUNTS = {
     "peoplelens-worker": "PeopleLens Worker (reads peoplelens_semantic)",
     "peoplelens-eval": "PeopleLens eval baseline (reads peoplelens_semantic)",
-    "peoplelens-analyst": "PeopleLens masking demo (reads peoplelens_core)",
+    "peoplelens-analyst": "PeopleLens masking demo (reads peoplelens_core after phase C)",
 }
 # The only project-level role in the shared project (job creation cannot be granted per
 # dataset, and the role reads no data); every data grant is dataset- or resource-scoped.
@@ -119,14 +120,21 @@ def phase_a_gcp(project: str, runner: Runner, plan: Plan) -> None:
             _run_after_propagation(runner, ["gcloud", "projects", "add-iam-policy-binding", project,
                                             f"--member=serviceAccount:{sa_email(name, project)}", f"--role={role}",
                                             "--condition=None", "--quiet"], f"bind {role} to {name}")
-    plan.add("grant dataViewer on peoplelens_semantic to worker and eval, on peoplelens_core to analyst")
+    plan.add("grant dataViewer on peoplelens_semantic to worker and eval (the analyst gets peoplelens_core in phase C)")
     _run_after_propagation(runner, bq_script("02_dataset_grants.sql", project), "dataset grants")
 
-    # 5. dbt-bigquery: seeds, staging, core, authorized semantic views (policy tags off)
+    # 5. dbt-bigquery: seeds, staging, core, authorized semantic views. Before phase C the
+    # policy tags are off. After it, a seed or build without the phase C vars would recreate
+    # the tables untagged (dbt-bigquery drops a seed before loading it and replaces table
+    # models), removing column security and masking, so a rerun passes the same vars.
+    from peoplelens.ops.bootstrap_governance import policy_tag_vars
+
+    tag_vars = policy_tag_vars(load_state().get("policy_tags"))
+    extra = ["--vars", json.dumps(tag_vars, sort_keys=True)] if tag_vars else []
     env = dict(os.environ, GCP_PROJECT_ID=project)
     for args in (["seed"], ["build"]):
-        plan.add(f"pl dbt --dialect bigquery {' '.join(args)}")
-        _check(runner.run(["uv", "run", "pl", "dbt", "--dialect", "bigquery", *args], env=env, mutates=True),
+        plan.add(f"pl dbt --dialect bigquery {' '.join(args)}" + (" (keeps the phase C policy tags)" if tag_vars else ""))
+        _check(runner.run(["uv", "run", "pl", "dbt", "--dialect", "bigquery", *args, *extra], env=env, mutates=True),
                f"dbt {' '.join(args)}")
 
     # 6. keys, only if absent (gcloud writes them into .secrets/, which must exist, mode 0700)

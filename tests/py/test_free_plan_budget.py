@@ -219,8 +219,9 @@ def test_every_resource_this_repo_creates_is_prefixed():
 
 def test_the_only_project_level_role_is_bigquery_job_user():
     assert {r for roles in bootstrap_gcp.PROJECT_ROLES.values() for r in roles} == {"roles/bigquery.jobUser"}
-    grants = (REPO_ROOT / "warehouse" / "bigquery" / "governance" / "02_dataset_grants.sql").read_text()
-    assert re.findall(r"ON SCHEMA `\{project\}`\.(\w+)", grants) and "ON PROJECT" not in grants.upper()
+    for script in ("02_dataset_grants.sql", "03_analyst_core_grant.sql"):
+        grants = (REPO_ROOT / "warehouse" / "bigquery" / "governance" / script).read_text()
+        assert re.findall(r"ON SCHEMA `\{project\}`\.(\w+)", grants) and "ON PROJECT" not in grants.upper()
 
 
 def test_every_bigquery_job_the_ops_code_builds_is_capped():
@@ -237,7 +238,7 @@ def test_every_bigquery_job_the_ops_code_builds_is_capped():
     assert configs >= 2  # smoke and parity entries, and the baseline executor
     assert prod_eval.BASELINE_MAX_BYTES == prod_eval.PARITY_MAX_BYTES == 200 * 1024 * 1024
     assert drills.DRILL_MAX_BYTES == bootstrap_gcp.GOVERNANCE_MAX_BYTES == 100 * 1024 * 1024
-    for script in ("01_datasets.sql", "02_dataset_grants.sql"):
+    for script in ("01_datasets.sql", "02_dataset_grants.sql", "03_analyst_core_grant.sql"):
         assert f"--maximum_bytes_billed={100 * 1024 * 1024}" in bootstrap_gcp.bq_script(script, "shared-project-123")
     profile = yaml.safe_load((DBT_PROJECT_DIR / "profiles" / "bigquery" / "profiles.yml").read_text())
     assert profile["peoplelens"]["outputs"]["bigquery"]["maximum_bytes_billed"] == 1024 ** 3

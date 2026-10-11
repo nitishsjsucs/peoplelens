@@ -38,7 +38,13 @@ def _bootstrap(args) -> int:
     if not project:
         print("pass --gcp-project <shared-project-id> (SPEC.md 17.5)", file=sys.stderr)
         return 2
-    phases = [args.phase] if args.phase else ["a", "b", "c"]
+    # `--phase audit` sets up only the optional audit trail; rerunning phase A for it would
+    # rebuild the warehouse (which keeps the policy tags, but is not needed).
+    if args.phase == "audit":
+        args.with_audit = True
+        phases: list[str] = []
+    else:
+        phases = [args.phase] if args.phase else ["a", "b", "c"]
     emails = None
     if "b" in phases:
         if not args.role_emails:
@@ -133,7 +139,7 @@ def audit_target(catalog_uri: str | None = None, warehouse: str | None = None):
     uri = catalog_uri or state.get("audit_catalog_uri")
     wh = warehouse or state.get("audit_warehouse")
     if not uri or not wh:
-        return ('no Catalog URI and Warehouse: run `make bootstrap ARGS="... --with-audit"`, or pass --catalog-uri and --warehouse '
+        return ('no Catalog URI and Warehouse: run `make bootstrap ARGS="--gcp-project <shared-project-id> --phase audit"`, or pass --catalog-uri and --warehouse '
                 "(R2 > peoplelens-audit > Settings > Basin Catalog)")
     from pyiceberg.catalog.rest import RestCatalog
 
@@ -173,7 +179,7 @@ def build_parser() -> argparse.ArgumentParser:
     d.add_argument("--with-audit", action="store_true", help="also check the optional audit trail (Basin Catalog, generated config, R2 keys)")
     d.set_defaults(func=_doctor)
     b = sub.add_parser("bootstrap", help="create every cloud resource (phases A, B, C; idempotent, resumable)")
-    b.add_argument("--phase", choices=["a", "b", "c"])
+    b.add_argument("--phase", choices=["a", "b", "c", "audit"], help="one phase; `audit` is the optional audit trail alone")
     b.add_argument("--gcp-project", default=None)
     b.add_argument("--role-emails", default="")
     b.add_argument("--workers-subdomain", default=None)

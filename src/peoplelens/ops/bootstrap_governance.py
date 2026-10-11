@@ -3,7 +3,11 @@
 Taxonomy and policy tags (Data Catalog Policy Tag Manager), fine-grained
 readers granted BEFORE tagging so nothing breaks, data masking policies, then a
 dbt-bigquery build with apply_policy_tags=true that attaches the tags through
-column-level persist_docs. Doctor reports this group separately.
+column-level persist_docs, and only then the masking-demo account's read grant on
+peoplelens_core. The tag names are recorded in bootstrap-state.json, and every later
+phase A seed and build passes the same vars (`policy_tag_vars`), because a rebuild
+without them recreates the tables untagged. Doctor reports this group separately,
+and requires the eight tagged columns once phase C has recorded its tags.
 """
 
 from __future__ import annotations
@@ -46,6 +50,22 @@ def taxonomy_spec() -> dict:
     return json.loads((GOVERNANCE_DIR / "taxonomy.json").read_text())
 
 
+def policy_tag_vars(tag_names: dict[str, str] | None) -> dict | None:
+    """The dbt vars that attach the policy tags, from the tag resource names phase C records
+    in bootstrap-state.json (`policy_tags`, display name to resource name); None before
+    phase C. Phase C's build and every later phase A seed and build pass them."""
+    if not tag_names:
+        return None
+    spec = taxonomy_spec()
+    missing = [t["displayName"] for t in spec["policy_tags"] if not tag_names.get(t["displayName"])]
+    if missing:
+        raise BootstrapError(f"bootstrap-state.json policy_tags lacks {', '.join(missing)}: rerun phase C")
+    out: dict = {"apply_policy_tags": True}
+    for tag in spec["policy_tags"]:
+        out[tag["dbt_var"]] = tag_names[tag["displayName"]]
+    return out
+
+
 def _members(template: list[str], project: str, owner: str) -> list[str]:
     return [m.replace("{project}", project).replace("{owner}", owner) for m in template]
 
@@ -73,6 +93,7 @@ def phase_c(project: str, runner: Runner, plan: Plan) -> None:
         plan.add(f"taxonomy {spec['taxonomy']['displayName']} in {location} with tags " + ", ".join(t["displayName"] for t in spec["policy_tags"]))
         plan.add("fine-grained readers before tagging; data policies SHA256, ALWAYS_NULL, DEFAULT_MASKING_VALUE; maskedReader for analyst")
         plan.add("pl dbt --dialect bigquery build --vars '{apply_policy_tags: true, ...}'")
+        plan.add("then grant dataViewer on peoplelens_core to peoplelens-analyst (03_analyst_core_grant.sql)")
         return
     token = runner.run(["gcloud", "auth", "print-access-token"])
     owner = runner.run(["gcloud", "config", "get-value", "account"])
@@ -119,16 +140,27 @@ def phase_c(project: str, runner: Runner, plan: Plan) -> None:
                               _members(spec["masked_readers"], project, owner_email))
         plan.add(f"masked readers on {policy_id}: {result}")
 
-    # 19. attach tags through dbt (column-level persist_docs)
-    dbt_vars = {"apply_policy_tags": True}
-    for tag in spec["policy_tags"]:
-        dbt_vars[tag["dbt_var"]] = tags[tag["displayName"]]["name"]
+    # 19. attach tags through dbt (column-level persist_docs); recorded first, so a phase A
+    # rerun that follows keeps them even if this build is interrupted
+    names = {t["displayName"]: tags[t["displayName"]]["name"] for t in spec["policy_tags"]}
+    state = load_state()
+    state["policy_tags"] = names
+    save_state(state)
+    dbt_vars = policy_tag_vars(names)
     env = dict(os.environ, GCP_PROJECT_ID=project)
-    res = runner.run(["uv", "run", "pl", "dbt", "--dialect", "bigquery", "build", "--vars", json.dumps(dbt_vars)],
+    res = runner.run(["uv", "run", "pl", "dbt", "--dialect", "bigquery", "build", "--vars", json.dumps(dbt_vars, sort_keys=True)],
                      env=env, mutates=True)
     if not res.ok:
         raise BootstrapError(f"dbt build with policy tags failed: {res.stdout[-600:]}")
     plan.add("dbt build with apply_policy_tags=true: tags attached")
+
+    # 19a. only now may the masking-demo account read peoplelens_core (masked)
+    from peoplelens.ops.bootstrap_gcp import bq_script
+
+    grant = runner.run(bq_script("03_analyst_core_grant.sql", project), mutates=True)
+    if not grant.ok:
+        raise BootstrapError(f"analyst grant on peoplelens_core failed: {(grant.stderr or grant.stdout).strip()[:300]}")
+    plan.add("dataViewer on peoplelens_core for peoplelens-analyst (masked reader of every tag)")
 
     # 20. (below the cut) let the owner impersonate the analyst account for the masking demo
     from peoplelens.ops.bootstrap_gcp import sa_email
@@ -137,6 +169,3 @@ def phase_c(project: str, runner: Runner, plan: Plan) -> None:
                       f"--member=user:{owner_email}", "--role=roles/iam.serviceAccountTokenCreator",
                       f"--project={project}", "--quiet"], mutates=True)
     plan.add("token creator on peoplelens-analyst for the owner (masking demo): " + ("ok" if res.ok else "failed"))
-    state = load_state()
-    state["policy_tags"] = {t["displayName"]: tags[t["displayName"]]["name"] for t in spec["policy_tags"]}
-    save_state(state)

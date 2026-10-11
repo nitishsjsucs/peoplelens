@@ -328,7 +328,7 @@ def test_shared_project_names_grants_and_caps():
 
     assert all(name.startswith("peoplelens-") for name in bootstrap_gcp.SERVICE_ACCOUNTS)
     assert {r for roles in bootstrap_gcp.PROJECT_ROLES.values() for r in roles} == {"roles/bigquery.jobUser"}
-    for script in ("01_datasets.sql", "02_dataset_grants.sql"):
+    for script in ("01_datasets.sql", "02_dataset_grants.sql", "03_analyst_core_grant.sql"):
         cmd = bootstrap_gcp.bq_script(script, "shared-project-123")
         assert "--maximum_bytes_billed=104857600" in cmd and "--label=app:peoplelens" in cmd
         assert cmd.index("--maximum_bytes_billed=104857600") > cmd.index("query")  # a query flag, after the command
@@ -342,3 +342,87 @@ def test_shared_project_names_grants_and_caps():
     assert project["query-comment"]["job-label"] is True
     assert json.loads(project["query-comment"]["comment"]) == {"app": "peoplelens"}
 
+
+
+TAG_NAMES = {"pii_high": "projects/p/locations/us/taxonomies/1/policyTags/11",
+             "protected_class": "projects/p/locations/us/taxonomies/1/policyTags/12",
+             "compensation": "projects/p/locations/us/taxonomies/1/policyTags/13"}
+
+
+def _dbt_cmds(runner) -> list[list[str]]:
+    return [c for c in runner.log if c[:5] == ["uv", "run", "pl", "dbt", "--dialect"]]
+
+
+def test_a_phase_a_rerun_after_phase_c_keeps_the_policy_tags(secrets):
+    """dbt-bigquery drops a seed before loading it and replaces table models, so a seed or build
+    without the phase C vars would recreate every tagged column untagged."""
+    before = FakeRunner({"gcloud iam service-accounts describe": Result(0, "{}")})
+    bootstrap_gcp.phase_a_gcp("peoplelens-abc123", before, Plan())
+    assert [c[6:] for c in _dbt_cmds(before)] == [["seed"], ["build"]]  # no tags before phase C
+    checks.save_state({"policy_tags": TAG_NAMES})
+    after = FakeRunner({"gcloud iam service-accounts describe": Result(0, "{}")})
+    bootstrap_gcp.phase_a_gcp("peoplelens-abc123", after, Plan())
+    dbt = _dbt_cmds(after)
+    assert [c[6] for c in dbt] == ["seed", "build"]
+    for cmd in dbt:
+        assert cmd[7] == "--vars"
+        assert json.loads(cmd[8]) == {"apply_policy_tags": True, "policy_tag_pii_high": TAG_NAMES["pii_high"],
+                                      "policy_tag_protected_class": TAG_NAMES["protected_class"],
+                                      "policy_tag_compensation": TAG_NAMES["compensation"]}
+    checks.save_state({"policy_tags": {"pii_high": "x"}})
+    with pytest.raises(bootstrap_gcp.BootstrapError, match="rerun phase C"):
+        bootstrap_gcp.phase_a_gcp("peoplelens-abc123", FakeRunner({"gcloud iam service-accounts describe": Result(0, "{}")}), Plan())
+
+
+def test_the_analyst_reads_core_only_after_phase_c_tags_it(secrets, monkeypatch):
+    from peoplelens.ops import bootstrap_governance
+
+    phase_a = bootstrap_gcp.render_sql("02_dataset_grants.sql", "p")
+    assert "peoplelens_core" not in phase_a and "peoplelens-analyst" not in phase_a
+    grant = bootstrap_gcp.render_sql("03_analyst_core_grant.sql", "p")
+    assert "ON SCHEMA `p`.peoplelens_core" in grant and "peoplelens-analyst@p.iam" in grant
+    assert "roles/bigquery.dataViewer" in grant and "ON PROJECT" not in grant.upper()
+
+    class FakeRest:
+        def __init__(self, token, project):
+            self.n = 0
+
+        def call(self, method, url, body=None):
+            self.n += 1
+            if url.endswith("/taxonomies") and method == "GET":
+                return {"taxonomies": []}
+            if url.endswith("/taxonomies"):
+                return {"name": "projects/p/locations/us/taxonomies/1", "displayName": "peoplelens"}
+            if url.endswith("/policyTags") and method == "GET":
+                return {"policyTags": []}
+            if url.endswith("/policyTags"):
+                return {"name": f"projects/p/locations/us/taxonomies/1/policyTags/{self.n}", "displayName": body["displayName"]}
+            if url.endswith("/dataPolicies") and method == "GET":
+                return {"dataPolicies": []}
+            if url.endswith("/dataPolicies"):
+                return {"name": f"projects/p/locations/us/dataPolicies/{body['dataPolicyId']}", "dataPolicyId": body["dataPolicyId"]}
+            return {}
+
+    monkeypatch.setattr(bootstrap_governance, "GoogleRest", FakeRest)
+    runner = FakeRunner({"gcloud auth print-access-token": Result(0, "tok"), "gcloud config get-value": Result(0, "owner@x.example")})
+    bootstrap_governance.phase_c("p", runner, Plan())
+    build = next(i for i, c in enumerate(runner.log) if c[:7] == ["uv", "run", "pl", "dbt", "--dialect", "bigquery", "build"])
+    assert json.loads(runner.log[build][8])["apply_policy_tags"] is True
+    grants = [i for i, c in enumerate(runner.log) if c[0] == "bq" and "peoplelens_core" in c[-1]]
+    assert grants and all(i > build for i in grants)  # the analyst's grant follows the tagged build
+    assert set(checks.load_state()["policy_tags"]) == {"pii_high", "protected_class", "compensation"}
+
+
+def test_phase_audit_sets_up_only_the_audit_trail(tmp_path, monkeypatch):
+    from peoplelens.ops import bootstrap_audit, bootstrap_governance, cli
+
+    monkeypatch.setattr(checks, "STATE_PATH", tmp_path / "state.json")
+    ran = []
+    monkeypatch.setattr(cli, "_api", lambda: object())
+    monkeypatch.setattr(bootstrap_gcp, "phase_a_gcp", lambda *a, **k: ran.append("a"))
+    monkeypatch.setattr(bootstrap_cloudflare, "phase_a_cloudflare", lambda *a, **k: ran.append("a-cf"))
+    monkeypatch.setattr(bootstrap_access, "phase_b", lambda *a, **k: ran.append("b"))
+    monkeypatch.setattr(bootstrap_governance, "phase_c", lambda *a, **k: ran.append("c"))
+    monkeypatch.setattr(bootstrap_audit, "phase_audit", lambda *a, **k: ran.append("audit"))
+    assert cli.main(["bootstrap", "--gcp-project", "peoplelens-abc123", "--phase", "audit"]) == 0
+    assert ran == ["audit"]

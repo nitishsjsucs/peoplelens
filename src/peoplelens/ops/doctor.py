@@ -488,7 +488,7 @@ def audit_checks(runner: Runner, project: str | None = None, api: CloudflareApi 
 
     g = "audit"
     state = load_state()
-    fix = f'make bootstrap ARGS="--gcp-project {project or state.get("gcp_project") or "<shared-project-id>"} --phase a --with-audit"'
+    fix = f'make bootstrap ARGS="--gcp-project {project or state.get("gcp_project") or "<shared-project-id>"} --phase audit"'
     enabled = bool(state.get("audit_enabled"))
     out: list[Check] = []
     perm_fix = "add Queues: Edit and Workers R2 Storage: Edit to the peoplelens-bootstrap token (SPEC.md 17.3); R2 must be activated (card on file)"
@@ -528,7 +528,9 @@ def governance_checks(runner: Runner, project: str | None) -> list[Check]:
     if not tags:
         target = project or state.get("gcp_project") or "<shared-project-id>"
         return [Check(g, "phase C (policy tags, masking)", SKIP, f'make bootstrap ARGS="--phase c --gcp-project {target}" (optional)', required=False)]
-    out = [Check(g, "taxonomy and three policy tags", OK if len(tags) == 3 else MISSING, "make bootstrap ARGS=\"--phase c ...\"", required=False)]
+    # Once phase C has recorded its tags, missing tags mean column security and masking are
+    # off (for example after a rebuild without the phase C vars), so these checks are required.
+    out = [Check(g, "taxonomy and three policy tags", OK if len(tags) == 3 else MISSING, "make bootstrap ARGS=\"--phase c ...\"")]
     project = project or state.get("gcp_project")
     if project and runner.available("bq"):
         tagged = 0
@@ -540,7 +542,7 @@ def governance_checks(runner: Runner, project: str | None) -> list[Check]:
                     tagged += sum(1 for f in json.loads(r.stdout) if f.get("policyTags", {}).get("names"))
                 except json.JSONDecodeError:
                     pass
-        out.append(Check(g, "policy tags on the eight columns", OK if tagged == 8 else MISSING, "make bootstrap ARGS=\"--phase c ...\"", f"{tagged} tagged", required=False))
+        out.append(Check(g, "policy tags on the eight columns", OK if tagged == 8 else MISSING, "make bootstrap ARGS=\"--phase c ...\"", f"{tagged} tagged"))
     return out
 
 
