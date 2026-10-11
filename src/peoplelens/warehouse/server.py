@@ -10,6 +10,7 @@ file through this small HTTP server:
   the parameters that entry declares
 
 POST /v1/query  {sql, params, dry_run} -> {columns, rows, estimated_bytes, elapsed_ms, estimate_note}
+POST /v1/audit  {records: [...]} -> {appended}   (metadata-only events into a local Iceberg table)
 GET  /v1/health -> {ok, catalog_entries}
 """
 
@@ -101,6 +102,7 @@ class Warehouse:
         self.con = duckdb.connect(str(db_path), read_only=True)
         self._con_lock = threading.Lock()
         self.estimator = ByteEstimator(self.cursor)
+        self._audit = None
 
     def cursor(self) -> duckdb.DuckDBPyConnection:
         # A DuckDB connection is not safe to share across threads; cursors are.
@@ -151,6 +153,21 @@ class Warehouse:
         )
         return result
 
+    def audit(self, body: dict) -> dict:
+        """Append metadata-only audit events to the local Iceberg table (pyiceberg SqlCatalog)."""
+        from peoplelens.warehouse.audit_sink import AuditRecordError, AuditSink
+
+        records = body.get("records")
+        if not isinstance(records, list) or len(records) > 500:
+            raise RequestError(400, "BAD_REQUEST", "records must be a list of at most 500 events")
+        with self._con_lock:
+            if self._audit is None:
+                self._audit = AuditSink()
+        try:
+            return {"appended": self._audit.append(records)}
+        except AuditRecordError as exc:
+            raise RequestError(400, "BAD_AUDIT_RECORD", str(exc)) from exc
+
     def close(self) -> None:
         self.con.close()
 
@@ -191,10 +208,12 @@ def make_handler(warehouse: Warehouse):
                     body = json.loads(self.rfile.read(length))
                 except json.JSONDecodeError as exc:
                     raise RequestError(400, "BAD_REQUEST", "body is not JSON") from exc
+                if not isinstance(body, dict):
+                    raise RequestError(400, "BAD_REQUEST", "body must be an object")
                 if self.path == "/v1/query":
-                    if not isinstance(body, dict):
-                        raise RequestError(400, "BAD_REQUEST", "body must be an object")
                     self._send(200, warehouse.query(body))
+                elif self.path == "/v1/audit":
+                    self._send(200, warehouse.audit(body))
                 else:
                     raise RequestError(404, "NOT_FOUND", "unknown route")
             except RequestError as exc:

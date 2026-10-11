@@ -22,6 +22,7 @@ v1 is being built from scratch, commit by commit, following the plan in SPEC.md 
 | Eval harness (200 items, text-to-SQL baseline) | done: 200 frozen items (150 answerable, 20 clarification, 30 adversarial; 214 turns), gold from the independent reference, comparator with median rank bands, leakage checks, pacing, sqlglot-guarded text-to-SQL baseline; official local runs below |
 | CI (python, worker, stub end-to-end) | defined in `.github/workflows/ci.yml`; every job's commands pass in a fresh clone on macOS with `CI=true PL_STRICT=1`; not yet run on GitHub's ubuntu-latest runners |
 | Ops: doctor, phased bootstrap, deploy, smoke | built and unit-tested with mocked CLIs and HTTP; `make doctor` runs here and reports the missing cloud prerequisites; bootstrap, deploy and smoke have not been run against Cloudflare or Google Cloud |
+| Audit trail | done locally: one metadata-only event per question (HMAC of the subject, decision codes, counts, bytes, timings; never question text or values) through a queue into an Iceberg table; production path (Basin Pipelines and Basin Catalog) scripted in the bootstrap, not run |
 | Web UI (React, served as Worker static assets) | done: chat with answer tables, hidden-cell notes and clickable clarification options; checked in a browser against the local stack; production serving is behind Access once deployed |
 | Results | local eval (Qwen3-1.7B on DuckDB) and stub CI run, 2026-10-10; no production runs yet |
 
@@ -84,10 +85,10 @@ Local pieces are stand-ins. DuckDB is not BigQuery, llama-server is not Workers 
 | Column security, masking | not emulated | BigQuery policy tags and data policies | planned, optional |
 | Time travel and recovery | not emulated | dataset time-travel window | planned |
 | Web UI | Vite build served by wrangler dev assets on 8794 (paste a token from `pl token`) | Workers static assets behind Cloudflare Access | local verified |
-| Audit trail (Queues, Basin Pipelines, Basin Catalog) | pyiceberg SqlCatalog | Queues plus Basin Pipelines plus Basin Catalog | not built |
+| Audit trail (metadata only) | Miniflare queue, then the sidecar appends to a pyiceberg SqlCatalog Iceberg table (`uv run pl audit tail`) | Queue `peoplelens-audit`, Basin Pipelines stream, Basin Catalog Iceberg table `peoplelens.audit_events` (`make bootstrap ARGS="--with-audit ..."`) | local verified; production coded, not run |
 | Cloudflare Workflows | not used | not used | not used |
 
-Cloudflare Workflows: not used. Nothing in this product is a long-running durable multi-step process.
+Cloudflare Workflows: not used. Nothing in this product is a long-running durable multi-step process. Queues, R2 and Basin are used only by the optional audit trail.
 
 ## Local setup
 

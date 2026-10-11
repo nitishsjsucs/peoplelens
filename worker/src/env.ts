@@ -11,6 +11,10 @@ export interface Env {
   // bindings
   USER_DO: DurableObjectNamespace<UserDO>;
   AI?: Ai;
+  // optional metadata-only audit trail (below the core cut line)
+  AUDIT_QUEUE?: Queue<unknown>;
+  AUDIT_STREAM?: { send(records: unknown[]): Promise<void> };
+  AUDIT_HMAC_KEY?: string;
   // vars
   ENVIRONMENT?: string;
   LLM_PROVIDER?: string;

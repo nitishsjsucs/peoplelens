@@ -148,6 +148,14 @@ def _cmd_chat(args: argparse.Namespace) -> int:
         print(render(reply.body))
 
 
+def _cmd_audit_tail(args: argparse.Namespace) -> int:
+    from peoplelens.warehouse.audit_sink import AuditSink
+
+    for row in AuditSink().tail(args.limit):
+        print(json.dumps({k: v for k, v in row.items() if v is not None}))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="pl", description="PeopleLens developer CLI")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -209,6 +217,12 @@ def build_parser() -> argparse.ArgumentParser:
     chat = sub.add_parser("chat", help="multi-turn chat with the local Worker")
     chat.add_argument("--role", choices=roles, default="people_analytics")
     chat.set_defaults(func=_cmd_chat)
+
+    audit = sub.add_parser("audit", help="local audit trail (pyiceberg SqlCatalog)")
+    audit_sub = audit.add_subparsers(dest="audit_command", required=True)
+    tail = audit_sub.add_parser("tail", help="print the latest local audit events")
+    tail.add_argument("--limit", type=int, default=20)
+    tail.set_defaults(func=_cmd_audit_tail)
 
     return parser
 

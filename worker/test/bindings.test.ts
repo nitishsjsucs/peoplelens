@@ -5,6 +5,7 @@ import { ENV_VAR_NAMES } from "../src/env";
 
 interface WranglerEnv {
   name?: string;
+  queues?: { producers: { binding: string; queue: string }[]; consumers: { queue: string }[] };
   assets?: { directory: string; not_found_handling?: string; run_worker_first?: string[] | boolean };
   main?: string;
   workers_dev?: boolean;
@@ -60,6 +61,12 @@ describe("wrangler.jsonc", () => {
     for (const env of [config, prod]) {
       expect(env.assets).toEqual({ directory: "../web/dist", not_found_handling: "single-page-application", run_worker_first: ["/api/*"] });
     }
+  });
+
+  it("the audit queue exists only in the local config (production adds it with --with-audit)", () => {
+    expect(config.queues?.producers).toEqual([{ binding: "AUDIT_QUEUE", queue: "peoplelens-audit" }]);
+    expect(config.queues?.consumers[0]?.queue).toBe("peoplelens-audit");
+    expect(prod.queues).toBeUndefined();
   });
 
   it("contains no secrets", () => {

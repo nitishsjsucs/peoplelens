@@ -24,6 +24,14 @@
     "bindings": [{ "name": "USER_DO", "class_name": "UserDO" }]
   },
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["UserDO"] }],
+  // Local audit trail: a Miniflare queue whose consumer is this Worker; the consumer
+  // forwards batches to the sidecar's pyiceberg table. Production adds the queue and
+  // the Basin Pipelines stream binding only through `make bootstrap ARGS="--with-audit"`
+  // (a generated config, because the stream id is account-specific).
+  "queues": {
+    "producers": [{ "binding": "AUDIT_QUEUE", "queue": "peoplelens-audit" }],
+    "consumers": [{ "queue": "peoplelens-audit", "max_batch_size": 50, "max_batch_timeout": 2 }]
+  },
   "vars": {
     "ENVIRONMENT": "local",
     "LLM_PROVIDER": "stub",

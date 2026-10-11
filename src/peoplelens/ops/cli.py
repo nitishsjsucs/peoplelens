@@ -31,9 +31,6 @@ def _bootstrap(args) -> int:
     from peoplelens.ops import bootstrap_access, bootstrap_cloudflare, bootstrap_gcp, bootstrap_governance
     from peoplelens.ops.roles import RoleEmailError, parse_role_emails
 
-    if args.with_audit:
-        print("--with-audit: the audit trail (Queues, Basin Pipelines, Basin Catalog) is below the core cut line and is not built yet.", file=sys.stderr)
-        return 2
     state = load_state()
     project = args.gcp_project or state.get("gcp_project")
     if not project:
@@ -60,6 +57,11 @@ def _bootstrap(args) -> int:
         if "b" in phases:
             print("Phase B: Access and identities")
             bootstrap_access.phase_b(_api(), emails or {}, runner, plan, args.access_aud)
+        if args.with_audit:
+            from peoplelens.ops import bootstrap_audit
+
+            print("Audit trail: Queue, R2, Basin Catalog, Basin Pipelines stream, sink and pipeline")
+            bootstrap_audit.phase_audit(_api(), runner, plan)
         if "c" in phases:
             print("Phase C: governance (policy tags, masking)")
             try:

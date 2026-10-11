@@ -4,7 +4,7 @@ Tracks the SPEC.md section 19 commit plan. Updated at every commit.
 
 ## Position
 
-Commit 15 of 17 (plus inserted commits); the core cut line is passed (core cut line after commit 14).
+Commit 16 of 17 (plus inserted commits); the core cut line is passed (core cut line after commit 14).
 
 ## Done
 
@@ -29,10 +29,11 @@ Commit 15 of 17 (plus inserted commits); the core cut line is passed (core cut l
 14b. `eval: second official local run after the conversation fixes`
 14c. `docs: report both official local runs; record machine load in eval reports`
 15. `feat(web): React chat UI served as Worker static assets`
+16. `feat(audit): metadata-only audit trail via Queues and Basin, pyiceberg locally`
 
 ## Next
 
-16. `feat(audit): metadata-only audit trail via Queues and Basin, pyiceberg locally`, then 17 `feat(ops): masking demo and time-travel drill`.
+17. `feat(ops): masking demo and time-travel drill` (smoke step 6, mocked tests).
 
 ## Check status (at this commit)
 
@@ -46,7 +47,7 @@ Commit 15 of 17 (plus inserted commits); the core cut line is passed (core cut l
 | `uv run pl mf validate` | pass (0 errors, 0 warnings) |
 | `mf query` sample (headcount and fte by department, Dec 2025; turnover, offer acceptance, time to fill by year) | matches the reference implementation |
 | `uv run pl catalog build --check` | pass: 312 entries per dialect, BigQuery compiled first, then DuckDB, about 23 s |
-| `uv run pytest -q` | 485 passed (includes the 312 x 3 parity sweep), about 21 s |
+| `uv run pytest -q` | 489 passed (includes the 312 x 3 parity sweep), about 21 s |
 | `uv run pl dev up --llm stub`, `pl ask` (5 questions), `pl dev down` | pass; ports 8794 and 9244 free afterwards, no workerd left |
 | `uv run pl-eval gold --check`, `uv run pl-eval generate --check` (as a pytest) | pass |
 | `uv run pl-eval run --llm stub --assert-safety` (trial, not official, report kept outside the repo) | pass: 200 items, 214 turns, 0 safety violations, 0 schema-invalid, 148 answers on the answerable slice (floor pinned at 143) |
@@ -58,6 +59,7 @@ Commit 15 of 17 (plus inserted commits); the core cut line is passed (core cut l
 | `uv run pl-eval run --llm stub --assert-safety --official` (2026-10-10, commit c0271ce) | assertions pass: 200 items, 0 violations, 148 answers |
 | `npm run typecheck` (worker and web) | pass |
 | `npm test` (web build, web vitest 3, worker vitest) | pass |
+| Local audit trail: `pl dev up --llm stub`, three `pl ask` calls, `pl audit tail` | three events in the local Iceberg table, metadata only |
 | Web UI in a browser against `pl dev up --llm stub` | renders, accepts a local token, answers "Headcount by location" for the HRBP scope (1,000 people across five locations), shows the narrative and table |
 | `npm test` (vitest in workerd via @cloudflare/vitest-plugin) | 255 passed (includes 4 x 2,000 fuzzed planner outputs and a check that all 207 templated eval and dev questions resolve to their gold period and grain) |
 | `npx wrangler deploy --env production --dry-run --outdir .wrangler/dry` (CI=true, no token) | pass; bundle 2,454 KiB (gzip 219 KiB), BigQuery catalog only |
@@ -79,6 +81,7 @@ Commit 15 of 17 (plus inserted commits); the core cut line is passed (core cut l
 - Not verified against live services (no gcloud, no credentials, no Cloudflare login on the build machine): every gcloud and bq command form, the Cloudflare Access and AI Gateway request and response shapes (field names follow SPEC.md 17; those marked P or U there remain unverified), and the BigQuery REST TIMESTAMP and `totalBytesBilled` handling in the Worker. Doctor and smoke are the checks that will surface any mismatch.
 - After the first official local run showed 0/20 clarifications (Qwen3-1.7B always guessed a metric) and that a short reply such as "Headcount, please." dropped the previous turn's filters, three dev-driven rules were added: the metric is grounded like the other slots (a question that names no metric gets a clarification listing the model's guess first); a short reply that only names a metric keeps the conversation's scope and period; and a model refusal (OUT_OF_DOMAIN or DIMENSION_NOT_APPROVED) of a question that names approved values but no metric becomes a clarification (PII, write, scope and metric refusals are always kept). These were validated only on new dev items (D-CL-02 to D-CL-06, D-TT-01 to D-TT-03): 60 of 60 dev expectations and 52 of 52 dev gold answers. The frozen eval set is unchanged (the templated dev pass now always draws 57 items so the shared random stream stays fixed).
 - Planner grounding (`worker/src/planner/grounding.ts`): the LLM chooses the action (query, clarify, refuse) and the metric; breakdowns, filters (including "except X" complements) and grain must be supported by the question text or the conversation it follows, and the default period is enforced server-side (model dates are used only for time words the deterministic resolver cannot read). Reason, from the dev set only: Qwen3-1.7B invented breakdowns, grains and filters on 31 of 57 dev questions; with grounding the dev set scored 57 of 57 (dev runs are prompt-iteration aids, not results).
+- Audit trail in production uses a generated, gitignored `worker/wrangler.audit.generated.jsonc` (adds the queue and the Basin Pipelines stream binding to env.production) because the stream id is account-specific; plain `make deploy` keeps deploying without audit bindings. The Basin stream schema format in `infra/cloudflare/audit_stream_schema.json`, the pipeline SQL form and the catalog-token permissions are unverified (SPEC.md 17.6).
 - Stub eval reports never include accuracy (fields are null and the Markdown says "not reported"); they report safety, schema validity, answer counts and latency only.
 - `pl-eval run --dev` runs the dev set for prompt iteration; its reports never go to `eval/results/`.
 - Added `src/peoplelens/dev/client.py` (HTTP client shared by `pl ask`, `pl chat` and the eval runner) and `tests/py/test_dev_tokens.py`.

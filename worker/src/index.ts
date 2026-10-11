@@ -1,6 +1,7 @@
 // Hono app: routes, auth middleware and wiring of the request pipeline.
 import { Hono } from "hono";
 import { type AskBody, type UserPort, ask } from "./ask";
+import { buildAuditEvent, forwardAuditBatch } from "./audit/audit";
 import { ACCESS_HEADER, verifyAccessJwt } from "./auth/access";
 import { resolvePrincipal } from "./auth/principal";
 import type { CatalogFile } from "./catalog/catalog";
@@ -146,6 +147,20 @@ export function createApp(deps: AppDeps) {
       },
       body,
     );
+    if (c.env.AUDIT_QUEUE && c.env.AUDIT_HMAC_KEY) {
+      const queue = c.env.AUDIT_QUEUE;
+      const send = buildAuditEvent(result.body, principal, c.env.AUDIT_HMAC_KEY, now())
+        .then((event) => queue.send(event))
+        .catch(() => logEvent({ event: "audit_error", request_id: result.body.request_id }));
+      let waited = false;
+      try {
+        c.executionCtx.waitUntil(send);
+        waited = true;
+      } catch {
+        // no execution context (unit tests): fall through and await
+      }
+      if (!waited) await send;
+    }
     return c.json(result.body, result.status as 200);
   });
 
@@ -158,9 +173,29 @@ function describeRole(p: Principal) {
   return { metrics: role.metrics, dimensions: role.dimensions, grains: role.grains };
 }
 
+/** Queue consumer for the audit trail: Basin Pipelines stream in production, the sidecar locally. */
+export async function handleAuditBatch(batch: MessageBatch<unknown>, env: Env, fetcher?: typeof fetch): Promise<void> {
+  const sinks: Parameters<typeof forwardAuditBatch>[1] = {};
+  if (env.AUDIT_STREAM) sinks.stream = env.AUDIT_STREAM;
+  else if (env.ENVIRONMENT !== "production" && env.WAREHOUSE_URL && env.WAREHOUSE_TOKEN) {
+    sinks.localUrl = env.WAREHOUSE_URL;
+    sinks.localToken = env.WAREHOUSE_TOKEN;
+  }
+  if (fetcher) sinks.fetcher = fetcher;
+  try {
+    const where = await forwardAuditBatch(batch.messages.map((m) => m.body), sinks);
+    logEvent({ event: "audit_batch", decision: where, rows: batch.messages.length });
+    batch.ackAll();
+  } catch {
+    logEvent({ event: "audit_batch", decision: "retry", rows: batch.messages.length });
+    batch.retryAll();
+  }
+}
+
 export function createWorker(catalog: CatalogFile): ExportedHandler<Env> {
   const app = createApp({ catalog });
   return {
     fetch: (request, env, ctx) => app.fetch(request, env, ctx),
+    queue: (batch, env) => handleAuditBatch(batch, env),
   };
 }

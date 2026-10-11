@@ -101,6 +101,8 @@ def up(llm_provider: str = "stub", timeout: float = 90.0) -> int:
         "ROLE_BINDINGS_JSON": json.dumps(json.loads(bindings)),
         "WAREHOUSE_URL": f"http://127.0.0.1:{port}",
         "WAREHOUSE_TOKEN": token,
+        # local audit trail: Miniflare queue -> sidecar -> pyiceberg (.dev/iceberg)
+        "AUDIT_HMAC_KEY": secrets.token_urlsafe(32),
     }
     if llm_provider == "openai_compat":
         dev_vars["LLM_BASE_URL"] = llm.BASE_URL
