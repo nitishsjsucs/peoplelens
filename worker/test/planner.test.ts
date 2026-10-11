@@ -178,3 +178,67 @@ describe("value mentions", () => {
     ]);
   });
 });
+
+describe("grounding the draft in the question", () => {
+  async function planWith(question: string, out: Record<string, unknown>, extra: Partial<Parameters<typeof plan>[0]> = {}) {
+    return plan({ ...base, question, llm: new ScriptedLlm([planJson(out)]), ...extra });
+  }
+
+  it("drops breakdowns, filters and grain the question does not support", async () => {
+    const r = await planWith("Give me the current employee count", {
+      group_by: ["location"],
+      grain: "month",
+      filters: [{ dimension: "department", values: ["Sales"] }],
+    });
+    expect(r.intent).toMatchObject({ groupBy: [], grain: "none", filters: [] });
+  });
+
+  it("adds what the question states plainly", async () => {
+    const r = await planWith("People in Engineering split by office", { group_by: ["department"] });
+    expect(r.intent).toMatchObject({ groupBy: ["location"], filters: [{ dimension: "department", values: ["Engineering"] }] });
+  });
+
+  it("turns an exclusion into the complement filter", async () => {
+    const r = await planWith("Headcount by location for everyone except Legal", { group_by: ["location"] });
+    expect(r.intent?.groupBy).toEqual(["location"]);
+    expect(r.intent?.filters).toEqual([
+      { dimension: "department", values: ["Engineering", "Sales", "Customer Success", "Marketing", "Finance", "People", "Operations"] },
+    ]);
+  });
+
+  it("keeps a comparison breakdown the model chose", async () => {
+    const r = await planWith("Compare London and Austin headcount", { group_by: ["location"] });
+    expect(r.intent).toMatchObject({ groupBy: ["location"], filters: [{ dimension: "location", values: ["Austin", "London"] }] });
+  });
+
+  it("follow-ups keep the previous breakdown, filters and grain unless restated", async () => {
+    const previous: QueryIntent = {
+      metric: "headcount",
+      groupBy: ["location"],
+      grain: "quarter",
+      timeRange: { start: "2025-01-01", end: "2025-12-31" },
+      filters: [{ dimension: "department", values: ["Sales"] }],
+    };
+    const r = await planWith("What about 2024?", { group_by: [], grain: "none" }, { previous });
+    expect(r.intent).toMatchObject({
+      groupBy: ["location"],
+      grain: "quarter",
+      filters: [{ dimension: "department", values: ["Sales"] }],
+      timeRange: { start: "2024-01-01", end: "2024-12-31" },
+    });
+    const by = await planWith("now by level", { group_by: ["location", "job_level"] }, { previous });
+    expect(by.intent?.groupBy).toEqual(["job_level"]);
+  });
+});
+
+describe("server-side period defaults", () => {
+  it("ignores model dates when the question names no period", async () => {
+    const r = await plan({ ...base, question: "Full-time equivalent total", llm: new ScriptedLlm([planJson({ metric: "fte", start: "2023-01-01", end: "2023-12-31" })]) });
+    expect(r.intent?.timeRange).toEqual({ start: "2025-12-01", end: "2025-12-31" });
+  });
+
+  it("uses model dates only for time words the resolver cannot read", async () => {
+    const r = await plan({ ...base, question: "turnover between March and June of FY24", llm: new ScriptedLlm([planJson({ metric: "turnover_rate", start: "2024-03-01", end: "2024-06-30" })]) });
+    expect(r.intent?.timeRange).toEqual({ start: "2024-03-01", end: "2024-06-30" });
+  });
+});

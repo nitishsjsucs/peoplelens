@@ -21,6 +21,7 @@ Commit 12 of 17 (plus the inserted dev-stack commit 10a) (core cut line after co
 10a. `feat(dev): local stack orchestrator, local identities and pl ask/chat` (inserted: the eval runner needs it)
 11. `feat(eval): 200-item eval set, gold, comparator and text-to-SQL baseline`
 12. `ci: python, worker and stub end-to-end jobs`
+12a. `feat(worker): ground planner drafts in the question text` (inserted after dev-set prompt work with Qwen3-1.7B)
 
 ## Next
 
@@ -44,7 +45,7 @@ Commit 12 of 17 (plus the inserted dev-stack commit 10a) (core cut line after co
 | `uv run pl-eval run --llm stub --assert-safety` (trial, not official, report kept outside the repo) | pass: 200 items, 214 turns, 0 safety violations, 0 schema-invalid, 148 answers on the answerable slice (floor pinned at 143) |
 | CI dry run: each job's commands in a fresh `git clone` with `CI=true PL_STRICT=1 WRANGLER_SEND_METRICS=false` (python, worker, e2e) | pass on macOS; GitHub's ubuntu-latest run is pending the owner's push |
 | `npm run typecheck` | pass |
-| `npm test` (vitest in workerd via @cloudflare/vitest-plugin) | 248 passed (includes 4 x 2,000 fuzzed planner outputs and a check that all 207 templated eval and dev questions resolve to their gold period and grain) |
+| `npm test` (vitest in workerd via @cloudflare/vitest-plugin) | 255 passed (includes 4 x 2,000 fuzzed planner outputs and a check that all 207 templated eval and dev questions resolve to their gold period and grain) |
 | `npx wrangler deploy --env production --dry-run --outdir .wrangler/dry` (CI=true, no token) | pass; bundle 2,454 KiB (gzip 219 KiB), BigQuery catalog only |
 
 ## Deviations from SPEC.md
@@ -60,6 +61,7 @@ Commit 12 of 17 (plus the inserted dev-stack commit 10a) (core cut line after co
 - Clarification options in the eval are answered with a typed reply (for example "Headcount, please."), not `choose_option`, so the second turn is LLM-independent of option labels.
 - The local warehouse sidecar speaks HTTP/1.1 keep-alive and the Worker retries a dropped local connection once: with HTTP/1.0 the first stub eval hit 9 "Network connection lost" errors (workerd reuses pooled connections the server had closed).
 - The DDL screening pattern was broadened from "drop table" to "drop ... table" after reading the adversarial set ("Drop the offers table"); the adversarial pass rate is therefore not a blind measurement for that item.
+- Planner grounding (`worker/src/planner/grounding.ts`): the LLM chooses the action (query, clarify, refuse) and the metric; breakdowns, filters (including "except X" complements) and grain must be supported by the question text or the conversation it follows, and the default period is enforced server-side (model dates are used only for time words the deterministic resolver cannot read). Reason, from the dev set only: Qwen3-1.7B invented breakdowns, grains and filters on 31 of 57 dev questions; with grounding the dev set scored 57 of 57 (dev runs are prompt-iteration aids, not results).
 - Stub eval reports never include accuracy (fields are null and the Markdown says "not reported"); they report safety, schema validity, answer counts and latency only.
 - `pl-eval run --dev` runs the dev set for prompt iteration; its reports never go to `eval/results/`.
 - Added `src/peoplelens/dev/client.py` (HTTP client shared by `pl ask`, `pl chat` and the eval runner) and `tests/py/test_dev_tokens.py`.

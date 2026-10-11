@@ -9,7 +9,10 @@ import type { PendingClarification } from "../session/userDO";
 import { buildMessages } from "./prompt";
 import { type DraftIntent, PLANNER_JSON_SCHEMA, type PlannerOutput, parsePlannerOutput } from "./schema";
 import { type TimeHint, grainHint, rangeFor, resolveTimePhrase } from "./timephrases";
-import { findValueMentions, screenRequest } from "./values";
+import { ground } from "./grounding";
+import { findMetricCues, findValueMentions, screenRequest } from "./values";
+
+const FOLLOW_UP = /^\s*(and|what about|how about|now|same|instead|ok|okay|also|then|just|only)\b/i;
 
 export interface PlanContext {
   question: string;
@@ -36,6 +39,8 @@ export interface PlanResult {
 }
 
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
+const TIME_WORDS =
+  /\b(20\d\d|fy\d\d|q[1-4]|h[12]|january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec|months?|quarters?|years?|weeks?|since|ago|past|previous|prior)\b/i;
 
 export const REPHRASE_QUESTION = "Could you rephrase? For example: \"headcount by department\" or \"turnover in 2024\".";
 
@@ -49,9 +54,12 @@ export function resolveDraft(
 ): QueryIntent {
   const kind = policy.metrics[draft.metric]?.kind ?? "flow";
   let range: { start: string; end: string };
+  // Defaults are enforced server-side: model dates are used only when the question
+  // has time words the deterministic resolver could not read.
+  const modelDates = draft.start && draft.end && ISO.test(draft.start) && ISO.test(draft.end) && TIME_WORDS.test(question);
   if (hint) range = rangeFor(kind, hint);
-  else if (draft.start && draft.end && ISO.test(draft.start) && ISO.test(draft.end)) range = { start: draft.start, end: draft.end };
   else if (fallback) range = fallback;
+  else if (modelDates && draft.start && draft.end) range = { start: draft.start, end: draft.end };
   else range = rangeFor(kind, null);
   const g = grainHint(question);
   return {
@@ -122,25 +130,34 @@ export async function plan(ctx: PlanContext): Promise<PlanResult> {
     result = { ...result, output: { action: "clarify", question: REPHRASE_QUESTION, options, draft: {} } };
     return result;
   }
+  const followUp =
+    previous !== null && (findMetricCues(ctx.question).length === 0 || FOLLOW_UP.test(ctx.question));
+  const groundCtx = { question: ctx.question, previous, followUp, pending: pendingDraft, policy };
   if (output.action === "query") {
-    const draft = { ...output.intent };
-    // A reply to a pending clarification refines that clarification's draft.
-    if (pendingDraft) {
-      if (draft.groupBy.length === 0 && pendingDraft.groupBy) draft.groupBy = pendingDraft.groupBy;
-      if (draft.filters.length === 0 && pendingDraft.filters) draft.filters = pendingDraft.filters;
-      if (!grainHint(ctx.question) && draft.grain === "none" && pendingDraft.grain) draft.grain = pendingDraft.grain;
-    }
+    const draft = ground(output.intent, groundCtx);
     const pendingRange =
       pendingDraft?.start && pendingDraft.end && ISO.test(pendingDraft.start) && ISO.test(pendingDraft.end)
         ? { start: pendingDraft.start, end: pendingDraft.end }
         : null;
-    const fallback = pendingRange ?? (previous ? previous.timeRange : null);
     const sameKind = previous && policy.metrics[previous.metric].kind === policy.metrics[draft.metric].kind;
-    const intent = resolveDraft(draft, hint, ctx.question, pendingRange ?? (sameKind ? fallback : null), policy);
-    return { ...result, output, intent };
+    const fallback = pendingRange ?? (followUp && sameKind && previous ? previous.timeRange : null);
+    const intent = resolveDraft(draft, hint, ctx.question, fallback, policy);
+    return { ...result, output: { action: "query", intent: draft }, intent };
   }
   if (output.action === "clarify") {
-    const draft: Partial<DraftIntent> = { ...output.draft };
+    const base = ground(
+      {
+        metric: output.draft.metric ?? "headcount",
+        groupBy: output.draft.groupBy ?? [],
+        grain: output.draft.grain ?? "none",
+        start: "",
+        end: "",
+        filters: output.draft.filters ?? [],
+      },
+      groundCtx,
+    );
+    const draft: Partial<DraftIntent> = { groupBy: base.groupBy, grain: base.grain, filters: base.filters };
+    if (output.draft.metric) draft.metric = output.draft.metric;
     if (hint) {
       draft.start = hint.start;
       draft.end = hint.end;
