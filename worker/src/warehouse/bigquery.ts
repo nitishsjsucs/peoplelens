@@ -3,7 +3,14 @@
 // parameters, labels, and a timeout; dry runs read totalBytesProcessed and are
 // cached per catalog key (bytes do not depend on parameter values for these
 // unpartitioned tables).
+//
+// Workers Free allows 50 external subrequests per invocation (SPEC.md 25.4 D). The
+// dry-run cache is module-level (a Worker builds a new client per request) and holds
+// promises, so a main query and its complement probes share one dry run per catalog
+// key per isolate-hour; polling is capped at free_plan.bq_max_polls_per_query per
+// query. With the token and JWKS caches that bounds a question at 19 external fetches.
 import type { BoundQuery, ParamValue } from "../catalog/bind";
+import { POLICY } from "../policy/policy";
 import { ApiError } from "../policy/types";
 import type { GoogleTokenSource } from "./googleAuth";
 import type { CellValue, RunOptions, RunResult, Warehouse } from "./types";
@@ -71,9 +78,22 @@ function costError(message: string | undefined): boolean {
   return typeof message === "string" && message.includes(BYTES_BILLED_MESSAGE);
 }
 
+export interface DryRunEntry {
+  at: number;
+  bytes: Promise<number>;
+}
+
+/** One dry run per project and catalog key per isolate (entries expire after the TTL). */
+const sharedDryRuns = new Map<string, DryRunEntry>();
+
+export function clearDryRunCache(): void {
+  sharedDryRuns.clear();
+}
+
+export const MAX_POLLS_PER_QUERY = POLICY.limits.free_plan.bq_max_polls_per_query;
+
 export class BigQueryWarehouse implements Warehouse {
   readonly kind = "bigquery" as const;
-  private readonly dryRunCache = new Map<string, { bytes: number; at: number }>();
 
   constructor(
     private readonly opts: {
@@ -83,6 +103,9 @@ export class BigQueryWarehouse implements Warehouse {
       location?: string;
       dryRunCacheMs?: number;
       now?: () => number;
+      /** Defaults to the isolate-wide cache; tests pass their own. */
+      dryRunCache?: Map<string, DryRunEntry>;
+      maxPolls?: number;
     },
   ) {}
 
@@ -125,13 +148,24 @@ export class BigQueryWarehouse implements Warehouse {
   }
 
   async dryRun(q: BoundQuery): Promise<{ estimatedBytes: number }> {
-    const ttl = this.opts.dryRunCacheMs ?? 3_600_000;
-    const hit = this.dryRunCache.get(q.catalogKey);
-    if (hit && this.now() - hit.at < ttl) return { estimatedBytes: hit.bytes };
-    const res = await this.post("/queries", this.body(q, { dryRun: true }));
-    const bytes = Number(res.totalBytesProcessed ?? "0");
-    this.dryRunCache.set(q.catalogKey, { bytes, at: this.now() });
-    return { estimatedBytes: bytes };
+    const ttl = this.opts.dryRunCacheMs ?? POLICY.limits.dry_run_cache_seconds * 1000;
+    const cache = this.opts.dryRunCache ?? sharedDryRuns;
+    const key = `${this.opts.projectId}|${q.catalogKey}`;
+    let entry = cache.get(key);
+    if (!entry || this.now() - entry.at >= ttl) {
+      // The promise is cached before anything is awaited, so parallel calls for the
+      // main query and its probes share this one request.
+      const fresh: DryRunEntry = {
+        at: this.now(),
+        bytes: this.post("/queries", this.body(q, { dryRun: true })).then((res) => Number(res.totalBytesProcessed ?? "0")),
+      };
+      cache.set(key, fresh);
+      fresh.bytes.catch(() => {
+        if (cache.get(key) === fresh) cache.delete(key);
+      });
+      entry = fresh;
+    }
+    return { estimatedBytes: await entry.bytes };
   }
 
   async run(q: BoundQuery, o: RunOptions): Promise<RunResult> {
@@ -146,11 +180,14 @@ export class BigQueryWarehouse implements Warehouse {
         labels: o.labels,
       }),
     );
+    const maxPolls = this.opts.maxPolls ?? MAX_POLLS_PER_QUERY;
+    let polls = 0;
     while (!res.jobComplete) {
       const job = res.jobReference;
-      if (!job || this.now() - started > o.timeoutMs) {
+      if (!job || polls >= maxPolls || this.now() - started > o.timeoutMs) {
         throw new ApiError(504, "INTERNAL", "BigQuery query timed out");
       }
+      polls += 1;
       const token = await this.opts.tokens.token();
       const params = new URLSearchParams({
         location: job.location ?? this.opts.location ?? "US",

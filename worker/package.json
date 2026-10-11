@@ -7,7 +7,8 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "dev": "wrangler dev --local --ip 127.0.0.1 --port 8794 --inspector-port 9244",
-    "deploy:dry": "wrangler deploy --env production --dry-run --outdir .wrangler/dry"
+    "deploy:dry": "wrangler deploy --env production --dry-run --outdir .wrangler/dry",
+    "bench:cpu": "node bench/run.mjs"
   },
   "dependencies": {
     "hono": "4.13.13",

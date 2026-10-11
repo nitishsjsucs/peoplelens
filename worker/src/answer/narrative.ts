@@ -5,19 +5,28 @@ import type { DimensionId, MetricDef, Policy, QueryIntent } from "../policy/type
 
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
+// Number formatters are built once per isolate at startup. The first locale-aware
+// format in an isolate initializes ICU number formatting, about 20 ms of CPU in
+// `npm run bench:cpu` (SPEC.md 23), which would land on the first answer of a cold
+// isolate against the Workers Free 10 ms limit; formatting once here moves it to startup.
+const INTEGER = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
+const ONE_DECIMAL = new Intl.NumberFormat("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+INTEGER.format(1780);
+ONE_DECIMAL.format(1724);
+
 export function formatValue(unit: string, v: number | null): string {
   if (v === null) return "hidden";
   switch (unit) {
     case "employees":
-      return Math.round(v).toLocaleString("en-US");
+      return INTEGER.format(Math.round(v));
     case "FTE":
-      return v.toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+      return ONE_DECIMAL.format(v);
     case "ratio":
       return `${(v * 100).toFixed(1)}%`;
     case "days":
       return `${v.toFixed(1)} days`;
     case "USD":
-      return `$${Math.round(v).toLocaleString("en-US")}`;
+      return `$${INTEGER.format(Math.round(v))}`;
     default:
       return String(v);
   }

@@ -10,7 +10,7 @@ import { OpenAiCompatClient } from "./llm/openaiCompat";
 import { StubPlanner } from "./llm/stub";
 import type { LlmClient } from "./llm/types";
 import { WorkersAiClient } from "./llm/workersAi";
-import { ACCOUNT_BUDGET_NAME, type BudgetCounter, utcDay } from "./session/accountBudgetDO";
+import { ACCOUNT_BUDGET_NAME, type BudgetCounter, utcDay } from "./session/budget";
 import { logEvent } from "./log";
 import { POLICY } from "./policy/policy";
 import { ApiError, type Principal } from "./policy/types";

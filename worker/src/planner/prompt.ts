@@ -2,6 +2,11 @@
 // few-shot examples from the dev set) so a local llama-server can reuse its KV
 // cache across requests; everything specific to the request goes in the final
 // user message. The prompt never contains query results.
+//
+// Workers Free allows 10 ms of CPU per request. Rebuilding the system prompt and
+// the 12 few-shot messages cost 1.2 to 1.8 ms on every warm request and 5.5 to 8.6
+// ms on a cold first call (SPEC.md 25.5), so the prefix is built once per isolate,
+// at module scope (startup), and only the request message is built per request.
 import fewshotJson from "../generated/fewshot.json";
 import { POLICY, roleDimensions } from "../policy/policy";
 import { DIMENSION_IDS, METRIC_IDS, type Policy, type Principal, type QueryIntent, type RoleId } from "../policy/types";
@@ -105,10 +110,29 @@ export function requestMessage(ctx: PromptContext, policy: Policy = POLICY): str
   return lines.join("\n");
 }
 
+let prefixBuilds = 0;
+const prefixes = new WeakMap<Policy, readonly ChatMessage[]>();
+
+/** How many times a prefix has been built in this isolate (tests pin it to once per policy). */
+export function prefixBuildCount(): number {
+  return prefixBuilds;
+}
+
+/** The role-independent prefix (system prompt plus few-shot messages), built once per policy object. */
+export function plannerPrefix(policy: Policy = POLICY): readonly ChatMessage[] {
+  let prefix = prefixes.get(policy);
+  if (!prefix) {
+    prefixBuilds += 1;
+    const messages: ChatMessage[] = [{ role: "system", content: systemPrompt(policy) }, ...fewshotMessages(policy)];
+    prefix = Object.freeze(messages.map((m) => Object.freeze(m)));
+    prefixes.set(policy, prefix);
+  }
+  return prefix;
+}
+
+/** Built at module scope, so the work happens at isolate startup rather than in the first request. */
+export const PLANNER_PREFIX = plannerPrefix(POLICY);
+
 export function buildMessages(ctx: PromptContext, policy: Policy = POLICY): ChatMessage[] {
-  return [
-    { role: "system", content: systemPrompt(policy) },
-    ...fewshotMessages(policy),
-    { role: "user", content: requestMessage(ctx, policy) },
-  ];
+  return [...plannerPrefix(policy), { role: "user", content: requestMessage(ctx, policy) }];
 }

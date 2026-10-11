@@ -10,20 +10,14 @@
 // between its read and its write, so concurrent reservations can never exceed a cap.
 import { DurableObject } from "cloudflare:workers";
 import type { Env } from "../env";
+import { BUDGET_COUNTERS, type BudgetCounter, utcDay } from "./budget";
 import type { BudgetDecision } from "./userDO";
 
-export const ACCOUNT_BUDGET_NAME = "peoplelens";
-export type BudgetCounter = "neurons" | "audit_queue_messages";
-export const BUDGET_COUNTERS: readonly BudgetCounter[] = ["neurons", "audit_queue_messages"];
+export { ACCOUNT_BUDGET_NAME, BUDGET_COUNTERS, type BudgetCounter, utcDay } from "./budget";
 /** Rows older than this many days are pruned on every reservation. */
 export const KEEP_DAYS = 7;
 
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
-
-/** The UTC day (YYYY-MM-DD) that the account's daily allowances reset on. */
-export function utcDay(now: number): string {
-  return new Date(now).toISOString().slice(0, 10);
-}
 
 /** Inputs are checked and refused as values: an exception thrown inside a Durable
  * Object RPC method is reported by workerd as uncaught (see PROGRESS.md deviations). */

@@ -35,9 +35,12 @@ interface CachedToken {
 }
 
 const cache = new Map<string, CachedToken>();
+/** Token exchanges in flight, so parallel cold callers in one isolate share one fetch. */
+const inflight = new Map<string, Promise<CachedToken>>();
 
 export function clearTokenCache(): void {
   cache.clear();
+  inflight.clear();
 }
 
 export class GoogleTokenSource {
@@ -62,8 +65,18 @@ export class GoogleTokenSource {
   }
 
   async token(): Promise<string> {
-    const cached = cache.get(this.key.client_email);
+    const email = this.key.client_email;
+    const cached = cache.get(email);
     if (cached && cached.expiresAtMs - 60_000 > this.now()) return cached.token;
+    let pending = inflight.get(email);
+    if (!pending) {
+      pending = this.exchange().finally(() => inflight.delete(email));
+      inflight.set(email, pending);
+    }
+    return (await pending).token;
+  }
+
+  private async exchange(): Promise<CachedToken> {
     const body = new URLSearchParams({
       grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
       assertion: await this.assertion(),
@@ -78,6 +91,6 @@ export class GoogleTokenSource {
     if (!json.access_token) throw new ApiError(502, "INTERNAL", "Google token exchange returned no token");
     const entry = { token: json.access_token, expiresAtMs: this.now() + (json.expires_in ?? 3600) * 1000 };
     cache.set(this.key.client_email, entry);
-    return entry.token;
+    return entry;
   }
 }
