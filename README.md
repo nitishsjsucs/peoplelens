@@ -173,9 +173,10 @@ Nothing below has been run yet: this machine has no Google Cloud CLI, no Google 
    ```
 2. A custom Cloudflare API token named `peoplelens-bootstrap` (My Profile > API Tokens > Create Custom Token), account-scoped, with: AI Gateway Edit; Workers AI Read and Edit; Access: Apps and Policies Edit; Access: Service Tokens Edit; Access: Organizations, Identity Providers, and Groups Read; Workers Scripts Edit; Account Settings Read. wrangler's OAuth login has no AI Gateway or Access scopes, which is why this token exists. Save it:
    ```bash
-   mkdir -m 700 -p .secrets
-   printf 'CLOUDFLARE_ACCOUNT_ID=<id>\nCLOUDFLARE_API_TOKEN=<token>\n' > .secrets/cloudflare.env && chmod 600 .secrets/cloudflare.env
+   mkdir -m 700 -p .secrets && touch .secrets/cloudflare.env && chmod 600 .secrets/cloudflare.env
+   nano .secrets/cloudflare.env    # two lines: CLOUDFLARE_ACCOUNT_ID=<id> and CLOUDFLARE_API_TOKEN=<token>
    ```
+   Paste the token in an editor rather than on the command line, so it stays out of your shell history.
 3. Cloudflare console: upgrade to Workers Paid; complete Zero Trust onboarding (team name, Free plan); add the One-time PIN login method (Zero Trust > Settings > Authentication > Login methods). If the account has no workers.dev subdomain, pick one or pass `--workers-subdomain`.
 4. Google Cloud project:
    ```bash
@@ -195,6 +196,10 @@ Nothing below has been run yet: this machine has no Google Cloud CLI, no Google 
    make eval-prod ARGS="--official"             # an official run needs a clean working tree
    ```
    Gmail plus-addresses (`you+exec@gmail.com`) work with One-time PIN. Every step is safe to rerun; `make bootstrap ARGS="--phase b ..."` reruns one phase.
+
+### Optional: the audit trail in production
+
+Not needed for anything on the resume. If you want it: add Queues Edit, Workers R2 Storage Edit and Basin Pipelines Edit to the `peoplelens-bootstrap` token; create a second custom token for the Iceberg sink with Basin Catalog Read and Edit, Basin Pipelines Read, Send and Edit, and Workers R2 Storage Read and Edit (the permissions the Basin Pipelines tutorial lists); add it to `.secrets/cloudflare.env` as `BASIN_CATALOG_TOKEN=<token>`; then run `make bootstrap ARGS="--gcp-project peoplelens-<suffix> --phase a --with-audit"`. Basin Pipelines needs Workers Paid. wrangler 4.149.0 (pinned here) names the sink type `r2-data-catalog`; newer docs call it `basin-catalog`.
 
 ### What the bootstrap does
 
