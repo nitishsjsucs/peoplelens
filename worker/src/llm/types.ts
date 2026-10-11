@@ -57,3 +57,19 @@ export class LlmError extends Error {
     this.name = "LlmError";
   }
 }
+
+/**
+ * This repo's daily Workers AI neuron share, bound to one UTC day (AccountBudgetDO,
+ * counter "neurons"). Only the Workers AI provider meters neurons.
+ */
+export interface NeuronBudget {
+  reserve(amount: number): Promise<{ ok: boolean; used: number; cap: number }>;
+  settle(reserved: number, actual: number | null): Promise<void>;
+}
+
+/** Workers AI neurons for a token usage at a model's pinned rates (per million tokens), to 0.01. */
+export function neuronsFor(usage: TokenUsage | null | undefined, rates: { input: number; output: number } | null | undefined): number | null {
+  if (!usage || !rates) return null;
+  const n = ((usage.prompt_tokens ?? 0) * rates.input + (usage.completion_tokens ?? 0) * rates.output) / 1_000_000;
+  return Math.round(n * 100) / 100;
+}

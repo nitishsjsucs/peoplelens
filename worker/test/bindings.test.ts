@@ -1,7 +1,7 @@
 // The hand-written Env must match wrangler.jsonc in both environments.
 import { describe, expect, it } from "vitest";
 import wranglerText from "../wrangler.jsonc?raw";
-import { ENV_VAR_NAMES } from "../src/env";
+import { ENV_BINDING_NAMES, ENV_VAR_NAMES } from "../src/env";
 
 interface WranglerEnv {
   name?: string;
@@ -50,8 +50,18 @@ describe("wrangler.jsonc", () => {
   });
 
   it("binding and var names match the hand-written Env", () => {
-    expect(config.durable_objects?.bindings).toEqual([{ name: "USER_DO", class_name: "UserDO" }]);
-    expect(config.migrations).toEqual([{ tag: "v1", new_sqlite_classes: ["UserDO"] }]);
+    expect(config.durable_objects?.bindings).toEqual([
+      { name: "USER_DO", class_name: "UserDO" },
+      { name: "ACCOUNT_BUDGET", class_name: "AccountBudgetDO" },
+    ]);
+    // Every Durable Object class is SQLite-backed (the only backend on Workers Free).
+    expect(config.migrations).toEqual([
+      { tag: "v1", new_sqlite_classes: ["UserDO"] },
+      { tag: "v2", new_sqlite_classes: ["AccountBudgetDO"] },
+    ]);
+    for (const m of config.migrations ?? []) expect(Object.keys(m).sort()).toEqual(["new_sqlite_classes", "tag"]);
+    const doBindings = (config.durable_objects?.bindings ?? []).map((b) => b.name);
+    expect(ENV_BINDING_NAMES.filter((n) => n !== "AI")).toEqual(doBindings);
     for (const env of [config, prod]) {
       expect(Object.keys(env.vars ?? {}).sort()).toEqual([...ENV_VAR_NAMES].sort());
     }

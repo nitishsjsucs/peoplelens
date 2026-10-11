@@ -8,7 +8,7 @@ import { type CatalogFile, catalogKey, lookupEntry } from "./catalog/catalog";
 import { applyComplementRule, complementProbes } from "./guard/complement";
 import { checkCost, rowUpperBound } from "./guard/cost";
 import { type SuppressionCounts, suppressCells, toCells } from "./guard/suppression";
-import type { LlmClient, TokenUsage } from "./llm/types";
+import { type LlmClient, type TokenUsage, neuronsFor } from "./llm/types";
 import { logEvent } from "./log";
 import { plan, resolveDraft } from "./planner/planner";
 import type { DraftIntent } from "./planner/schema";
@@ -78,9 +78,14 @@ export interface LlmUsage {
   neurons: number | null;
 }
 
-export function llmUsageMeta(usage: TokenUsage | null): LlmUsage | null {
+/** Usage summed over attempts; neurons at the model's pinned Workers AI rates (null for other models). */
+export function llmUsageMeta(usage: TokenUsage | null, model: string, policy: Policy = POLICY): LlmUsage | null {
   if (!usage) return null;
-  return { prompt_tokens: usage.prompt_tokens ?? 0, completion_tokens: usage.completion_tokens ?? 0, neurons: null };
+  return {
+    prompt_tokens: usage.prompt_tokens ?? 0,
+    completion_tokens: usage.completion_tokens ?? 0,
+    neurons: neuronsFor(usage, policy.limits.free_plan.model_neurons_per_m_tokens[model]),
+  };
 }
 
 /** Seconds from `now` (epoch ms) to the next 00:00 UTC, when the Workers AI allowance resets. */
@@ -283,7 +288,7 @@ export async function ask(deps: AskDeps, body: AskBody): Promise<AskResult> {
     meta.llm_ms = planned.llmMs;
     meta.gateway_log_id = planned.gatewayLogId;
     meta.planner_attempts = planned.attempts;
-    meta.llm_usage = llmUsageMeta(planned.usage);
+    meta.llm_usage = llmUsageMeta(planned.usage, deps.llm.model, policy);
     if (planned.llmFailure === "quota") {
       // Workers AI 3036 (the account's daily free allocation is used up): a clear,
       // retryable refusal instead of a misleading "Could you rephrase?".

@@ -20,10 +20,20 @@
     "not_found_handling": "single-page-application",
     "run_worker_first": ["/api/*"]
   },
+  // UserDO: one per user (sessions, byte budget, rate limit). AccountBudgetDO: one
+  // instance holding this repo's share of the account's daily Free plan allowances
+  // (Workers AI neurons, audit queue messages). SQLite only: the key-value backend
+  // is not available on Workers Free.
   "durable_objects": {
-    "bindings": [{ "name": "USER_DO", "class_name": "UserDO" }]
+    "bindings": [
+      { "name": "USER_DO", "class_name": "UserDO" },
+      { "name": "ACCOUNT_BUDGET", "class_name": "AccountBudgetDO" }
+    ]
   },
-  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["UserDO"] }],
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["UserDO"] },
+    { "tag": "v2", "new_sqlite_classes": ["AccountBudgetDO"] }
+  ],
   // Local audit trail: a Miniflare queue whose consumer is this Worker; the consumer
   // forwards batches to the sidecar's pyiceberg table. Production adds the queue and
   // the Basin Pipelines stream binding only through `make bootstrap ARGS="--with-audit"`
@@ -50,7 +60,10 @@
         "run_worker_first": ["/api/*"]
       },
       "durable_objects": {
-        "bindings": [{ "name": "USER_DO", "class_name": "UserDO" }]
+        "bindings": [
+          { "name": "USER_DO", "class_name": "UserDO" },
+          { "name": "ACCOUNT_BUDGET", "class_name": "AccountBudgetDO" }
+        ]
       },
       "vars": {
         "ENVIRONMENT": "production",

@@ -5,11 +5,14 @@ import type { JSONWebKeySet } from "jose";
 import { type JWKSource, teamCertsUrl, teamIssuer } from "./auth/access";
 import { type RoleBindings, parseRoleBindings } from "./auth/principal";
 import { ApiError } from "./policy/types";
+import type { AccountBudgetDO } from "./session/accountBudgetDO";
 import type { UserDO } from "./session/userDO";
 
 export interface Env {
   // bindings
   USER_DO: DurableObjectNamespace<UserDO>;
+  /** This repo's share of the account's daily Free allowances (one instance). */
+  ACCOUNT_BUDGET: DurableObjectNamespace<AccountBudgetDO>;
   AI?: Ai;
   // optional metadata-only audit trail (below the core cut line)
   AUDIT_QUEUE?: Queue<unknown>;
@@ -35,7 +38,7 @@ export interface Env {
   AI_GATEWAY_ID?: string;
 }
 
-export const ENV_BINDING_NAMES = ["USER_DO", "AI"] as const;
+export const ENV_BINDING_NAMES = ["USER_DO", "ACCOUNT_BUDGET", "AI"] as const;
 export const ENV_VAR_NAMES = ["ENVIRONMENT", "LLM_PROVIDER", "WAREHOUSE", "PLANNER_MODEL"] as const;
 export const PRODUCTION_REQUIRED_SECRETS = [
   "GCP_PROJECT_ID",
@@ -97,6 +100,8 @@ export function loadConfig(env: Env, requestUrl: URL): ConfigResult {
   if (environment === "production") {
     for (const name of PRODUCTION_REQUIRED_SECRETS) if (!present(env[name])) missing.push(name);
     if (!env.AI) missing.push("AI");
+    // Without the budget object nothing would cap this repo's use of the account's neurons.
+    if (!env.ACCOUNT_BUDGET) missing.push("ACCOUNT_BUDGET");
     if (present(env.ACCESS_JWKS_JSON)) problems.push("ACCESS_JWKS_JSON must not be set in production");
     if (present(env.ACCESS_ISSUER)) problems.push("ACCESS_ISSUER must not be set in production");
     if (llm !== "workers_ai") problems.push("LLM_PROVIDER must be workers_ai in production");

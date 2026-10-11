@@ -19,6 +19,7 @@ function prodEnv(overrides: EnvOverrides = {}): Env {
   const env = localEnv(keys);
   const out: Env = {
     USER_DO: env.USER_DO,
+    ACCOUNT_BUDGET: env.ACCOUNT_BUDGET,
     AI: fakeAi,
     ENVIRONMENT: "production",
     LLM_PROVIDER: "workers_ai",
@@ -57,6 +58,10 @@ describe("production guards", () => {
     const r = loadConfig(env, PROD_URL);
     expect(r.ok).toBe(false);
     if (!r.ok) expect(r.missing).toContain("AI");
+    // Without AccountBudgetDO nothing would cap this repo's share of the account's neurons.
+    const noBudget = loadConfig(prodEnv({ ACCOUNT_BUDGET: undefined }), PROD_URL);
+    expect(noBudget.ok).toBe(false);
+    if (!noBudget.ok) expect(noBudget.missing).toContain("ACCOUNT_BUDGET");
   });
 
   it("refuses local stand-ins in production", () => {

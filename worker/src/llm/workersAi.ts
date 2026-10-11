@@ -4,8 +4,8 @@
 // gateway log id is read from this response's header. env.AI.aiGatewayLogId is
 // never used: workerd keeps it (and the call options) on the shared binding, so
 // concurrent requests in one isolate could swap them.
-import type { PlannerInput, PlanCall, LlmClient, LlmErrorKind, TokenUsage } from "./types";
-import { LlmError } from "./types";
+import type { PlannerInput, PlanCall, LlmClient, LlmErrorKind, NeuronBudget, TokenUsage } from "./types";
+import { LlmError, neuronsFor } from "./types";
 
 export const METADATA_ONLY_HEADER = "cf-aig-collect-log-payload";
 export const GATEWAY_LOG_HEADER = "cf-aig-log-id";
@@ -89,6 +89,22 @@ export function workersAiOptions(gatewayId: string, meta: PlannerInput["meta"]):
 
 type RawRun = (model: string, inputs: Record<string, unknown>, options: WorkersAiCallOptions) => Promise<Response>;
 
+/**
+ * This repo's daily neuron share (SPEC.md 25.4 B). Before every attempt the client
+ * reserves `reserveNeurons` (at least the worst case of one planner call); without a
+ * grant it raises LlmError("quota") and Workers AI is not called. Afterwards it settles
+ * the reservation: to the neurons the returned usage costs at the pinned `rates`; to 0
+ * when Workers AI refused the call before inference (3036, 3040, 5035); and it keeps
+ * the reservation when the cost is unknown (no usage, no rate, any other failure).
+ */
+export interface WorkersAiBudget {
+  port: NeuronBudget;
+  reserveNeurons: number;
+  rates: { input: number; output: number } | null;
+}
+
+const REFUSED_BEFORE_INFERENCE: ReadonlySet<LlmErrorKind> = new Set(["quota", "capacity", "paid_model"]);
+
 export class WorkersAiClient implements LlmClient {
   readonly provider = "workers_ai" as const;
 
@@ -97,9 +113,30 @@ export class WorkersAiClient implements LlmClient {
     readonly model: string,
     private readonly gatewayId: string,
     private readonly now: () => number = () => Date.now(),
+    private readonly budget: WorkersAiBudget | null = null,
   ) {}
 
   async plan(input: PlannerInput): Promise<PlanCall> {
+    let reserved = 0;
+    if (this.budget) {
+      const grant = await this.budget.port.reserve(this.budget.reserveNeurons);
+      if (!grant.ok) throw new LlmError("quota", `this repo's daily Workers AI share is used up (${grant.used} of ${grant.cap} neurons)`);
+      reserved = this.budget.reserveNeurons;
+    }
+    const settle = async (actual: number | null) => {
+      if (this.budget && reserved > 0) await this.budget.port.settle(reserved, actual);
+    };
+    try {
+      const call = await this.call(input);
+      await settle(neuronsFor(call.usage, this.budget?.rates));
+      return call;
+    } catch (err) {
+      await settle(err instanceof LlmError && REFUSED_BEFORE_INFERENCE.has(err.kind) ? 0 : null);
+      throw err;
+    }
+  }
+
+  private async call(input: PlannerInput): Promise<PlanCall> {
     const started = this.now();
     const run = this.ai.run.bind(this.ai) as unknown as RawRun;
     let res: Response;

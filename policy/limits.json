@@ -20,5 +20,27 @@
   "gateway_rate_limit_per_minute": 120,
   "eval_pacing_per_minute": 25,
   "dry_run_cache_seconds": 3600,
-  "query_timeout_ms": 8000
+  "query_timeout_ms": 8000,
+  "free_plan": {
+    "account_neurons_per_day": 10000,
+    "worker_neurons_per_day": 6000,
+    "planner_reserve_neurons": 200,
+    "baseline_reserve_neurons": 127,
+    "eval_semantic_neurons_per_day": 5000,
+    "eval_baseline_neurons_per_day": 2000,
+    "interactive_reserve_neurons": 1000,
+    "model_neurons_per_m_tokens": {
+      "@cf/meta/llama-3.3-70b-instruct-fp8-fast": {
+        "input": 26668,
+        "output": 204805
+      }
+    },
+    "audit_queue_messages_per_day": 800,
+    "queue_ops_per_message": 3,
+    "audit_batch_max": 100,
+    "audit_batch_timeout_s": 30,
+    "audit_max_retries": 10,
+    "bq_max_polls_per_query": 3,
+    "max_external_subrequests": 19
+  }
 }

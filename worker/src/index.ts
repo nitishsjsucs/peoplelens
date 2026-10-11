@@ -10,6 +10,7 @@ import { OpenAiCompatClient } from "./llm/openaiCompat";
 import { StubPlanner } from "./llm/stub";
 import type { LlmClient } from "./llm/types";
 import { WorkersAiClient } from "./llm/workersAi";
+import { ACCOUNT_BUDGET_NAME, type BudgetCounter, utcDay } from "./session/accountBudgetDO";
 import { logEvent } from "./log";
 import { POLICY } from "./policy/policy";
 import { ApiError, type Principal } from "./policy/types";
@@ -38,11 +39,37 @@ export function defaultWarehouse(config: Config): Warehouse {
   return new LocalDuckDbWarehouse(config.warehouseUrl, config.warehouseToken);
 }
 
-export function defaultLlm(config: Config, env: Env): LlmClient {
+export const DEFAULT_PLANNER_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
+
+function accountBudget(env: Env) {
+  return env.ACCOUNT_BUDGET.get(env.ACCOUNT_BUDGET.idFromName(ACCOUNT_BUDGET_NAME));
+}
+
+/** One AccountBudgetDO counter, bound to the UTC day of `now` (a request that crosses
+ * midnight settles against the day it reserved on). */
+export function budgetPort(env: Env, counter: BudgetCounter, cap: number, now: number) {
+  const day = utcDay(now);
+  const stub = accountBudget(env);
+  return {
+    day,
+    reserve: (amount: number) => stub.reserve(day, counter, amount, cap),
+    settle: (reserved: number, actual: number | null) => stub.settle(day, counter, reserved, actual),
+  };
+}
+
+export function defaultLlm(config: Config, env: Env, now: () => number = () => Date.now()): LlmClient {
   switch (config.llmProvider) {
-    case "workers_ai":
+    case "workers_ai": {
       if (!env.AI || !config.aiGatewayId) throw new ApiError(503, "CONFIG_INVALID", "Workers AI is not configured");
-      return new WorkersAiClient(env.AI, config.plannerModel || "@cf/meta/llama-3.3-70b-instruct-fp8-fast", config.aiGatewayId);
+      if (!env.ACCOUNT_BUDGET) throw new ApiError(503, "CONFIG_INVALID", "ACCOUNT_BUDGET is not bound");
+      const model = config.plannerModel || DEFAULT_PLANNER_MODEL;
+      const free = POLICY.limits.free_plan;
+      return new WorkersAiClient(env.AI, model, config.aiGatewayId, now, {
+        port: budgetPort(env, "neurons", free.worker_neurons_per_day, now()),
+        reserveNeurons: free.planner_reserve_neurons,
+        rates: free.model_neurons_per_m_tokens[model] ?? null,
+      });
+    }
     case "openai_compat":
       if (!config.llmBaseUrl) throw new ApiError(503, "CONFIG_INVALID", "LLM_BASE_URL is missing");
       return new OpenAiCompatClient(config.llmBaseUrl, config.plannerModel || "qwen3-1.7b");
@@ -106,13 +133,18 @@ export function createApp(deps: AppDeps) {
     await next();
   });
 
-  app.get("/api/me", (c) => {
+  app.get("/api/me", async (c) => {
     const p = c.get("principal");
+    // This repo's Workers AI neuron share today (the eval runner and smoke read it).
+    const day = utcDay(now());
+    const cap = POLICY.limits.free_plan.worker_neurons_per_day;
+    const used = c.env.ACCOUNT_BUDGET ? (await accountBudget(c.env).usage(day)).neurons : null;
     return c.json({
       principal: { subject: p.subject, kind: p.kind },
       role: p.role,
       scope: p.scope,
       ...describeRole(p),
+      ai_budget: { day, used, cap },
     });
   });
 
@@ -139,7 +171,7 @@ export function createApp(deps: AppDeps) {
         dialect: deps.catalog.header.dialect,
         ...(config.gcpProjectId ? { projectId: config.gcpProjectId } : {}),
         warehouse: (deps.makeWarehouse ?? defaultWarehouse)(config, c.env),
-        llm: (deps.makeLlm ?? defaultLlm)(config, c.env),
+        llm: deps.makeLlm ? deps.makeLlm(config, c.env) : defaultLlm(config, c.env, now),
         user: userPort(c.env, principal),
         principal,
         requestId: c.get("requestId"),

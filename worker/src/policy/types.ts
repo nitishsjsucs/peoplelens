@@ -107,6 +107,27 @@ export interface Limits {
   eval_pacing_per_minute: number;
   dry_run_cache_seconds: number;
   query_timeout_ms: number;
+  free_plan: FreePlanLimits;
+}
+
+/** This repo's share of the Workers Free plan allowances (SPEC.md 7.3 and 25.5; pinned by test_free_plan_budget.py). */
+export interface FreePlanLimits {
+  account_neurons_per_day: number;
+  worker_neurons_per_day: number;
+  planner_reserve_neurons: number;
+  baseline_reserve_neurons: number;
+  eval_semantic_neurons_per_day: number;
+  eval_baseline_neurons_per_day: number;
+  interactive_reserve_neurons: number;
+  /** Workers AI neurons per million input and output tokens, per model. */
+  model_neurons_per_m_tokens: Record<string, { input: number; output: number }>;
+  audit_queue_messages_per_day: number;
+  queue_ops_per_message: number;
+  audit_batch_max: number;
+  audit_batch_timeout_s: number;
+  audit_max_retries: number;
+  bq_max_polls_per_query: number;
+  max_external_subrequests: number;
 }
 
 export interface Policy {

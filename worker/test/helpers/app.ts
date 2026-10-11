@@ -37,14 +37,17 @@ export interface Harness {
   choose(email: string, session: string, option: string): Promise<Record<string, unknown>>;
 }
 
-export function harness(keys: TestKeys, opts: { warehouse?: FakeWarehouse; llm?: RecordingLlm; tick?: number } = {}): Harness {
+export function harness(
+  keys: TestKeys,
+  opts: { warehouse?: FakeWarehouse; llm?: RecordingLlm; tick?: number; makeLlm?: (env: Env, now: number) => LlmClient } = {},
+): Harness {
   const warehouse = opts.warehouse ?? new FakeWarehouse();
   const llm = opts.llm ?? new RecordingLlm();
   const clock = { t: Date.UTC(2026, 9, 10, 12) };
   const app = createApp({
     catalog: DUCK_CATALOG,
     makeWarehouse: () => warehouse as Warehouse,
-    makeLlm: () => llm,
+    makeLlm: (_config, env) => (opts.makeLlm ? opts.makeLlm(env, clock.t) : llm),
     now: () => clock.t,
   });
   const env = localEnv(keys);
