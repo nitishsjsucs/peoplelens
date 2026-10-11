@@ -1,0 +1,116 @@
+version: 2
+
+# The six governed metrics (SPEC.md section 6) and the helper metrics they need.
+# policy/metrics.json maps each governed id to the MetricFlow metrics returned
+# and to its cohort metric for suppression.
+
+metrics:
+  # 1. headcount
+  - name: headcount
+    label: Headcount
+    description: Active employees at the last month end in each bucket.
+    type: simple
+    type_params:
+      measure: headcount
+
+  # 2. fte
+  - name: fte
+    label: FTE
+    description: Sum of FTE of active employees at the last month end in each bucket.
+    type: simple
+    type_params:
+      measure: fte
+
+  - name: cohort_employees
+    label: Cohort employees
+    description: Active employees at the last month end (suppression cohort).
+    type: simple
+    type_params:
+      measure: cohort_employees
+
+  # 3. turnover_rate
+  - name: terminations
+    label: Terminations
+    type: simple
+    type_params:
+      measure: terminations
+
+  - name: employee_months
+    label: Employee months
+    type: simple
+    type_params:
+      measure: employee_months
+
+  - name: snapshot_months
+    label: Snapshot months
+    type: simple
+    type_params:
+      measure: snapshot_months
+
+  - name: avg_headcount
+    label: Average headcount
+    description: Employee months divided by the number of months (suppression cohort for turnover).
+    type: ratio
+    type_params:
+      numerator: employee_months
+      denominator: snapshot_months
+
+  - name: turnover_rate
+    label: Turnover rate
+    description: Terminations divided by average monthly headcount in the period. Not annualized.
+    type: derived
+    type_params:
+      expr: terminations / NULLIF(avg_headcount, 0)
+      metrics:
+        - name: terminations
+        - name: avg_headcount
+
+  # 4. offer_acceptance_rate
+  - name: offers_extended
+    label: Offers extended
+    type: simple
+    type_params:
+      measure: offers_extended
+
+  - name: offers_accepted
+    label: Offers accepted
+    type: simple
+    type_params:
+      measure: offers_accepted
+
+  - name: offer_acceptance_rate
+    label: Offer acceptance rate
+    description: Accepted offers divided by offers extended, by offer date.
+    type: ratio
+    type_params:
+      numerator: offers_accepted
+      denominator: offers_extended
+
+  # 5. time_to_fill_days
+  - name: time_to_fill_days
+    label: Time to fill (days)
+    description: Average days from opened date to filled date for requisitions filled in the bucket.
+    type: simple
+    type_params:
+      measure: time_to_fill_days
+
+  - name: filled_requisitions
+    label: Filled requisitions
+    type: simple
+    type_params:
+      measure: filled_requisitions
+
+  # 6. compensation_summary
+  - name: avg_base_salary
+    label: Average base salary
+    description: Average base salary of active employees at the last month end.
+    type: simple
+    type_params:
+      measure: avg_base_salary
+
+  - name: median_base_salary
+    label: Median base salary (approximate)
+    description: Approximate median base salary of active employees at the last month end.
+    type: simple
+    type_params:
+      measure: median_base_salary

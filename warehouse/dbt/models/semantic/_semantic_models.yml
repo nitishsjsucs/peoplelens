@@ -1,0 +1,141 @@
+version: 2
+
+# MetricFlow semantic models (SPEC.md section 6). Stock measures are
+# non-additive over month_start (window_choice max, no window groupings), so every
+# group in a result shares the same last month of the bucket, and each stock
+# measure gates on is_active_eom itself because the monthly fact also holds rows
+# for people who left during the month.
+
+semantic_models:
+  - name: workforce
+    description: Employee-month snapshots.
+    model: ref('sem_workforce_monthly')
+    defaults:
+      agg_time_dimension: month_start
+    entities:
+      - name: workforce
+        type: primary
+        expr: workforce_key
+    dimensions:
+      - name: month_start
+        type: time
+        type_params:
+          time_granularity: month
+      - name: department
+        type: categorical
+      - name: location
+        type: categorical
+      - name: job_level
+        type: categorical
+      - name: employment_type
+        type: categorical
+      - name: tenure_band
+        type: categorical
+    measures:
+      - name: headcount
+        description: Active employees at the last month end of the bucket.
+        agg: sum
+        expr: is_active_eom
+        non_additive_dimension:
+          name: month_start
+          window_choice: max
+      - name: cohort_employees
+        description: Cohort size for suppression (equals headcount).
+        agg: sum
+        expr: is_active_eom
+        non_additive_dimension:
+          name: month_start
+          window_choice: max
+      - name: fte
+        description: FTE of active employees at the last month end of the bucket.
+        agg: sum
+        expr: CASE WHEN is_active_eom = 1 THEN fte_eom ELSE 0 END
+        non_additive_dimension:
+          name: month_start
+          window_choice: max
+      - name: avg_base_salary
+        description: Average base salary of active employees at the last month end.
+        agg: average
+        expr: CASE WHEN is_active_eom = 1 THEN base_salary_eom END
+        non_additive_dimension:
+          name: month_start
+          window_choice: max
+      - name: median_base_salary
+        description: Approximate median base salary of active employees at the last month end.
+        agg: percentile
+        expr: CASE WHEN is_active_eom = 1 THEN base_salary_eom END
+        agg_params:
+          percentile: 0.5
+          use_approximate_percentile: true
+          use_discrete_percentile: false
+        non_additive_dimension:
+          name: month_start
+          window_choice: max
+      - name: employee_months
+        description: Sum over months of active-at-month-end flags.
+        agg: sum
+        expr: is_active_eom
+      - name: snapshot_months
+        description: Distinct months in the bucket.
+        agg: count_distinct
+        expr: month_start
+      - name: terminations
+        description: Terminations in the bucket.
+        agg: sum
+        expr: is_termination
+
+  - name: requisitions
+    description: Filled requisitions.
+    model: ref('sem_requisitions')
+    defaults:
+      agg_time_dimension: filled_date
+    entities:
+      - name: requisition
+        type: primary
+        expr: requisition_id
+    dimensions:
+      - name: filled_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: department
+        type: categorical
+      - name: location
+        type: categorical
+      - name: job_level
+        type: categorical
+    measures:
+      - name: filled_requisitions
+        agg: count
+        expr: requisition_id
+      - name: time_to_fill_days
+        agg: average
+        expr: days_to_fill
+
+  - name: offers
+    description: Offers extended.
+    model: ref('sem_offers')
+    defaults:
+      agg_time_dimension: offer_date
+    entities:
+      - name: offer
+        type: primary
+        expr: offer_id
+    dimensions:
+      - name: offer_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: department
+        type: categorical
+      - name: location
+        type: categorical
+      - name: job_level
+        type: categorical
+    measures:
+      - name: offers_extended
+        agg: count
+        expr: offer_id
+      - name: offers_accepted
+        agg: sum
+        expr: is_accepted

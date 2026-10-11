@@ -12,7 +12,7 @@ v1 is being built from scratch, commit by commit, following the plan in SPEC.md 
 |---|---|
 | Seeded synthetic HR data with exact counts | done: `pl data generate`, counts asserted by pytest |
 | dbt models on DuckDB (local) and BigQuery (production) | DuckDB built and tested locally (94 dbt nodes pass); BigQuery profile parses offline, not yet run against BigQuery |
-| MetricFlow semantic layer, six governed metrics | planned |
+| MetricFlow semantic layer, six governed metrics | done: `mf validate-configs` passes; queries run on DuckDB; independent Python reference implementation with hand-computed fixture tests |
 | Policy (four roles, five approved dimensions, limits) and compiled query catalog | planned |
 | Local DuckDB warehouse sidecar and byte estimator | planned |
 | Worker: Access JWT verification and role bindings | planned |
@@ -105,6 +105,10 @@ make dbt        # pl dbt --dialect duckdb seed, then build (models plus every db
 ```
 
 `pl dbt --dialect <duckdb|bigquery_compile|bigquery> <dbt args>` is the only supported way to run dbt. It creates `.dev/warehouse/`, points dbt at the dialect's committed profiles directory, and sets `PL_DUCKDB_PATH`. Bare `dbt` fails fast because the DuckDB profile has no default path.
+
+```bash
+uv run pl mf validate   # dbt parse (DuckDB) then mf validate-configs --skip-dw
+```
 
 Further local commands (`make catalog`, `make dev-up`, `make eval-stub`) are added as their commits land.
 
