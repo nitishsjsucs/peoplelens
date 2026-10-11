@@ -1,8 +1,8 @@
 // BigQuery client over REST (jobs.query + getQueryResults), production only.
-// Every job carries maximumBytesBilled equal to the role cap, typed named
-// parameters, labels, and a timeout; dry runs read totalBytesProcessed and are
-// cached per catalog key (bytes do not depend on parameter values for these
-// unpartitioned tables).
+// Every executed job carries maximumBytesBilled equal to the role cap (dry runs bill
+// nothing and carry none), typed named parameters, labels, and a timeout; dry runs
+// read totalBytesProcessed and are cached per catalog key (bytes do not depend on
+// parameter values for these unpartitioned tables).
 //
 // Workers Free allows 50 external subrequests per invocation (SPEC.md 25.4 D). The
 // dry-run cache is module-level (a Worker builds a new client per request) and holds

@@ -701,7 +701,7 @@ The README must never call DuckDB "BigQuery", llama-server "Workers AI", or loca
 
 ## 17. Production setup Nitish must do
 
-Legend: **V** verified on 2026-10-10 against official docs, Google discovery documents, or by running the tool; **P** partially verified (the endpoint or field exists in official docs, the exact behavior is inferred); **U** unverified (no gcloud and no credentials on the build machine). Every P or U step has a doctor check, so a wrong step shows up as a named failure with its fix. **Done** marks a step that was already true on 2026-10-10, checked read-only by the architect (section 25.2) or stated by Nitish.
+Legend: **V** verified on 2026-10-10 against official docs, Google discovery documents, or by running the tool; **P** partially verified (the endpoint or field exists in official docs, the exact behavior is inferred); **U** unverified: not yet run against the real accounts (only read-only commands ran there, on 2026-10-11). Every P or U step has a doctor check, so a wrong step shows up as a named failure with its fix. **Done** marks a step that was already true on 2026-10-10, checked read-only by the architect (section 25.2) or stated by Nitish.
 
 Production decisions (2026-10-10): stay on **Cloudflare Workers Free** (never Workers Paid); enable **Google Cloud billing** with usage expected inside the free tier and every query capped by `maximumBytesBilled`; one **shared Google Cloud project** for this repo and three others (`<shared-project-id>` below; the id is not committed to this public repo, and the operator passes it as `--gcp-project`). The same Cloudflare account serves the other repos too, so its daily Free allowances are shared (section 25.5).
 
@@ -1210,7 +1210,7 @@ Nothing was created, changed, deployed or deleted.
 
 **F. Unchanged.** Worker, Access, AI Gateway (metadata only), MetricFlow catalog, suppression, cost guard, UserDO, local stack, CI jobs and every resume number. The Free plan changes only the audit transport, the AI budget path, the eval schedule and the setup steps.
 
-### 25.5 Usage budget (real numbers from this repo)
+### 25.5 Usage budget (estimates from this repo's runs)
 
 Inputs, all measured on 2026-10-10:
 
