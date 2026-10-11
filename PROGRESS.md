@@ -4,7 +4,7 @@ Tracks the SPEC.md section 19 commit plan. Updated at every commit.
 
 ## Position
 
-Commit 13 of 17 (plus inserted commits 10a and 12a) (core cut line after commit 14).
+Commit 14 of 17 (plus inserted commits 10a, 12a and 13a); the core cut line is reached (core cut line after commit 14).
 
 ## Done
 
@@ -23,10 +23,12 @@ Commit 13 of 17 (plus inserted commits 10a and 12a) (core cut line after commit 
 12. `ci: python, worker and stub end-to-end jobs`
 12a. `feat(worker): ground planner drafts in the question text` (inserted after dev-set prompt work with Qwen3-1.7B)
 13. `feat(ops): doctor, idempotent bootstrap, deploy and smoke for Cloudflare and BigQuery`
+13a. `eval: official local run with Qwen3-1.7B and the text-to-SQL baseline`
+14. `docs: local eval results and production setup guide` (official stub run, README Results)
 
 ## Next
 
-14. `docs: local eval results and production setup guide`
+15. Conversation fixes found by the local eval (metric grounding with clarification when no metric is named; short replies keep the conversation's scope), validated on new dev items, then a fresh official local run. Then 15 to 17 below the cut line: `feat(web)`, `feat(audit)`, `feat(ops): masking demo and time-travel drill`.
 
 ## Check status (at this commit)
 
@@ -47,6 +49,8 @@ Commit 13 of 17 (plus inserted commits 10a and 12a) (core cut line after commit 
 | CI dry run: each job's commands in a fresh `git clone` with `CI=true PL_STRICT=1 WRANGLER_SEND_METRICS=false` (python, worker, e2e) | pass on macOS; GitHub's ubuntu-latest run is pending the owner's push |
 | `uv run pl-ops doctor --fast` on this Mac | runs; reports wrangler login, `.secrets/cloudflare.env` and gcloud as MISSING (expected: no cloud credentials here) |
 | `uv run pl-ops bootstrap --gcp-project peoplelens-demo01 --phase a --dry-run` | prints the phase A plan, changes nothing, stops at the missing Cloudflare token |
+| `uv run pl-eval run --llm openai_compat --official` (2026-10-10, commit a0cc3a6) | semantic 149/150 answerable correct, p95 3,696 ms, 30/30 adversarial, 0 safety violations, 0/20 clarification; baseline 33/150 |
+| `uv run pl-eval run --llm stub --assert-safety --official` (2026-10-10, commit c0271ce) | assertions pass: 200 items, 0 violations, 148 answers |
 | `npm run typecheck` | pass |
 | `npm test` (vitest in workerd via @cloudflare/vitest-plugin) | 255 passed (includes 4 x 2,000 fuzzed planner outputs and a check that all 207 templated eval and dev questions resolve to their gold period and grain) |
 | `npx wrangler deploy --env production --dry-run --outdir .wrangler/dry` (CI=true, no token) | pass; bundle 2,454 KiB (gzip 219 KiB), BigQuery catalog only |

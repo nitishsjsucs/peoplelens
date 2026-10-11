@@ -19,10 +19,10 @@ v1 is being built from scratch, commit by commit, following the plan in SPEC.md 
 | Worker: policy validation, catalog binding, suppression (k = 10) | done: approved metrics, dimensions, values, grains, ranges and HRBP scope enforced server-side; primary, complementary, hidden-sum and complement-rule suppression with property tests |
 | Worker: cost guard, BigQuery client, per-user budgets | done: row bound, per-query byte cap, daily budget and rate limit in a SQLite Durable Object; BigQuery REST client (service-account JWT, bigquery.readonly, maximumBytesBilled on every job) tested against a fetch mock only, never against BigQuery |
 | Worker: planner (Workers AI, OpenAI-compatible local, stub) | done: one structured planner call (the LLM picks the action and metric; breakdowns, filters, grain and period are grounded in the question text), deterministic time phrases and request screening, clarifications with selectable options, multi-turn follow-ups, whitelisted logging; 8,000 fuzzed planner outputs leak nothing. Workers AI and AI Gateway are exercised only against a fake binding until deployed |
-| Eval harness (200 items, text-to-SQL baseline) | built: 200 frozen items (150 answerable, 20 clarification, 30 adversarial; 214 turns), gold from the independent reference, comparator with median rank bands, leakage checks, pacing, sqlglot-guarded text-to-SQL baseline; no official results yet |
+| Eval harness (200 items, text-to-SQL baseline) | done: 200 frozen items (150 answerable, 20 clarification, 30 adversarial; 214 turns), gold from the independent reference, comparator with median rank bands, leakage checks, pacing, sqlglot-guarded text-to-SQL baseline; official local runs below |
 | CI (python, worker, stub end-to-end) | defined in `.github/workflows/ci.yml`; every job's commands pass in a fresh clone on macOS with `CI=true PL_STRICT=1`; not yet run on GitHub's ubuntu-latest runners |
 | Ops: doctor, phased bootstrap, deploy, smoke | built and unit-tested with mocked CLIs and HTTP; `make doctor` runs here and reports the missing cloud prerequisites; bootstrap, deploy and smoke have not been run against Cloudflare or Google Cloud |
-| Results | none yet |
+| Results | local eval (Qwen3-1.7B on DuckDB) and stub CI run, 2026-10-10; no production runs yet |
 
 Nothing has been deployed to Cloudflare or run against BigQuery from this repo yet.
 
@@ -202,7 +202,32 @@ Later deploys: `make deploy` (secrets persist), `make deploy ARGS="--rotate-key"
 
 ## Results
 
-No results yet. This section will contain only numbers produced by this repo's scripts, each with its command and date.
+Only numbers produced by this repo's scripts, each with its command and date. These are local numbers: an Apple M5 Mac running Qwen3-1.7B (Q4_0, llama-server) on the DuckDB stand-in, not Workers AI llama-3.3-70b on BigQuery. There are no production numbers yet (`make eval-prod` needs the production setup above).
+
+### Local eval, Qwen3-1.7B (2026-10-10)
+
+`uv run pl-eval run --llm openai_compat --official` against commit `a0cc3a6`; report: [eval/results/2026-10-10-local-qwen3-1.7b.md](eval/results/2026-10-10-local-qwen3-1.7b.md).
+
+| Measure | Semantic path (the product) | Direct text-to-SQL baseline (same model, harness only) |
+|---|---|---|
+| Result accuracy on the 150 answerable items | **99.3%** (149/150) | 22.0% (33/150) |
+| p95 latency, answerable items | **3,696 ms** (target below 5,000 ms: met) | 2,006 ms (LLM plus SQL, no safeguards) |
+| Latency over all 214 turns (p50 / p95 / p99 / max) | 2,201 / 3,639 / 4,281 / 4,506 ms | n/a |
+| Adversarial items passed (30) | 30/30 | n/a |
+| Safety violations (leakage) | 0 | 14 on 7 adversarial items |
+| Clarification items (20) | **0/20**: the 1.7B model never asked a clarifying question | n/a |
+| Two-turn items (10) | 0/10 | n/a |
+
+Server-side, the planner LLM call took 2,166 ms at p50 and 3,582 ms at p95; warehouse time was 9 ms at p50. The baseline's SQL was rejected by the guard 8 times and failed to execute 62 times.
+
+### Stub run (CI fixture, 2026-10-10)
+
+`uv run pl-eval run --llm stub --assert-safety --official` against commit `c0271ce`; report: [eval/results/2026-10-10-local-stub.md](eval/results/2026-10-10-local-stub.md). 200 items and 214 turns processed, every response schema-valid, 0 safety violations, no `RATE_LIMITED` or `DAILY_BUDGET_EXCEEDED`, 148 answers on the answerable slice. The stub is a keyword planner for CI; its accuracy is not reported.
+
+### What the numbers do and do not show
+
+- Suppression is guaranteed per response and per response pair (a result and its widened counterpart). Someone who sums several separate single-group queries can still recover a small group; closing that needs query auditing or noise, which v1 does not do.
+- The semantic path's accuracy rests on deterministic grounding as much as on the model: the LLM picks the action and the metric, while time phrases, grain words, breakdowns and filter values are read from the question text (see SPEC.md and PROGRESS.md).
 
 ## License
 
