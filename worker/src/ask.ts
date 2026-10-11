@@ -6,6 +6,7 @@ import { narrate } from "./answer/narrative";
 import { type BoundQuery, type Dialect, bindQuery } from "./catalog/bind";
 import { type CatalogFile, catalogKey, lookupEntry } from "./catalog/catalog";
 import { applyComplementRule, complementProbes } from "./guard/complement";
+import { roundForDisclosure } from "./guard/disclosure";
 import { checkCost, rowUpperBound } from "./guard/cost";
 import { type SuppressionCounts, suppressCells, toCells } from "./guard/suppression";
 import { type LlmClient, type TokenUsage, neuronsFor } from "./llm/types";
@@ -108,7 +109,7 @@ export interface AskResponse {
       filters: { dimension: string; values: string[] }[];
     };
     definition: string;
-    columns: { name: string; kind: "dimension" | "time" | "measure"; unit?: string }[];
+    columns: { name: string; kind: "dimension" | "time" | "measure"; unit?: string; rounded_to?: number }[];
     rows: AnswerRow[];
     suppressed_cells: SuppressionCounts;
     narrative: string;
@@ -385,14 +386,18 @@ export async function ask(deps: AskDeps, body: AskBody): Promise<AskResult> {
   const { suppressKeys } = applyComplementRule(mainCells, probeCells, { k });
   const suppressed = suppressCells(mainCells, { dims: entry.group_by, k, forced: suppressKeys });
 
-  // 10. answer
+  // 10. answer (compensation measures rounded to $1,000 first: SPEC.md 9.5 rule 7)
   const metric = policy.metrics[validated.metric];
+  const shownRows = roundForDisclosure(suppressed.rows, metric);
   const columns: NonNullable<AskResponse["answer"]>["columns"] = [
     ...validated.groupBy.map((d) => ({ name: d, kind: "dimension" as const })),
     ...(validated.grain !== "none" ? [{ name: "period", kind: "time" as const }] : []),
-    ...metric.mf_metrics.map((m) => ({ name: m, kind: "measure" as const, unit: metric.unit })),
+    ...metric.mf_metrics.map((m) => {
+      const step = metric.disclosure_round?.[m];
+      return { name: m, kind: "measure" as const, unit: metric.unit, ...(step ? { rounded_to: step } : {}) };
+    }),
   ];
-  const answerRows: AnswerRow[] = suppressed.rows.map((r) => {
+  const answerRows: AnswerRow[] = shownRows.map((r) => {
     const row: AnswerRow = {};
     for (const d of validated.groupBy) row[d] = r.dims[d] ?? null;
     if (validated.grain !== "none") row["period"] = r.period;
@@ -411,7 +416,7 @@ export async function ask(deps: AskDeps, body: AskBody): Promise<AskResult> {
       columns,
       rows: answerRows,
       suppressed_cells: suppressed.counts,
-      narrative: narrate(metric, validated.intent, suppressed.rows, suppressed.counts, policy),
+      narrative: narrate(metric, validated.intent, shownRows, suppressed.counts, policy),
     },
   });
 }

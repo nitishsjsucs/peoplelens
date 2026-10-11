@@ -74,13 +74,40 @@ describe("validateIntent", () => {
   });
 
   it("canonicalizes values and aliases, and rejects unknown values", () => {
-    const r = validateIntent(intent({ filters: [{ dimension: "location", values: ["SJ", "bangalore", "London"] }] }), ANALYST);
+    const r = validateIntent(intent({ groupBy: ["location"], filters: [{ dimension: "location", values: ["SJ", "bangalore", "London"] }] }), ANALYST);
     expect(r.ok).toBe(true);
     if (r.ok) expect(r.value.filters.location).toEqual(["Bengaluru", "London", "San Jose"]);
-    const e = validateIntent(intent({ filters: [{ dimension: "department", values: ["eng", "CS"] }] }), ANALYST);
+    const e = validateIntent(intent({ groupBy: ["department"], filters: [{ dimension: "department", values: ["eng", "CS"] }] }), ANALYST);
+    expect(e.ok).toBe(true);
     if (e.ok) expect(e.value.filters.department).toEqual(["Customer Success", "Engineering"]);
     expect(code(validateIntent(intent({ filters: [{ dimension: "location", values: ["Paris"] }] }), ANALYST))).toBe("OUT_OF_DOMAIN");
     expect(code(validateIntent(intent({ filters: [{ dimension: "location", values: ["x' OR 1=1 --"] }] }), ANALYST))).toBe("OUT_OF_DOMAIN");
+  });
+
+  it("allows one value or all but one on a dimension that is not a breakdown (no two-question differencing)", () => {
+    // Engineering or Legal (628) minus Engineering (620) would reveal Legal (8 people) in two questions.
+    const pair = validateIntent(intent({ filters: [{ dimension: "department", values: ["Engineering", "Legal"] }] }), EXEC);
+    expect(code(pair)).toBe("DIMENSION_NOT_APPROVED");
+    if (!pair.ok) expect(pair.violation.message).toContain("by department");
+    const three = intent({ filters: [{ dimension: "location", values: ["London", "Austin", "New York"] }] });
+    expect(code(validateIntent(three, ANALYST))).toBe("DIMENSION_NOT_APPROVED");
+    // As a breakdown every row is one value, so any set is fine.
+    expect(code(validateIntent({ ...three, groupBy: ["location"] }, ANALYST))).toBe("OK");
+    // One value, and "everyone except Legal" (7 of 8), are allowed; the complement rule compares
+    // the exclusion with its widened counterpart.
+    expect(code(validateIntent(intent({ filters: [{ dimension: "department", values: ["Legal"] }] }), EXEC))).toBe("OK");
+    const allButLegal = POLICY.dimensions.department.values.filter((v) => v !== "Legal");
+    const except = validateIntent(intent({ filters: [{ dimension: "department", values: allButLegal }] }), EXEC);
+    expect(code(except)).toBe("OK");
+    if (except.ok) expect(except.value.restricted).toEqual(["department"]);
+    // An HRBP department filter equal to the scope is the scope, not a two-value filter.
+    const scope = validateIntent(intent({ filters: [{ dimension: "department", values: ["Sales", "Engineering"] }] }), HRBP);
+    expect(code(scope)).toBe("OK");
+    if (scope.ok) {
+      expect(scope.value.filters.department).toBeUndefined();
+      expect(scope.value.restricted).toEqual(["department"]);
+      expect(scope.value.intent.filters).toEqual([]);
+    }
   });
 
   it("drops filters that keep every value and intersects repeated filters", () => {

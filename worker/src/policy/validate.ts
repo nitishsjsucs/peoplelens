@@ -204,6 +204,26 @@ export function validateIntent(
     }
   }
 
+  // 6a. A department filter that keeps the whole HRBP scope is no filter (it is the scope).
+  if (scope !== "all" && filters.department && filters.department.length === scope.length) delete filters.department;
+
+  // 6b. Filter shapes (SPEC.md 9.5 rule 4). On a dimension that is not a breakdown, a filter
+  // keeps one value or excludes exactly one. Any other set could be differenced against an
+  // allowed neighbour in two questions ("Engineering or Legal" minus "Engineering" is Legal,
+  // 8 people), and the complement rule compares a result only with its widened counterpart.
+  // On a breakdown dimension every row is one value, so a set of values is safe there.
+  for (const d of Object.keys(filters) as DimensionId[]) {
+    const n = filters[d]?.length ?? 0;
+    if (n >= 2 && !groupBy.includes(d) && n !== values[d].length - 1) {
+      const label = policy.dimensions[d].label.toLowerCase();
+      return refuse(
+        "DIMENSION_NOT_APPROVED",
+        `A ${label} filter can keep one ${label} or leave out one ${label}. To see several, ask for the answer by ${label}.`,
+        [`by ${label}`, `one ${label}`],
+      );
+    }
+  }
+
   // 7. restricted dimensions (filters and scope merge into one restricted department)
   const restricted = new Set<DimensionId>(Object.keys(filters) as DimensionId[]);
   if (scope !== "all" && scope.length < values.department.length) restricted.add("department");

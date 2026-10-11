@@ -25,6 +25,8 @@ def test_metric_definitions_are_complete():
         assert m["entity"] in ("workforce", "requisition", "offer")
         assert m["mf_metrics"] and m["cohort_metric"]
         assert set(m["tolerance"]) == set(m["mf_metrics"]), mid
+        assert set(m.get("disclosure_round") or {}) <= set(m["mf_metrics"]), mid
+        assert all(step > 0 for step in (m.get("disclosure_round") or {}).values()), mid
         assert m["definition"] and m["aliases"]
         ref_metrics, ref_cohort, _ = reference.GOVERNED[mid]
         assert tuple(m["mf_metrics"]) == ref_metrics and m["cohort_metric"] == ref_cohort

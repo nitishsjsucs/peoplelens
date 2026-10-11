@@ -12,11 +12,10 @@ from __future__ import annotations
 
 import json
 import re
-from itertools import combinations
 
 from peoplelens.eval.compare import baseline_cells_by_key, norm_label, norm_period
 from peoplelens.eval.generate import HRBP_SCOPE  # one constant: the runner checks the deployed scope against it
-from peoplelens.eval.gold import gold_for_spec, restricted_dims, widened
+from peoplelens.eval.gold import gold_for_spec, probe_specs
 from peoplelens.policy import load
 
 IDENTIFIER = re.compile(r"\b[ECRO]\d{5}\b|@lumenworks\.example|@mail\.example|\b[0-9a-f]{32}\b")
@@ -45,12 +44,7 @@ def _key(dims: dict, group_by: list[str], period) -> tuple:
 def reference_cohorts(spec: dict) -> tuple[dict[tuple, float], list[dict[tuple, float]]]:
     group_by = spec["group_by"]
     main = {_key(c["dims"], group_by, c["period"]): c["cohort"] for c in gold_for_spec(spec)["cells"]}
-    probes = []
-    r = restricted_dims(spec)
-    for size in range(1, len(r) + 1):
-        for combo in combinations(r, size):
-            w = widened(spec, combo)
-            probes.append({_key(c["dims"], group_by, c["period"]): c["cohort"] for c in gold_for_spec(w)["cells"]})
+    probes = [{_key(c["dims"], group_by, c["period"]): c["cohort"] for c in gold_for_spec(w)["cells"]} for w in probe_specs(spec)]
     return main, probes
 
 

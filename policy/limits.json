@@ -42,6 +42,6 @@
     "audit_batch_timeout_s": 30,
     "audit_max_retries": 10,
     "bq_max_polls_per_query": 3,
-    "max_external_subrequests": 19
+    "max_external_subrequests": 27
   }
 }

@@ -31,6 +31,22 @@ describe("complementProbes", () => {
     expect(hrbp[0]?.validated.scopeDepartments).toBe("all");
     expect(hrbp[2]?.validated.filters).toEqual({});
   });
+
+  it("also compares an HRBP's department filter with the whole scope (at most 5 probes)", () => {
+    const one = complementProbes(validated(HRBP, { filters: [{ dimension: "department", values: ["Sales"] }] }));
+    expect(one.map((p) => p.widened)).toEqual([["department"], ["department:scope"]]);
+    expect(one[1]?.validated.filters).toEqual({});
+    expect(one[1]?.validated.scopeDepartments).toEqual(["Engineering", "Sales"]);
+    const two = complementProbes(
+      validated(HRBP, { filters: [{ dimension: "department", values: ["Sales"] }, { dimension: "location", values: ["London"] }] }),
+    );
+    expect(two.map((p) => p.widened)).toEqual([
+      ["department"], ["location"], ["department", "location"], ["department:scope"], ["location", "department:scope"],
+    ]);
+    expect(two[3]?.validated.filters).toEqual({ location: ["London"] });
+    expect(two[4]?.validated.filters).toEqual({});
+    expect(two[4]?.validated.scopeDepartments).toEqual(["Engineering", "Sales"]);
+  });
 });
 
 describe("applyComplementRule", () => {
@@ -43,6 +59,20 @@ describe("applyComplementRule", () => {
     const out = suppressCells(main, { dims: [], k: 10, forced: suppressKeys });
     expect(out.rows[0]?.suppressed).toBe(true);
     expect(out.counts.complement).toBe(1);
+  });
+
+  it("blocks the HRBP scope chain: Engineering + Sales minus Sales, cell by cell", () => {
+    // Bengaluru, under a year of tenure, December 2025 in the seeded data: Engineering 5, Sales 12.
+    const dims = ["location", "tenure_band"];
+    const cell = (n: number): Cell => {
+      const d = { location: "Bengaluru", tenure_band: "<1y" };
+      return { key: cellKey(d, dims, null), dims: d, time: null, values: {}, cohort: n };
+    };
+    const sales = [cell(12)];
+    const company = [cell(40)]; // every department: far more than 10 away
+    const scope = [cell(17)]; // what the HRBP gets without the Sales filter
+    expect(applyComplementRule(sales, [company], { k: 10 }).suppressKeys.size).toBe(0);
+    expect(applyComplementRule(sales, [company, scope], { k: 10 }).suppressKeys.size).toBe(1);
   });
 
   it("leaves cells whose widened counterpart differs by 0 or by k or more", () => {

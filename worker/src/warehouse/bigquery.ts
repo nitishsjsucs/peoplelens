@@ -8,7 +8,8 @@
 // dry-run cache is module-level (a Worker builds a new client per request) and holds
 // promises, so a main query and its complement probes share one dry run per catalog
 // key per isolate-hour; polling is capped at free_plan.bq_max_polls_per_query per
-// query. With the token and JWKS caches that bounds a question at 19 external fetches.
+// query. With the token and JWKS caches that bounds a question at 27 external fetches
+// (free_plan.max_external_subrequests: the main query and up to 5 complement probes).
 import type { BoundQuery, ParamValue } from "../catalog/bind";
 import { POLICY } from "../policy/policy";
 import { ApiError } from "../policy/types";

@@ -79,3 +79,22 @@ def test_baseline_single_value():
     g = gold(metric="fte", cells=[cell({}, 1724.0, metric="fte")])
     assert compare_baseline(["fte"], [[1724.0000001]], g)[0]
     assert not compare_baseline(["fte"], [[1700.0]], g)[0]
+
+
+def test_semantic_compensation_accepts_the_workers_thousand_dollar_rounding_and_nothing_more():
+    """The Worker rounds both salary measures to $1,000 (policy disclosure_round); the gold is exact."""
+    def comp_gold(avg, median, lo, hi):
+        c = {"dims": {}, "period": None, "values": {"avg_base_salary": avg, "median_base_salary": median}, "cohort": 50,
+             "expected_suppressed": False, "median_band_low": lo, "median_band_high": hi}
+        return gold(metric="compensation_summary", cells=[c])
+
+    def answer(avg, median):
+        return {"metric": "compensation_summary", "rows": [{"avg_base_salary": avg, "median_base_salary": median, "suppressed": False}]}
+
+    g = comp_gold(151_400.0, 124_400.0, 125_600.0, 125_600.0)  # median band [124,344, 126,856]
+    assert compare_semantic(answer(151_000, 124_000), g)[0]  # both rounded down, the median just below the band
+    assert not compare_semantic(answer(152_000, 124_000), g)[0]  # 600 off: more than half a step
+    assert not compare_semantic(answer(151_000, 123_000), g)[0]
+    # The baseline returns raw SQL results, so it keeps the strict tolerance.
+    assert not compare_baseline(["avg_base_salary", "median_base_salary"], [[151_000, 125_600]], g)[0]
+    assert compare_baseline(["avg_base_salary", "median_base_salary"], [[151_400, 125_600]], g)[0]

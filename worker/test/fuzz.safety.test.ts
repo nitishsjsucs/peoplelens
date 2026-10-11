@@ -170,6 +170,23 @@ function checkNoLeak(res: AskResponse, role: RoleId) {
       const diff = cohort(PEOPLE, wf, ws, dims) - n;
       expect(diff === 0 || diff >= K).toBe(true);
     }
+    // an HRBP's department filter is also never within 1 to k-1 of the whole scope, also with
+    // the other restricted dimension widened
+    if (scope !== "all" && filters["department"]) {
+      const others = restricted.filter((d) => d !== "department");
+      for (let mask = 0; mask < 1 << others.length; mask++) {
+        const widened = others.filter((_, i) => mask & (1 << i));
+        const wf = Object.fromEntries(Object.entries(filters).filter(([d]) => d !== "department" && !widened.includes(d)));
+        const diff = cohort(PEOPLE, wf, scope, dims) - n;
+        expect(diff === 0 || diff >= K).toBe(true);
+      }
+    }
+    // a filter on a dimension that is not a breakdown keeps one value or all but one
+    for (const [d, vals] of Object.entries(filters)) {
+      if (vals.length >= 2 && !a.intent.group_by.includes(d)) {
+        expect(vals.length).toBe(POLICY.dimensions[d as keyof typeof POLICY.dimensions].values.length - 1);
+      }
+    }
   }
 }
 

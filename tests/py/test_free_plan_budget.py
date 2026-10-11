@@ -173,8 +173,9 @@ def test_audit_queue_share_and_consumer_settings():
 def test_subrequest_bound_matches_the_worker():
     worker = (WORKER_DIR / "src" / "warehouse" / "bigquery.ts").read_text()
     assert "bq_max_polls_per_query" in worker
-    # JWKS 1 + Google token 1 + dry run 1 + jobs.query 4 (main and 3 probes) + polls 4 x 3 (freePlan.test.ts measures it)
-    assert 1 + 1 + 1 + 4 + 4 * FREE["bq_max_polls_per_query"] == FREE["max_external_subrequests"] <= 50
+    # JWKS 1 + Google token 1 + dry run 1 + jobs.query 6 (main, 3 probes widened to every value, 2 widened to
+    # the HRBP scope) + polls 6 x 3 (freePlan.test.ts measures it)
+    assert 1 + 1 + 1 + 6 + 6 * FREE["bq_max_polls_per_query"] == FREE["max_external_subrequests"] <= 50
 
 
 # ---------------------------------------------------------------- shared Google Cloud project and Cloudflare account

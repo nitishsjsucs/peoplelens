@@ -65,6 +65,9 @@ export interface MetricDef {
   definition: string;
   default_range: { start: string; end: string };
   aliases: string[];
+  /** Measures rounded to this step before they leave the Worker (compensation: $1,000), so
+   * allowed questions cannot be differenced into one person's exact value. */
+  disclosure_round?: Record<string, number>;
 }
 
 export interface DimensionDef {

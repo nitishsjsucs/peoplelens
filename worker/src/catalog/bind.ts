@@ -37,6 +37,13 @@ export function widen(v: Validated, dims: readonly DimensionId[]): Validated {
   };
 }
 
+/** Same entry, same principal, with the department filter removed but the HRBP scope kept. */
+export function widenToScope(v: Validated): Validated {
+  const filters = { ...v.filters };
+  delete filters.department;
+  return { ...v, filters };
+}
+
 function timeValue(date: string, dialect: Dialect): ParamValue {
   return dialect === "bigquery"
     ? { type: "TIMESTAMP", value: `${date} 00:00:00+00:00` }

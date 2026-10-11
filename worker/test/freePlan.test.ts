@@ -1,5 +1,5 @@
 // Workers Free plan bounds inside one invocation (SPEC.md 25.4 D and section 13):
-// at most 19 external subrequests per question (the Free limit is 50), one dry run
+// at most 27 external subrequests per question (the Free limit is 50), one dry run
 // per catalog key, and the planner prefix built once per isolate.
 import { env as baseEnv } from "cloudflare:workers";
 import { exportPKCS8, generateKeyPair } from "jose";
@@ -115,14 +115,18 @@ const count = (kinds: Kind[], k: Kind) => kinds.filter((x) => x === k).length;
 const settle = () => new Promise((resolve) => setTimeout(resolve, 50));
 
 describe("external subrequests per question", () => {
-  it("a restricted question with 3 probes, cold caches and jobs that never complete makes at most 19 fetches", async () => {
+  it("the worst case, 5 probes with cold caches and jobs that never complete, makes at most 27 fetches", async () => {
     const team = "fp-cold.cloudflareaccess.com";
     const { kinds, fetcher } = outbound(team, { complete: false });
     vi.stubGlobal("fetch", fetcher);
     const env = prodEnv(team);
-    // A question that names a location, asked by the HRBP (scope Engineering and Sales):
-    // two restricted dimensions, so three complement probes run beside the main query.
-    const llm = new RecordingLlm(undefined, [planJson({ metric: "headcount", filters: [{ dimension: "location", values: ["San Jose"] }] })]);
+    // A question that names a department inside the HRBP's scope (Engineering and Sales)
+    // and a location: two restricted dimensions give three probes widened to every value,
+    // and the department filter adds two probes widened to the scope (with and without the
+    // location), so five complement probes run beside the main query.
+    const llm = new RecordingLlm(undefined, [
+      planJson({ metric: "headcount", filters: [{ dimension: "department", values: ["Sales"] }, { dimension: "location", values: ["San Jose"] }] }),
+    ]);
     const app = createApp({ catalog: BQ, makeLlm: () => llm });
     const user = env.USER_DO.get(env.USER_DO.idFromName(`email:${HRBP_EMAIL}`));
     const sessionId = await user.createSession(Date.now());
@@ -131,7 +135,7 @@ describe("external subrequests per question", () => {
       new Request("https://peoplelens.example.workers.dev/api/ask", {
         method: "POST",
         headers: { "Cf-Access-Jwt-Assertion": token, "content-type": "application/json" },
-        body: JSON.stringify({ session_id: sessionId, message: "headcount in San Jose" }),
+        body: JSON.stringify({ session_id: sessionId, message: "headcount in Sales in San Jose" }),
       }),
       env,
     );
@@ -140,11 +144,11 @@ describe("external subrequests per question", () => {
     expect(count(kinds, "jwks")).toBe(1);
     expect(count(kinds, "token")).toBe(1);
     expect(count(kinds, "dry_run")).toBe(1);
-    expect(count(kinds, "jobs.query")).toBe(4);
-    expect(count(kinds, "poll")).toBe(4 * MAX_POLLS_PER_QUERY);
+    expect(count(kinds, "jobs.query")).toBe(6);
+    expect(count(kinds, "poll")).toBe(6 * MAX_POLLS_PER_QUERY);
     expect(count(kinds, "other")).toBe(0);
     expect(kinds.length).toBe(FREE.max_external_subrequests);
-    expect(FREE.max_external_subrequests).toBe(19);
+    expect(FREE.max_external_subrequests).toBe(27);
     expect(FREE.max_external_subrequests).toBeLessThanOrEqual(50);
   });
 

@@ -55,6 +55,26 @@ def widened(spec: dict, dims: tuple[str, ...]) -> dict:
     return out
 
 
+def scope_widened(spec: dict, dims: tuple[str, ...]) -> dict:
+    """`widened(spec, dims)` with the department filter also removed but the HRBP scope kept."""
+    out = widened(spec, dims)
+    out["filters"] = {d: v for d, v in out["filters"].items() if d != "department"}
+    return out
+
+
+def probe_specs(spec: dict) -> list[dict]:
+    """The complement-rule probes of worker/src/guard/complement.ts: every non-empty set of
+    restricted dimensions widened to all values; and, when a department filter sits inside
+    an HRBP scope, the same query with that filter widened to the scope (combined with every
+    set of the other restricted dimensions), because the HRBP can ask for the whole scope."""
+    r = restricted_dims(spec)
+    out = [widened(spec, combo) for size in range(1, len(r) + 1) for combo in combinations(r, size)]
+    if spec.get("scope") and (spec.get("filters") or {}).get("department"):
+        others = [d for d in r if d != "department"]
+        out += [scope_widened(spec, combo) for size in range(0, len(others) + 1) for combo in combinations(others, size)]
+    return out
+
+
 def _cells(spec: dict) -> list[dict]:
     out = []
     for c in evaluate(spec_query(spec)):
@@ -75,10 +95,7 @@ def gold_for_spec(spec: dict) -> dict:
     dims = list(spec.get("group_by") or [])
     main = _cells(spec)
     restricted = restricted_dims(spec)
-    probes = []
-    for size in range(1, len(restricted) + 1):
-        for combo in combinations(restricted, size):
-            probes.append(_cells(widened(spec, combo)))
+    probes = [_cells(p) for p in probe_specs(spec)]
     forced = complement_keys(main, probes, dims, k)
     reasons = suppress(main, dims, k, forced)
     for c in main:

@@ -84,5 +84,7 @@ export function narrate(
     hidden > 0
       ? ` ${hidden} ${hidden === 1 ? "value is" : "values are"} hidden to protect groups of fewer than ${policy.limits.min_cohort} people.`
       : "";
-  return `${head}: ${shown.join("; ")}${more}.${note} ${metric.definition}`;
+  const steps = [...new Set(Object.values(metric.disclosure_round ?? {}))];
+  const rounding = steps.length === 1 ? ` Values are rounded to the nearest ${formatValue(metric.unit, steps[0] ?? null)}.` : "";
+  return `${head}: ${shown.join("; ")}${more}.${note}${rounding} ${metric.definition}`;
 }

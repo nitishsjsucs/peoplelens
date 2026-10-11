@@ -85,6 +85,7 @@
         "avg_base_salary": {"type": "rel", "value": 1e-6},
         "median_base_salary": {"type": "median_band", "lower_factor": 0.99, "upper_factor": 1.01, "rank_fraction": 0.02, "rank_min": 1}
       },
+      "disclosure_round": {"avg_base_salary": 1000, "median_base_salary": 1000},
       "default_range": {"start": "2025-12-01", "end": "2025-12-31"},
       "aliases": ["compensation", "salary", "salaries", "pay", "base pay", "base salary", "median salary", "average salary"]
     }

@@ -176,6 +176,10 @@
      "rank_min": 1
     }
    },
+   "disclosure_round": {
+    "avg_base_salary": 1000,
+    "median_base_salary": 1000
+   },
    "default_range": {
     "start": "2025-12-01",
     "end": "2025-12-31"
@@ -576,7 +580,7 @@
    "audit_batch_timeout_s": 30,
    "audit_max_retries": 10,
    "bq_max_polls_per_query": 3,
-   "max_external_subrequests": 19
+   "max_external_subrequests": 27
   }
  }
 }

@@ -98,8 +98,10 @@ def compare_semantic(answer: dict | None, gold: dict) -> tuple[bool, str]:
         if row.get("suppressed"):
             return False, f"cell {key} unexpectedly suppressed"
         for m in metric["mf_metrics"]:
+            # The Worker rounds some measures before they leave it (salaries to $1,000; SPEC.md 9.5 rule 7).
             ok = value_ok(metric["tolerance"][m], _num(row.get(m)), cell["values"].get(m),
-                          cell.get("median_band_low"), cell.get("median_band_high"))
+                          cell.get("median_band_low"), cell.get("median_band_high"),
+                          rounded_to=(metric.get("disclosure_round") or {}).get(m, 0))
             if not ok:
                 return False, f"{m} at {key}: {row.get(m)} vs {cell['values'].get(m)}"
     return True, "match"
