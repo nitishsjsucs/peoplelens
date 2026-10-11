@@ -19,6 +19,7 @@ import { BigQueryWarehouse } from "./warehouse/bigquery";
 import { GoogleTokenSource, parseServiceAccountKey } from "./warehouse/googleAuth";
 import { LocalDuckDbWarehouse } from "./warehouse/localDuckdb";
 import type { Warehouse } from "./warehouse/types";
+import { warmUp } from "./warmup";
 
 export interface AppDeps {
   catalog: CatalogFile;
@@ -83,6 +84,9 @@ function userPort(env: Env, principal: Principal): UserPort {
 }
 
 export function createApp(deps: AppDeps) {
+  // One pure pass over the request path at startup, so a cold isolate's first question
+  // does not pay for compiling it (Workers Free: 10 ms of CPU per request; src/warmup.ts).
+  warmUp(deps.catalog);
   const app = new Hono<{ Bindings: Env; Variables: Vars }>();
   const now = deps.now ?? (() => Date.now());
 

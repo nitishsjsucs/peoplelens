@@ -26,6 +26,7 @@ import re
 import shutil
 import urllib.error
 import urllib.request
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from peoplelens.dev.client import USER_AGENT
@@ -45,7 +46,7 @@ from peoplelens.ops.checks import (
     read_env_file,
     render_table,
 )
-from peoplelens.ops.cloudflare_api import GATEWAY_ID, CloudflareApi, CloudflareError
+from peoplelens.ops.cloudflare_api import GATEWAY_ID, WORKER_NAME, CloudflareApi, CloudflareError
 from peoplelens.paths import DUCKDB_PATH, SECRETS_DIR, WORKER_DIR
 
 WRANGLER_VERSION = "4.149.0"
@@ -413,6 +414,35 @@ def bootstrap_command(project: str | None) -> str:
     return f'make bootstrap ARGS="--gcp-project {project or "<shared-project-id>"} --role-emails {ROLE_EMAILS}"'
 
 
+CPU_LIMIT_US = 10_000  # Workers Free: 10 ms of CPU per request
+CPU_FIX = ("see SPEC.md risk 20 (src/warmup.ts, npm run bench:cpu); the token needs Account Analytics: Read to read this")
+
+
+def cpu_check(api: CloudflareApi, now: datetime | None = None, days: int = 7) -> Check:
+    """CPU of the deployed Worker over the last `days` days from the GraphQL Analytics API,
+    so low-traffic days (most requests on a fresh isolate) are covered, not only smoke's burst.
+    Any request ended as exceededResources (most often CPU) fails the check; a p99 over 10 ms
+    alone is a warning, because Cloudflare documents that quantiles can exceed the limit
+    without errors (per-isolate rollover). cpuTime is read as microseconds (P: the tutorial's
+    samples, not a documented unit)."""
+    g, name = "deployed", f"CPU over the last {days} days (Free limit 10 ms)"
+    end = now or datetime.now(timezone.utc)
+    start = end - timedelta(days=days)
+    try:
+        groups = api.workers_invocations(WORKER_NAME, start.strftime("%Y-%m-%dT%H:%M:%SZ"), end.strftime("%Y-%m-%dT%H:%M:%SZ"))
+    except CloudflareError as exc:
+        return Check(g, name, WARN, CPU_FIX, f"analytics not readable: {str(exc)[:50]}", required=False)
+    requests = sum(x["requests"] for x in groups)
+    if requests == 0:
+        return Check(g, name, OK, CPU_FIX, "no requests", required=False)
+    exceeded = sum(x["requests"] for x in groups if x["status"] == "exceededResources")
+    p99 = max((float(x["cpu_p99_us"]) for x in groups if isinstance(x["cpu_p99_us"], (int, float))), default=0.0)
+    detail = f"{requests} requests, p99 {p99 / 1000:.2f} ms, {exceeded} exceededResources"
+    if exceeded:
+        return Check(g, name, MISSING, CPU_FIX, detail)
+    return Check(g, name, WARN if p99 > CPU_LIMIT_US else OK, CPU_FIX, detail, required=False)
+
+
 def key_checks(runner: Runner, project: str) -> list[Check]:
     """Long-lived keys (SPEC.md risk 8): one user-managed key per account, younger than 90 days."""
     from peoplelens.ops.keys import KEY_MAX_AGE_DAYS, ROTATED_ACCOUNTS, key_problems, user_keys
@@ -461,6 +491,7 @@ def deployed_checks(runner: Runner, api: CloudflareApi | None, project: str | No
                              f"accepted settings: {form}" if form else ""))
         except CloudflareError as exc:
             out.append(Check(g, "AI Gateway peoplelens", MISSING, "add AI Gateway: Edit to the token", str(exc)[:60]))
+        out.append(cpu_check(api))
     secrets = runner.run(["npx", "wrangler", "secret", "list", "--env", "production", "--format", "json"], cwd=WORKER_DIR)
     names = set()
     if secrets.ok:

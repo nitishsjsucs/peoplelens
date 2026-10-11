@@ -92,6 +92,8 @@ const summary = {
   cold: {
     processes: colds.length,
     startup_ms: colds.map((c) => r2(c.startupMs)),
+    // createApp, including the warm-up pass: part of startup in production (createWorker runs at module scope)
+    app_build_ms: colds.map((c) => r2(c.appMs ?? 0)),
     node_runtime_init_ms: colds.map((c) => r2(c.runtimeInitMs)),
     first: colds.map((c) => r2(c.asks[0])),
     second: colds.map((c) => r2(c.asks[1])),
@@ -102,5 +104,5 @@ const summary = {
 writeFileSync(path.join(out, "summary.json"), JSON.stringify(summary, null, 1) + "\n");
 console.log(`bench:cpu ${summary.date}, Node ${summary.node}, ${summary.cpu}`);
 console.log(`warm /api/ask (${summary.warm.asks} asks over 5 passes of the 214 eval turns, ${summary.warm.answers} answers): p50 ${summary.warm.p50}, p95 ${summary.warm.p95}, p99 ${summary.warm.p99}, max ${summary.warm.max} ms`);
-console.log(`cold isolate (${colds.length} fresh processes): module evaluation ${range(summary.cold.startup_ms)} ms (Node built-ins initialized before measuring: ${range(summary.cold.node_runtime_init_ms)} ms, not counted); first /api/ask ${range(summary.cold.first)} ms; second ${range(summary.cold.second)} ms; next three ${range(summary.cold.next_three)} ms`);
+console.log(`cold isolate (${colds.length} fresh processes): module evaluation ${range(summary.cold.startup_ms)} ms plus app build with warm-up ${range(summary.cold.app_build_ms)} ms, both startup in production (Node built-ins initialized before measuring: ${range(summary.cold.node_runtime_init_ms)} ms, not counted); first /api/ask ${range(summary.cold.first)} ms; second ${range(summary.cold.second)} ms; next three ${range(summary.cold.next_three)} ms`);
 console.log(`Workers Free CPU limit: 10 ms per request. Full numbers: ${path.relative(worker, path.join(out, "summary.json"))}`);

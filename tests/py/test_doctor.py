@@ -481,10 +481,12 @@ def test_the_doctor_is_read_only_across_every_group(tmp_path, monkeypatch, cf_en
                 return Result(0, "{}", "")
             return Result(0, "[]" if "--format=json" in cmd or "--json" in cmd else "", "")
 
-    methods: list[tuple[str, str]] = []
+    methods: list[tuple[str, str, dict | None]] = []
 
     def transport(method, url, body, headers):
-        methods.append((method, url))
+        methods.append((method, url, body))
+        if url.endswith("/graphql"):
+            return Response(200, {"data": {"viewer": {"accounts": [{"workersInvocationsAdaptive": []}]}}, "errors": None})
         return Response(200, {"success": True, "result": [] if url.endswith(("s", "/policies")) else {}})
 
     monkeypatch.setattr(doctor, "cloudflare_api_from_env", lambda: CloudflareApi("acc", "tok", transport=transport))
@@ -500,5 +502,39 @@ def test_the_doctor_is_read_only_across_every_group(tmp_path, monkeypatch, cf_en
     assert [c for c, mutates in calls if mutates] == []
     offending = [c for c, _ in calls if READ_ONLY_FORBIDDEN & set(c)]
     assert offending == [], offending
-    assert methods and {m for m, _ in methods} == {"GET"}, methods
+    # Everything is a GET except the GraphQL Analytics read, which GraphQL sends as a POST of a query.
+    assert methods and {m for m, url, _ in methods if not url.endswith("/graphql")} == {"GET"}, methods
+    posts = [body for m, url, body in methods if m != "GET"]
+    assert posts and all(b["query"].lstrip().startswith("query ") and "mutation" not in b["query"] for b in posts)
     assert http_calls  # the deployed group was exercised
+
+
+def test_cpu_check_reads_seven_days_of_analytics():
+    from datetime import datetime, timezone
+
+    from peoplelens.ops.cloudflare_api import CloudflareApi, Response
+
+    sent = []
+
+    def api_with(groups, errors=None, status=200):
+        def transport(method, url, body, headers):
+            sent.append((method, url, body))
+            return Response(status, {"data": {"viewer": {"accounts": [{"workersInvocationsAdaptive": groups}]}}, "errors": errors})
+        return CloudflareApi("acc", "tok", transport=transport)
+
+    def group(status, requests, p99):
+        return {"sum": {"requests": requests, "errors": 0}, "quantiles": {"cpuTimeP50": 400, "cpuTimeP99": p99}, "dimensions": {"status": status}}
+
+    now = datetime(2026, 10, 20, 12, tzinfo=timezone.utc)
+    ok = doctor.cpu_check(api_with([group("success", 300, 4200)]), now)
+    assert ok.status == OK and ok.detail == "300 requests, p99 4.20 ms, 0 exceededResources" and not ok.required
+    method, url, body = sent[-1]
+    assert method == "POST" and url.endswith("/graphql") and "workersInvocationsAdaptive" in body["query"]
+    assert body["variables"] == {"accountTag": "acc", "start": "2026-10-13T12:00:00Z", "end": "2026-10-20T12:00:00Z", "script": "peoplelens"}
+    high = doctor.cpu_check(api_with([group("success", 300, 12500)]), now)
+    assert high.status == WARN  # quantiles can exceed the limit without errors (rollover)
+    bad = doctor.cpu_check(api_with([group("success", 290, 9000), group("exceededResources", 10, 15000)]), now)
+    assert bad.status == MISSING and bad.required and "10 exceededResources" in bad.detail
+    assert doctor.cpu_check(api_with([]), now).detail == "no requests"
+    denied = doctor.cpu_check(api_with([], errors=[{"message": "not authorized for that account"}]), now)
+    assert denied.status == WARN and "Account Analytics: Read" in denied.fix and not denied.required

@@ -102,6 +102,34 @@ class CloudflareApi:
         out = self.request(method, path, body, **kw)
         return None if out is None else out.get("result")
 
+    # ------------------------------------------------------------ analytics (read only)
+    def workers_invocations(self, script: str, start_iso: str, end_iso: str) -> list[dict]:
+        """Workers invocations of `script` grouped by status, from the GraphQL Analytics API
+        (dataset workersInvocationsAdaptive, as in Cloudflare's "Querying Workers metrics with
+        GraphQL" tutorial; needs Account Analytics: Read). A read-only query, sent as POST as
+        GraphQL requires. Returns [{status, requests, errors, cpu_p50_us, cpu_p99_us}]."""
+        query = (
+            "query PeopleLensCpu($accountTag: string, $start: string, $end: string, $script: string) "
+            "{ viewer { accounts(filter: {accountTag: $accountTag}) { "
+            "workersInvocationsAdaptive(limit: 100, filter: {scriptName: $script, datetime_geq: $start, datetime_leq: $end}) "
+            "{ sum { requests errors } quantiles { cpuTimeP50 cpuTimeP99 } dimensions { status } } } } }"
+        )
+        body = {"query": query, "variables": {"accountTag": self.account_id, "start": start_iso, "end": end_iso, "script": script}}
+        res = self.transport("POST", f"{API}/graphql", body, {"authorization": f"Bearer {self.token}"})
+        errors = res.body.get("errors") or []
+        if res.status < 200 or res.status >= 300 or errors:
+            msg = "; ".join(str(e.get("message", e)) for e in errors) or f"HTTP {res.status}"
+            raise CloudflareError(res.status, msg)
+        accounts = (((res.body.get("data") or {}).get("viewer") or {}).get("accounts")) or []
+        groups = (accounts[0] or {}).get("workersInvocationsAdaptive") or [] if accounts else []
+        return [{
+            "status": (g.get("dimensions") or {}).get("status"),
+            "requests": int((g.get("sum") or {}).get("requests") or 0),
+            "errors": int((g.get("sum") or {}).get("errors") or 0),
+            "cpu_p50_us": (g.get("quantiles") or {}).get("cpuTimeP50"),
+            "cpu_p99_us": (g.get("quantiles") or {}).get("cpuTimeP99"),
+        } for g in groups]
+
     # ------------------------------------------------------------ token and account
     def verify_token(self) -> dict:
         return self.result("GET", "/user/tokens/verify", account=False)

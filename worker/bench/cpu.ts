@@ -62,6 +62,8 @@ export interface Memo {
 export interface Samples {
   asks: number[];
   answers: number;
+  /** CPU of createApp: in production it runs at module evaluation (startup), including the warm-up pass. */
+  appMs?: number;
 }
 
 const BIGQUERY_TYPES: Record<string, string> = { STRING: "STRING", TIMESTAMP: "TIMESTAMP", INTEGER: "INTEGER", FLOAT: "FLOAT" };
@@ -249,9 +251,11 @@ export async function measure(items: EvalItem[], memo: Memo, cpuMs: () => number
   globalThis.fetch = network(memo);
   const env = productionEnv(memo);
   const clock = virtualClock();
+  const appStart = cpuMs();
   const app = createApp({ catalog: BQ, now: clock.now });
+  const appMs = cpuMs() - appStart;
   const r = runner(memo, app, env, clock);
-  const out: Samples = { asks: [], answers: 0 };
+  const out: Samples = { asks: [], answers: 0, appMs };
   for (let pass = 0; pass < warmup + passes; pass++) {
     clock.day(pass);
     for (const item of items) {
