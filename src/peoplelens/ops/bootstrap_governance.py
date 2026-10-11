@@ -129,6 +129,14 @@ def phase_c(project: str, runner: Runner, plan: Plan) -> None:
     if not res.ok:
         raise BootstrapError(f"dbt build with policy tags failed: {res.stdout[-600:]}")
     plan.add("dbt build with apply_policy_tags=true: tags attached")
+
+    # 20. (below the cut) let the owner impersonate the analyst account for the masking demo
+    from peoplelens.ops.bootstrap_gcp import sa_email
+
+    res = runner.run(["gcloud", "iam", "service-accounts", "add-iam-policy-binding", sa_email("peoplelens-analyst", project),
+                      f"--member=user:{owner_email}", "--role=roles/iam.serviceAccountTokenCreator",
+                      f"--project={project}", "--quiet"], mutates=True)
+    plan.add("token creator on peoplelens-analyst for the owner (masking demo): " + ("ok" if res.ok else "failed"))
     state = load_state()
     state["policy_tags"] = {t["displayName"]: tags[t["displayName"]]["name"] for t in spec["policy_tags"]}
     save_state(state)

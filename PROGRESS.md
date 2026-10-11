@@ -4,7 +4,7 @@ Tracks the SPEC.md section 19 commit plan. Updated at every commit.
 
 ## Position
 
-Commit 16 of 17 (plus inserted commits); the core cut line is passed (core cut line after commit 14).
+Commit 17 of 17 (plus inserted commits): the commit plan is complete (core cut line after commit 14).
 
 ## Done
 
@@ -30,10 +30,11 @@ Commit 16 of 17 (plus inserted commits); the core cut line is passed (core cut l
 14c. `docs: report both official local runs; record machine load in eval reports`
 15. `feat(web): React chat UI served as Worker static assets`
 16. `feat(audit): metadata-only audit trail via Queues and Basin, pyiceberg locally`
+17. `feat(ops): masking demo and time-travel drill`
 
 ## Next
 
-17. `feat(ops): masking demo and time-travel drill` (smoke step 6, mocked tests).
+Plan complete. Remaining work needs the owner: the production setup (README Production setup), then `make smoke ARGS="--drills"` and `make eval-prod`, and the first CI run on GitHub after a push.
 
 ## Check status (at this commit)
 
@@ -47,7 +48,7 @@ Commit 16 of 17 (plus inserted commits); the core cut line is passed (core cut l
 | `uv run pl mf validate` | pass (0 errors, 0 warnings) |
 | `mf query` sample (headcount and fte by department, Dec 2025; turnover, offer acceptance, time to fill by year) | matches the reference implementation |
 | `uv run pl catalog build --check` | pass: 312 entries per dialect, BigQuery compiled first, then DuckDB, about 23 s |
-| `uv run pytest -q` | 489 passed (includes the 312 x 3 parity sweep), about 21 s |
+| `uv run pytest -q` | 493 passed (includes the 312 x 3 parity sweep), about 21 s |
 | `uv run pl dev up --llm stub`, `pl ask` (5 questions), `pl dev down` | pass; ports 8794 and 9244 free afterwards, no workerd left |
 | `uv run pl-eval gold --check`, `uv run pl-eval generate --check` (as a pytest) | pass |
 | `uv run pl-eval run --llm stub --assert-safety` (trial, not official, report kept outside the repo) | pass: 200 items, 214 turns, 0 safety violations, 0 schema-invalid, 148 answers on the answerable slice (floor pinned at 143) |

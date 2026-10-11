@@ -112,7 +112,7 @@ def _deploy(args) -> int:
 def _smoke(args) -> int:
     from peoplelens.ops.smoke import run
 
-    return run(parity=not args.no_parity)
+    return run(parity=not args.no_parity, drills=args.drills)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -139,6 +139,7 @@ def build_parser() -> argparse.ArgumentParser:
     dep.set_defaults(func=_deploy)
     s = sub.add_parser("smoke", help="production smoke checks (needs phases A and B)")
     s.add_argument("--no-parity", action="store_true")
+    s.add_argument("--drills", action="store_true", help="also run the masking demo and the time-travel recovery drill")
     s.set_defaults(func=_smoke)
     rk = sub.add_parser("rotate-key", help="alias for deploy --rotate-key")
     rk.add_argument("--dry-run", action="store_true")

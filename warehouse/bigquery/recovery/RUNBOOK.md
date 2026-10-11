@@ -38,4 +38,4 @@ GCP_PROJECT_ID=<project> uv run pl dbt --dialect bigquery build
 
 Then re-run `make smoke` to confirm the 312 catalog entries still match gold.
 
-The time-travel recovery drill (exercising these steps against a live project) is below the core cut line and has not been run.
+`make smoke ARGS="--drills"` runs a recovery drill against a live project: it copies `dim_month` to a scratch table, deletes every row, restores it with `FOR SYSTEM_TIME AS OF` into a new table, checks the row count and drops both scratch tables. It has not been run yet (no Google Cloud project on the build machine).

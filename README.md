@@ -82,8 +82,8 @@ Local pieces are stand-ins. DuckDB is not BigQuery, llama-server is not Workers 
 | Cost limits | estimated bytes | BigQuery dry run plus maximumBytesBilled | planned |
 | Suppression and complement rule | same Worker code | same Worker code | planned |
 | Authorized views | plain DuckDB views | BigQuery authorized views | planned |
-| Column security, masking | not emulated | BigQuery policy tags and data policies | planned, optional |
-| Time travel and recovery | not emulated | dataset time-travel window | planned |
+| Column security, masking | not emulated | BigQuery policy tags and data policies (phase C), masking demo in `make smoke ARGS="--drills"` | prod only, optional, not run |
+| Time travel and recovery | not emulated | dataset time-travel windows (phase A), runbook, recovery drill in `make smoke ARGS="--drills"` | prod only, not run |
 | Web UI | Vite build served by wrangler dev assets on 8794 (paste a token from `pl token`) | Workers static assets behind Cloudflare Access | local verified |
 | Audit trail (metadata only) | Miniflare queue, then the sidecar appends to a pyiceberg SqlCatalog Iceberg table (`uv run pl audit tail`) | Queue `peoplelens-audit`, Basin Pipelines stream, Basin Catalog Iceberg table `peoplelens.audit_events` (`make bootstrap ARGS="--with-audit ..."`) | local verified; production coded, not run |
 | Cloudflare Workflows | not used | not used | not used |
@@ -199,7 +199,7 @@ Nothing below has been run yet: this machine has no Google Cloud CLI, no Google 
 | B: Access and identities | team domain; an Access application whose destination is the Worker; an Allow policy for the four emails and a Service Auth policy for four eval service tokens (secrets saved to `.secrets/prod_eval.env`); `ROLE_BINDINGS_JSON`; redeploy with `ACCESS_TEAM_DOMAIN`, `ACCESS_AUD`, `ROLE_BINDINGS_JSON` | if the API cannot create the Access application, it prints the dashboard fallback |
 | C: governance | Data Catalog taxonomy with `pii_high`, `protected_class`, `compensation` tags; fine-grained readers granted before tagging; masking policies (SHA256, ALWAYS_NULL, DEFAULT_MASKING_VALUE); `dbt build` with `apply_policy_tags=true` | not on the critical path; doctor reports it separately |
 
-`make smoke` then dry-runs and executes all 312 BigQuery catalog entries and compares them with the reference implementation, checks that BigQuery itself refuses a job capped at 1 MiB `maximumBytesBilled`, asks questions as each of the four service tokens, and fetches one AI Gateway log to confirm custom metadata is present and request and response bodies are absent. It writes `eval/results/<date>-prod-smoke.json`.
+`make smoke` then dry-runs and executes all 312 BigQuery catalog entries and compares them with the reference implementation, checks that BigQuery itself refuses a job capped at 1 MiB `maximumBytesBilled`, asks questions as each of the four service tokens, and fetches one AI Gateway log to confirm custom metadata is present and request and response bodies are absent. It writes `eval/results/<date>-prod-smoke.json`. `make smoke ARGS="--drills"` adds the masking demo (as `peoplelens-analyst`, salaries come back masked; as you, they do not; needs phase C) and a time-travel recovery drill that deletes and restores a scratch copy of `dim_month` (never a real table). See `warehouse/bigquery/recovery/RUNBOOK.md`.
 
 Later deploys: `make deploy` (secrets persist), `make deploy ARGS="--rotate-key"` for a fresh service-account key.
 

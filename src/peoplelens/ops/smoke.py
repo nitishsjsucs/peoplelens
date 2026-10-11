@@ -9,6 +9,7 @@
    "headcount excluding Legal".
 5. AI Gateway: a returned gateway_log_id resolves to a log carrying our custom
    metadata and no request or response body (metadata-only logging).
+6. --drills: masking demo and time-travel recovery drill (ops/drills.py).
 A JSON record is written to eval/results/<date>-prod-smoke.json.
 """
 
@@ -129,7 +130,7 @@ def step_gateway(api: CloudflareApi, log_ids: list[str]) -> dict:
         return {"ok": False, "message": str(exc)[:200]}
 
 
-def run(parity: bool = True) -> int:
+def run(parity: bool = True, drills: bool = False) -> int:
     state = load_state()
     project = state.get("gcp_project")
     if not project or not state.get("worker_url"):
@@ -151,6 +152,17 @@ def run(parity: bool = True) -> int:
     record["gateway"] = step_gateway(api, record["service_tokens"].get("gateway_log_ids", []))
     print(f"5. AI Gateway metadata-only log: {'ok' if record['gateway']['ok'] else 'FAILED'}")
     record["service_tokens"].pop("gateway_log_ids", None)
+    if drills:
+        from peoplelens.ops.checks import Runner
+        from peoplelens.ops.drills import DrillError, masking_demo, time_travel_drill
+
+        runner = Runner()
+        for name, fn in (("masking_demo", masking_demo), ("time_travel_drill", time_travel_drill)):
+            try:
+                record[name] = fn(project, runner)
+            except DrillError as exc:
+                record[name] = {"ok": False, "message": str(exc)}
+            print(f"6. {name.replace('_', ' ')}: {'ok' if record[name]['ok'] else 'FAILED'}")
     path = EVAL_DIR / "results" / f"{record['date']}-prod-smoke.json"
     Path(path).write_text(dumps(record))
     print(f"wrote {path}")
