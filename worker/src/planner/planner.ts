@@ -31,6 +31,7 @@ export interface PlanResult {
   attempts: number;
   invalidOutput: boolean;
   screened: boolean;
+  screenMessage: string | null;
   llmError: string | null;
 }
 
@@ -73,11 +74,12 @@ export async function plan(ctx: PlanContext): Promise<PlanResult> {
     attempts: 0,
     invalidOutput: false,
     screened: false,
+    screenMessage: null,
     llmError: null,
   };
 
   const screen = screenRequest(ctx.question);
-  if (screen) return { ...base, output: { action: "refuse", reason: screen.code }, screened: true };
+  if (screen) return { ...base, output: { action: "refuse", reason: screen.code }, screened: true, screenMessage: screen.message };
 
   const hint = resolveTimePhrase(ctx.question);
   const values = findValueMentions(ctx.question, policy);

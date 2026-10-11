@@ -242,7 +242,7 @@ export async function ask(deps: AskDeps, body: AskBody): Promise<{ status: numbe
     meta.planner_attempts = planned.attempts;
     if (planned.invalidOutput && planned.output.action === "clarify") meta.decision = "PLANNER_INVALID_OUTPUT";
     const out = planned.output;
-    if (out.action === "refuse") return refusal(out.reason);
+    if (out.action === "refuse") return refusal(out.reason, planned.screenMessage ?? undefined);
     if (out.action === "clarify") {
       return clarification({
         question: out.question,

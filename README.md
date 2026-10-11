@@ -121,7 +121,17 @@ Approximate medians are compared by rank: a median passes when it lies between t
 
 `uv run pl warehouse serve` (started for you by `make dev-up`) is the local stand-in for BigQuery: it binds 127.0.0.1 on an ephemeral port, needs `PL_WAREHOUSE_TOKEN`, opens the DuckDB file read-only, and refuses any SQL whose sha256 is not in the compiled DuckDB catalog. Its byte counts are estimates (a model of BigQuery on-demand billing with the 10 MB per-table minimum), not BigQuery dry runs.
 
-Further local commands (`make dev-up`, `make eval-stub`) are added as their commits land.
+```bash
+make dev-up                       # local stack with the stub planner (or: make dev-up ARGS="--llm openai_compat")
+uv run pl ask "headcount by department" --role executive
+uv run pl chat --role hr_business_partner
+make dev-down                     # stops everything and checks ports 8794 and 9244 are free
+make llm-up / make llm-down       # llama-server with Qwen3-1.7B on 127.0.0.1:8180 (local stand-in for Workers AI)
+```
+
+`make dev-up` creates local RS256 keys in `.dev/keys/`, writes `worker/.dev.vars` (static JWKS, local role bindings, sidecar URL and token), wipes `.dev/wrangler-state`, starts the warehouse sidecar on an ephemeral port and `wrangler dev --local` on 127.0.0.1:8794 (inspector 9244). Every child runs in its own process group and `make dev-down` kills the groups.
+
+Further local commands (`make eval-stub`, `make eval-local`) are added as their commits land.
 
 ## Production setup
 

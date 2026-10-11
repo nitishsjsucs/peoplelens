@@ -85,6 +85,69 @@ def _cmd_warehouse_serve(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_dev(args: argparse.Namespace) -> int:
+    from peoplelens.dev import llm, orchestrator
+    from peoplelens.dev.keys import ensure_keys
+
+    if args.dev_command == "up":
+        return orchestrator.up(args.llm)
+    if args.dev_command == "down":
+        return orchestrator.down()
+    if args.dev_command == "keys":
+        path, _ = ensure_keys()
+        print(f"local RS256 key: {path}")
+        return 0
+    if args.dev_command == "llm-up":
+        return llm.up()
+    if args.dev_command == "llm-down":
+        return llm.down()
+    return 2
+
+
+def _local_client(role: str):
+    from peoplelens.dev.client import WorkerClient
+    from peoplelens.dev.orchestrator import BASE_URL
+    from peoplelens.dev.tokens import mint
+
+    return WorkerClient(BASE_URL, {"Cf-Access-Jwt-Assertion": mint(role=role)})
+
+
+def _cmd_token(args: argparse.Namespace) -> int:
+    from peoplelens.dev.tokens import mint
+
+    print(mint(role=args.role))
+    return 0
+
+
+def _cmd_ask(args: argparse.Namespace) -> int:
+    from peoplelens.dev.client import render
+
+    client = _local_client(args.role)
+    session = client.session()
+    reply = client.ask(session, args.question)
+    print(json.dumps(reply.body, indent=2) if args.json else render(reply.body))
+    return 0 if reply.status == 200 else 1
+
+
+def _cmd_chat(args: argparse.Namespace) -> int:
+    from peoplelens.dev.client import render
+
+    client = _local_client(args.role)
+    session = client.session()
+    print(f"PeopleLens chat as {args.role} (local stack). Type a question, an option id such as o1, or 'quit'.")
+    while True:
+        try:
+            text = input("> ").strip()
+        except EOFError:
+            return 0
+        if text in ("quit", "exit"):
+            return 0
+        if not text:
+            continue
+        reply = client.choose(session, text) if text.startswith("o") and text[1:].isdigit() else client.ask(session, text)
+        print(render(reply.body))
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="pl", description="PeopleLens developer CLI")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -121,6 +184,31 @@ def build_parser() -> argparse.ArgumentParser:
     serve = wh_sub.add_parser("serve", help="serve catalog SQL over HTTP on 127.0.0.1 (token in PL_WAREHOUSE_TOKEN)")
     serve.add_argument("--port", type=int, default=0, help="0 picks an ephemeral port (default)")
     serve.set_defaults(func=_cmd_warehouse_serve)
+
+    dev = sub.add_parser("dev", help="local stack: sidecar, wrangler dev, llama-server")
+    dev_sub = dev.add_subparsers(dest="dev_command", required=True)
+    up = dev_sub.add_parser("up", help="start the DuckDB sidecar and wrangler dev --local on 8794")
+    up.add_argument("--llm", choices=["stub", "openai_compat"], default="stub")
+    dev_sub.add_parser("down", help="stop the local stack and verify ports 8794 and 9244 are free")
+    dev_sub.add_parser("keys", help="create the local RS256 key pair")
+    dev_sub.add_parser("llm-up", help="start llama-server (Qwen3-1.7B) on 8180")
+    dev_sub.add_parser("llm-down", help="stop llama-server and verify port 8180 is free")
+    dev.set_defaults(func=_cmd_dev)
+
+    roles = ["people_analytics", "hr_business_partner", "talent_acquisition", "executive"]
+    token = sub.add_parser("token", help="mint a local Access-shaped JWT for a role")
+    token.add_argument("--role", choices=roles, default="people_analytics")
+    token.set_defaults(func=_cmd_token)
+
+    ask = sub.add_parser("ask", help="ask the local Worker one question")
+    ask.add_argument("question")
+    ask.add_argument("--role", choices=roles, default="people_analytics")
+    ask.add_argument("--json", action="store_true")
+    ask.set_defaults(func=_cmd_ask)
+
+    chat = sub.add_parser("chat", help="multi-turn chat with the local Worker")
+    chat.add_argument("--role", choices=roles, default="people_analytics")
+    chat.set_defaults(func=_cmd_chat)
 
     return parser
 
