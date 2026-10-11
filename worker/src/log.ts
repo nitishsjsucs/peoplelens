@@ -20,6 +20,7 @@ const ALLOWED_KEYS = new Set([
   "gateway_log_id",
   "probes",
   "rows",
+  "error_name",
 ]);
 
 type Scalar = string | number | boolean | null;

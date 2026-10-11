@@ -334,7 +334,11 @@
     "5+ years": "5y+",
     "over 5 years": "5y+",
     "more than 5 years": "5y+",
-    "five plus years": "5y+"
+    "five plus years": "5y+",
+    "more than five years": "5y+",
+    "over five years": "5y+",
+    "less than one year": "<1y",
+    "under one year": "<1y"
    },
    "mf_names": {
     "workforce": "workforce__tenure_band"

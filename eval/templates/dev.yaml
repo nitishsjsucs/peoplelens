@@ -1,0 +1,210 @@
+# Dev-only templates (ids D-*): the only source of few-shot examples and prompt
+# iteration. Disjoint from answerable.yaml (template ids and normalized text).
+# Same fields as answerable.yaml. `fewshot: true` marks templates whose first
+# generated item becomes a few-shot example (worker/src/generated/fewshot.json).
+
+templates:
+  - id: D-HC-01
+    metric: headcount
+    text: "Give me the current employee count{time}"
+    time: [default]
+    fewshot: true
+  - id: D-HC-02
+    metric: headcount
+    text: "Number of people per {gb}{time}"
+    group_by: [[location], [job_level]]
+    time: [end_of_year, default]
+    fewshot: true
+  - id: D-HC-03
+    metric: headcount
+    text: "Staff count for the {loc} office{time}"
+    filters: [location]
+    time: [year, now]
+  - id: D-HC-04
+    metric: headcount
+    text: "Headcount each month{time}"
+    grain: month
+    time: [half, quarter]
+    fewshot: true
+  - id: D-HC-05
+    metric: headcount
+    text: "People in {dept} split by {gb}{time}"
+    filters: [department]
+    group_by: [[location], [job_level]]
+    time: [default]
+  - id: D-FTE-01
+    metric: fte
+    text: "Full-time equivalent total{time}"
+    time: [end_of_year, default]
+    fewshot: true
+  - id: D-FTE-02
+    metric: fte
+    text: "FTE split across {gb}{time}"
+    group_by: [[location], [tenure_band]]
+    time: [default]
+  - id: D-FTE-03
+    metric: fte
+    text: "FTE in {loc} by {gb}{time}"
+    filters: [location]
+    group_by: [[job_level], [employment_type]]
+    time: [default]
+  - id: D-TO-01
+    metric: turnover_rate
+    text: "Attrition rate{time}"
+    time: [year, quarter]
+    fewshot: true
+  - id: D-TO-02
+    metric: turnover_rate
+    text: "Leavers rate per {gb}{time}"
+    group_by: [[location], [tenure_band]]
+    time: [year]
+    fewshot: true
+  - id: D-TO-03
+    metric: turnover_rate
+    text: "Turnover for the {dept} team{time}"
+    filters: [department]
+    time: [last_year, this_year]
+  - id: D-TO-04
+    metric: turnover_rate
+    text: "Turnover per quarter{time}"
+    grain: quarter
+    time: [range]
+  - id: D-OA-01
+    metric: offer_acceptance_rate
+    text: "Share of offers accepted{time}"
+    time: [year, half]
+    fewshot: true
+  - id: D-OA-02
+    metric: offer_acceptance_rate
+    text: "Offer acceptance split by {gb}{time}"
+    group_by: [[location], [job_level]]
+    time: [full]
+  - id: D-OA-03
+    metric: offer_acceptance_rate
+    text: "Acceptance of {level} offers{time}"
+    filters: [job_level]
+    time: [full]
+  - id: D-TTF-01
+    metric: time_to_fill_days
+    text: "Average days to hire{time}"
+    time: [year, this_year]
+    fewshot: true
+  - id: D-TTF-02
+    metric: time_to_fill_days
+    text: "Days to fill per {gb}{time}"
+    group_by: [[location], [job_level]]
+    time: [full]
+  - id: D-TTF-03
+    metric: time_to_fill_days
+    text: "Fill time for {loc} roles{time}"
+    filters: [location]
+    time: [year]
+  - id: D-COMP-01
+    metric: compensation_summary
+    text: "Typical base salary{time}"
+    time: [default, end_of_year]
+    fewshot: true
+  - id: D-COMP-02
+    metric: compensation_summary
+    text: "Average and median pay per {gb}{time}"
+    group_by: [[job_level], [location]]
+    time: [default]
+    fewshot: true
+  - id: D-COMP-03
+    metric: compensation_summary
+    text: "Salaries for {level} staff in {loc}{time}"
+    filters: [job_level, location]
+    time: [default]
+
+# Handwritten dev examples for the non-query actions (few-shot only).
+handwritten:
+  - id: D-CL-01
+    role: people_analytics
+    text: "How is the Austin office doing?"
+    fewshot: true
+    expected_plan:
+      action: clarify
+      metric: ""
+      group_by: []
+      grain: none
+      start: ""
+      end: ""
+      filters: [{dimension: location, values: [Austin]}]
+      clarification_question: "Which measure for Austin: headcount, turnover or compensation?"
+      clarification_options: [{label: "Headcount", metric: headcount}, {label: "Turnover rate", metric: turnover_rate}, {label: "Compensation summary", metric: compensation_summary}]
+      refusal_reason: ""
+  - id: D-RF-01
+    role: executive
+    text: "Which employees in Sales have the lowest salaries?"
+    fewshot: true
+    expected_plan:
+      action: refuse
+      metric: ""
+      group_by: []
+      grain: none
+      start: ""
+      end: ""
+      filters: []
+      clarification_question: ""
+      clarification_options: []
+      refusal_reason: PII_REQUEST
+  - id: D-RF-02
+    role: people_analytics
+    text: "What is the capital of France?"
+    expected_plan:
+      action: refuse
+      metric: ""
+      group_by: []
+      grain: none
+      start: ""
+      end: ""
+      filters: []
+      clarification_question: ""
+      clarification_options: []
+      refusal_reason: OUT_OF_DOMAIN
+
+# Hand-written DuckDB SQL for the text-to-SQL baseline's few-shot examples.
+# Each is checked against the reference implementation by tests/py/test_baseline_guard.py.
+baseline_sql:
+  - question: "Headcount by location at the end of 2024"
+    spec: {metric: headcount, group_by: [location], grain: none, start: "2024-01-01", end: "2024-12-31", filters: {}}
+    sql: |
+      SELECT location, SUM(is_active_eom) AS headcount
+      FROM sem_workforce_monthly
+      WHERE month_start = (SELECT MAX(month_start) FROM sem_workforce_monthly WHERE month_start BETWEEN DATE '2024-01-01' AND DATE '2024-12-31')
+      GROUP BY location
+  - question: "Turnover rate in 2024"
+    spec: {metric: turnover_rate, group_by: [], grain: none, start: "2024-01-01", end: "2024-12-31", filters: {}}
+    sql: |
+      SELECT SUM(is_termination) / (SUM(is_active_eom) / COUNT(DISTINCT month_start)) AS turnover_rate
+      FROM sem_workforce_monthly
+      WHERE month_start BETWEEN DATE '2024-01-01' AND DATE '2024-12-31'
+  - question: "Offer acceptance rate by job level in 2025"
+    spec: {metric: offer_acceptance_rate, group_by: [job_level], grain: none, start: "2025-01-01", end: "2025-12-31", filters: {}}
+    sql: |
+      SELECT job_level, SUM(is_accepted) * 1.0 / COUNT(*) AS offer_acceptance_rate
+      FROM sem_offers
+      WHERE offer_date BETWEEN DATE '2025-01-01' AND DATE '2025-12-31'
+      GROUP BY job_level
+  - question: "Average time to fill in San Jose by quarter of 2025"
+    spec: {metric: time_to_fill_days, group_by: [], grain: quarter, start: "2025-01-01", end: "2025-12-31", filters: {location: [San Jose]}}
+    sql: |
+      SELECT DATE_TRUNC('quarter', filled_date) AS period, AVG(days_to_fill) AS time_to_fill_days
+      FROM sem_requisitions
+      WHERE location = 'San Jose' AND filled_date BETWEEN DATE '2025-01-01' AND DATE '2025-12-31'
+      GROUP BY 1
+  - question: "Average and median base salary by department at the end of 2025"
+    spec: {metric: compensation_summary, group_by: [department], grain: none, start: "2025-12-01", end: "2025-12-31", filters: {}}
+    sql: |
+      SELECT department,
+             AVG(CASE WHEN is_active_eom = 1 THEN base_salary_eom END) AS avg_base_salary,
+             MEDIAN(CASE WHEN is_active_eom = 1 THEN base_salary_eom END) AS median_base_salary
+      FROM sem_workforce_monthly
+      WHERE month_start = DATE '2025-12-01'
+      GROUP BY department
+  - question: "Total FTE for part-time employees right now"
+    spec: {metric: fte, group_by: [], grain: none, start: "2025-12-01", end: "2025-12-31", filters: {employment_type: [part_time]}}
+    sql: |
+      SELECT SUM(CASE WHEN is_active_eom = 1 THEN fte_eom ELSE 0 END) AS fte
+      FROM sem_workforce_monthly
+      WHERE month_start = DATE '2025-12-01' AND employment_type = 'part_time'

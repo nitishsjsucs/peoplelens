@@ -58,3 +58,29 @@ describe("resolveTimePhrase (as of 2025-12-31)", () => {
     expect(grainHint("headcount in 2024")).toBeNull();
   });
 });
+
+import questionsRaw from "../../eval/questions.jsonl?raw";
+import devRaw from "../../eval/dev_questions.jsonl?raw";
+import { POLICY } from "../src/policy/policy";
+import type { MetricId } from "../src/policy/types";
+
+describe("eval and dev items agree with the deterministic resolvers", () => {
+  const items = [...questionsRaw.split("\n"), ...devRaw.split("\n")]
+    .filter((l) => l.trim() !== "")
+    .map((l) => JSON.parse(l) as { id: string; turns: { text: string }[]; gold_spec?: { metric: MetricId; start: string; end: string; grain: string }; template_id: string | null });
+  const templated = items.filter((i) => i.template_id && i.gold_spec);
+
+  it("covers the generated items", () => {
+    expect(templated.length).toBe(150 + 57);
+  });
+
+  it("every templated question resolves to its gold period and grain", () => {
+    for (const item of templated) {
+      const spec = item.gold_spec!;
+      const text = item.turns[0]!.text;
+      const range = rangeFor(POLICY.metrics[spec.metric].kind, resolveTimePhrase(text));
+      expect({ id: item.id, ...range }).toEqual({ id: item.id, start: spec.start, end: spec.end });
+      expect({ id: item.id, grain: grainHint(text) ?? "none" }).toEqual({ id: item.id, grain: spec.grain });
+    }
+  });
+});

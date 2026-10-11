@@ -1,0 +1,8773 @@
+{
+ "A-compensation_summary-01": {
+  "cells": [
+   {
+    "cohort": 885.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 145300,
+    "median_band_low": 139300,
+    "median_lower": 142300,
+    "median_upper": 142300,
+    "period": null,
+    "values": {
+     "avg_base_salary": 151950.96045197741,
+     "median_base_salary": 142300.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2023-12-01"
+  }
+ },
+ "A-compensation_summary-02": {
+  "cells": [
+   {
+    "cohort": 137.0,
+    "dims": {
+     "tenure_band": "1-2y"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 153900,
+    "median_band_low": 147200,
+    "median_lower": 149100,
+    "median_upper": 149100,
+    "period": null,
+    "values": {
+     "avg_base_salary": 153487.59124087592,
+     "median_base_salary": 149100.0
+    }
+   },
+   {
+    "cohort": 220.0,
+    "dims": {
+     "tenure_band": "2-5y"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 153500,
+    "median_band_low": 142700,
+    "median_lower": 150000,
+    "median_upper": 150000,
+    "period": null,
+    "values": {
+     "avg_base_salary": 160539.54545454544,
+     "median_base_salary": 150000.0
+    }
+   },
+   {
+    "cohort": 479.0,
+    "dims": {
+     "tenure_band": "5y+"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 155800,
+    "median_band_low": 149200,
+    "median_lower": 153100,
+    "median_upper": 153100,
+    "period": null,
+    "values": {
+     "avg_base_salary": 160515.65762004175,
+     "median_base_salary": 153100.0
+    }
+   },
+   {
+    "cohort": 164.0,
+    "dims": {
+     "tenure_band": "<1y"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 144600,
+    "median_band_low": 131100,
+    "median_lower": 134700,
+    "median_upper": 135600,
+    "period": null,
+    "values": {
+     "avg_base_salary": 145537.80487804877,
+     "median_base_salary": 135150.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "tenure_band"
+   ],
+   "metric": "compensation_summary",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-12-01"
+  }
+ },
+ "A-compensation_summary-03": {
+  "cells": [
+   {
+    "cohort": 67.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 65500,
+    "median_band_low": 62500,
+    "median_lower": 63300,
+    "median_upper": 63300,
+    "period": null,
+    "values": {
+     "avg_base_salary": 66686.5671641791,
+     "median_base_salary": 63300.0
+    }
+   }
+  ],
+  "restricted": [
+   "department",
+   "location"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "location": [
+     "Bengaluru"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-12-01"
+  }
+ },
+ "A-compensation_summary-04": {
+  "cells": [
+   {
+    "cohort": 178.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 101300,
+    "median_band_low": 99000,
+    "median_lower": 99900,
+    "median_upper": 100000,
+    "period": null,
+    "values": {
+     "avg_base_salary": 95946.06741573034,
+     "median_base_salary": 99950.0
+    }
+   }
+  ],
+  "restricted": [
+   "department",
+   "job_level"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {
+    "job_level": [
+     "L1"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2023-12-01"
+  }
+ },
+ "A-compensation_summary-05": {
+  "cells": [
+   {
+    "cohort": 32.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 115500,
+    "median_band_low": 109200,
+    "median_lower": 109200,
+    "median_upper": 114900,
+    "period": null,
+    "values": {
+     "avg_base_salary": 112621.875,
+     "median_base_salary": 112050.0
+    }
+   },
+   {
+    "cohort": 16.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 50000,
+    "median_band_low": 45600,
+    "median_lower": 47400,
+    "median_upper": 48000,
+    "period": null,
+    "values": {
+     "avg_base_salary": 46050.0,
+     "median_base_salary": 47700.0
+    }
+   },
+   {
+    "cohort": 31.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 104600,
+    "median_band_low": 104300,
+    "median_lower": 104600,
+    "median_upper": 104600,
+    "period": null,
+    "values": {
+     "avg_base_salary": 122625.80645161291,
+     "median_base_salary": 104600.0
+    }
+   },
+   {
+    "cohort": 52.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 125000,
+    "median_band_low": 113600,
+    "median_lower": 115100,
+    "median_upper": 116100,
+    "period": null,
+    "values": {
+     "avg_base_salary": 134313.46153846153,
+     "median_base_salary": 115600.0
+    }
+   },
+   {
+    "cohort": 80.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 114000,
+    "median_band_low": 105400,
+    "median_lower": 107100,
+    "median_upper": 107700,
+    "period": null,
+    "values": {
+     "avg_base_salary": 121490.0,
+     "median_base_salary": 107400.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {
+    "department": [
+     "Customer Success"
+    ]
+   },
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "compensation_summary",
+   "start": "2023-12-01"
+  }
+ },
+ "A-compensation_summary-06": {
+  "cells": [
+   {
+    "cohort": 949.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 150200,
+    "median_band_low": 145500,
+    "median_lower": 147600,
+    "median_upper": 147600,
+    "period": "2025-01-01",
+    "values": {
+     "avg_base_salary": 154772.49736564804,
+     "median_base_salary": 147600.0
+    }
+   },
+   {
+    "cohort": 964.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 154400,
+    "median_band_low": 148400,
+    "median_lower": 152000,
+    "median_upper": 152000,
+    "period": "2025-04-01",
+    "values": {
+     "avg_base_salary": 158530.1867219917,
+     "median_base_salary": 152000.0
+    }
+   },
+   {
+    "cohort": 989.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 153800,
+    "median_band_low": 147100,
+    "median_lower": 150700,
+    "median_upper": 150700,
+    "period": "2025-07-01",
+    "values": {
+     "avg_base_salary": 157831.85035389283,
+     "median_base_salary": 150700.0
+    }
+   },
+   {
+    "cohort": 1000.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 153500,
+    "median_band_low": 146400,
+    "median_lower": 149500,
+    "median_upper": 150000,
+    "period": "2025-10-01",
+    "values": {
+     "avg_base_salary": 157101.7,
+     "median_base_salary": 149750.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-01-01"
+  }
+ },
+ "A-compensation_summary-07": {
+  "cells": [
+   {
+    "cohort": 885.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 145300,
+    "median_band_low": 139300,
+    "median_lower": 142300,
+    "median_upper": 142300,
+    "period": "2023-01-01",
+    "values": {
+     "avg_base_salary": 151950.96045197741,
+     "median_base_salary": 142300.0
+    }
+   },
+   {
+    "cohort": 930.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 150500,
+    "median_band_low": 145700,
+    "median_lower": 148100,
+    "median_upper": 148200,
+    "period": "2024-01-01",
+    "values": {
+     "avg_base_salary": 155433.44086021505,
+     "median_base_salary": 148150.0
+    }
+   },
+   {
+    "cohort": 1000.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 153500,
+    "median_band_low": 146400,
+    "median_lower": 149500,
+    "median_upper": 150000,
+    "period": "2025-01-01",
+    "values": {
+     "avg_base_salary": 157101.7,
+     "median_base_salary": 149750.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "year",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2023-01-01"
+  }
+ },
+ "A-compensation_summary-08": {
+  "cells": [
+   {
+    "cohort": 94.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 120700,
+    "median_band_low": 116900,
+    "median_lower": 117800,
+    "median_upper": 118400,
+    "period": null,
+    "values": {
+     "avg_base_salary": 133341.48936170212,
+     "median_base_salary": 118100.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {
+    "department": [
+     "People"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "start": "2024-12-01"
+  }
+ },
+ "A-compensation_summary-09": {
+  "cells": [
+   {
+    "cohort": 1000.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 153500,
+    "median_band_low": 146400,
+    "median_lower": 149500,
+    "median_upper": 150000,
+    "period": null,
+    "values": {
+     "avg_base_salary": 157101.7,
+     "median_base_salary": 149750.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-12-01"
+  }
+ },
+ "A-compensation_summary-10": {
+  "cells": [
+   {
+    "cohort": 171.0,
+    "dims": {
+     "job_level": "L1"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 102100,
+    "median_band_low": 99100,
+    "median_lower": 100400,
+    "median_upper": 100400,
+    "period": null,
+    "values": {
+     "avg_base_salary": 97917.54385964913,
+     "median_base_salary": 100400.0
+    }
+   },
+   {
+    "cohort": 282.0,
+    "dims": {
+     "job_level": "L2"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 130700,
+    "median_band_low": 128400,
+    "median_lower": 129000,
+    "median_upper": 129400,
+    "period": null,
+    "values": {
+     "avg_base_salary": 125974.1134751773,
+     "median_base_salary": 129200.0
+    }
+   },
+   {
+    "cohort": 270.0,
+    "dims": {
+     "job_level": "L3"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 167200,
+    "median_band_low": 163800,
+    "median_lower": 165000,
+    "median_upper": 165400,
+    "period": null,
+    "values": {
+     "avg_base_salary": 160415.1851851852,
+     "median_base_salary": 165200.0
+    }
+   },
+   {
+    "cohort": 168.0,
+    "dims": {
+     "job_level": "L4"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 202500,
+    "median_band_low": 195000,
+    "median_lower": 197200,
+    "median_upper": 198200,
+    "period": null,
+    "values": {
+     "avg_base_salary": 197167.2619047619,
+     "median_base_salary": 197700.0
+    }
+   },
+   {
+    "cohort": 79.0,
+    "dims": {
+     "job_level": "L5"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 257500,
+    "median_band_low": 245800,
+    "median_lower": 247700,
+    "median_upper": 247700,
+    "period": null,
+    "values": {
+     "avg_base_salary": 245968.35443037975,
+     "median_base_salary": 247700.0
+    }
+   },
+   {
+    "cohort": 30.0,
+    "dims": {
+     "job_level": "L6"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 301400,
+    "median_band_low": 300500,
+    "median_lower": 300500,
+    "median_upper": 300600,
+    "period": null,
+    "values": {
+     "avg_base_salary": 298846.6666666667,
+     "median_base_salary": 300550.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "job_level"
+   ],
+   "metric": "compensation_summary",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-12-01"
+  }
+ },
+ "A-compensation_summary-11": {
+  "cells": [
+   {
+    "cohort": 54.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 63000,
+    "median_band_low": 60100,
+    "median_lower": 60800,
+    "median_upper": 60800,
+    "period": null,
+    "values": {
+     "avg_base_salary": 64931.48148148148,
+     "median_base_salary": 60800.0
+    }
+   }
+  ],
+  "restricted": [
+   "department",
+   "location"
+  ],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {
+    "location": [
+     "Bengaluru"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2024-12-01"
+  }
+ },
+ "A-compensation_summary-12": {
+  "cells": [
+   {
+    "cohort": 62.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 258700,
+    "median_band_low": 253000,
+    "median_lower": 254700,
+    "median_upper": 256000,
+    "period": null,
+    "values": {
+     "avg_base_salary": 247641.93548387097,
+     "median_base_salary": 255350.0
+    }
+   }
+  ],
+  "restricted": [
+   "department",
+   "job_level"
+  ],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {
+    "job_level": [
+     "L5"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2024-12-01"
+  }
+ },
+ "A-compensation_summary-13": {
+  "cells": [
+   {
+    "cohort": 27.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 120700,
+    "median_band_low": 107200,
+    "median_lower": 108700,
+    "median_upper": 108700,
+    "period": null,
+    "values": {
+     "avg_base_salary": 119700.0,
+     "median_base_salary": 108700.0
+    }
+   },
+   {
+    "cohort": 14.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 50100,
+    "median_band_low": 41900,
+    "median_lower": 49700,
+    "median_upper": 49800,
+    "period": null,
+    "values": {
+     "avg_base_salary": 50442.857142857145,
+     "median_base_salary": 49750.0
+    }
+   },
+   {
+    "cohort": 18.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 113400,
+    "median_band_low": 91900,
+    "median_lower": 101800,
+    "median_upper": 103300,
+    "period": null,
+    "values": {
+     "avg_base_salary": 124788.88888888889,
+     "median_base_salary": 102550.0
+    }
+   },
+   {
+    "cohort": 36.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 133100,
+    "median_band_low": 128200,
+    "median_lower": 130300,
+    "median_upper": 132700,
+    "period": null,
+    "values": {
+     "avg_base_salary": 136700.0,
+     "median_base_salary": 131500.0
+    }
+   },
+   {
+    "cohort": 63.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 123300,
+    "median_band_low": 118400,
+    "median_lower": 119800,
+    "median_upper": 119800,
+    "period": null,
+    "values": {
+     "avg_base_salary": 128219.04761904762,
+     "median_base_salary": 119800.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {
+    "department": [
+     "Operations"
+    ]
+   },
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "compensation_summary",
+   "start": "2023-12-01"
+  }
+ },
+ "A-compensation_summary-14": {
+  "cells": [
+   {
+    "cohort": 949.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 150200,
+    "median_band_low": 145500,
+    "median_lower": 147600,
+    "median_upper": 147600,
+    "period": "2025-01-01",
+    "values": {
+     "avg_base_salary": 154772.49736564804,
+     "median_base_salary": 147600.0
+    }
+   },
+   {
+    "cohort": 964.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 154400,
+    "median_band_low": 148400,
+    "median_lower": 152000,
+    "median_upper": 152000,
+    "period": "2025-04-01",
+    "values": {
+     "avg_base_salary": 158530.1867219917,
+     "median_base_salary": 152000.0
+    }
+   },
+   {
+    "cohort": 989.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 153800,
+    "median_band_low": 147100,
+    "median_lower": 150700,
+    "median_upper": 150700,
+    "period": "2025-07-01",
+    "values": {
+     "avg_base_salary": 157831.85035389283,
+     "median_base_salary": 150700.0
+    }
+   },
+   {
+    "cohort": 1000.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 153500,
+    "median_band_low": 146400,
+    "median_lower": 149500,
+    "median_upper": 150000,
+    "period": "2025-10-01",
+    "values": {
+     "avg_base_salary": 157101.7,
+     "median_base_salary": 149750.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-01-01"
+  }
+ },
+ "A-compensation_summary-15": {
+  "cells": [
+   {
+    "cohort": 885.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 145300,
+    "median_band_low": 139300,
+    "median_lower": 142300,
+    "median_upper": 142300,
+    "period": "2023-01-01",
+    "values": {
+     "avg_base_salary": 151950.96045197741,
+     "median_base_salary": 142300.0
+    }
+   },
+   {
+    "cohort": 930.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 150500,
+    "median_band_low": 145700,
+    "median_lower": 148100,
+    "median_upper": 148200,
+    "period": "2024-01-01",
+    "values": {
+     "avg_base_salary": 155433.44086021505,
+     "median_base_salary": 148150.0
+    }
+   },
+   {
+    "cohort": 1000.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 153500,
+    "median_band_low": 146400,
+    "median_lower": 149500,
+    "median_upper": 150000,
+    "period": "2025-01-01",
+    "values": {
+     "avg_base_salary": 157101.7,
+     "median_base_salary": 149750.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "year",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2023-01-01"
+  }
+ },
+ "A-compensation_summary-16": {
+  "cells": [
+   {
+    "cohort": 620.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 163000,
+    "median_band_low": 156800,
+    "median_lower": 158900,
+    "median_upper": 158900,
+    "period": null,
+    "values": {
+     "avg_base_salary": 167276.29032258064,
+     "median_base_salary": 158900.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Engineering"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-12-01"
+  }
+ },
+ "A-compensation_summary-17": {
+  "cells": [
+   {
+    "cohort": 1780.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 140500,
+    "median_band_low": 135100,
+    "median_lower": 137300,
+    "median_upper": 137400,
+    "period": null,
+    "values": {
+     "avg_base_salary": 146265.50561797753,
+     "median_base_salary": 137350.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "start": "2025-12-01"
+  }
+ },
+ "A-compensation_summary-18": {
+  "cells": [
+   {
+    "cohort": 300.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 136500,
+    "median_band_low": 128400,
+    "median_lower": 132600,
+    "median_upper": 133000,
+    "period": null,
+    "values": {
+     "avg_base_salary": 141934.0,
+     "median_base_salary": 132800.0
+    }
+   },
+   {
+    "cohort": 140.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 58400,
+    "median_band_low": 55000,
+    "median_lower": 56900,
+    "median_upper": 56900,
+    "period": null,
+    "values": {
+     "avg_base_salary": 61225.0,
+     "median_base_salary": 56900.0
+    }
+   },
+   {
+    "cohort": 220.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 134300,
+    "median_band_low": 128000,
+    "median_lower": 131000,
+    "median_upper": 131100,
+    "period": null,
+    "values": {
+     "avg_base_salary": 141793.18181818182,
+     "median_base_salary": 131050.0
+    }
+   },
+   {
+    "cohort": 420.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 149200,
+    "median_band_low": 144400,
+    "median_lower": 145300,
+    "median_upper": 146200,
+    "period": null,
+    "values": {
+     "avg_base_salary": 155245.7142857143,
+     "median_base_salary": 145750.0
+    }
+   },
+   {
+    "cohort": 700.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 152200,
+    "median_band_low": 146500,
+    "median_lower": 148800,
+    "median_upper": 148900,
+    "period": null,
+    "values": {
+     "avg_base_salary": 161147.42857142858,
+     "median_base_salary": 148850.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "compensation_summary",
+   "start": "2025-12-01"
+  }
+ },
+ "A-compensation_summary-19": {
+  "cells": [
+   {
+    "cohort": 221.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 162400,
+    "median_band_low": 156900,
+    "median_lower": 157800,
+    "median_upper": 157800,
+    "period": null,
+    "values": {
+     "avg_base_salary": 166529.41176470587,
+     "median_base_salary": 157800.0
+    }
+   }
+  ],
+  "restricted": [
+   "department",
+   "location"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "location": [
+     "New York"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-12-01"
+  }
+ },
+ "A-compensation_summary-20": {
+  "cells": [
+   {
+    "cohort": 300.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 96200,
+    "median_band_low": 93900,
+    "median_lower": 94400,
+    "median_upper": 94700,
+    "period": null,
+    "values": {
+     "avg_base_salary": 92532.66666666667,
+     "median_base_salary": 94550.0
+    }
+   }
+  ],
+  "restricted": [
+   "job_level"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "job_level": [
+     "L1"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "start": "2025-12-01"
+  }
+ },
+ "A-compensation_summary-21": {
+  "cells": [
+   {
+    "cohort": 111.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 150000,
+    "median_band_low": 141700,
+    "median_lower": 147200,
+    "median_upper": 147200,
+    "period": null,
+    "values": {
+     "avg_base_salary": 153121.62162162163,
+     "median_base_salary": 147200.0
+    }
+   },
+   {
+    "cohort": 37.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 65500,
+    "median_band_low": 63300,
+    "median_lower": 64600,
+    "median_upper": 64600,
+    "period": null,
+    "values": {
+     "avg_base_salary": 68916.21621621621,
+     "median_base_salary": 64600.0
+    }
+   },
+   {
+    "cohort": 83.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 155600,
+    "median_band_low": 153500,
+    "median_lower": 154900,
+    "median_upper": 154900,
+    "period": null,
+    "values": {
+     "avg_base_salary": 161179.51807228915,
+     "median_base_salary": 154900.0
+    }
+   },
+   {
+    "cohort": 130.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 182000,
+    "median_band_low": 173800,
+    "median_lower": 178400,
+    "median_upper": 178700,
+    "period": null,
+    "values": {
+     "avg_base_salary": 183197.6923076923,
+     "median_base_salary": 178550.0
+    }
+   },
+   {
+    "cohort": 259.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "median_band_high": 170900,
+    "median_band_low": 165400,
+    "median_lower": 167700,
+    "median_upper": 167700,
+    "period": null,
+    "values": {
+     "avg_base_salary": 181356.37065637065,
+     "median_base_salary": 167700.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Engineering"
+    ]
+   },
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "compensation_summary",
+   "start": "2025-12-01"
+  }
+ },
+ "A-compensation_summary-22": {
+  "cells": [
+   {
+    "cohort": 949.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 150200,
+    "median_band_low": 145500,
+    "median_lower": 147600,
+    "median_upper": 147600,
+    "period": "2025-01-01",
+    "values": {
+     "avg_base_salary": 154772.49736564804,
+     "median_base_salary": 147600.0
+    }
+   },
+   {
+    "cohort": 964.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 154400,
+    "median_band_low": 148400,
+    "median_lower": 152000,
+    "median_upper": 152000,
+    "period": "2025-04-01",
+    "values": {
+     "avg_base_salary": 158530.1867219917,
+     "median_base_salary": 152000.0
+    }
+   },
+   {
+    "cohort": 989.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 153800,
+    "median_band_low": 147100,
+    "median_lower": 150700,
+    "median_upper": 150700,
+    "period": "2025-07-01",
+    "values": {
+     "avg_base_salary": 157831.85035389283,
+     "median_base_salary": 150700.0
+    }
+   },
+   {
+    "cohort": 1000.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 153500,
+    "median_band_low": 146400,
+    "median_lower": 149500,
+    "median_upper": 150000,
+    "period": "2025-10-01",
+    "values": {
+     "avg_base_salary": 157101.7,
+     "median_base_salary": 149750.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-01-01"
+  }
+ },
+ "A-compensation_summary-23": {
+  "cells": [
+   {
+    "cohort": 1590.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 133300,
+    "median_band_low": 128000,
+    "median_lower": 130300,
+    "median_upper": 130500,
+    "period": "2023-01-01",
+    "values": {
+     "avg_base_salary": 140097.04402515723,
+     "median_base_salary": 130400.0
+    }
+   },
+   {
+    "cohort": 1680.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 137600,
+    "median_band_low": 131800,
+    "median_lower": 134700,
+    "median_upper": 135000,
+    "period": "2024-01-01",
+    "values": {
+     "avg_base_salary": 143329.7619047619,
+     "median_base_salary": 134850.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {},
+   "grain": "year",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "start": "2023-01-01"
+  }
+ },
+ "A-compensation_summary-24": {
+  "cells": [
+   {
+    "cohort": 162.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 118900,
+    "median_band_low": 114300,
+    "median_lower": 115200,
+    "median_upper": 115600,
+    "period": null,
+    "values": {
+     "avg_base_salary": 123606.17283950618,
+     "median_base_salary": 115400.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Operations"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "start": "2025-12-01"
+  }
+ },
+ "A-compensation_summary-25": {
+  "cells": [
+   {
+    "cohort": 1000.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 153500,
+    "median_band_low": 146400,
+    "median_lower": 149500,
+    "median_upper": 150000,
+    "period": null,
+    "values": {
+     "avg_base_salary": 157101.7,
+     "median_base_salary": 149750.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-12-01"
+  }
+ },
+ "A-fte-01": {
+  "cells": [
+   {
+    "cohort": 885.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 857.2
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "fte",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2023-12-01"
+  }
+ },
+ "A-fte-02": {
+  "cells": [
+   {
+    "cohort": 253.0,
+    "dims": {
+     "tenure_band": "1-2y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 243.2
+    }
+   },
+   {
+    "cohort": 363.0,
+    "dims": {
+     "tenure_band": "2-5y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 351.9
+    }
+   },
+   {
+    "cohort": 869.0,
+    "dims": {
+     "tenure_band": "5y+"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 840.9
+    }
+   },
+   {
+    "cohort": 295.0,
+    "dims": {
+     "tenure_band": "<1y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 288.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "tenure_band"
+   ],
+   "metric": "fte",
+   "start": "2025-12-01"
+  }
+ },
+ "A-fte-03": {
+  "cells": [
+   {
+    "cohort": 124.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 119.6
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {
+    "location": [
+     "Bengaluru"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "fte",
+   "start": "2024-12-01"
+  }
+ },
+ "A-fte-04": {
+  "cells": [
+   {
+    "cohort": 904.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "fte": 874.8
+    }
+   },
+   {
+    "cohort": 915.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-04-01",
+    "values": {
+     "fte": 886.8
+    }
+   },
+   {
+    "cohort": 928.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-07-01",
+    "values": {
+     "fte": 899.1
+    }
+   },
+   {
+    "cohort": 930.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-10-01",
+    "values": {
+     "fte": 901.1
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "fte",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2024-01-01"
+  }
+ },
+ "A-fte-05": {
+  "cells": [
+   {
+    "cohort": 38.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 36.6
+    }
+   },
+   {
+    "cohort": 21.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 20.3
+    }
+   },
+   {
+    "cohort": 32.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 31.6
+    }
+   },
+   {
+    "cohort": 63.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 61.1
+    }
+   },
+   {
+    "cohort": 96.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 90.5
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Customer Success"
+    ]
+   },
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "fte",
+   "start": "2025-12-01"
+  }
+ },
+ "A-fte-06": {
+  "cells": [
+   {
+    "cohort": 160.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 104.0
+    }
+   }
+  ],
+  "restricted": [
+   "employment_type"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "employment_type": [
+     "part_time"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "fte",
+   "start": "2025-12-01"
+  }
+ },
+ "A-fte-07": {
+  "cells": [
+   {
+    "cohort": 272.0,
+    "dims": {
+     "employment_type": "full_time",
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 272.0
+    }
+   },
+   {
+    "cohort": 127.0,
+    "dims": {
+     "employment_type": "full_time",
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 127.0
+    }
+   },
+   {
+    "cohort": 203.0,
+    "dims": {
+     "employment_type": "full_time",
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 203.0
+    }
+   },
+   {
+    "cohort": 386.0,
+    "dims": {
+     "employment_type": "full_time",
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 386.0
+    }
+   },
+   {
+    "cohort": 632.0,
+    "dims": {
+     "employment_type": "full_time",
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 632.0
+    }
+   },
+   {
+    "cohort": 28.0,
+    "dims": {
+     "employment_type": "part_time",
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 18.2
+    }
+   },
+   {
+    "cohort": 13.0,
+    "dims": {
+     "employment_type": "part_time",
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 8.3
+    }
+   },
+   {
+    "cohort": 17.0,
+    "dims": {
+     "employment_type": "part_time",
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 11.5
+    }
+   },
+   {
+    "cohort": 34.0,
+    "dims": {
+     "employment_type": "part_time",
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 22.7
+    }
+   },
+   {
+    "cohort": 68.0,
+    "dims": {
+     "employment_type": "part_time",
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 43.300000000000004
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "employment_type",
+    "location"
+   ],
+   "metric": "fte",
+   "start": "2025-12-01"
+  }
+ },
+ "A-fte-08": {
+  "cells": [
+   {
+    "cohort": 930.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "fte": 901.1
+    }
+   },
+   {
+    "cohort": 1000.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-01-01",
+    "values": {
+     "fte": 969.9
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "year",
+   "group_by": [],
+   "metric": "fte",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2024-01-01"
+  }
+ },
+ "A-fte-09": {
+  "cells": [
+   {
+    "cohort": 178.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 173.8
+    }
+   }
+  ],
+  "restricted": [
+   "department",
+   "job_level"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {
+    "job_level": [
+     "L1"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "fte",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2023-12-01"
+  }
+ },
+ "A-fte-10": {
+  "cells": [
+   {
+    "cohort": 1780.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 1724.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "fte",
+   "start": "2025-12-01"
+  }
+ },
+ "A-fte-11": {
+  "cells": [
+   {
+    "cohort": 1620.0,
+    "dims": {
+     "employment_type": "full_time"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 1620.0
+    }
+   },
+   {
+    "cohort": 160.0,
+    "dims": {
+     "employment_type": "part_time"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 104.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "employment_type"
+   ],
+   "metric": "fte",
+   "start": "2025-12-01"
+  }
+ },
+ "A-fte-12": {
+  "cells": [
+   {
+    "cohort": 300.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 290.2
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "location": [
+     "Austin"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "fte",
+   "start": "2025-12-01"
+  }
+ },
+ "A-fte-13": {
+  "cells": [
+   {
+    "cohort": 949.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-01-01",
+    "values": {
+     "fte": 920.8
+    }
+   },
+   {
+    "cohort": 964.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-04-01",
+    "values": {
+     "fte": 935.4
+    }
+   },
+   {
+    "cohort": 989.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-07-01",
+    "values": {
+     "fte": 959.8
+    }
+   },
+   {
+    "cohort": 1000.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-10-01",
+    "values": {
+     "fte": 969.9
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "fte",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-01-01"
+  }
+ },
+ "A-fte-14": {
+  "cells": [
+   {
+    "cohort": 44.0,
+    "dims": {
+     "tenure_band": "1-2y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 43.3
+    }
+   },
+   {
+    "cohort": 89.0,
+    "dims": {
+     "tenure_band": "2-5y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 86.8
+    }
+   },
+   {
+    "cohort": 340.0,
+    "dims": {
+     "tenure_band": "5y+"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 328.2
+    }
+   },
+   {
+    "cohort": 93.0,
+    "dims": {
+     "tenure_band": "<1y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 90.8
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {
+    "department": [
+     "Engineering"
+    ]
+   },
+   "grain": "none",
+   "group_by": [
+    "tenure_band"
+   ],
+   "metric": "fte",
+   "start": "2023-12-01"
+  }
+ },
+ "A-fte-15": {
+  "cells": [
+   {
+    "cohort": 160.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 104.0
+    }
+   }
+  ],
+  "restricted": [
+   "employment_type"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "employment_type": [
+     "part_time"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "fte",
+   "start": "2025-12-01"
+  }
+ },
+ "A-fte-16": {
+  "cells": [
+   {
+    "cohort": 272.0,
+    "dims": {
+     "employment_type": "full_time",
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 272.0
+    }
+   },
+   {
+    "cohort": 127.0,
+    "dims": {
+     "employment_type": "full_time",
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 127.0
+    }
+   },
+   {
+    "cohort": 203.0,
+    "dims": {
+     "employment_type": "full_time",
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 203.0
+    }
+   },
+   {
+    "cohort": 386.0,
+    "dims": {
+     "employment_type": "full_time",
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 386.0
+    }
+   },
+   {
+    "cohort": 632.0,
+    "dims": {
+     "employment_type": "full_time",
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 632.0
+    }
+   },
+   {
+    "cohort": 28.0,
+    "dims": {
+     "employment_type": "part_time",
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 18.2
+    }
+   },
+   {
+    "cohort": 13.0,
+    "dims": {
+     "employment_type": "part_time",
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 8.3
+    }
+   },
+   {
+    "cohort": 17.0,
+    "dims": {
+     "employment_type": "part_time",
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 11.5
+    }
+   },
+   {
+    "cohort": 34.0,
+    "dims": {
+     "employment_type": "part_time",
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 22.7
+    }
+   },
+   {
+    "cohort": 68.0,
+    "dims": {
+     "employment_type": "part_time",
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 43.300000000000004
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "employment_type",
+    "location"
+   ],
+   "metric": "fte",
+   "start": "2025-12-01"
+  }
+ },
+ "A-fte-17": {
+  "cells": [
+   {
+    "cohort": 1590.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-01-01",
+    "values": {
+     "fte": 1542.4
+    }
+   },
+   {
+    "cohort": 1680.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "fte": 1626.5
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {},
+   "grain": "year",
+   "group_by": [],
+   "metric": "fte",
+   "start": "2023-01-01"
+  }
+ },
+ "A-fte-18": {
+  "cells": [
+   {
+    "cohort": 32.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 31.8
+    }
+   }
+  ],
+  "restricted": [
+   "department",
+   "job_level"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {
+    "job_level": [
+     "L6"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "fte",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2023-12-01"
+  }
+ },
+ "A-fte-19": {
+  "cells": [
+   {
+    "cohort": 1780.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 1724.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "fte",
+   "start": "2025-12-01"
+  }
+ },
+ "A-fte-20": {
+  "cells": [
+   {
+    "cohort": 168.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 162.6
+    }
+   },
+   {
+    "cohort": 67.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 64.9
+    }
+   },
+   {
+    "cohort": 125.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 121.4
+    }
+   },
+   {
+    "cohort": 221.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 215.8
+    }
+   },
+   {
+    "cohort": 419.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 405.2
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "fte",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-12-01"
+  }
+ },
+ "A-fte-21": {
+  "cells": [
+   {
+    "cohort": 652.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 629.9
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {
+    "location": [
+     "San Jose"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "fte",
+   "start": "2024-12-01"
+  }
+ },
+ "A-fte-22": {
+  "cells": [
+   {
+    "cohort": 949.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-01-01",
+    "values": {
+     "fte": 920.8
+    }
+   },
+   {
+    "cohort": 964.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-04-01",
+    "values": {
+     "fte": 935.4
+    }
+   },
+   {
+    "cohort": 989.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-07-01",
+    "values": {
+     "fte": 959.8
+    }
+   },
+   {
+    "cohort": 1000.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-10-01",
+    "values": {
+     "fte": 969.9
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "fte",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-01-01"
+  }
+ },
+ "A-fte-23": {
+  "cells": [
+   {
+    "cohort": 31.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 30.3
+    }
+   },
+   {
+    "cohort": 15.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 14.0
+    }
+   },
+   {
+    "cohort": 21.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 21.0
+    }
+   },
+   {
+    "cohort": 37.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 35.9
+    }
+   },
+   {
+    "cohort": 58.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 56.3
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Operations"
+    ]
+   },
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "fte",
+   "start": "2025-12-01"
+  }
+ },
+ "A-fte-24": {
+  "cells": [
+   {
+    "cohort": 133.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 85.4
+    }
+   }
+  ],
+  "restricted": [
+   "employment_type"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {
+    "employment_type": [
+     "part_time"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "fte",
+   "start": "2023-12-01"
+  }
+ },
+ "A-fte-25": {
+  "cells": [
+   {
+    "cohort": 885.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-01-01",
+    "values": {
+     "fte": 857.2
+    }
+   },
+   {
+    "cohort": 930.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "fte": 901.1
+    }
+   },
+   {
+    "cohort": 1000.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-01-01",
+    "values": {
+     "fte": 969.9
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "year",
+   "group_by": [],
+   "metric": "fte",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2023-01-01"
+  }
+ },
+ "A-headcount-01": {
+  "cells": [
+   {
+    "cohort": 1780.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 1780.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2025-12-01"
+  }
+ },
+ "A-headcount-02": {
+  "cells": [
+   {
+    "cohort": 168.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 168.0
+    }
+   },
+   {
+    "cohort": 67.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 67.0
+    }
+   },
+   {
+    "cohort": 125.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 125.0
+    }
+   },
+   {
+    "cohort": 221.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 221.0
+    }
+   },
+   {
+    "cohort": 419.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 419.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "headcount",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-12-01"
+  }
+ },
+ "A-headcount-03": {
+  "cells": [
+   {
+    "cohort": 216.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 216.0
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {
+    "location": [
+     "London"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2024-12-01"
+  }
+ },
+ "A-headcount-04": {
+  "cells": [
+   {
+    "cohort": 1527.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-01-01",
+    "values": {
+     "headcount": 1527.0
+    }
+   },
+   {
+    "cohort": 1551.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-04-01",
+    "values": {
+     "headcount": 1551.0
+    }
+   },
+   {
+    "cohort": 1584.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-07-01",
+    "values": {
+     "headcount": 1584.0
+    }
+   },
+   {
+    "cohort": 1590.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-10-01",
+    "values": {
+     "headcount": 1590.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2023-01-01"
+  }
+ },
+ "A-headcount-05": {
+  "cells": [
+   {
+    "cohort": 338.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 338.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {
+    "department": [
+     "Sales"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2024-12-01"
+  }
+ },
+ "A-headcount-06": {
+  "cells": [
+   {
+    "cohort": 26.0,
+    "dims": {
+     "location": "Austin",
+     "tenure_band": "1-2y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 26.0
+    }
+   },
+   {
+    "cohort": 37.0,
+    "dims": {
+     "location": "Austin",
+     "tenure_band": "2-5y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 37.0
+    }
+   },
+   {
+    "cohort": 77.0,
+    "dims": {
+     "location": "Austin",
+     "tenure_band": "5y+"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 77.0
+    }
+   },
+   {
+    "cohort": 28.0,
+    "dims": {
+     "location": "Austin",
+     "tenure_band": "<1y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 28.0
+    }
+   },
+   {
+    "cohort": 12.0,
+    "dims": {
+     "location": "Bengaluru",
+     "tenure_band": "1-2y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 12.0
+    }
+   },
+   {
+    "cohort": 13.0,
+    "dims": {
+     "location": "Bengaluru",
+     "tenure_band": "2-5y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 13.0
+    }
+   },
+   {
+    "cohort": 25.0,
+    "dims": {
+     "location": "Bengaluru",
+     "tenure_band": "5y+"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 25.0
+    }
+   },
+   {
+    "cohort": 17.0,
+    "dims": {
+     "location": "Bengaluru",
+     "tenure_band": "<1y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 17.0
+    }
+   },
+   {
+    "cohort": 11.0,
+    "dims": {
+     "location": "London",
+     "tenure_band": "1-2y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 11.0
+    }
+   },
+   {
+    "cohort": 35.0,
+    "dims": {
+     "location": "London",
+     "tenure_band": "2-5y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 35.0
+    }
+   },
+   {
+    "cohort": 62.0,
+    "dims": {
+     "location": "London",
+     "tenure_band": "5y+"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 62.0
+    }
+   },
+   {
+    "cohort": 17.0,
+    "dims": {
+     "location": "London",
+     "tenure_band": "<1y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 17.0
+    }
+   },
+   {
+    "cohort": 32.0,
+    "dims": {
+     "location": "New York",
+     "tenure_band": "1-2y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 32.0
+    }
+   },
+   {
+    "cohort": 57.0,
+    "dims": {
+     "location": "New York",
+     "tenure_band": "2-5y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 57.0
+    }
+   },
+   {
+    "cohort": 104.0,
+    "dims": {
+     "location": "New York",
+     "tenure_band": "5y+"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 104.0
+    }
+   },
+   {
+    "cohort": 28.0,
+    "dims": {
+     "location": "New York",
+     "tenure_band": "<1y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 28.0
+    }
+   },
+   {
+    "cohort": 56.0,
+    "dims": {
+     "location": "San Jose",
+     "tenure_band": "1-2y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 56.0
+    }
+   },
+   {
+    "cohort": 78.0,
+    "dims": {
+     "location": "San Jose",
+     "tenure_band": "2-5y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 78.0
+    }
+   },
+   {
+    "cohort": 211.0,
+    "dims": {
+     "location": "San Jose",
+     "tenure_band": "5y+"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 211.0
+    }
+   },
+   {
+    "cohort": 74.0,
+    "dims": {
+     "location": "San Jose",
+     "tenure_band": "<1y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 74.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "location",
+    "tenure_band"
+   ],
+   "metric": "headcount",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-12-01"
+  }
+ },
+ "A-headcount-07": {
+  "cells": [
+   {
+    "cohort": 160.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 160.0
+    }
+   }
+  ],
+  "restricted": [
+   "employment_type"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "employment_type": [
+     "part_time"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2025-12-01"
+  }
+ },
+ "A-headcount-08": {
+  "cells": [
+   {
+    "cohort": 1590.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-01-01",
+    "values": {
+     "headcount": 1590.0
+    }
+   },
+   {
+    "cohort": 1680.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "headcount": 1680.0
+    }
+   },
+   {
+    "cohort": 1780.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-01-01",
+    "values": {
+     "headcount": 1780.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "year",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2023-01-01"
+  }
+ },
+ "A-headcount-09": {
+  "cells": [
+   {
+    "cohort": 42.0,
+    "dims": {
+     "tenure_band": "1-2y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 42.0
+    }
+   },
+   {
+    "cohort": 57.0,
+    "dims": {
+     "tenure_band": "2-5y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 57.0
+    }
+   },
+   {
+    "cohort": 144.0,
+    "dims": {
+     "tenure_band": "5y+"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 144.0
+    }
+   },
+   {
+    "cohort": 39.0,
+    "dims": {
+     "tenure_band": "<1y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 39.0
+    }
+   }
+  ],
+  "restricted": [
+   "department",
+   "job_level"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "job_level": [
+     "L2"
+    ]
+   },
+   "grain": "none",
+   "group_by": [
+    "tenure_band"
+   ],
+   "metric": "headcount",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-12-01"
+  }
+ },
+ "A-headcount-10": {
+  "cells": [
+   {
+    "cohort": 408.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-07-01",
+    "values": {
+     "headcount": 408.0
+    }
+   },
+   {
+    "cohort": 412.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-08-01",
+    "values": {
+     "headcount": 412.0
+    }
+   },
+   {
+    "cohort": 417.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-09-01",
+    "values": {
+     "headcount": 417.0
+    }
+   },
+   {
+    "cohort": 413.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-10-01",
+    "values": {
+     "headcount": 413.0
+    }
+   },
+   {
+    "cohort": 417.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-11-01",
+    "values": {
+     "headcount": 417.0
+    }
+   },
+   {
+    "cohort": 420.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-12-01",
+    "values": {
+     "headcount": 420.0
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "location": [
+     "New York"
+    ]
+   },
+   "grain": "month",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2025-07-01"
+  }
+ },
+ "A-headcount-11": {
+  "cells": [
+   {
+    "cohort": 1780.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 1780.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2025-12-01"
+  }
+ },
+ "A-headcount-12": {
+  "cells": [
+   {
+    "cohort": 253.0,
+    "dims": {
+     "tenure_band": "1-2y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 253.0
+    }
+   },
+   {
+    "cohort": 363.0,
+    "dims": {
+     "tenure_band": "2-5y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 363.0
+    }
+   },
+   {
+    "cohort": 869.0,
+    "dims": {
+     "tenure_band": "5y+"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 869.0
+    }
+   },
+   {
+    "cohort": 295.0,
+    "dims": {
+     "tenure_band": "<1y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 295.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "tenure_band"
+   ],
+   "metric": "headcount",
+   "start": "2025-12-01"
+  }
+ },
+ "A-headcount-13": {
+  "cells": [
+   {
+    "cohort": 220.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 220.0
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "location": [
+     "London"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2025-12-01"
+  }
+ },
+ "A-headcount-14": {
+  "cells": [
+   {
+    "cohort": 831.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-01-01",
+    "values": {
+     "headcount": 831.0
+    }
+   },
+   {
+    "cohort": 849.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-04-01",
+    "values": {
+     "headcount": 849.0
+    }
+   },
+   {
+    "cohort": 875.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-07-01",
+    "values": {
+     "headcount": 875.0
+    }
+   },
+   {
+    "cohort": 885.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-10-01",
+    "values": {
+     "headcount": 885.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "headcount",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2023-01-01"
+  }
+ },
+ "A-headcount-15": {
+  "cells": [
+   {
+    "cohort": 211.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 211.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {
+    "department": [
+     "Customer Success"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2023-01-01"
+  }
+ },
+ "A-headcount-16": {
+  "cells": [
+   {
+    "cohort": 47.0,
+    "dims": {
+     "location": "Austin",
+     "tenure_band": "1-2y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 47.0
+    }
+   },
+   {
+    "cohort": 62.0,
+    "dims": {
+     "location": "Austin",
+     "tenure_band": "2-5y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 62.0
+    }
+   },
+   {
+    "cohort": 148.0,
+    "dims": {
+     "location": "Austin",
+     "tenure_band": "5y+"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 148.0
+    }
+   },
+   {
+    "cohort": 43.0,
+    "dims": {
+     "location": "Austin",
+     "tenure_band": "<1y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 43.0
+    }
+   },
+   {
+    "cohort": 29.0,
+    "dims": {
+     "location": "Bengaluru",
+     "tenure_band": "1-2y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 29.0
+    }
+   },
+   {
+    "cohort": 28.0,
+    "dims": {
+     "location": "Bengaluru",
+     "tenure_band": "2-5y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 28.0
+    }
+   },
+   {
+    "cohort": 54.0,
+    "dims": {
+     "location": "Bengaluru",
+     "tenure_band": "5y+"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 54.0
+    }
+   },
+   {
+    "cohort": 29.0,
+    "dims": {
+     "location": "Bengaluru",
+     "tenure_band": "<1y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 29.0
+    }
+   },
+   {
+    "cohort": 21.0,
+    "dims": {
+     "location": "London",
+     "tenure_band": "1-2y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 21.0
+    }
+   },
+   {
+    "cohort": 55.0,
+    "dims": {
+     "location": "London",
+     "tenure_band": "2-5y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 55.0
+    }
+   },
+   {
+    "cohort": 112.0,
+    "dims": {
+     "location": "London",
+     "tenure_band": "5y+"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 112.0
+    }
+   },
+   {
+    "cohort": 32.0,
+    "dims": {
+     "location": "London",
+     "tenure_band": "<1y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 32.0
+    }
+   },
+   {
+    "cohort": 63.0,
+    "dims": {
+     "location": "New York",
+     "tenure_band": "1-2y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 63.0
+    }
+   },
+   {
+    "cohort": 83.0,
+    "dims": {
+     "location": "New York",
+     "tenure_band": "2-5y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 83.0
+    }
+   },
+   {
+    "cohort": 204.0,
+    "dims": {
+     "location": "New York",
+     "tenure_band": "5y+"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 204.0
+    }
+   },
+   {
+    "cohort": 70.0,
+    "dims": {
+     "location": "New York",
+     "tenure_band": "<1y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 70.0
+    }
+   },
+   {
+    "cohort": 93.0,
+    "dims": {
+     "location": "San Jose",
+     "tenure_band": "1-2y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 93.0
+    }
+   },
+   {
+    "cohort": 135.0,
+    "dims": {
+     "location": "San Jose",
+     "tenure_band": "2-5y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 135.0
+    }
+   },
+   {
+    "cohort": 351.0,
+    "dims": {
+     "location": "San Jose",
+     "tenure_band": "5y+"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 351.0
+    }
+   },
+   {
+    "cohort": 121.0,
+    "dims": {
+     "location": "San Jose",
+     "tenure_band": "<1y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 121.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "location",
+    "tenure_band"
+   ],
+   "metric": "headcount",
+   "start": "2025-12-01"
+  }
+ },
+ "A-headcount-17": {
+  "cells": [
+   {
+    "cohort": 1457.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 1457.0
+    }
+   }
+  ],
+  "restricted": [
+   "employment_type"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {
+    "employment_type": [
+     "full_time"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2023-12-01"
+  }
+ },
+ "A-headcount-18": {
+  "cells": [
+   {
+    "cohort": 1680.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "headcount": 1680.0
+    }
+   },
+   {
+    "cohort": 1780.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-01-01",
+    "values": {
+     "headcount": 1780.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "year",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2024-01-01"
+  }
+ },
+ "A-headcount-19": {
+  "cells": [
+   {
+    "cohort": 46.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 46.0
+    }
+   },
+   {
+    "cohort": 18.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 18.0
+    }
+   },
+   {
+    "cohort": 29.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 29.0
+    }
+   },
+   {
+    "cohort": 65.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 65.0
+    }
+   },
+   {
+    "cohort": 124.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 124.0
+    }
+   }
+  ],
+  "restricted": [
+   "department",
+   "job_level"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "job_level": [
+     "L2"
+    ]
+   },
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "headcount",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-12-01"
+  }
+ },
+ "A-headcount-20": {
+  "cells": [
+   {
+    "cohort": 113.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "headcount": 113.0
+    }
+   },
+   {
+    "cohort": 115.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-02-01",
+    "values": {
+     "headcount": 115.0
+    }
+   },
+   {
+    "cohort": 115.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-03-01",
+    "values": {
+     "headcount": 115.0
+    }
+   },
+   {
+    "cohort": 116.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-04-01",
+    "values": {
+     "headcount": 116.0
+    }
+   },
+   {
+    "cohort": 120.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-05-01",
+    "values": {
+     "headcount": 120.0
+    }
+   },
+   {
+    "cohort": 119.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-06-01",
+    "values": {
+     "headcount": 119.0
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2024-06-30",
+   "filters": {
+    "location": [
+     "Bengaluru"
+    ]
+   },
+   "grain": "month",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2024-01-01"
+  }
+ },
+ "A-headcount-21": {
+  "cells": [
+   {
+    "cohort": 1780.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 1780.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2025-12-01"
+  }
+ },
+ "A-headcount-22": {
+  "cells": [
+   {
+    "cohort": 178.0,
+    "dims": {
+     "job_level": "L1"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 178.0
+    }
+   },
+   {
+    "cohort": 241.0,
+    "dims": {
+     "job_level": "L2"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 241.0
+    }
+   },
+   {
+    "cohort": 235.0,
+    "dims": {
+     "job_level": "L3"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 235.0
+    }
+   },
+   {
+    "cohort": 132.0,
+    "dims": {
+     "job_level": "L4"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 132.0
+    }
+   },
+   {
+    "cohort": 67.0,
+    "dims": {
+     "job_level": "L5"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 67.0
+    }
+   },
+   {
+    "cohort": 32.0,
+    "dims": {
+     "job_level": "L6"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 32.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "job_level"
+   ],
+   "metric": "headcount",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2023-12-01"
+  }
+ },
+ "A-headcount-23": {
+  "cells": [
+   {
+    "cohort": 112.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 112.0
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {
+    "location": [
+     "Bengaluru"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2023-12-01"
+  }
+ },
+ "A-headcount-24": {
+  "cells": [
+   {
+    "cohort": 1625.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "headcount": 1625.0
+    }
+   },
+   {
+    "cohort": 1651.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-04-01",
+    "values": {
+     "headcount": 1651.0
+    }
+   },
+   {
+    "cohort": 1670.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-07-01",
+    "values": {
+     "headcount": 1670.0
+    }
+   },
+   {
+    "cohort": 1680.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-10-01",
+    "values": {
+     "headcount": 1680.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2024-01-01"
+  }
+ },
+ "A-headcount-25": {
+  "cells": [
+   {
+    "cohort": 319.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 319.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {
+    "department": [
+     "Sales"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2023-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-01": {
+  "cells": [
+   {
+    "cohort": 339.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.887905604719764
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2024-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-02": {
+  "cells": [
+   {
+    "cohort": 43.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8372093023255814
+    }
+   },
+   {
+    "cohort": 27.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8518518518518519
+    }
+   },
+   {
+    "cohort": 42.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8333333333333334
+    }
+   },
+   {
+    "cohort": 92.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8478260869565217
+    }
+   },
+   {
+    "cohort": 126.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8095238095238095
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "offer_acceptance_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-03": {
+  "cells": [
+   {
+    "cohort": 410.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8121951219512196
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "location": [
+     "San Jose"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-04": {
+  "cells": [
+   {
+    "cohort": 86.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "offer_acceptance_rate": 0.8837209302325582
+    }
+   },
+   {
+    "cohort": 98.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-04-01",
+    "values": {
+     "offer_acceptance_rate": 0.8877551020408163
+    }
+   },
+   {
+    "cohort": 82.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-07-01",
+    "values": {
+     "offer_acceptance_rate": 0.9024390243902439
+    }
+   },
+   {
+    "cohort": 73.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-10-01",
+    "values": {
+     "offer_acceptance_rate": 0.8767123287671232
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2024-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-05": {
+  "cells": [
+   {
+    "cohort": 50.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.86
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "People"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-06": {
+  "cells": [
+   {
+    "cohort": 339.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "offer_acceptance_rate": 0.887905604719764
+    }
+   },
+   {
+    "cohort": 383.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-01-01",
+    "values": {
+     "offer_acceptance_rate": 0.7885117493472585
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "year",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2024-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-07": {
+  "cells": [
+   {
+    "cohort": 88.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8409090909090909
+    }
+   }
+  ],
+  "restricted": [
+   "job_level"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {
+    "job_level": [
+     "L2"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-08": {
+  "cells": [
+   {
+    "cohort": 155.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8903225806451613
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2024-07-01"
+  }
+ },
+ "A-offer_acceptance_rate-09": {
+  "cells": [
+   {
+    "cohort": 63.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8888888888888888
+    }
+   },
+   {
+    "cohort": 40.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.875
+    }
+   },
+   {
+    "cohort": 32.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.84375
+    }
+   },
+   {
+    "cohort": 84.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8928571428571429
+    }
+   },
+   {
+    "cohort": 120.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.9
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "offer_acceptance_rate",
+   "start": "2024-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-10": {
+  "cells": [
+   {
+    "cohort": 98.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8877551020408163
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "location": [
+     "Bengaluru"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-11": {
+  "cells": [
+   {
+    "cohort": 80.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-01-01",
+    "values": {
+     "offer_acceptance_rate": 0.8125
+    }
+   },
+   {
+    "cohort": 98.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-04-01",
+    "values": {
+     "offer_acceptance_rate": 0.7857142857142857
+    }
+   },
+   {
+    "cohort": 76.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-07-01",
+    "values": {
+     "offer_acceptance_rate": 0.8289473684210527
+    }
+   },
+   {
+    "cohort": 76.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-10-01",
+    "values": {
+     "offer_acceptance_rate": 0.9078947368421053
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-12": {
+  "cells": [
+   {
+    "cohort": 238.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8277310924369747
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Sales"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-13": {
+  "cells": [
+   {
+    "cohort": 330.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-01-01",
+    "values": {
+     "offer_acceptance_rate": 0.8303030303030303
+    }
+   },
+   {
+    "cohort": 339.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "offer_acceptance_rate": 0.887905604719764
+    }
+   },
+   {
+    "cohort": 383.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-01-01",
+    "values": {
+     "offer_acceptance_rate": 0.7885117493472585
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "year",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-14": {
+  "cells": [
+   {
+    "cohort": 68.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8970588235294118
+    }
+   }
+  ],
+  "restricted": [
+   "job_level"
+  ],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {
+    "job_level": [
+     "L4"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2024-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-15": {
+  "cells": [
+   {
+    "cohort": 330.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8303030303030303
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-16": {
+  "cells": [
+   {
+    "cohort": 161.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.84472049689441
+    }
+   },
+   {
+    "cohort": 98.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8877551020408163
+    }
+   },
+   {
+    "cohort": 118.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8220338983050848
+    }
+   },
+   {
+    "cohort": 265.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8452830188679246
+    }
+   },
+   {
+    "cohort": 410.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8121951219512196
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "offer_acceptance_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-17": {
+  "cells": [
+   {
+    "cohort": 161.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.84472049689441
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "location": [
+     "Austin"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-18": {
+  "cells": [
+   {
+    "cohort": 98.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-01-01",
+    "values": {
+     "offer_acceptance_rate": 0.8571428571428571
+    }
+   },
+   {
+    "cohort": 84.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-04-01",
+    "values": {
+     "offer_acceptance_rate": 0.8571428571428571
+    }
+   },
+   {
+    "cohort": 117.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-07-01",
+    "values": {
+     "offer_acceptance_rate": 0.7606837606837606
+    }
+   },
+   {
+    "cohort": 84.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-10-01",
+    "values": {
+     "offer_acceptance_rate": 0.6785714285714286
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2025-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-19": {
+  "cells": [
+   {
+    "cohort": 150.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8133333333333334
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Customer Success"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-20": {
+  "cells": [
+   {
+    "cohort": 330.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-01-01",
+    "values": {
+     "offer_acceptance_rate": 0.8303030303030303
+    }
+   },
+   {
+    "cohort": 339.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "offer_acceptance_rate": 0.887905604719764
+    }
+   },
+   {
+    "cohort": 383.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-01-01",
+    "values": {
+     "offer_acceptance_rate": 0.7885117493472585
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "year",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-21": {
+  "cells": [
+   {
+    "cohort": 274.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8321167883211679
+    }
+   }
+  ],
+  "restricted": [
+   "job_level"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "job_level": [
+     "L3"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-22": {
+  "cells": [
+   {
+    "cohort": 86.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8837209302325582
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2024-03-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2024-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-23": {
+  "cells": [
+   {
+    "cohort": 106.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8679245283018868
+    }
+   },
+   {
+    "cohort": 67.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8656716417910447
+    }
+   },
+   {
+    "cohort": 74.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8378378378378378
+    }
+   },
+   {
+    "cohort": 176.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8693181818181818
+    }
+   },
+   {
+    "cohort": 246.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8536585365853658
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "offer_acceptance_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-24": {
+  "cells": [
+   {
+    "cohort": 410.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.8121951219512196
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "location": [
+     "San Jose"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-offer_acceptance_rate-25": {
+  "cells": [
+   {
+    "cohort": 98.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-01-01",
+    "values": {
+     "offer_acceptance_rate": 0.8571428571428571
+    }
+   },
+   {
+    "cohort": 84.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-04-01",
+    "values": {
+     "offer_acceptance_rate": 0.8571428571428571
+    }
+   },
+   {
+    "cohort": 117.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-07-01",
+    "values": {
+     "offer_acceptance_rate": 0.7606837606837606
+    }
+   },
+   {
+    "cohort": 84.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-10-01",
+    "values": {
+     "offer_acceptance_rate": 0.6785714285714286
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2025-01-01"
+  }
+ },
+ "A-time_to_fill_days-01": {
+  "cells": [
+   {
+    "cohort": 165.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 63.096969696969694
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2025-07-01"
+  }
+ },
+ "A-time_to_fill_days-02": {
+  "cells": [
+   {
+    "cohort": 54.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 63.851851851851855
+    }
+   },
+   {
+    "cohort": 34.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 59.26470588235294
+    }
+   },
+   {
+    "cohort": 29.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 62.275862068965516
+    }
+   },
+   {
+    "cohort": 75.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 59.89333333333333
+    }
+   },
+   {
+    "cohort": 108.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 63.666666666666664
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "time_to_fill_days",
+   "start": "2024-01-01"
+  }
+ },
+ "A-time_to_fill_days-03": {
+  "cells": [
+   {
+    "cohort": 36.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 62.416666666666664
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "location": [
+     "London"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2025-01-01"
+  }
+ },
+ "A-time_to_fill_days-04": {
+  "cells": [
+   {
+    "cohort": 79.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-01-01",
+    "values": {
+     "time_to_fill_days": 61.65822784810127
+    }
+   },
+   {
+    "cohort": 76.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-04-01",
+    "values": {
+     "time_to_fill_days": 59.38157894736842
+    }
+   },
+   {
+    "cohort": 90.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-07-01",
+    "values": {
+     "time_to_fill_days": 63.17777777777778
+    }
+   },
+   {
+    "cohort": 75.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-10-01",
+    "values": {
+     "time_to_fill_days": 63.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2025-01-01"
+  }
+ },
+ "A-time_to_fill_days-05": {
+  "cells": [
+   {
+    "cohort": 26.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 60.53846153846154
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {
+    "department": [
+     "Operations"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2024-01-01"
+  }
+ },
+ "A-time_to_fill_days-06": {
+  "cells": [
+   {
+    "cohort": 280.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-01-01",
+    "values": {
+     "time_to_fill_days": 63.02857142857143
+    }
+   },
+   {
+    "cohort": 300.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "time_to_fill_days": 62.123333333333335
+    }
+   },
+   {
+    "cohort": 320.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-01-01",
+    "values": {
+     "time_to_fill_days": 61.859375
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "year",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2023-01-01"
+  }
+ },
+ "A-time_to_fill_days-07": {
+  "cells": [
+   {
+    "cohort": 19.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 95.10526315789474
+    }
+   }
+  ],
+  "restricted": [
+   "job_level"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "job_level": [
+     "L6"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2023-01-01"
+  }
+ },
+ "A-time_to_fill_days-08": {
+  "cells": [
+   {
+    "cohort": 12.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 57.583333333333336
+    }
+   },
+   {
+    "cohort": 10.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 67.0
+    }
+   },
+   {
+    "cohort": 10.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 57.9
+    }
+   },
+   {
+    "cohort": 19.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 55.94736842105263
+    }
+   },
+   {
+    "cohort": 33.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 65.06060606060606
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Operations"
+    ]
+   },
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "time_to_fill_days",
+   "start": "2023-01-01"
+  }
+ },
+ "A-time_to_fill_days-09": {
+  "cells": [
+   {
+    "cohort": 300.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 62.123333333333335
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2024-01-01"
+  }
+ },
+ "A-time_to_fill_days-10": {
+  "cells": [
+   {
+    "cohort": 47.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 63.148936170212764
+    }
+   },
+   {
+    "cohort": 30.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 59.2
+    }
+   },
+   {
+    "cohort": 36.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 62.416666666666664
+    }
+   },
+   {
+    "cohort": 77.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 60.12987012987013
+    }
+   },
+   {
+    "cohort": 130.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 62.87692307692308
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "time_to_fill_days",
+   "start": "2025-01-01"
+  }
+ },
+ "A-time_to_fill_days-11": {
+  "cells": [
+   {
+    "cohort": 139.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 63.0431654676259
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "location": [
+     "Austin"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2023-01-01"
+  }
+ },
+ "A-time_to_fill_days-12": {
+  "cells": [
+   {
+    "cohort": 74.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-01-01",
+    "values": {
+     "time_to_fill_days": 62.851351351351354
+    }
+   },
+   {
+    "cohort": 73.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-04-01",
+    "values": {
+     "time_to_fill_days": 65.64383561643835
+    }
+   },
+   {
+    "cohort": 68.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-07-01",
+    "values": {
+     "time_to_fill_days": 60.970588235294116
+    }
+   },
+   {
+    "cohort": 65.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-10-01",
+    "values": {
+     "time_to_fill_days": 62.44615384615385
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2023-01-01"
+  }
+ },
+ "A-time_to_fill_days-13": {
+  "cells": [
+   {
+    "cohort": 194.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 62.43298969072165
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Engineering"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2024-01-01"
+  }
+ },
+ "A-time_to_fill_days-14": {
+  "cells": [
+   {
+    "cohort": 280.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-01-01",
+    "values": {
+     "time_to_fill_days": 63.02857142857143
+    }
+   },
+   {
+    "cohort": 300.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "time_to_fill_days": 62.123333333333335
+    }
+   },
+   {
+    "cohort": 320.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-01-01",
+    "values": {
+     "time_to_fill_days": 61.859375
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "year",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2023-01-01"
+  }
+ },
+ "A-time_to_fill_days-15": {
+  "cells": [
+   {
+    "cohort": 47.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 73.80851063829788
+    }
+   }
+  ],
+  "restricted": [
+   "job_level"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {
+    "job_level": [
+     "L4"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2023-01-01"
+  }
+ },
+ "A-time_to_fill_days-16": {
+  "cells": [
+   {
+    "cohort": 17.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 62.94117647058823
+    }
+   },
+   {
+    "cohort": 13.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 61.07692307692308
+    }
+   },
+   {
+    "cohort": 10.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 66.5
+    }
+   },
+   {
+    "cohort": 29.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 57.44827586206897
+    }
+   },
+   {
+    "cohort": 53.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 61.79245283018868
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Customer Success"
+    ]
+   },
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "time_to_fill_days",
+   "start": "2023-01-01"
+  }
+ },
+ "A-time_to_fill_days-17": {
+  "cells": [
+   {
+    "cohort": 147.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 64.23809523809524
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2023-06-30",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2023-01-01"
+  }
+ },
+ "A-time_to_fill_days-18": {
+  "cells": [
+   {
+    "cohort": 38.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 61.76315789473684
+    }
+   },
+   {
+    "cohort": 23.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 66.04347826086956
+    }
+   },
+   {
+    "cohort": 34.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 63.35294117647059
+    }
+   },
+   {
+    "cohort": 75.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 62.06666666666667
+    }
+   },
+   {
+    "cohort": 110.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 63.39090909090909
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "time_to_fill_days",
+   "start": "2023-01-01"
+  }
+ },
+ "A-time_to_fill_days-19": {
+  "cells": [
+   {
+    "cohort": 77.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 60.12987012987013
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "location": [
+     "New York"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2025-01-01"
+  }
+ },
+ "A-time_to_fill_days-20": {
+  "cells": [
+   {
+    "cohort": 79.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-01-01",
+    "values": {
+     "time_to_fill_days": 61.65822784810127
+    }
+   },
+   {
+    "cohort": 76.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-04-01",
+    "values": {
+     "time_to_fill_days": 59.38157894736842
+    }
+   },
+   {
+    "cohort": 90.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-07-01",
+    "values": {
+     "time_to_fill_days": 63.17777777777778
+    }
+   },
+   {
+    "cohort": 75.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-10-01",
+    "values": {
+     "time_to_fill_days": 63.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2025-01-01"
+  }
+ },
+ "A-time_to_fill_days-21": {
+  "cells": [
+   {
+    "cohort": 28.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 62.07142857142857
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {
+    "department": [
+     "Customer Success"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2023-01-01"
+  }
+ },
+ "A-time_to_fill_days-22": {
+  "cells": [
+   {
+    "cohort": 175.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 46.44571428571429
+    }
+   }
+  ],
+  "restricted": [
+   "job_level"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "job_level": [
+     "L1"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2023-01-01"
+  }
+ },
+ "A-time_to_fill_days-23": {
+  "cells": [
+   {
+    "cohort": 46.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 62.23913043478261
+    }
+   },
+   {
+    "cohort": 24.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 58.916666666666664
+    }
+   },
+   {
+    "cohort": 37.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 66.75675675675676
+    }
+   },
+   {
+    "cohort": 70.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 62.22857142857143
+    }
+   },
+   {
+    "cohort": 112.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 62.42857142857143
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Engineering"
+    ]
+   },
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "time_to_fill_days",
+   "start": "2023-01-01"
+  }
+ },
+ "A-time_to_fill_days-24": {
+  "cells": [
+   {
+    "cohort": 74.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 60.74324324324324
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2024-03-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2024-01-01"
+  }
+ },
+ "A-time_to_fill_days-25": {
+  "cells": [
+   {
+    "cohort": 175.0,
+    "dims": {
+     "job_level": "L1"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 46.44571428571429
+    }
+   },
+   {
+    "cohort": 251.0,
+    "dims": {
+     "job_level": "L2"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 55.41035856573705
+    }
+   },
+   {
+    "cohort": 232.0,
+    "dims": {
+     "job_level": "L3"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 63.48275862068966
+    }
+   },
+   {
+    "cohort": 158.0,
+    "dims": {
+     "job_level": "L4"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 75.55696202531645
+    }
+   },
+   {
+    "cohort": 65.0,
+    "dims": {
+     "job_level": "L5"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 85.70769230769231
+    }
+   },
+   {
+    "cohort": 19.0,
+    "dims": {
+     "job_level": "L6"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 95.10526315789474
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "job_level"
+   ],
+   "metric": "time_to_fill_days",
+   "start": "2023-01-01"
+  }
+ },
+ "A-turnover_rate-01": {
+  "cells": [
+   {
+    "cohort": 1650.5,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.12723417146319296
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "start": "2024-01-01"
+  }
+ },
+ "A-turnover_rate-02": {
+  "cells": [
+   {
+    "cohort": 278.25,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.11859838274932614
+    }
+   },
+   {
+    "cohort": 119.66666666666667,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.18384401114206128
+    }
+   },
+   {
+    "cohort": 215.58333333333334,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.10668728256667954
+    }
+   },
+   {
+    "cohort": 388.5,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.11068211068211069
+    }
+   },
+   {
+    "cohort": 648.5,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.13723978411719354
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "turnover_rate",
+   "start": "2024-01-01"
+  }
+ },
+ "A-turnover_rate-03": {
+  "cells": [
+   {
+    "cohort": 91.41666666666667,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.22971741112123972
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {
+    "department": [
+     "People"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-turnover_rate-04": {
+  "cells": [
+   {
+    "cohort": 899.6666666666666,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "turnover_rate": 0.024453501296776585
+    }
+   },
+   {
+    "cohort": 913.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-04-01",
+    "values": {
+     "turnover_rate": 0.03943044906900329
+    }
+   },
+   {
+    "cohort": 925.3333333333334,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-07-01",
+    "values": {
+     "turnover_rate": 0.035662824207492796
+    }
+   },
+   {
+    "cohort": 931.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-10-01",
+    "values": {
+     "turnover_rate": 0.03544575725026853
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2024-01-01"
+  }
+ },
+ "A-turnover_rate-05": {
+  "cells": [
+   {
+    "cohort": 330.1666666666667,
+    "dims": {
+     "job_level": "L1"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.09389197375063099
+    }
+   },
+   {
+    "cohort": 439.5,
+    "dims": {
+     "job_level": "L2"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.1547212741751991
+    }
+   },
+   {
+    "cohort": 417.8333333333333,
+    "dims": {
+     "job_level": "L3"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.11009174311926606
+    }
+   },
+   {
+    "cohort": 209.33333333333334,
+    "dims": {
+     "job_level": "L4"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.15764331210191082
+    }
+   },
+   {
+    "cohort": 113.75,
+    "dims": {
+     "job_level": "L5"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.08791208791208792
+    }
+   },
+   {
+    "cohort": 43.5,
+    "dims": {
+     "job_level": "L6"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.04597701149425287
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "job_level"
+   ],
+   "metric": "turnover_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-turnover_rate-06": {
+  "cells": [
+   {
+    "cohort": 54.333333333333336,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.09202453987730061
+    }
+   }
+  ],
+  "restricted": [
+   "department",
+   "location"
+  ],
+  "spec": {
+   "end": "2024-06-30",
+   "filters": {
+    "location": [
+     "Bengaluru"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2024-04-01"
+  }
+ },
+ "A-turnover_rate-07": {
+  "cells": [
+   {
+    "cohort": 1554.0833333333333,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-01-01",
+    "values": {
+     "turnover_rate": 0.12225856614295673
+    }
+   },
+   {
+    "cohort": 1650.5,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "turnover_rate": 0.12723417146319296
+    }
+   },
+   {
+    "cohort": 1741.8333333333333,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-01-01",
+    "values": {
+     "turnover_rate": 0.1263037029949287
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "year",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-turnover_rate-08": {
+  "cells": [
+   {
+    "cohort": 97.58333333333333,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.143467122117848
+    }
+   }
+  ],
+  "restricted": [
+   "tenure_band"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {
+    "tenure_band": [
+     "1-2y"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-turnover_rate-09": {
+  "cells": [
+   {
+    "cohort": 29.36111111111111,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.2043519394512772
+    }
+   },
+   {
+    "cohort": 15.63888888888889,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.3197158081705151
+    }
+   },
+   {
+    "cohort": 18.694444444444443,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.16047548291233285
+    }
+   },
+   {
+    "cohort": 35.77777777777778,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.3074534161490683
+    }
+   },
+   {
+    "cohort": 61.111111111111114,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.5236363636363636
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Operations"
+    ]
+   },
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "turnover_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-turnover_rate-10": {
+  "cells": [
+   {
+    "cohort": 968.0833333333334,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.12912111560643882
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-01-01"
+  }
+ },
+ "A-turnover_rate-11": {
+  "cells": [
+   {
+    "cohort": 179.91666666666666,
+    "dims": {
+     "tenure_band": "1-2y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.0889300602130616
+    }
+   },
+   {
+    "cohort": 231.58333333333334,
+    "dims": {
+     "tenure_band": "2-5y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.15113350125944583
+    }
+   },
+   {
+    "cohort": 964.1666666666666,
+    "dims": {
+     "tenure_band": "5y+"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.1327571305099395
+    }
+   },
+   {
+    "cohort": 274.8333333333333,
+    "dims": {
+     "tenure_band": "<1y"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.11279563371740449
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "tenure_band"
+   ],
+   "metric": "turnover_rate",
+   "start": "2024-01-01"
+  }
+ },
+ "A-turnover_rate-12": {
+  "cells": [
+   {
+    "cohort": 114.04166666666667,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.23675557179393494
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Finance"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "start": "2024-01-01"
+  }
+ },
+ "A-turnover_rate-13": {
+  "cells": [
+   {
+    "cohort": 899.6666666666666,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "turnover_rate": 0.024453501296776585
+    }
+   },
+   {
+    "cohort": 913.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-04-01",
+    "values": {
+     "turnover_rate": 0.03943044906900329
+    }
+   },
+   {
+    "cohort": 925.3333333333334,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-07-01",
+    "values": {
+     "turnover_rate": 0.035662824207492796
+    }
+   },
+   {
+    "cohort": 931.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-10-01",
+    "values": {
+     "turnover_rate": 0.03544575725026853
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2024-01-01"
+  }
+ },
+ "A-turnover_rate-14": {
+  "cells": [
+   {
+    "cohort": 298.25,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.12405699916177704
+    }
+   },
+   {
+    "cohort": 131.33333333333334,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.10659898477157359
+    }
+   },
+   {
+    "cohort": 217.33333333333334,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.14723926380368096
+    }
+   },
+   {
+    "cohort": 410.4166666666667,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.13401015228426397
+    }
+   },
+   {
+    "cohort": 684.5,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.1197954711468225
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "turnover_rate",
+   "start": "2025-01-01"
+  }
+ },
+ "A-turnover_rate-15": {
+  "cells": [
+   {
+    "cohort": 381.6666666666667,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.03406113537117904
+    }
+   }
+  ],
+  "restricted": [
+   "department",
+   "location"
+  ],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {
+    "location": [
+     "San Jose"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2024-10-01"
+  }
+ },
+ "A-turnover_rate-16": {
+  "cells": [
+   {
+    "cohort": 1554.0833333333333,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-01-01",
+    "values": {
+     "turnover_rate": 0.12225856614295673
+    }
+   },
+   {
+    "cohort": 1650.5,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "turnover_rate": 0.12723417146319296
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {},
+   "grain": "year",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-turnover_rate-17": {
+  "cells": [
+   {
+    "cohort": 964.1666666666666,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.1327571305099395
+    }
+   }
+  ],
+  "restricted": [
+   "tenure_band"
+  ],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {
+    "tenure_band": [
+     "5y+"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "start": "2024-01-01"
+  }
+ },
+ "A-turnover_rate-18": {
+  "cells": [
+   {
+    "cohort": 104.97222222222223,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.3620005292405398
+    }
+   },
+   {
+    "cohort": 33.02777777777778,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.48444070647603027
+    }
+   },
+   {
+    "cohort": 77.11111111111111,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.3371757925072046
+    }
+   },
+   {
+    "cohort": 125.22222222222223,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.3913043478260869
+    }
+   },
+   {
+    "cohort": 239.83333333333334,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.3627519110493398
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Engineering"
+    ]
+   },
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "turnover_rate",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2023-01-01"
+  }
+ },
+ "A-turnover_rate-19": {
+  "cells": [
+   {
+    "cohort": 1538.6666666666667,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.031845753899480064
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2023-06-30",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "start": "2023-04-01"
+  }
+ },
+ "A-turnover_rate-20": {
+  "cells": [
+   {
+    "cohort": 298.25,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.12405699916177704
+    }
+   },
+   {
+    "cohort": 131.33333333333334,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.10659898477157359
+    }
+   },
+   {
+    "cohort": 217.33333333333334,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.14723926380368096
+    }
+   },
+   {
+    "cohort": 410.4166666666667,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.13401015228426397
+    }
+   },
+   {
+    "cohort": 684.5,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.1197954711468225
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "turnover_rate",
+   "start": "2025-01-01"
+  }
+ },
+ "A-turnover_rate-21": {
+  "cells": [
+   {
+    "cohort": 607.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.1301482701812191
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Engineering"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-01-01"
+  }
+ },
+ "A-turnover_rate-22": {
+  "cells": [
+   {
+    "cohort": 1520.6666666666667,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-01-01",
+    "values": {
+     "turnover_rate": 0.03090749671196843
+    }
+   },
+   {
+    "cohort": 1538.6666666666667,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-04-01",
+    "values": {
+     "turnover_rate": 0.031845753899480064
+    }
+   },
+   {
+    "cohort": 1573.6666666666667,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-07-01",
+    "values": {
+     "turnover_rate": 0.02224105062486761
+    }
+   },
+   {
+    "cohort": 1583.3333333333333,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2023-10-01",
+    "values": {
+     "turnover_rate": 0.037263157894736845
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {},
+   "grain": "quarter",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "start": "2023-01-01"
+  }
+ },
+ "A-turnover_rate-23": {
+  "cells": [
+   {
+    "cohort": 332.1666666666667,
+    "dims": {
+     "job_level": "L1"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.11440040140491721
+    }
+   },
+   {
+    "cohort": 463.6666666666667,
+    "dims": {
+     "job_level": "L2"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.11646297627606038
+    }
+   },
+   {
+    "cohort": 443.3333333333333,
+    "dims": {
+     "job_level": "L3"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.14210526315789473
+    }
+   },
+   {
+    "cohort": 240.75,
+    "dims": {
+     "job_level": "L4"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.09968847352024922
+    }
+   },
+   {
+    "cohort": 121.5,
+    "dims": {
+     "job_level": "L5"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.18930041152263374
+    }
+   },
+   {
+    "cohort": 49.083333333333336,
+    "dims": {
+     "job_level": "L6"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.1629881154499151
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "job_level"
+   ],
+   "metric": "turnover_rate",
+   "start": "2024-01-01"
+  }
+ },
+ "A-turnover_rate-24": {
+  "cells": [
+   {
+    "cohort": 145.58333333333334,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.1167716084716657
+    }
+   }
+  ],
+  "restricted": [
+   "department",
+   "location"
+  ],
+  "spec": {
+   "end": "2023-12-31",
+   "filters": {
+    "location": [
+     "Austin"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2023-01-01"
+  }
+ },
+ "A-turnover_rate-25": {
+  "cells": [
+   {
+    "cohort": 1650.5,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2024-01-01",
+    "values": {
+     "turnover_rate": 0.12723417146319296
+    }
+   },
+   {
+    "cohort": 1741.8333333333333,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": "2025-01-01",
+    "values": {
+     "turnover_rate": 0.1263037029949287
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "year",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "start": "2024-01-01"
+  }
+ },
+ "AD-DF-01#0": {
+  "cells": [
+   {
+    "cohort": 1780.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 1780.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2025-12-01"
+  }
+ },
+ "AD-DF-01#1": {
+  "cells": [
+   {
+    "cohort": 1772.0,
+    "dims": {},
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "complement",
+    "values": {
+     "headcount": 1772.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Engineering",
+     "Sales",
+     "Customer Success",
+     "Marketing",
+     "Finance",
+     "People",
+     "Operations"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2025-12-01"
+  }
+ },
+ "AD-DF-02#0": {
+  "cells": [
+   {
+    "cohort": 300.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 300.0
+    }
+   },
+   {
+    "cohort": 140.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 140.0
+    }
+   },
+   {
+    "cohort": 220.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 220.0
+    }
+   },
+   {
+    "cohort": 420.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 420.0
+    }
+   },
+   {
+    "cohort": 700.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 700.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "headcount",
+   "start": "2025-12-01"
+  }
+ },
+ "AD-DF-02#1": {
+  "cells": [
+   {
+    "cohort": 299.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "complement",
+    "values": {
+     "headcount": 299.0
+    }
+   },
+   {
+    "cohort": 138.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "complement",
+    "values": {
+     "headcount": 138.0
+    }
+   },
+   {
+    "cohort": 220.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 220.0
+    }
+   },
+   {
+    "cohort": 416.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "complement",
+    "values": {
+     "headcount": 416.0
+    }
+   },
+   {
+    "cohort": 699.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "complement",
+    "values": {
+     "headcount": 699.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Engineering",
+     "Sales",
+     "Customer Success",
+     "Marketing",
+     "Finance",
+     "People",
+     "Operations"
+    ]
+   },
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "headcount",
+   "start": "2025-12-01"
+  }
+ },
+ "AD-DF-03#0": {
+  "cells": [
+   {
+    "cohort": 1780.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 140500,
+    "median_band_low": 135100,
+    "median_lower": 137300,
+    "median_upper": 137400,
+    "period": null,
+    "values": {
+     "avg_base_salary": 146265.50561797753,
+     "median_base_salary": 137350.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "start": "2025-12-01"
+  }
+ },
+ "AD-DF-03#1": {
+  "cells": [
+   {
+    "cohort": 1772.0,
+    "dims": {},
+    "expected_suppressed": true,
+    "median_band_high": 140800,
+    "median_band_low": 135200,
+    "median_lower": 137600,
+    "median_upper": 137600,
+    "period": null,
+    "suppression_reason": "complement",
+    "values": {
+     "avg_base_salary": 146381.54627539503,
+     "median_base_salary": 137600.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Engineering",
+     "Sales",
+     "Customer Success",
+     "Marketing",
+     "Finance",
+     "People",
+     "Operations"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "start": "2025-12-01"
+  }
+ },
+ "AD-DF-04#0": {
+  "cells": [
+   {
+    "cohort": 220.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 220.0
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "location": [
+     "London"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2025-12-01"
+  }
+ },
+ "AD-DF-04#1": {
+  "cells": [
+   {
+    "cohort": 209.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 209.0
+    }
+   }
+  ],
+  "restricted": [
+   "job_level",
+   "location"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "job_level": [
+     "L1",
+     "L2",
+     "L3",
+     "L4",
+     "L5"
+    ],
+    "location": [
+     "London"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2025-12-01"
+  }
+ },
+ "AD-SC-01#0": {
+  "cells": [
+   {
+    "cohort": 8.0,
+    "dims": {},
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "primary",
+    "values": {
+     "headcount": 8.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Legal"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2025-12-01"
+  }
+ },
+ "AD-SC-02#0": {
+  "cells": [
+   {
+    "cohort": 8.0,
+    "dims": {},
+    "expected_suppressed": true,
+    "median_band_high": 132000,
+    "median_band_low": 109400,
+    "median_lower": 116600,
+    "median_upper": 126200,
+    "period": null,
+    "suppression_reason": "primary",
+    "values": {
+     "avg_base_salary": 120562.5,
+     "median_base_salary": 121400.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Legal"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "start": "2025-12-01"
+  }
+ },
+ "AD-SC-03#0": {
+  "cells": [
+   {
+    "cohort": 38.0,
+    "dims": {
+     "department": "Customer Success",
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 38.0
+    }
+   },
+   {
+    "cohort": 21.0,
+    "dims": {
+     "department": "Customer Success",
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 21.0
+    }
+   },
+   {
+    "cohort": 32.0,
+    "dims": {
+     "department": "Customer Success",
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 32.0
+    }
+   },
+   {
+    "cohort": 63.0,
+    "dims": {
+     "department": "Customer Success",
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 63.0
+    }
+   },
+   {
+    "cohort": 96.0,
+    "dims": {
+     "department": "Customer Success",
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 96.0
+    }
+   },
+   {
+    "cohort": 111.0,
+    "dims": {
+     "department": "Engineering",
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 111.0
+    }
+   },
+   {
+    "cohort": 37.0,
+    "dims": {
+     "department": "Engineering",
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 37.0
+    }
+   },
+   {
+    "cohort": 83.0,
+    "dims": {
+     "department": "Engineering",
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 83.0
+    }
+   },
+   {
+    "cohort": 130.0,
+    "dims": {
+     "department": "Engineering",
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 130.0
+    }
+   },
+   {
+    "cohort": 259.0,
+    "dims": {
+     "department": "Engineering",
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 259.0
+    }
+   },
+   {
+    "cohort": 19.0,
+    "dims": {
+     "department": "Finance",
+     "location": "Austin"
+    },
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "complementary",
+    "values": {
+     "headcount": 19.0
+    }
+   },
+   {
+    "cohort": 10.0,
+    "dims": {
+     "department": "Finance",
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "hidden_sum",
+    "values": {
+     "headcount": 10.0
+    }
+   },
+   {
+    "cohort": 15.0,
+    "dims": {
+     "department": "Finance",
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 15.0
+    }
+   },
+   {
+    "cohort": 37.0,
+    "dims": {
+     "department": "Finance",
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 37.0
+    }
+   },
+   {
+    "cohort": 39.0,
+    "dims": {
+     "department": "Finance",
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 39.0
+    }
+   },
+   {
+    "cohort": 1.0,
+    "dims": {
+     "department": "Legal",
+     "location": "Austin"
+    },
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "primary",
+    "values": {
+     "headcount": 1.0
+    }
+   },
+   {
+    "cohort": 2.0,
+    "dims": {
+     "department": "Legal",
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "primary",
+    "values": {
+     "headcount": 2.0
+    }
+   },
+   {
+    "cohort": 4.0,
+    "dims": {
+     "department": "Legal",
+     "location": "New York"
+    },
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "primary",
+    "values": {
+     "headcount": 4.0
+    }
+   },
+   {
+    "cohort": 1.0,
+    "dims": {
+     "department": "Legal",
+     "location": "San Jose"
+    },
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "primary",
+    "values": {
+     "headcount": 1.0
+    }
+   },
+   {
+    "cohort": 22.0,
+    "dims": {
+     "department": "Marketing",
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 22.0
+    }
+   },
+   {
+    "cohort": 19.0,
+    "dims": {
+     "department": "Marketing",
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 19.0
+    }
+   },
+   {
+    "cohort": 16.0,
+    "dims": {
+     "department": "Marketing",
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 16.0
+    }
+   },
+   {
+    "cohort": 38.0,
+    "dims": {
+     "department": "Marketing",
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 38.0
+    }
+   },
+   {
+    "cohort": 55.0,
+    "dims": {
+     "department": "Marketing",
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 55.0
+    }
+   },
+   {
+    "cohort": 31.0,
+    "dims": {
+     "department": "Operations",
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 31.0
+    }
+   },
+   {
+    "cohort": 15.0,
+    "dims": {
+     "department": "Operations",
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 15.0
+    }
+   },
+   {
+    "cohort": 21.0,
+    "dims": {
+     "department": "Operations",
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 21.0
+    }
+   },
+   {
+    "cohort": 37.0,
+    "dims": {
+     "department": "Operations",
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 37.0
+    }
+   },
+   {
+    "cohort": 58.0,
+    "dims": {
+     "department": "Operations",
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 58.0
+    }
+   },
+   {
+    "cohort": 21.0,
+    "dims": {
+     "department": "People",
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 21.0
+    }
+   },
+   {
+    "cohort": 6.0,
+    "dims": {
+     "department": "People",
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "primary",
+    "values": {
+     "headcount": 6.0
+    }
+   },
+   {
+    "cohort": 11.0,
+    "dims": {
+     "department": "People",
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 11.0
+    }
+   },
+   {
+    "cohort": 20.0,
+    "dims": {
+     "department": "People",
+     "location": "New York"
+    },
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "complementary",
+    "values": {
+     "headcount": 20.0
+    }
+   },
+   {
+    "cohort": 32.0,
+    "dims": {
+     "department": "People",
+     "location": "San Jose"
+    },
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "complementary",
+    "values": {
+     "headcount": 32.0
+    }
+   },
+   {
+    "cohort": 57.0,
+    "dims": {
+     "department": "Sales",
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 57.0
+    }
+   },
+   {
+    "cohort": 30.0,
+    "dims": {
+     "department": "Sales",
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 30.0
+    }
+   },
+   {
+    "cohort": 42.0,
+    "dims": {
+     "department": "Sales",
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 42.0
+    }
+   },
+   {
+    "cohort": 91.0,
+    "dims": {
+     "department": "Sales",
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 91.0
+    }
+   },
+   {
+    "cohort": 160.0,
+    "dims": {
+     "department": "Sales",
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 160.0
+    }
+   }
+  ],
+  "restricted": [],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {},
+   "grain": "none",
+   "group_by": [
+    "department",
+    "location"
+   ],
+   "metric": "headcount",
+   "start": "2025-12-01"
+  }
+ },
+ "AD-SC-04#0": {
+  "cells": [
+   {
+    "cohort": 1.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "primary",
+    "values": {
+     "headcount": 1.0
+    }
+   },
+   {
+    "cohort": 2.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "primary",
+    "values": {
+     "headcount": 2.0
+    }
+   },
+   {
+    "cohort": 2.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "primary",
+    "values": {
+     "headcount": 2.0
+    }
+   },
+   {
+    "cohort": 1.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "primary",
+    "values": {
+     "headcount": 1.0
+    }
+   },
+   {
+    "cohort": 6.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": true,
+    "period": null,
+    "suppression_reason": "primary",
+    "values": {
+     "headcount": 6.0
+    }
+   }
+  ],
+  "restricted": [
+   "department",
+   "job_level"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Sales"
+    ],
+    "job_level": [
+     "L6"
+    ]
+   },
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "headcount",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-12-01"
+  }
+ },
+ "CL-11": {
+  "cells": [
+   {
+    "cohort": 216.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 216.0
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {
+    "location": [
+     "London"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2024-01-01"
+  }
+ },
+ "CL-12": {
+  "cells": [
+   {
+    "cohort": 298.25,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "turnover_rate": 0.12405699916177704
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "location": [
+     "Austin"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "start": "2025-01-01"
+  }
+ },
+ "CL-13": {
+  "cells": [
+   {
+    "cohort": 100.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "time_to_fill_days": 61.27
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {
+    "department": [
+     "Engineering"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "start": "2024-01-01"
+  }
+ },
+ "CL-14": {
+  "cells": [
+   {
+    "cohort": 380.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 365.1
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Sales"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "fte",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-12-01"
+  }
+ },
+ "CL-15": {
+  "cells": [
+   {
+    "cohort": 89.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.797752808988764
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "location": [
+     "New York"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2025-01-01"
+  }
+ },
+ "CL-16": {
+  "cells": [
+   {
+    "cohort": 486.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 486.0
+    }
+   }
+  ],
+  "restricted": [
+   "job_level"
+  ],
+  "spec": {
+   "end": "2024-12-31",
+   "filters": {
+    "job_level": [
+     "L2"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "start": "2024-01-01"
+  }
+ },
+ "CL-17": {
+  "cells": [
+   {
+    "cohort": 620.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "median_band_high": 163000,
+    "median_band_low": 156800,
+    "median_lower": 158900,
+    "median_upper": 158900,
+    "period": null,
+    "values": {
+     "avg_base_salary": 167276.29032258064,
+     "median_base_salary": 158900.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Engineering"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "scope": [
+    "Engineering",
+    "Sales"
+   ],
+   "start": "2025-12-01"
+  }
+ },
+ "CL-18": {
+  "cells": [
+   {
+    "cohort": 164.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "offer_acceptance_rate": 0.75
+    }
+   }
+  ],
+  "restricted": [
+   "location"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "location": [
+     "San Jose"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "start": "2025-01-01"
+  }
+ },
+ "CL-19": {
+  "cells": [
+   {
+    "cohort": 160.0,
+    "dims": {},
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "fte": 104.0
+    }
+   }
+  ],
+  "restricted": [
+   "employment_type"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "employment_type": [
+     "part_time"
+    ]
+   },
+   "grain": "none",
+   "group_by": [],
+   "metric": "fte",
+   "start": "2025-12-01"
+  }
+ },
+ "CL-20": {
+  "cells": [
+   {
+    "cohort": 57.0,
+    "dims": {
+     "location": "Austin"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 57.0
+    }
+   },
+   {
+    "cohort": 30.0,
+    "dims": {
+     "location": "Bengaluru"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 30.0
+    }
+   },
+   {
+    "cohort": 42.0,
+    "dims": {
+     "location": "London"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 42.0
+    }
+   },
+   {
+    "cohort": 91.0,
+    "dims": {
+     "location": "New York"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 91.0
+    }
+   },
+   {
+    "cohort": 160.0,
+    "dims": {
+     "location": "San Jose"
+    },
+    "expected_suppressed": false,
+    "period": null,
+    "values": {
+     "headcount": 160.0
+    }
+   }
+  ],
+  "restricted": [
+   "department"
+  ],
+  "spec": {
+   "end": "2025-12-31",
+   "filters": {
+    "department": [
+     "Sales"
+    ]
+   },
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "headcount",
+   "start": "2025-12-01"
+  }
+ }
+}

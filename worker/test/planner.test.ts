@@ -165,3 +165,16 @@ describe("parsePlannerOutput", () => {
     expect(parsePlannerOutput(planJson({ action: "refuse", refusal_reason: "MADE_UP" }))).toEqual({ action: "refuse", reason: "OUT_OF_DOMAIN" });
   });
 });
+
+describe("value mentions", () => {
+  it("reads full-time equivalents as the FTE metric, not an employment type", async () => {
+    const { findValueMentions } = await import("../src/planner/values");
+    expect(findValueMentions("How many full-time equivalents are in Austin?")).toEqual([{ dimension: "location", value: "Austin" }]);
+    expect(findValueMentions("headcount of full-time staff")).toEqual([{ dimension: "employment_type", value: "full_time" }]);
+    expect(findValueMentions("how many people work in Sales")).toEqual([{ dimension: "department", value: "Sales" }]);
+    expect(findValueMentions("headcount for the People team in NYC")).toEqual([
+      { dimension: "department", value: "People" },
+      { dimension: "location", value: "New York" },
+    ]);
+  });
+});

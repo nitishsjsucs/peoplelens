@@ -1,0 +1,287 @@
+# Eval-only question templates (ids T-*). Never used for few-shot examples or
+# prompt work; dev.yaml (ids D-*) is the disjoint dev set.
+#
+# Fields: metric, text (placeholders below), group_by (options), filters
+# (dimensions whose values are sampled), grain, time (options).
+# Placeholders: {gb} {gb2} group-by phrases; {dept} {loc} {level} {etype}
+# {tenure} filter values; {time} rendered from the time option.
+# Time options: default, now, end_of_year, year, quarter, last_year, this_year,
+# range, full, half, month.
+
+templates:
+  # ---------------------------------------------------------------- headcount
+  - id: T-HC-01
+    metric: headcount
+    text: "How many people work at Lumen Works{time}?"
+    time: [now, end_of_year, default]
+  - id: T-HC-02
+    metric: headcount
+    text: "What is our headcount by {gb}{time}?"
+    group_by: [[location], [job_level], [tenure_band], [employment_type]]
+    time: [default, end_of_year]
+  - id: T-HC-03
+    metric: headcount
+    text: "Headcount in {loc}{time}"
+    filters: [location]
+    time: [end_of_year, now, year]
+  - id: T-HC-04
+    metric: headcount
+    text: "Show me quarterly headcount{time}"
+    grain: quarter
+    time: [year, range]
+  - id: T-HC-05
+    metric: headcount
+    text: "How many employees were in {dept}{time}?"
+    filters: [department]
+    time: [end_of_year, year]
+  - id: T-HC-06
+    metric: headcount
+    text: "Break down headcount by {gb} and {gb2}{time}"
+    group_by: [[location, job_level], [location, tenure_band], [job_level, tenure_band], [location, employment_type]]
+    time: [default, end_of_year]
+  - id: T-HC-07
+    metric: headcount
+    text: "How many {etype} staff do we have{time}?"
+    filters: [employment_type]
+    time: [now, end_of_year]
+  - id: T-HC-08
+    metric: headcount
+    text: "Year over year headcount{time}"
+    grain: year
+    time: [full, range]
+  - id: T-HC-09
+    metric: headcount
+    text: "What does the {level} population look like by {gb}{time}?"
+    filters: [job_level]
+    group_by: [[location], [tenure_band]]
+    time: [default, end_of_year]
+  - id: T-HC-10
+    metric: headcount
+    text: "Monthly headcount trend in {loc}{time}"
+    filters: [location]
+    grain: month
+    time: [year, half]
+
+  # ---------------------------------------------------------------- fte
+  - id: T-FTE-01
+    metric: fte
+    text: "What is our total FTE{time}?"
+    time: [now, end_of_year, default]
+  - id: T-FTE-02
+    metric: fte
+    text: "FTE by {gb}{time}"
+    group_by: [[location], [job_level], [employment_type], [tenure_band]]
+    time: [default, end_of_year]
+  - id: T-FTE-03
+    metric: fte
+    text: "How many full-time equivalents are in {loc}{time}?"
+    filters: [location]
+    time: [end_of_year, now]
+  - id: T-FTE-04
+    metric: fte
+    text: "Quarterly FTE{time}"
+    grain: quarter
+    time: [year, this_year, last_year]
+  - id: T-FTE-05
+    metric: fte
+    text: "Give me FTE for {dept} broken down by {gb}{time}"
+    filters: [department]
+    group_by: [[location], [job_level], [tenure_band]]
+    time: [default, end_of_year]
+  - id: T-FTE-06
+    metric: fte
+    text: "What is the FTE of our part-time workforce{time}?"
+    fixed_filters: {employment_type: [part_time]}
+    time: [now, end_of_year]
+  - id: T-FTE-07
+    metric: fte
+    text: "FTE by {gb} and {gb2}{time}"
+    group_by: [[location, job_level], [location, employment_type], [job_level, employment_type]]
+    time: [default]
+  - id: T-FTE-08
+    metric: fte
+    text: "Annual FTE totals{time}"
+    grain: year
+    time: [full, range]
+  - id: T-FTE-09
+    metric: fte
+    text: "Total FTE for {level} employees{time}"
+    filters: [job_level]
+    time: [end_of_year, default]
+
+  # ---------------------------------------------------------------- turnover
+  - id: T-TO-01
+    metric: turnover_rate
+    text: "What was our turnover rate{time}?"
+    time: [year, last_year, this_year, quarter]
+  - id: T-TO-02
+    metric: turnover_rate
+    text: "Attrition by {gb}{time}"
+    group_by: [[location], [job_level], [tenure_band]]
+    time: [year, last_year]
+  - id: T-TO-03
+    metric: turnover_rate
+    text: "Turnover in {dept}{time}"
+    filters: [department]
+    time: [year, range]
+  - id: T-TO-04
+    metric: turnover_rate
+    text: "Show quarterly attrition{time}"
+    grain: quarter
+    time: [year, last_year]
+  - id: T-TO-05
+    metric: turnover_rate
+    text: "How does churn compare across {gb}{time}?"
+    group_by: [[location], [job_level], [employment_type]]
+    time: [year, this_year]
+  - id: T-TO-06
+    metric: turnover_rate
+    text: "Turnover rate in {loc}{time}"
+    filters: [location]
+    time: [year, quarter, half]
+  - id: T-TO-07
+    metric: turnover_rate
+    text: "Yearly turnover{time}"
+    grain: year
+    time: [full, range]
+  - id: T-TO-08
+    metric: turnover_rate
+    text: "What share of employees with {tenure} of tenure left{time}?"
+    filters: [tenure_band]
+    time: [year, last_year]
+  - id: T-TO-09
+    metric: turnover_rate
+    text: "Attrition for {dept} by {gb}{time}"
+    filters: [department]
+    group_by: [[location], [job_level]]
+    time: [year, full]
+
+  # ---------------------------------------------------------------- offer acceptance
+  - id: T-OA-01
+    metric: offer_acceptance_rate
+    text: "What was our offer acceptance rate{time}?"
+    time: [year, last_year, this_year, quarter, half]
+  - id: T-OA-02
+    metric: offer_acceptance_rate
+    text: "Offer acceptance by {gb}{time}"
+    group_by: [[location], [job_level]]
+    time: [year, full, range]
+  - id: T-OA-03
+    metric: offer_acceptance_rate
+    text: "How often did candidates accept our offers in {loc}{time}?"
+    filters: [location]
+    time: [year, full]
+  - id: T-OA-04
+    metric: offer_acceptance_rate
+    text: "Quarterly offer acceptance rate{time}"
+    grain: quarter
+    time: [year, last_year]
+  - id: T-OA-05
+    metric: offer_acceptance_rate
+    text: "Acceptance rate for {dept} offers{time}"
+    filters: [department]
+    time: [full, range, year]
+  - id: T-OA-06
+    metric: offer_acceptance_rate
+    text: "Offer acceptance by year{time}"
+    grain: year
+    time: [full, range]
+  - id: T-OA-07
+    metric: offer_acceptance_rate
+    text: "Offer acceptance for {level} roles{time}"
+    filters: [job_level]
+    time: [full, year]
+  - id: T-OA-08
+    metric: offer_acceptance_rate
+    text: "Compare offer acceptance across {gb} and {gb2}{time}"
+    group_by: [[location, job_level]]
+    time: [full]
+
+  # ---------------------------------------------------------------- time to fill
+  - id: T-TTF-01
+    metric: time_to_fill_days
+    text: "What is our average time to fill{time}?"
+    time: [year, last_year, this_year, quarter, half]
+  - id: T-TTF-02
+    metric: time_to_fill_days
+    text: "Time to fill by {gb}{time}"
+    group_by: [[location], [job_level]]
+    time: [year, full]
+  - id: T-TTF-03
+    metric: time_to_fill_days
+    text: "How long does it take to fill roles in {loc}{time}?"
+    filters: [location]
+    time: [year, full]
+  - id: T-TTF-04
+    metric: time_to_fill_days
+    text: "Quarterly days to fill{time}"
+    grain: quarter
+    time: [year, this_year]
+  - id: T-TTF-05
+    metric: time_to_fill_days
+    text: "Days to fill for {dept} requisitions{time}"
+    filters: [department]
+    time: [year, full, range]
+  - id: T-TTF-06
+    metric: time_to_fill_days
+    text: "Time-to-fill trend by year{time}"
+    grain: year
+    time: [full]
+  - id: T-TTF-07
+    metric: time_to_fill_days
+    text: "How fast do we fill {level} openings{time}?"
+    filters: [job_level]
+    time: [full, year]
+  - id: T-TTF-08
+    metric: time_to_fill_days
+    text: "Time to fill by {gb} for {dept}{time}"
+    filters: [department]
+    group_by: [[location], [job_level]]
+    time: [full]
+
+  # ---------------------------------------------------------------- compensation
+  - id: T-COMP-01
+    metric: compensation_summary
+    text: "What are average and median base salaries{time}?"
+    time: [now, end_of_year, default]
+  - id: T-COMP-02
+    metric: compensation_summary
+    text: "Salary summary by {gb}{time}"
+    group_by: [[location], [job_level], [tenure_band]]
+    time: [default, end_of_year]
+  - id: T-COMP-03
+    metric: compensation_summary
+    text: "Compensation in {loc}{time}"
+    filters: [location]
+    time: [end_of_year, now]
+  - id: T-COMP-04
+    metric: compensation_summary
+    text: "Pay for {level} employees{time}"
+    filters: [job_level]
+    time: [default, end_of_year]
+  - id: T-COMP-05
+    metric: compensation_summary
+    text: "Base pay by {gb} in {dept}{time}"
+    filters: [department]
+    group_by: [[job_level], [location]]
+    time: [default, end_of_year]
+  - id: T-COMP-06
+    metric: compensation_summary
+    text: "Quarterly salary averages{time}"
+    grain: quarter
+    time: [year, this_year]
+  - id: T-COMP-07
+    metric: compensation_summary
+    text: "Compensation by {gb} and {gb2}{time}"
+    group_by: [[location, job_level]]
+    time: [default]
+  - id: T-COMP-08
+    metric: compensation_summary
+    text: "How has salary changed year over year{time}?"
+    grain: year
+    time: [full, range]
+  - id: T-COMP-09
+    metric: compensation_summary
+    text: "What do {dept} employees earn{time}?"
+    filters: [department]
+    time: [end_of_year, now]

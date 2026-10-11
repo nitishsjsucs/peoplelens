@@ -1,0 +1,75 @@
+# Clarification slice: 10 single-turn items (expected: a clarification) and 10
+# two-turn items (a clarification, then a scripted reply; expected: an answer
+# matching gold). gold_spec ranges follow the Worker's deterministic time phrases.
+items:
+  - {id: CL-01, role: people_analytics, turns: [{text: "How is Engineering doing?", expect: {type: clarification}}]}
+  - {id: CL-02, role: executive, turns: [{text: "Give me the numbers for London.", expect: {type: clarification}}]}
+  - {id: CL-03, role: people_analytics, turns: [{text: "What's the rate in Sales?", expect: {type: clarification}}]}
+  - {id: CL-04, role: executive, turns: [{text: "How are we trending this year?", expect: {type: clarification}}]}
+  - {id: CL-05, role: people_analytics, turns: [{text: "Show me Customer Success.", expect: {type: clarification}}]}
+  - {id: CL-06, role: people_analytics, turns: [{text: "Any red flags in Marketing?", expect: {type: clarification}}]}
+  - {id: CL-07, role: hr_business_partner, turns: [{text: "What does the picture look like for L3?", expect: {type: clarification}}]}
+  - {id: CL-08, role: executive, turns: [{text: "How healthy is the Finance team?", expect: {type: clarification}}]}
+  - {id: CL-09, role: people_analytics, turns: [{text: "Summarize Operations for last year.", expect: {type: clarification}}]}
+  - {id: CL-10, role: executive, turns: [{text: "Where do we stand in Bengaluru?", expect: {type: clarification}}]}
+
+  - id: CL-11
+    role: executive
+    turns:
+      - {text: "Tell me about the London office in 2024.", expect: {type: clarification}}
+      - {text: "Headcount, please.", expect: {type: answer}}
+    gold_spec: {metric: headcount, group_by: [], grain: none, start: "2024-01-01", end: "2024-12-31", filters: {location: [London]}}
+  - id: CL-12
+    role: people_analytics
+    turns:
+      - {text: "How is the Austin site doing this year?", expect: {type: clarification}}
+      - {text: "Turnover rate.", expect: {type: answer}}
+    gold_spec: {metric: turnover_rate, group_by: [], grain: none, start: "2025-01-01", end: "2025-12-31", filters: {location: [Austin]}}
+  - id: CL-13
+    role: talent_acquisition
+    turns:
+      - {text: "How are we doing on recruiting for Engineering in 2024?", expect: {type: clarification}}
+      - {text: "Time to fill.", expect: {type: answer}}
+    gold_spec: {metric: time_to_fill_days, group_by: [], grain: none, start: "2024-01-01", end: "2024-12-31", filters: {department: [Engineering]}}
+  - id: CL-14
+    role: hr_business_partner
+    turns:
+      - {text: "Give me the numbers for Sales.", expect: {type: clarification}}
+      - {text: "FTE.", expect: {type: answer}}
+    gold_spec: {metric: fte, group_by: [], grain: none, start: "2025-12-01", end: "2025-12-31", filters: {department: [Sales]}, scope: [Engineering, Sales]}
+  - id: CL-15
+    role: executive
+    turns:
+      - {text: "What about New York in 2025?", expect: {type: clarification}}
+      - {text: "Offer acceptance rate.", expect: {type: answer}}
+    gold_spec: {metric: offer_acceptance_rate, group_by: [], grain: none, start: "2025-01-01", end: "2025-12-31", filters: {location: [New York]}}
+  - id: CL-16
+    role: people_analytics
+    turns:
+      - {text: "Show me L2 for last year.", expect: {type: clarification}}
+      - {text: "Headcount.", expect: {type: answer}}
+    gold_spec: {metric: headcount, group_by: [], grain: none, start: "2024-01-01", end: "2024-12-31", filters: {job_level: [L2]}}
+  - id: CL-17
+    role: hr_business_partner
+    turns:
+      - {text: "How is Engineering looking right now?", expect: {type: clarification}}
+      - {text: "Compensation summary, please.", expect: {type: answer}}
+    gold_spec: {metric: compensation_summary, group_by: [], grain: none, start: "2025-12-01", end: "2025-12-31", filters: {department: [Engineering]}, scope: [Engineering, Sales]}
+  - id: CL-18
+    role: talent_acquisition
+    turns:
+      - {text: "Tell me about San Jose recruiting.", expect: {type: clarification}}
+      - {text: "Offer acceptance.", expect: {type: answer}}
+    gold_spec: {metric: offer_acceptance_rate, group_by: [], grain: none, start: "2025-01-01", end: "2025-12-31", filters: {location: [San Jose]}}
+  - id: CL-19
+    role: people_analytics
+    turns:
+      - {text: "What's going on with part-time?", expect: {type: clarification}}
+      - {text: "FTE please.", expect: {type: answer}}
+    gold_spec: {metric: fte, group_by: [], grain: none, start: "2025-12-01", end: "2025-12-31", filters: {employment_type: [part_time]}}
+  - id: CL-20
+    role: executive
+    turns:
+      - {text: "Give me a view of Sales by location.", expect: {type: clarification}}
+      - {text: "Headcount.", expect: {type: answer}}
+    gold_spec: {metric: headcount, group_by: [location], grain: none, start: "2025-12-01", end: "2025-12-31", filters: {department: [Sales]}}

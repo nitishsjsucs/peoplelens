@@ -202,7 +202,10 @@ def fewshot_examples() -> list[dict]:
     items = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
     picked = [i for i in items if i.get("fewshot")]
     picked.sort(key=lambda i: i["id"])
-    return [{"id": i["id"], "question": i["turns"][0]["text"], "output": i["expected_plan"]} for i in picked[:FEWSHOT_COUNT]]
+    return [
+        {"id": i["id"], "role": i["role"], "question": i["turns"][0]["text"], "output": i["expected_plan"]}
+        for i in picked[:FEWSHOT_COUNT]
+    ]
 
 
 def render_outputs(catalogs: dict[str, dict], policy: Policy, values: dict[str, list[str]]) -> dict[str, str]:

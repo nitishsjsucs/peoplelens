@@ -159,6 +159,9 @@ def make_handler(warehouse: Warehouse):
     class Handler(BaseHTTPRequestHandler):
         server_version = "peoplelens-warehouse/1"
         sys_version = ""
+        # HTTP/1.1 keep-alive: workerd pools connections, and an HTTP/1.0 server
+        # closing after every response races with that reuse ("Network connection lost").
+        protocol_version = "HTTP/1.1"
 
         def log_message(self, fmt: str, *args) -> None:  # no request logging (no SQL, no params)
             return

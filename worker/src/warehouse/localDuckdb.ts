@@ -26,11 +26,19 @@ export class LocalDuckDbWarehouse implements Warehouse {
     if (q.dialect !== "duckdb") throw new ApiError(500, "INTERNAL", "local warehouse needs DuckDB catalog SQL");
     const params: Record<string, string | string[]> = {};
     for (const [name, p] of Object.entries(q.params)) params[name] = p.value;
-    const res = await this.fetcher(new URL("/v1/query", this.url).toString(), {
-      method: "POST",
-      headers: { authorization: `Bearer ${this.token}`, "content-type": "application/json" },
-      body: JSON.stringify({ sql: q.sql, params, dry_run: dryRun }),
-    });
+    const send = () =>
+      this.fetcher(new URL("/v1/query", this.url).toString(), {
+        method: "POST",
+        headers: { authorization: `Bearer ${this.token}`, "content-type": "application/json" },
+        body: JSON.stringify({ sql: q.sql, params, dry_run: dryRun }),
+      });
+    let res: Response;
+    try {
+      res = await send();
+    } catch {
+      // A read-only catalog query is idempotent: retry once on a dropped local connection.
+      res = await send();
+    }
     const json = (await res.json().catch(() => ({}))) as SidecarResponse;
     if (!res.ok) {
       throw new ApiError(502, "INTERNAL", `local warehouse error ${json.error?.code ?? res.status}`);

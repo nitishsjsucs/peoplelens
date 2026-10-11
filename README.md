@@ -19,7 +19,7 @@ v1 is being built from scratch, commit by commit, following the plan in SPEC.md 
 | Worker: policy validation, catalog binding, suppression (k = 10) | done: approved metrics, dimensions, values, grains, ranges and HRBP scope enforced server-side; primary, complementary, hidden-sum and complement-rule suppression with property tests |
 | Worker: cost guard, BigQuery client, per-user budgets | done: row bound, per-query byte cap, daily budget and rate limit in a SQLite Durable Object; BigQuery REST client (service-account JWT, bigquery.readonly, maximumBytesBilled on every job) tested against a fetch mock only, never against BigQuery |
 | Worker: planner (Workers AI, OpenAI-compatible local, stub) | done: one structured planner call, deterministic time phrases and request screening, clarifications with selectable options, multi-turn follow-ups, whitelisted logging; 8,000 fuzzed planner outputs leak nothing. Workers AI and AI Gateway are exercised only against a fake binding until deployed |
-| Eval harness (200 items, text-to-SQL baseline) | planned |
+| Eval harness (200 items, text-to-SQL baseline) | built: 200 frozen items (150 answerable, 20 clarification, 30 adversarial; 214 turns), gold from the independent reference, comparator with median rank bands, leakage checks, pacing, sqlglot-guarded text-to-SQL baseline; no official results yet |
 | CI (python, worker, stub end-to-end) | planned |
 | Ops: doctor, phased bootstrap, deploy, smoke | planned |
 | Results | none yet |
@@ -131,7 +131,15 @@ make llm-up / make llm-down       # llama-server with Qwen3-1.7B on 127.0.0.1:81
 
 `make dev-up` creates local RS256 keys in `.dev/keys/`, writes `worker/.dev.vars` (static JWKS, local role bindings, sidecar URL and token), wipes `.dev/wrangler-state`, starts the warehouse sidecar on an ephemeral port and `wrangler dev --local` on 127.0.0.1:8794 (inspector 9244). Every child runs in its own process group and `make dev-down` kills the groups.
 
-Further local commands (`make eval-stub`, `make eval-local`) are added as their commits land.
+```bash
+make eval-stub      # stub planner; asserts 200 items, schema-valid responses, zero safety violations,
+                    # no RATE_LIMITED or DAILY_BUDGET_EXCEEDED, and at least 143 answers on the answerable slice
+make llm-up && make dev-up ARGS="--llm openai_compat" && make eval-local   # Qwen3-1.7B via llama-server, plus the text-to-SQL baseline
+uv run pl-eval generate --check   # the frozen eval set equals a fresh deterministic generation
+uv run pl-eval gold --check       # eval/gold.json equals the reference implementation
+```
+
+The stub planner exists for CI. Its results are never reported as model accuracy.
 
 ## Production setup
 

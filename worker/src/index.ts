@@ -67,7 +67,7 @@ export function createApp(deps: AppDeps) {
         err.status as 400,
       );
     }
-    logEvent({ event: "error", request_id: requestId, decision: "INTERNAL", status: 500 });
+    logEvent({ event: "error", request_id: requestId, decision: "INTERNAL", status: 500, error_name: err instanceof Error ? err.name : "unknown" });
     return c.json({ request_id: requestId, type: "error", error: { code: "INTERNAL" } }, 500);
   });
 

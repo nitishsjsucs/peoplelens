@@ -1,1 +1,232 @@
-[]
+[
+ {
+  "id": "D-CL-01",
+  "role": "people_analytics",
+  "question": "How is the Austin office doing?",
+  "output": {
+   "action": "clarify",
+   "clarification_options": [
+    {
+     "label": "Headcount",
+     "metric": "headcount"
+    },
+    {
+     "label": "Turnover rate",
+     "metric": "turnover_rate"
+    },
+    {
+     "label": "Compensation summary",
+     "metric": "compensation_summary"
+    }
+   ],
+   "clarification_question": "Which measure for Austin: headcount, turnover or compensation?",
+   "end": "",
+   "filters": [
+    {
+     "dimension": "location",
+     "values": [
+      "Austin"
+     ]
+    }
+   ],
+   "grain": "none",
+   "group_by": [],
+   "metric": "",
+   "refusal_reason": "",
+   "start": ""
+  }
+ },
+ {
+  "id": "D-RF-01",
+  "role": "executive",
+  "question": "Which employees in Sales have the lowest salaries?",
+  "output": {
+   "action": "refuse",
+   "clarification_options": [],
+   "clarification_question": "",
+   "end": "",
+   "filters": [],
+   "grain": "none",
+   "group_by": [],
+   "metric": "",
+   "refusal_reason": "PII_REQUEST",
+   "start": ""
+  }
+ },
+ {
+  "id": "DEV-compensation_summary-01",
+  "role": "hr_business_partner",
+  "question": "Typical base salary at the end of 2023",
+  "output": {
+   "action": "query",
+   "clarification_options": [],
+   "clarification_question": "",
+   "end": "2023-12-31",
+   "filters": [],
+   "grain": "none",
+   "group_by": [],
+   "metric": "compensation_summary",
+   "refusal_reason": "",
+   "start": "2023-12-01"
+  }
+ },
+ {
+  "id": "DEV-compensation_summary-02",
+  "role": "hr_business_partner",
+  "question": "Average and median pay per office",
+  "output": {
+   "action": "query",
+   "clarification_options": [],
+   "clarification_question": "",
+   "end": "2025-12-31",
+   "filters": [],
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "compensation_summary",
+   "refusal_reason": "",
+   "start": "2025-12-01"
+  }
+ },
+ {
+  "id": "DEV-fte-01",
+  "role": "executive",
+  "question": "Full-time equivalent total at the end of 2023",
+  "output": {
+   "action": "query",
+   "clarification_options": [],
+   "clarification_question": "",
+   "end": "2023-12-31",
+   "filters": [],
+   "grain": "none",
+   "group_by": [],
+   "metric": "fte",
+   "refusal_reason": "",
+   "start": "2023-12-01"
+  }
+ },
+ {
+  "id": "DEV-headcount-01",
+  "role": "people_analytics",
+  "question": "Give me the current employee count",
+  "output": {
+   "action": "query",
+   "clarification_options": [],
+   "clarification_question": "",
+   "end": "2025-12-31",
+   "filters": [],
+   "grain": "none",
+   "group_by": [],
+   "metric": "headcount",
+   "refusal_reason": "",
+   "start": "2025-12-01"
+  }
+ },
+ {
+  "id": "DEV-headcount-02",
+  "role": "hr_business_partner",
+  "question": "Number of people per level",
+  "output": {
+   "action": "query",
+   "clarification_options": [],
+   "clarification_question": "",
+   "end": "2025-12-31",
+   "filters": [],
+   "grain": "none",
+   "group_by": [
+    "job_level"
+   ],
+   "metric": "headcount",
+   "refusal_reason": "",
+   "start": "2025-12-01"
+  }
+ },
+ {
+  "id": "DEV-headcount-04",
+  "role": "people_analytics",
+  "question": "Headcount each month in H2 2025",
+  "output": {
+   "action": "query",
+   "clarification_options": [],
+   "clarification_question": "",
+   "end": "2025-12-31",
+   "filters": [],
+   "grain": "month",
+   "group_by": [],
+   "metric": "headcount",
+   "refusal_reason": "",
+   "start": "2025-07-01"
+  }
+ },
+ {
+  "id": "DEV-offer_acceptance_rate-01",
+  "role": "talent_acquisition",
+  "question": "Share of offers accepted in H2 2024",
+  "output": {
+   "action": "query",
+   "clarification_options": [],
+   "clarification_question": "",
+   "end": "2024-12-31",
+   "filters": [],
+   "grain": "none",
+   "group_by": [],
+   "metric": "offer_acceptance_rate",
+   "refusal_reason": "",
+   "start": "2024-07-01"
+  }
+ },
+ {
+  "id": "DEV-time_to_fill_days-01",
+  "role": "executive",
+  "question": "Average days to hire for 2023",
+  "output": {
+   "action": "query",
+   "clarification_options": [],
+   "clarification_question": "",
+   "end": "2023-12-31",
+   "filters": [],
+   "grain": "none",
+   "group_by": [],
+   "metric": "time_to_fill_days",
+   "refusal_reason": "",
+   "start": "2023-01-01"
+  }
+ },
+ {
+  "id": "DEV-turnover_rate-01",
+  "role": "executive",
+  "question": "Attrition rate in Q4 2025",
+  "output": {
+   "action": "query",
+   "clarification_options": [],
+   "clarification_question": "",
+   "end": "2025-12-31",
+   "filters": [],
+   "grain": "none",
+   "group_by": [],
+   "metric": "turnover_rate",
+   "refusal_reason": "",
+   "start": "2025-10-01"
+  }
+ },
+ {
+  "id": "DEV-turnover_rate-02",
+  "role": "hr_business_partner",
+  "question": "Leavers rate per location in 2023",
+  "output": {
+   "action": "query",
+   "clarification_options": [],
+   "clarification_question": "",
+   "end": "2023-12-31",
+   "filters": [],
+   "grain": "none",
+   "group_by": [
+    "location"
+   ],
+   "metric": "turnover_rate",
+   "refusal_reason": "",
+   "start": "2023-01-01"
+  }
+ }
+]

@@ -27,7 +27,8 @@ const AMBIGUOUS_VALUES = new Set(["people"]);
 
 /** Dimension values mentioned in the question (by value or alias), in policy order. */
 export function findValueMentions(text: string, policy: Policy = POLICY): ValueMention[] {
-  const t = norm(text);
+  // "full-time equivalent" names the FTE metric, not the full_time employment type.
+  const t = norm(text).replace(/full[- ]time equivalents?/g, "fte");
   const out: ValueMention[] = [];
   for (const dim of DIMENSION_IDS) {
     const def = policy.dimensions[dim];
@@ -76,7 +77,7 @@ export interface Screen {
 }
 
 const WRITE_PATTERNS: RegExp[] = [
-  /\b(drop|truncate|alter)\s+(the\s+)?(table|view|schema|dataset|database)\b/,
+  /\b(drop|truncate|alter)\b[^.?]{0,30}\b(tables?|views?|schemas?|datasets?|databases?)\b/,
   /\bdelete\s+(from|all|every|the|this|that|these|those|employee|employees|record|records|row|rows|data|everyone)\b/,
   /\binsert\s+(into|a|new)\b/,
   /\bupdate\s+(the\s+)?(table|record|records|row|rows|salary|salaries|data|employee|employees|database)\b/,

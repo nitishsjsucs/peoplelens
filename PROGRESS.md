@@ -4,7 +4,7 @@ Tracks the SPEC.md section 19 commit plan. Updated at every commit.
 
 ## Position
 
-Commit 10 of 17, plus an inserted dev-stack commit (10a) (core cut line after commit 14).
+Commit 11 of 17 (plus the inserted dev-stack commit 10a) (core cut line after commit 14).
 
 ## Done
 
@@ -19,10 +19,11 @@ Commit 10 of 17, plus an inserted dev-stack commit (10a) (core cut line after co
 9. `feat(worker): cost guard, BigQuery client and UserDO budgets`
 10. `feat(worker): planner with Workers AI, OpenAI-compatible and stub providers`
 10a. `feat(dev): local stack orchestrator, local identities and pl ask/chat` (inserted: the eval runner needs it)
+11. `feat(eval): 200-item eval set, gold, comparator and text-to-SQL baseline`
 
 ## Next
 
-11. `feat(eval): 200-item eval set, gold, comparator and text-to-SQL baseline`
+12. `ci: python, worker and stub end-to-end jobs`
 
 ## Check status (at this commit)
 
@@ -36,10 +37,12 @@ Commit 10 of 17, plus an inserted dev-stack commit (10a) (core cut line after co
 | `uv run pl mf validate` | pass (0 errors, 0 warnings) |
 | `mf query` sample (headcount and fte by department, Dec 2025; turnover, offer acceptance, time to fill by year) | matches the reference implementation |
 | `uv run pl catalog build --check` | pass: 312 entries per dialect, BigQuery compiled first, then DuckDB, about 23 s |
-| `uv run pytest -q` | 418 passed (includes the 312 x 3 parity sweep), about 21 s |
+| `uv run pytest -q` | 461 passed (includes the 312 x 3 parity sweep), about 21 s |
 | `uv run pl dev up --llm stub`, `pl ask` (5 questions), `pl dev down` | pass; ports 8794 and 9244 free afterwards, no workerd left |
+| `uv run pl-eval gold --check`, `uv run pl-eval generate --check` (as a pytest) | pass |
+| `uv run pl-eval run --llm stub --assert-safety` (trial, not official, report kept outside the repo) | pass: 200 items, 214 turns, 0 safety violations, 0 schema-invalid, 148 answers on the answerable slice (floor pinned at 143) |
 | `npm run typecheck` | pass |
-| `npm test` (vitest in workerd via @cloudflare/vitest-plugin) | 245 passed (includes 4 x 2,000 fuzzed planner outputs) |
+| `npm test` (vitest in workerd via @cloudflare/vitest-plugin) | 248 passed (includes 4 x 2,000 fuzzed planner outputs and a check that all 207 templated eval and dev questions resolve to their gold period and grain) |
 | `npx wrangler deploy --env production --dry-run --outdir .wrangler/dry` (CI=true, no token) | pass; bundle 2,454 KiB (gzip 219 KiB), BigQuery catalog only |
 
 ## Deviations from SPEC.md
@@ -50,6 +53,12 @@ Commit 10 of 17, plus an inserted dev-stack commit (10a) (core cut line after co
 - Validation codes chosen where the spec leaves them open: more than 2 group-by dimensions is `RESULT_TOO_LARGE`; more than 2 restricted (filtered or scoped) dimensions is `DIMENSION_NOT_APPROVED`; an unknown filter value or unknown metric is `OUT_OF_DOMAIN`; a disallowed grain is `GRAIN_NOT_ALLOWED` carried as a clarification with the allowed grains as options.
 - `UserDO.saveTurn` returns `false` for an unknown session instead of throwing, because an exception thrown inside a Durable Object RPC method is reported as an uncaught exception by workerd.
 - The BigQuery client requests `formatOptions.useInt64Timestamp` and decodes both TIMESTAMP encodings (epoch seconds in float notation and int64 microseconds); `totalBytesBilled` is read when the jobs.query response carries it, otherwise billed bytes are reported as null and the reservation stands. Both are unverified against real BigQuery until `make smoke`.
+- Eval helpers added beyond the section 4 layout: `eval/gold.py`, `eval/suppression.py` (Python port of the Worker's suppression rules, used to derive expected suppression), `eval/safety.py` (leakage checks recomputed from the reference implementation), `eval/cli.py`.
+- Answerable eval items are generated only when every gold cell has a cohort of at least 10 and nothing would be suppressed (including complement-rule suppression for filtered and HRBP-scoped questions), so most department breakdowns of workforce metrics are absent from the answerable slice (Legal is 8 at close); department breakdowns appear through HRBP scope and filters.
+- Clarification options in the eval are answered with a typed reply (for example "Headcount, please."), not `choose_option`, so the second turn is LLM-independent of option labels.
+- The local warehouse sidecar speaks HTTP/1.1 keep-alive and the Worker retries a dropped local connection once: with HTTP/1.0 the first stub eval hit 9 "Network connection lost" errors (workerd reuses pooled connections the server had closed).
+- The DDL screening pattern was broadened from "drop table" to "drop ... table" after reading the adversarial set ("Drop the offers table"); the adversarial pass rate is therefore not a blind measurement for that item.
+- `pl-eval run --dev` runs the dev set for prompt iteration; its reports never go to `eval/results/`.
 - Added `src/peoplelens/dev/client.py` (HTTP client shared by `pl ask`, `pl chat` and the eval runner) and `tests/py/test_dev_tokens.py`.
 - The request pipeline lives in `worker/src/ask.ts` (not in the section 4 layout) so `index.ts` stays a thin router and the fuzz test can drive the pipeline without HTTP.
 - Deterministic request screening (`planner/values.ts`) refuses write requests, person-level or PII requests, unapproved or sensitive attributes and access-escalation attempts before the LLM is called; resolved time phrases and explicit grain words override the model's dates and grain. Both are server-side and LLM-independent.
