@@ -413,6 +413,24 @@ def bootstrap_command(project: str | None) -> str:
     return f'make bootstrap ARGS="--gcp-project {project or "<shared-project-id>"} --role-emails {ROLE_EMAILS}"'
 
 
+def key_checks(runner: Runner, project: str) -> list[Check]:
+    """Long-lived keys (SPEC.md risk 8): one user-managed key per account, younger than 90 days."""
+    from peoplelens.ops.keys import KEY_MAX_AGE_DAYS, ROTATED_ACCOUNTS, key_problems, user_keys
+
+    fixes = {"peoplelens-worker": 'make deploy ARGS="--rotate-key"', "peoplelens-eval": "uv run pl-ops rotate-key --eval"}
+    out = []
+    for name in ROTATED_ACCOUNTS:
+        keys = user_keys(runner, sa_email(name, project), project)
+        label = f"{name} keys (one, under {KEY_MAX_AGE_DAYS} days old)"
+        if keys is None:
+            out.append(Check("deployed", label, WARN, fixes[name], "could not list keys", required=False))
+            continue
+        problems = key_problems(keys)
+        out.append(Check("deployed", label, WARN if problems else OK, fixes[name] + " (deletes the old keys)",
+                         "; ".join(problems)[:80] or f"{len(keys)} key", required=False))
+    return out
+
+
 def deployed_checks(runner: Runner, api: CloudflareApi | None, project: str | None, http=_http) -> list[Check]:
     g = "deployed"
     state = load_state()
@@ -433,6 +451,7 @@ def deployed_checks(runner: Runner, api: CloudflareApi | None, project: str | No
         for name in SERVICE_ACCOUNTS:
             r = runner.run(["gcloud", "iam", "service-accounts", "describe", sa_email(name, project), f"--project={project}"])
             out.append(Check(g, f"service account {name}", OK if r.ok else MISSING, "make bootstrap ARGS=\"--phase a ...\""))
+        out += key_checks(runner, project)
     if api is not None:
         try:
             gw = api.gateway(GATEWAY_ID)

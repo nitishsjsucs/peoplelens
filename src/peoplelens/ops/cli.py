@@ -7,7 +7,7 @@ import json
 import os
 import sys
 
-from peoplelens.ops.checks import WORKER_KEY, Plan, Runner, load_state, read_env_file
+from peoplelens.ops.checks import EVAL_KEY, WORKER_KEY, Plan, Runner, load_state, read_env_file
 
 
 def _api():
@@ -88,13 +88,15 @@ def _bootstrap(args) -> int:
     return 0
 
 
-def _deploy(args) -> int:
+def _deploy(args, runner: Runner | None = None) -> int:
     from peoplelens.ops.bootstrap_cloudflare import BootstrapError, deploy
     from peoplelens.ops.bootstrap_gcp import sa_email
+    from peoplelens.ops.keys import KeyRotationError, delete_other_keys, key_id_of
 
-    runner = Runner(dry_run=args.dry_run)
+    runner = runner or Runner(dry_run=args.dry_run)
     plan = Plan()
     secrets = None
+    new_key = project = None
     if args.rotate_key:
         state = load_state()
         project = state.get("gcp_project")
@@ -107,6 +109,7 @@ def _deploy(args) -> int:
             print(f"key creation failed: {res.stderr[:300]}", file=sys.stderr)
             return 1
         if WORKER_KEY.exists():
+            new_key = key_id_of(WORKER_KEY)
             secrets = {"GCP_SA_KEY_JSON": json.dumps(json.loads(WORKER_KEY.read_text()))}
     try:
         deploy(runner, plan, secrets)
@@ -116,8 +119,56 @@ def _deploy(args) -> int:
     finally:
         if WORKER_KEY.exists():
             os.remove(WORKER_KEY)
-    if args.rotate_key:
-        print("new key deployed; delete the old key: gcloud iam service-accounts keys list --iam-account=... then keys delete <old id>")
+    if args.rotate_key and new_key and project:
+        # The Worker now runs on the new key: the old ones would stay valid until deleted.
+        if getattr(args, "keep_old_keys", False):
+            print(f"new key {new_key[:8]} deployed; old keys kept (--keep-old-keys)")
+            return 0
+        try:
+            deleted = delete_other_keys(runner, sa_email("peoplelens-worker", project), project, new_key)
+        except KeyRotationError as exc:
+            print(f"new key deployed, but: {exc}", file=sys.stderr)
+            return 1
+        print(f"new key {new_key[:8]} deployed; deleted {len(deleted)} old key(s) of peoplelens-worker")
+    return 0
+
+
+def _rotate_eval_key(args, runner: Runner | None = None) -> int:
+    """A fresh key for peoplelens-eval (.secrets/peoplelens-eval.json); then every other
+    user-managed key of that account is deleted."""
+    from peoplelens.ops.bootstrap_gcp import sa_email
+    from peoplelens.ops.keys import KeyRotationError, delete_other_keys, key_id_of
+
+    runner = runner or Runner(dry_run=args.dry_run)
+    project = load_state().get("gcp_project")
+    if not project:
+        print("no project in .secrets/bootstrap-state.json; run make bootstrap", file=sys.stderr)
+        return 2
+    sa = sa_email("peoplelens-eval", project)
+    fresh = EVAL_KEY.with_name("peoplelens-eval.new.json")
+    res = runner.run(["gcloud", "iam", "service-accounts", "keys", "create", str(fresh), f"--iam-account={sa}",
+                      f"--project={project}"], mutates=True)
+    if not res.ok:
+        print(f"key creation failed: {res.stderr[:300]}", file=sys.stderr)
+        return 1
+    if args.dry_run:
+        print("dry run: would replace .secrets/peoplelens-eval.json and delete the other user-managed keys of peoplelens-eval")
+        return 0
+    os.chmod(fresh, 0o600)
+    new_key = key_id_of(fresh)
+    os.replace(fresh, EVAL_KEY)
+    if not new_key:
+        print("the new key file has no private_key_id; old keys were not deleted", file=sys.stderr)
+        return 1
+    if args.keep_old_keys:
+        print(f"new eval key {new_key[:8]} saved; old keys kept (--keep-old-keys)")
+        return 0
+    try:
+        deleted = delete_other_keys(runner, sa, project, new_key)
+    except KeyRotationError as exc:
+        print(f"new eval key saved, but: {exc}", file=sys.stderr)
+        return 1
+    print(f"new eval key {new_key[:8]} saved to {EVAL_KEY}; deleted {len(deleted)} old key(s) of peoplelens-eval")
     return 0
 
 
@@ -188,7 +239,8 @@ def build_parser() -> argparse.ArgumentParser:
     b.add_argument("--dry-run", action="store_true", help="print the plan; read-only calls still run")
     b.set_defaults(func=_bootstrap)
     dep = sub.add_parser("deploy", help="wrangler deploy --env production (secrets persist)")
-    dep.add_argument("--rotate-key", action="store_true", help="upload a fresh GCP_SA_KEY_JSON")
+    dep.add_argument("--rotate-key", action="store_true", help="upload a fresh GCP_SA_KEY_JSON, then delete the old keys")
+    dep.add_argument("--keep-old-keys", action="store_true", help="with --rotate-key: do not delete the previous keys")
     dep.add_argument("--dry-run", action="store_true")
     dep.set_defaults(func=_deploy)
     s = sub.add_parser("smoke", help="production smoke checks (needs phases A and B)")
@@ -202,9 +254,12 @@ def build_parser() -> argparse.ArgumentParser:
     ac.add_argument("--catalog-uri", default=None, help="Basin Catalog URI (default: recorded by bootstrap --with-audit)")
     ac.add_argument("--warehouse", default=None, help="Basin Catalog warehouse name (default: recorded by bootstrap --with-audit)")
     ac.set_defaults(func=_audit_commit)
-    rk = sub.add_parser("rotate-key", help="alias for deploy --rotate-key")
+    rk = sub.add_parser("rotate-key", help="deploy --rotate-key (the Worker's key), or --eval for the eval key")
+    rk.add_argument("--eval", action="store_true", help="rotate .secrets/peoplelens-eval.json instead of the Worker's key")
+    rk.add_argument("--keep-old-keys", action="store_true", help="do not delete the previous keys")
     rk.add_argument("--dry-run", action="store_true")
-    rk.set_defaults(func=lambda a: _deploy(argparse.Namespace(rotate_key=True, dry_run=a.dry_run)))
+    rk.set_defaults(func=lambda a: _rotate_eval_key(a) if a.eval else _deploy(
+        argparse.Namespace(rotate_key=True, dry_run=a.dry_run, keep_old_keys=a.keep_old_keys)))
     return p
 
 
