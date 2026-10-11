@@ -4,7 +4,7 @@ Tracks the SPEC.md section 19 commit plan. Updated at every commit.
 
 ## Position
 
-Commit 17 of 17 (plus inserted commits): the commit plan is complete (core cut line after commit 14). Builder 2 re-ran every check (all pass, same counts as builder 1), reviewed the production path against the official API references (none of it can run on this machine), ran every CI job's commands in a Linux container, and made a fourth official local eval run. Commits 18 to 22a are builder 2's; the plan has no open items that can be done without cloud credentials.
+Builder 3 (2026-10-10): Free plan migration, SPEC.md section 19.1 (M1 to M8), in progress. The v1 plan (commits 1 to 17 plus inserted commits, builders 1 and 2) is complete. The architect's commit 5867b50 rewrote SPEC.md for the Workers Free plan and a shared Google Cloud project (section 25, ADR 0001); until M8 lands, the code still contains the Basin Pipelines audit path and the doctor's "Workers Paid plan" check that section 25 removes. Builder 3 re-ran every check before any change (all pass; pytest 525 with the uncommitted offline dbt test, worker 267, web 3), then committed that test (23).
 
 ## Done
 
@@ -39,16 +39,16 @@ Commit 17 of 17 (plus inserted commits): the commit plan is complete (core cut l
 21. `fix(dev): zombie processes do not count as a running stack` (builder 2): every CI job's commands were run in a Linux container (Debian bookworm arm64, node 24, uv 0.12.17) from a fresh clone of commit 4fbec13. Everything passed (seeds byte-identical to SHA256SUMS on Linux, 94 dbt nodes, catalogs fresh, gold, 519 pytest, typecheck, web 3 and worker 267 vitest, the production dry-run bundle, `pl dev up`, the stub eval with 148 answers and 0 violations) except the last step: `pl dev down` reported "processes left", because the stopped children were zombies that the container's PID 1 (`sleep`) never reaps. Liveness now ignores zombies, read from `ps` (macOS answers EPERM to `killpg` for a group of zombies, so that case is checked the same way); `pl dev down` then passes in the container.
 22. `docs: production setup keeps tokens out of shell history; optional audit setup` (builder 2): README asks for the API token to be pasted in an editor, not with `printf` on the command line, and documents the optional production audit trail (extra permissions, the separate catalog token, the command). The sink type is `r2-data-catalog` in the pinned wrangler 4.149.0, while current Basin docs call it `basin-catalog`.
 22a. `docs: CI commands pass in a Linux container from a fresh clone` (builder 2).
+22b. `docs(spec): production on the Workers Free plan and a shared Google Cloud project` (architect, 5867b50): SPEC.md section 25, ADR 0001, commit plan 19.1 (M1 to M8). No code.
+
+Builder 3 (Free plan migration, SPEC.md 19.1):
+
+23. `test(dbt): production BigQuery dbt project compiles offline` (left uncommitted by the interrupted previous session; finished and committed by builder 3): `tests/py/test_dbt_bigquery_offline.py` runs `dbt compile --no-populate-cache` with the production `bigquery` profile, a throwaway service-account key generated in the test and an empty gcloud config, then checks that all 14 models parse as BigQuery SQL and read only the four `peoplelens_*` datasets, that the semantic views are authorized views over `peoplelens_core` only, that time columns are TIMESTAMP, and that policy tags are off by default and land on exactly the eight documented columns with the phase C vars. Re-run with every HTTP request sent to a dead proxy (`HTTPS_PROXY=http://127.0.0.1:9`): 5 passed, so it makes no network call.
 
 ## Next
 
-Plan complete. Everything left needs the owner's accounts, in this order (README Production setup has the exact commands):
-
-1. Cloudflare: upgrade to Workers Paid; `npx wrangler login`; create the `peoplelens-bootstrap` custom API token and save it with the account id in `.secrets/cloudflare.env` (0600); complete Zero Trust onboarding (team name, Free plan) and add the One-time PIN login method; have a workers.dev subdomain or pass `--workers-subdomain`.
-2. Google Cloud: `brew install --cask gcloud-cli`; `gcloud auth login`; `gcloud auth application-default login`; create `peoplelens-<suffix>` with billing linked, set it as the gcloud and ADC quota project, add a $5 budget alert.
-3. Pick four email addresses for the roles (plus-addresses work), then `make doctor`, `make bootstrap ARGS="--gcp-project ... --role-emails ..."`, `make doctor`, `make smoke`, commit the smoke record, `make eval-prod ARGS="--official"`, and report the production numbers in README.
-4. Optional: `make smoke ARGS="--drills"` after phase C; the audit trail with `--with-audit` (extra token permissions and `BASIN_CATALOG_TOKEN`).
-5. Push to GitHub so the first ubuntu-latest CI run happens.
+1. Free plan migration, in order (SPEC.md 19.1): M1 Workers AI 3036/3040/5035 errors and `AI_DAILY_LIMIT`; M2 `AccountBudgetDO`; M3 CPU and subrequest bounds plus `bench:cpu`; M4 audit trail through Queue, R2 staging and a pyiceberg committer (Basin Pipelines removed); M5 resumable, budget-capped production eval; M6 shared-project caps, doctor and smoke changes; M7 tests that pin the Free budgets; M8 README and PROGRESS.
+2. Then the owner's operator runs SPEC.md section 17 from `make doctor` on (nothing in production needs Workers Paid).
 
 ## Check status (at this commit)
 
@@ -61,7 +61,7 @@ Plan complete. Everything left needs the owner's accounts, in this order (README
 | `uv run pl mf validate` | pass (0 errors, 0 warnings) |
 | `uv run pl catalog build --check` | pass: 312 entries per dialect, BigQuery compiled first, then DuckDB |
 | `uv run pl-eval gold --check`; frozen eval set equals a fresh generation (pytest) | pass |
-| `uv run pytest -q` | 520 passed (includes the 312 x 3 parity sweep; 493 at builder 1's last commit, re-run by builder 2 before any change, plus 22 ops tests in commit 18, 3 in commit 19, 1 in commit 20 and 1 in commit 21; 520 now) |
+| `uv run pytest -q` | 525 passed (includes the 312 x 3 parity sweep; 493 at builder 1's last commit, re-run by builder 2 before any change, plus 22 ops tests in commit 18, 3 in commit 19, 1 in commit 20 and 1 in commit 21; 520 at commit 22b; plus 5 offline dbt-bigquery compile tests in commit 23) |
 | `npm run typecheck` (worker and web) | pass (re-run by builder 2 at 655647c) |
 | `npm test` (web build, web vitest, worker vitest in workerd) | web 3 passed; worker 267 passed (includes 4 x 2,000 fuzzed planner outputs and a check that every templated eval and dev question resolves to its gold period and grain) |
 | `npx wrangler deploy --env production --dry-run --outdir .wrangler/dry` (CI=true, no token) | pass; 2,471 KiB (gzip 223 KiB) including the UI assets; BigQuery catalog only |
