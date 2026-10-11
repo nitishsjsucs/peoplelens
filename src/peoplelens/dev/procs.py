@@ -76,14 +76,36 @@ def alive(pid: int) -> bool:
     return True
 
 
+def _group_states(pgid: int) -> list[str] | None:
+    """Process states (ps STAT) of every member of a process group, or None if ps is unavailable."""
+    try:
+        out = subprocess.run(["ps", "-A", "-o", "pgid=", "-o", "stat="], capture_output=True, text=True,
+                             timeout=5, check=False).stdout
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        return None
+    states = []
+    for line in out.splitlines():
+        parts = line.split()
+        if len(parts) >= 2 and parts[0] == str(pgid):
+            states.append(parts[1])
+    return states
+
+
 def group_alive(pgid: int) -> bool:
+    """True if the group has a member that is not a zombie. A zombie holds no port and
+    runs no code; it lingers only until its parent reaps it, which never happens when
+    the parent is a container's PID 1 that does not reap (for example `sleep` as the
+    entry point), so counting zombies made `pl dev down` fail there."""
     try:
         os.killpg(pgid, 0)
     except ProcessLookupError:
         return False
     except PermissionError:
+        pass  # macOS answers EPERM for a group of zombies; another user's group is checked below
+    states = _group_states(pgid)
+    if states is None:
         return True
-    return True
+    return any(not s.startswith("Z") for s in states)
 
 
 def stop(name: str, grace: float = 5.0) -> bool:
