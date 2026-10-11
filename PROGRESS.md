@@ -4,7 +4,7 @@ Tracks the SPEC.md section 19 commit plan. Updated at every commit.
 
 ## Position
 
-Commit 5 of 17 (core cut line after commit 14).
+Commit 6 of 17 (core cut line after commit 14).
 
 ## Done
 
@@ -13,10 +13,11 @@ Commit 5 of 17 (core cut line after commit 14).
 3. `feat(dbt): staging, core and semantic models on DuckDB with count tests`
 4. `feat(semantic): MetricFlow semantic models and six governed metrics`
 5. `feat(policy): roles, dimensions, limits and the query catalog compiler`
+6. `feat(warehouse): local DuckDB sidecar and BigQuery byte estimator`
 
 ## Next
 
-6. `feat(warehouse): local DuckDB sidecar and BigQuery byte estimator`
+7. `feat(worker): Hono worker, Access JWT verification, role bindings`
 
 ## Check status (at this commit)
 
@@ -30,7 +31,7 @@ Commit 5 of 17 (core cut line after commit 14).
 | `uv run pl mf validate` | pass (0 errors, 0 warnings) |
 | `mf query` sample (headcount and fte by department, Dec 2025; turnover, offer acceptance, time to fill by year) | matches the reference implementation |
 | `uv run pl catalog build --check` | pass: 312 entries per dialect, BigQuery compiled first, then DuckDB, about 23 s |
-| `uv run pytest -q` | 390 passed (includes the 312 x 3 parity sweep), about 21 s |
+| `uv run pytest -q` | 414 passed (includes the 312 x 3 parity sweep), about 21 s |
 
 ## Deviations from SPEC.md
 

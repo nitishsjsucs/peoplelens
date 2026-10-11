@@ -68,6 +68,23 @@ def _cmd_catalog_build(args: argparse.Namespace) -> int:
     return build(check=args.check)
 
 
+def _cmd_warehouse_serve(args: argparse.Namespace) -> int:
+    import signal
+
+    from peoplelens.warehouse.server import serve
+
+    def _stop(signum, frame):  # SIGTERM from `pl dev down` stops serve_forever cleanly
+        raise KeyboardInterrupt
+
+    signal.signal(signal.SIGTERM, _stop)
+    try:
+        serve(port=args.port)
+    except ValueError as exc:
+        print(f"pl warehouse serve: {exc}", file=sys.stderr)
+        return 2
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="pl", description="PeopleLens developer CLI")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -98,6 +115,12 @@ def build_parser() -> argparse.ArgumentParser:
     cbuild = catalog_sub.add_parser("build", help="compile both dialects (BigQuery first, then DuckDB)")
     cbuild.add_argument("--check", action="store_true", help="compile and diff against worker/src/generated, write nothing")
     cbuild.set_defaults(func=_cmd_catalog_build)
+
+    wh = sub.add_parser("warehouse", help="local DuckDB warehouse sidecar (stand-in for BigQuery)")
+    wh_sub = wh.add_subparsers(dest="warehouse_command", required=True)
+    serve = wh_sub.add_parser("serve", help="serve catalog SQL over HTTP on 127.0.0.1 (token in PL_WAREHOUSE_TOKEN)")
+    serve.add_argument("--port", type=int, default=0, help="0 picks an ephemeral port (default)")
+    serve.set_defaults(func=_cmd_warehouse_serve)
 
     return parser
 
