@@ -4,7 +4,7 @@ Tracks the SPEC.md section 19 commit plan. Updated at every commit.
 
 ## Position
 
-Commit 6 of 17 (core cut line after commit 14).
+Commit 7 of 17 (core cut line after commit 14).
 
 ## Done
 
@@ -14,10 +14,11 @@ Commit 6 of 17 (core cut line after commit 14).
 4. `feat(semantic): MetricFlow semantic models and six governed metrics`
 5. `feat(policy): roles, dimensions, limits and the query catalog compiler`
 6. `feat(warehouse): local DuckDB sidecar and BigQuery byte estimator`
+7. `feat(worker): Hono worker, Access JWT verification, role bindings`
 
 ## Next
 
-7. `feat(worker): Hono worker, Access JWT verification, role bindings`
+8. `feat(worker): policy validation, catalog binding and suppression`
 
 ## Check status (at this commit)
 
@@ -32,10 +33,14 @@ Commit 6 of 17 (core cut line after commit 14).
 | `mf query` sample (headcount and fte by department, Dec 2025; turnover, offer acceptance, time to fill by year) | matches the reference implementation |
 | `uv run pl catalog build --check` | pass: 312 entries per dialect, BigQuery compiled first, then DuckDB, about 23 s |
 | `uv run pytest -q` | 414 passed (includes the 312 x 3 parity sweep), about 21 s |
+| `npm run typecheck` | pass |
+| `npm test` (vitest in workerd via @cloudflare/vitest-plugin) | 28 passed |
+| `npx wrangler deploy --env production --dry-run --outdir .wrangler/dry` (CI=true, no token) | pass; bundle 1,594 KiB (gzip 74 KiB), BigQuery catalog only |
 
 ## Deviations from SPEC.md
 
 - Median comparison uses a rank band instead of the value-only band: gold stores the lower and upper middle values plus the sorted salaries `max(1, ceil(0.02 n))` ranks either side of them; a median passes in [band low x 0.99, band high x 1.01]. Reason: in the 312 x 3 parity sweep 14 of 17,534 DuckDB `approx_quantile` medians sat at the correct rank but up to 1.84% outside [lower middle x 0.99, upper middle x 1.01] because of gaps between adjacent salaries (example: 127,300 between ranks 64 and 65 of 129, whose values are 125,000 and 131,700). BigQuery's `APPROX_QUANTILES(x, 2)[OFFSET(1)]` returns an input value at or next to the middle rank, which the band also accepts.
+- Worker entry points are `worker/src/entry.local.ts` (bundles the DuckDB catalog) and `worker/src/entry.production.ts` (bundles the BigQuery catalog), selected by `main` per wrangler environment, because wrangler's `alias` is top-level only and cannot differ per environment. Both call `createWorker()` from `src/index.ts`.
 - `src/peoplelens/policy.py`, `catalog/results.py` and `reference/tolerance.py` added (policy loader, row-to-cell mapping, tolerance rules) beyond the section 4 layout.
 - Catalog JSON is about 1.45 MB per dialect (spec estimated 0.85 MB) because every entry carries a where-filter for each approved dimension of its metric.
 - `turnover_rate` is `terminations / NULLIF(avg_headcount, 0)` (derived) with `avg_headcount` a ratio metric (`employee_months / snapshot_months`), so a group with no active employee-months yields NULL instead of a BigQuery division-by-zero error.

@@ -1,0 +1,43 @@
+// PeopleLens Worker.
+// Top level = local only (wrangler dev --local, vitest): no `ai` binding, no
+// workers.dev URL, so an accidental top-level deploy publishes nothing reachable.
+// env.production = the deployed Worker `peoplelens`. durable_objects, vars and ai
+// are not inherited by environments and are repeated; migrations, workers_dev,
+// preview_urls, observability and compatibility_date are inherited.
+// Secrets are never in this file (see SPEC.md section 17.6).
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "peoplelens-local",
+  "main": "src/entry.local.ts",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": { "enabled": true },
+  "durable_objects": {
+    "bindings": [{ "name": "USER_DO", "class_name": "UserDO" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["UserDO"] }],
+  "vars": {
+    "ENVIRONMENT": "local",
+    "LLM_PROVIDER": "stub",
+    "WAREHOUSE": "duckdb_local",
+    "PLANNER_MODEL": "qwen3-1.7b"
+  },
+  "env": {
+    "production": {
+      "name": "peoplelens",
+      "main": "src/entry.production.ts",
+      "workers_dev": true,
+      "ai": { "binding": "AI" },
+      "durable_objects": {
+        "bindings": [{ "name": "USER_DO", "class_name": "UserDO" }]
+      },
+      "vars": {
+        "ENVIRONMENT": "production",
+        "LLM_PROVIDER": "workers_ai",
+        "WAREHOUSE": "bigquery",
+        "PLANNER_MODEL": "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+      }
+    }
+  }
+}

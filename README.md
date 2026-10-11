@@ -15,7 +15,7 @@ v1 is being built from scratch, commit by commit, following the plan in SPEC.md 
 | MetricFlow semantic layer, six governed metrics | done: `mf validate-configs` passes; queries run on DuckDB; independent Python reference implementation with hand-computed fixture tests |
 | Policy (four roles, five approved dimensions, limits) and compiled query catalog | done: 312 entries per dialect compiled by MetricFlow; all 312 DuckDB entries x 3 parameter sets match the independent reference; BigQuery SQL rendered offline, not yet run on BigQuery |
 | Local DuckDB warehouse sidecar and byte estimator | done (local only): read-only DuckDB, bearer token, executes only catalog SQL; byte estimates model BigQuery on-demand billing and are labeled as estimates |
-| Worker: Access JWT verification and role bindings | planned |
+| Worker: Access JWT verification and role bindings | done: RS256 verification (static local JWKS, or the team's remote JWKS in production), user and service-token bindings, fail-closed production guards; tested in Miniflare, not yet deployed |
 | Worker: policy validation, catalog binding, suppression (k = 10) | planned |
 | Worker: cost guard, BigQuery client, per-user budgets | planned |
 | Worker: planner (Workers AI, OpenAI-compatible local, stub) | planned |
