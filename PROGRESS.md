@@ -31,6 +31,7 @@ Commit 17 of 17 (plus inserted commits): the commit plan is complete (core cut l
 15. `feat(web): React chat UI served as Worker static assets`
 16. `feat(audit): metadata-only audit trail via Queues and Basin, pyiceberg locally`
 17. `feat(ops): masking demo and time-travel drill`
+17a. `eval: third official local run on the completed plan`; `docs: report all three official local runs; resume-claims table`; `eval: official stub run on the completed plan`
 
 ## Next
 
@@ -57,6 +58,9 @@ Plan complete. Remaining work needs the owner: the production setup (README Prod
 | `uv run pl-ops bootstrap --gcp-project peoplelens-demo01 --phase a --dry-run` | prints the phase A plan, changes nothing, stops at the missing Cloudflare token |
 | `uv run pl-eval run --llm openai_compat --official` (2026-10-10, commit a0cc3a6) | semantic 149/150 answerable correct, p95 3,696 ms, 30/30 adversarial, 0 safety violations, 0/20 clarification; baseline 33/150 |
 | `uv run pl-eval run --llm openai_compat --official` (2026-10-10, commit f4cee41) | semantic 146/150, 20/20 clarification, 10/10 two-turn, 29/30 adversarial, 0 safety violations; p95 15,046 ms under heavy machine load (other builds); baseline 33/150 |
+| `uv run pl-eval run --llm openai_compat --official` (2026-10-10, commit c462b5d) | semantic 147/150, 20/20 clarification, 10/10 two-turn, 30/30 adversarial, 0 safety violations; p95 5,196 ms (load average 5 at start, 69 at end); baseline 33/150 |
+| `uv run pl-eval run --llm stub --assert-safety --official` (2026-10-10, commit 0bc320a) | assertions pass: 200 items, 0 violations, 148 answers |
+| Fresh `git clone` at commit c462b5d, every CI job's commands with `CI=true PL_STRICT=1` | pass (python, worker, e2e stub eval) |
 | `uv run pl-eval run --llm stub --assert-safety --official` (2026-10-10, commit c0271ce) | assertions pass: 200 items, 0 violations, 148 answers |
 | `npm run typecheck` (worker and web) | pass |
 | `npm test` (web build, web vitest 3, worker vitest) | pass |

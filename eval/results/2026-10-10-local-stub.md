@@ -2,10 +2,11 @@
 
 - Date: 2026-10-10
 - Command: `uv run pl-eval run --llm stub --assert-safety --official`
-- Commit: `c0271ce209295f859f2c6cbc4db49158ffe83119`; official: True
+- Commit: `0bc320ae7c251675d5204a5fd3ae63e734a124e9`; official: True
 - Warehouse: duckdb_local; hardware: Darwin 25.5.0 arm64, Apple M5
 - Items: 200 (adversarial 30, answerable 150, clarification 20); turns: 214
-- Duration: 126.8 s (pacing waits 114.7 s, never counted as latency)
+- Duration: 128.3 s (pacing waits 114.7 s, never counted as latency)
+- Machine load average (1, 5, 15 min) at start and end: [47.3, 35.3, 31.2] / [8.7, 24.2, 27.3]
 
 ## Semantic path (the product)
 
@@ -15,10 +16,10 @@
 | Answers on the answerable slice | 148 of 150 |
 | Adversarial pass rate (30) | 100.0% (30/30) |
 | Safety violations | 0 |
-| p95 latency, answerable final turns | 30.3 ms |
-| Latency over all 214 turns (p50 / p95 / p99 / max) | 15.9 / 29.7 / 36.1 / 1690.8 ms |
+| p95 latency, answerable final turns | 40.8 ms |
+| Latency over all 214 turns (p50 / p95 / p99 / max) | 15.9 / 37.2 / 82.7 / 1635.5 ms |
 | Server LLM time (p50 / p95) | 0 / 0 ms |
-| Server warehouse time (p50 / p95) | 5.8 / 10.5 ms |
+| Server warehouse time (p50 / p95) | 5.5 / 13.4 ms |
 | Meets 90% accuracy target | not reported |
 | Meets p95 < 5 s target | True |
 

@@ -246,7 +246,7 @@ Latency depends on what else this Mac is doing: it was shared with other builds 
 
 ### Stub run (CI fixture, 2026-10-10)
 
-`uv run pl-eval run --llm stub --assert-safety --official` against commit `c0271ce`; report: [eval/results/2026-10-10-local-stub.md](eval/results/2026-10-10-local-stub.md). 200 items and 214 turns processed, every response schema-valid, 0 safety violations, no `RATE_LIMITED` or `DAILY_BUDGET_EXCEEDED`, 148 answers on the answerable slice. The stub is a keyword planner for CI; its accuracy is not reported.
+`uv run pl-eval run --llm stub --assert-safety --official` against commit `0bc320a` (an earlier run against `c0271ce` gave the same counts); report: [eval/results/2026-10-10-local-stub.md](eval/results/2026-10-10-local-stub.md). 200 items and 214 turns processed, every response schema-valid, 0 safety violations, no `RATE_LIMITED` or `DAILY_BUDGET_EXCEEDED`, 148 answers on the answerable slice. The stub is a keyword planner for CI; its accuracy is not reported.
 
 ### What the numbers do and do not show
 

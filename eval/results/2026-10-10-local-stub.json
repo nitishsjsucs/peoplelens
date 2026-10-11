@@ -5,11 +5,21 @@
   "command": "uv run pl-eval run --llm stub --assert-safety --official",
   "date": "2026-10-10",
   "dirty": false,
-  "duration_s": 126.8,
-  "git_commit": "c0271ce209295f859f2c6cbc4db49158ffe83119",
+  "duration_s": 128.3,
+  "git_commit": "0bc320ae7c251675d5204a5fd3ae63e734a124e9",
   "hardware": "Darwin 25.5.0 arm64, Apple M5",
   "limit": null,
   "llm_provider": "stub",
+  "load_average_end": [
+   8.7,
+   24.2,
+   27.3
+  ],
+  "load_average_start": [
+   47.3,
+   35.3,
+   31.2
+  ],
   "model": "stub",
   "official": true,
   "pacing_wait_s": 114.7,
@@ -79,21 +89,21 @@
       }
      },
      "code": null,
-     "latency_ms": 1690.8,
+     "latency_ms": 1635.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 1671,
+      "latency_ms": 1618,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 8.768
+      "warehouse_ms": 9.73
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -173,21 +183,21 @@
       }
      },
      "code": null,
-     "latency_ms": 29.4,
+     "latency_ms": 26.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 19,
+      "latency_ms": 20,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.554
+      "warehouse_ms": 6.875
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -240,21 +250,21 @@
       }
      },
      "code": null,
-     "latency_ms": 17.8,
+     "latency_ms": 20.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 14,
+      "latency_ms": 15,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.772
+      "warehouse_ms": 5.389
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -314,7 +324,7 @@
       }
      },
      "code": null,
-     "latency_ms": 20.4,
+     "latency_ms": 22.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
@@ -328,7 +338,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.08
+      "warehouse_ms": 5.669
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -381,21 +391,21 @@
       }
      },
      "code": null,
-     "latency_ms": 15.7,
+     "latency_ms": 19.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 13,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.73
+      "warehouse_ms": 5.011
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -575,21 +585,21 @@
       }
      },
      "code": null,
-     "latency_ms": 21.1,
+     "latency_ms": 20.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|location,tenure_band|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 17,
+      "latency_ms": 15,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.2
+      "warehouse_ms": 6.582
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -649,21 +659,21 @@
       }
      },
      "code": null,
-     "latency_ms": 17.7,
+     "latency_ms": 25.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 18,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.514
+      "warehouse_ms": 6.27
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -731,21 +741,21 @@
       }
      },
      "code": null,
-     "latency_ms": 22.0,
+     "latency_ms": 23.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||year",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 18,
+      "latency_ms": 19,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.997
+      "warehouse_ms": 8.86
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -805,21 +815,21 @@
       }
      },
      "code": null,
-     "latency_ms": 18.5,
+     "latency_ms": 22.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 14,
+      "latency_ms": 16,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.345
+      "warehouse_ms": 6.201
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -838,7 +848,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 6.4,
+     "latency_ms": 8.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -912,21 +922,21 @@
       }
      },
      "code": null,
-     "latency_ms": 15.6,
+     "latency_ms": 18.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 15,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.123
+      "warehouse_ms": 6.186
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1016,21 +1026,21 @@
       }
      },
      "code": null,
-     "latency_ms": 30.3,
+     "latency_ms": 25.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||month",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 24,
+      "latency_ms": 19,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 11.584
+      "warehouse_ms": 8.049
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1093,7 +1103,7 @@
       }
      },
      "code": null,
-     "latency_ms": 20.9,
+     "latency_ms": 22.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||year",
@@ -1107,7 +1117,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 9.51
+      "warehouse_ms": 10.403
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1180,21 +1190,21 @@
       }
      },
      "code": null,
-     "latency_ms": 19.3,
+     "latency_ms": 22.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 15,
+      "latency_ms": 17,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.21
+      "warehouse_ms": 9.491
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1269,21 +1279,21 @@
       }
      },
      "code": null,
-     "latency_ms": 16.2,
+     "latency_ms": 20.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|tenure_band|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 16,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.931
+      "warehouse_ms": 6.076
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1343,7 +1353,7 @@
       }
      },
      "code": null,
-     "latency_ms": 17.9,
+     "latency_ms": 20.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
@@ -1357,7 +1367,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.151
+      "warehouse_ms": 6.477
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1410,21 +1420,21 @@
       }
      },
      "code": null,
-     "latency_ms": 15.9,
+     "latency_ms": 17.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 13,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.605
+      "warehouse_ms": 5.933
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1443,14 +1453,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 6.6,
+     "latency_ms": 10.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 2,
+      "latency_ms": 3,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -1644,14 +1654,14 @@
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 14,
+      "latency_ms": 13,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.421
+      "warehouse_ms": 6.582
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1741,21 +1751,21 @@
       }
      },
      "code": null,
-     "latency_ms": 24.3,
+     "latency_ms": 21.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||month",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 19,
+      "latency_ms": 16,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 8.157
+      "warehouse_ms": 8.186
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1828,21 +1838,21 @@
       }
      },
      "code": null,
-     "latency_ms": 23.3,
+     "latency_ms": 20.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 18,
+      "latency_ms": 15,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 10.013
+      "warehouse_ms": 8.031
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1927,21 +1937,21 @@
       }
      },
      "code": null,
-     "latency_ms": 21.6,
+     "latency_ms": 19.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|job_level|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 17,
+      "latency_ms": 15,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.844
+      "warehouse_ms": 6.217
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2001,21 +2011,21 @@
       }
      },
      "code": null,
-     "latency_ms": 36.1,
+     "latency_ms": 16.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 30,
+      "latency_ms": 12,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.732
+      "warehouse_ms": 6.083
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2075,21 +2085,21 @@
       }
      },
      "code": null,
-     "latency_ms": 17.0,
+     "latency_ms": 18.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 12,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.974
+      "warehouse_ms": 4.927
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2149,21 +2159,21 @@
       }
      },
      "code": null,
-     "latency_ms": 21.7,
+     "latency_ms": 20.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 17,
+      "latency_ms": 15,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.181
+      "warehouse_ms": 6.455
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2216,7 +2226,7 @@
       }
      },
      "code": null,
-     "latency_ms": 16.5,
+     "latency_ms": 15.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
@@ -2230,7 +2240,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.437
+      "warehouse_ms": 5.661
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2290,21 +2300,21 @@
       }
      },
      "code": null,
-     "latency_ms": 15.8,
+     "latency_ms": 18.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 13,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.206
+      "warehouse_ms": 7.062
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2357,21 +2367,21 @@
       }
      },
      "code": null,
-     "latency_ms": 17.1,
+     "latency_ms": 21.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 14,
+      "latency_ms": 16,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.716
+      "warehouse_ms": 2.128
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2458,21 +2468,21 @@
       }
      },
      "code": null,
-     "latency_ms": 19.1,
+     "latency_ms": 21.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 15,
+      "latency_ms": 17,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.563
+      "warehouse_ms": 6.783
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2545,21 +2555,21 @@
       }
      },
      "code": null,
-     "latency_ms": 21.9,
+     "latency_ms": 25.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 18,
+      "latency_ms": 19,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 9.145
+      "warehouse_ms": 9.707
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2641,14 +2651,14 @@
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 14,
+      "latency_ms": 13,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.808
+      "warehouse_ms": 5.168
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2728,7 +2738,7 @@
       }
      },
      "code": null,
-     "latency_ms": 15.8,
+     "latency_ms": 15.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate|location|none",
@@ -2742,7 +2752,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.938
+      "warehouse_ms": 3.288
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2795,7 +2805,7 @@
       }
      },
      "code": null,
-     "latency_ms": 14.9,
+     "latency_ms": 15.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
@@ -2809,7 +2819,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.195
+      "warehouse_ms": 5.093
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2872,21 +2882,21 @@
       }
      },
      "code": null,
-     "latency_ms": 25.8,
+     "latency_ms": 22.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||year",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 22,
+      "latency_ms": 18,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 11.482
+      "warehouse_ms": 9.348
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2946,21 +2956,21 @@
       }
      },
      "code": null,
-     "latency_ms": 19.0,
+     "latency_ms": 1383.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 1379,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.32
+      "warehouse_ms": 1371.512
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3020,21 +3030,21 @@
       }
      },
      "code": null,
-     "latency_ms": 13.5,
+     "latency_ms": 38.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 35,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.027
+      "warehouse_ms": 19.882
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3094,21 +3104,21 @@
       }
      },
      "code": null,
-     "latency_ms": 18.4,
+     "latency_ms": 34.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 14,
+      "latency_ms": 30,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.864
+      "warehouse_ms": 11.29
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3168,21 +3178,21 @@
       }
      },
      "code": null,
-     "latency_ms": 19.3,
+     "latency_ms": 32.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 16,
+      "latency_ms": 28,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.918
+      "warehouse_ms": 17.7
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3302,21 +3312,21 @@
       }
      },
      "code": null,
-     "latency_ms": 21.9,
+     "latency_ms": 82.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte|employment_type,location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 17,
+      "latency_ms": 76,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.062
+      "warehouse_ms": 30.986
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3389,21 +3399,21 @@
       }
      },
      "code": null,
-     "latency_ms": 16.2,
+     "latency_ms": 81.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 75,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.154
+      "warehouse_ms": 26.47
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3466,7 +3476,7 @@
       }
      },
      "code": null,
-     "latency_ms": 22.2,
+     "latency_ms": 21.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||year",
@@ -3480,7 +3490,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 10.891
+      "warehouse_ms": 10.066
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3553,21 +3563,21 @@
       }
      },
      "code": null,
-     "latency_ms": 23.7,
+     "latency_ms": 18.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 19,
+      "latency_ms": 14,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 8.044
+      "warehouse_ms": 8
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3632,21 +3642,21 @@
       }
      },
      "code": null,
-     "latency_ms": 18.8,
+     "latency_ms": 17.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte|employment_type|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 15,
+      "latency_ms": 13,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.954
+      "warehouse_ms": 5.308
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3706,7 +3716,7 @@
       }
      },
      "code": null,
-     "latency_ms": 13.6,
+     "latency_ms": 12.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
@@ -3720,7 +3730,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.151
+      "warehouse_ms": 2.331
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3773,21 +3783,21 @@
       }
      },
      "code": null,
-     "latency_ms": 16.7,
+     "latency_ms": 14.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 11,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.756
+      "warehouse_ms": 4.708
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3847,21 +3857,21 @@
       }
      },
      "code": null,
-     "latency_ms": 20.2,
+     "latency_ms": 18.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 17,
+      "latency_ms": 14,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.505
+      "warehouse_ms": 6.214
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3943,21 +3953,21 @@
       }
      },
      "code": null,
-     "latency_ms": 16.8,
+     "latency_ms": 18.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte|tenure_band|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 14,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.478
+      "warehouse_ms": 7.025
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4020,21 +4030,21 @@
       }
      },
      "code": null,
-     "latency_ms": 16.2,
+     "latency_ms": 15.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||year",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.696
+      "warehouse_ms": 2.729
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4094,21 +4104,21 @@
       }
      },
      "code": null,
-     "latency_ms": 15.4,
+     "latency_ms": 14.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 10,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.782
+      "warehouse_ms": 5.56
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4188,21 +4198,21 @@
       }
      },
      "code": null,
-     "latency_ms": 17.4,
+     "latency_ms": 19.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 14,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.309
+      "warehouse_ms": 6.886
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4262,21 +4272,21 @@
       }
      },
      "code": null,
-     "latency_ms": 15.2,
+     "latency_ms": 17.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 13,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.747
+      "warehouse_ms": 6.186
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4336,21 +4346,21 @@
       }
      },
      "code": null,
-     "latency_ms": 11.0,
+     "latency_ms": 14.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 10,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.492
+      "warehouse_ms": 2.624
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4437,7 +4447,7 @@
       }
      },
      "code": null,
-     "latency_ms": 16.4,
+     "latency_ms": 16.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte|location|none",
@@ -4451,7 +4461,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.75
+      "warehouse_ms": 6.181
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4524,21 +4534,21 @@
       }
      },
      "code": null,
-     "latency_ms": 20.7,
+     "latency_ms": 19.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 17,
+      "latency_ms": 14,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 10.222
+      "warehouse_ms": 8.974
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4658,21 +4668,21 @@
       }
      },
      "code": null,
-     "latency_ms": 17.2,
+     "latency_ms": 19.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte|employment_type,location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 13,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.981
+      "warehouse_ms": 6.704
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4725,21 +4735,21 @@
       }
      },
      "code": null,
-     "latency_ms": 10.2,
+     "latency_ms": 13.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 6,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.883
+      "warehouse_ms": 2.202
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4792,21 +4802,21 @@
       }
      },
      "code": null,
-     "latency_ms": 15.8,
+     "latency_ms": 18.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 14,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.315
+      "warehouse_ms": 5.955
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4874,21 +4884,21 @@
       }
      },
      "code": null,
-     "latency_ms": 18.3,
+     "latency_ms": 22.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||year",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 14,
+      "latency_ms": 17,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 8.304
+      "warehouse_ms": 10.166
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4948,21 +4958,21 @@
       }
      },
      "code": null,
-     "latency_ms": 14.5,
+     "latency_ms": 19.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 13,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.866
+      "warehouse_ms": 6.814
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5042,7 +5052,7 @@
       }
      },
      "code": null,
-     "latency_ms": 12.0,
+     "latency_ms": 13.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate|location|none",
@@ -5056,7 +5066,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.961
+      "warehouse_ms": 3.465
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5116,7 +5126,7 @@
       }
      },
      "code": null,
-     "latency_ms": 15.2,
+     "latency_ms": 15.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
@@ -5130,7 +5140,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.85
+      "warehouse_ms": 5.915
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5203,21 +5213,21 @@
       }
      },
      "code": null,
-     "latency_ms": 23.0,
+     "latency_ms": 22.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 19,
+      "latency_ms": 18,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 9.155
+      "warehouse_ms": 8.131
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5297,7 +5307,7 @@
       }
      },
      "code": null,
-     "latency_ms": 21.0,
+     "latency_ms": 20.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate|location|none",
@@ -5311,7 +5321,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 8.432
+      "warehouse_ms": 7.769
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5371,7 +5381,7 @@
       }
      },
      "code": null,
-     "latency_ms": 11.8,
+     "latency_ms": 12.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
@@ -5385,7 +5395,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.082
+      "warehouse_ms": 2.456
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5453,21 +5463,21 @@
       }
      },
      "code": null,
-     "latency_ms": 21.2,
+     "latency_ms": 19.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||year",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 17,
+      "latency_ms": 15,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 8.842
+      "warehouse_ms": 7.707
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5527,21 +5537,21 @@
       }
      },
      "code": null,
-     "latency_ms": 19.3,
+     "latency_ms": 17.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 16,
+      "latency_ms": 12,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.143
+      "warehouse_ms": 5.46
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5626,7 +5636,7 @@
       }
      },
      "code": null,
-     "latency_ms": 19.0,
+     "latency_ms": 19.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate|job_level|none",
@@ -5640,7 +5650,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.504
+      "warehouse_ms": 7.675
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5713,21 +5723,21 @@
       }
      },
      "code": null,
-     "latency_ms": 10.7,
+     "latency_ms": 11.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.525
+      "warehouse_ms": 2.904
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5814,7 +5824,7 @@
       }
      },
      "code": null,
-     "latency_ms": 17.9,
+     "latency_ms": 18.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate|location|none",
@@ -5828,7 +5838,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 9.099
+      "warehouse_ms": 9.029
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5881,21 +5891,21 @@
       }
      },
      "code": null,
-     "latency_ms": 15.3,
+     "latency_ms": 14.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 10,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.889
+      "warehouse_ms": 5.534
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5955,21 +5965,21 @@
       }
      },
      "code": null,
-     "latency_ms": 15.2,
+     "latency_ms": 15.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 11,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.437
+      "warehouse_ms": 5.652
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6029,21 +6039,21 @@
       }
      },
      "code": null,
-     "latency_ms": 10.7,
+     "latency_ms": 12.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.072
+      "warehouse_ms": 2.551
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6103,7 +6113,7 @@
       }
      },
      "code": null,
-     "latency_ms": 14.3,
+     "latency_ms": 15.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
@@ -6117,7 +6127,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.61
+      "warehouse_ms": 5.579
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6190,7 +6200,7 @@
       }
      },
      "code": null,
-     "latency_ms": 17.4,
+     "latency_ms": 18.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||quarter",
@@ -6204,7 +6214,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.606
+      "warehouse_ms": 7.744
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6279,21 +6289,21 @@
       }
      },
      "code": null,
-     "latency_ms": 20.2,
+     "latency_ms": 18.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate|tenure_band|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 15,
+      "latency_ms": 14,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.889
+      "warehouse_ms": 7.258
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6361,7 +6371,7 @@
       }
      },
      "code": null,
-     "latency_ms": 11.3,
+     "latency_ms": 11.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||year",
@@ -6375,7 +6385,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.934
+      "warehouse_ms": 2.862
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6438,7 +6448,7 @@
       }
      },
      "code": null,
-     "latency_ms": 15.2,
+     "latency_ms": 15.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||year",
@@ -6452,7 +6462,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.416
+      "warehouse_ms": 7.515
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6512,21 +6522,21 @@
       }
      },
      "code": null,
-     "latency_ms": 16.5,
+     "latency_ms": 44.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 39,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.751
+      "warehouse_ms": 27.201
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6606,7 +6616,7 @@
       }
      },
      "code": null,
-     "latency_ms": 16.3,
+     "latency_ms": 16.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate|location|none",
@@ -6620,7 +6630,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.122
+      "warehouse_ms": 7.792
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6680,21 +6690,21 @@
       }
      },
      "code": null,
-     "latency_ms": 11.5,
+     "latency_ms": 13.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.857
+      "warehouse_ms": 2.794
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6747,21 +6757,21 @@
       }
      },
      "code": null,
-     "latency_ms": 12.9,
+     "latency_ms": 12.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.265
+      "warehouse_ms": 4.2
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6848,21 +6858,21 @@
       }
      },
      "code": null,
-     "latency_ms": 21.0,
+     "latency_ms": 20.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 18,
+      "latency_ms": 16,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 11.629
+      "warehouse_ms": 9.236
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6922,21 +6932,21 @@
       }
      },
      "code": null,
-     "latency_ms": 17.1,
+     "latency_ms": 15.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 11,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.728
+      "warehouse_ms": 5.71
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6989,21 +6999,21 @@
       }
      },
      "code": null,
-     "latency_ms": 9.6,
+     "latency_ms": 11.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 6,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.653
+      "warehouse_ms": 2.131
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7076,21 +7086,21 @@
       }
      },
      "code": null,
-     "latency_ms": 14.7,
+     "latency_ms": 16.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 12,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.384
+      "warehouse_ms": 7.376
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7150,21 +7160,21 @@
       }
      },
      "code": null,
-     "latency_ms": 13.9,
+     "latency_ms": 15.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 11,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.809
+      "warehouse_ms": 5.467
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7244,7 +7254,7 @@
       }
      },
      "code": null,
-     "latency_ms": 15.7,
+     "latency_ms": 16.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate|location|none",
@@ -7258,7 +7268,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.305
+      "warehouse_ms": 7.558
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7338,21 +7348,21 @@
       }
      },
      "code": null,
-     "latency_ms": 10.7,
+     "latency_ms": 12.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.556
+      "warehouse_ms": 2.935
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7415,7 +7425,7 @@
       }
      },
      "code": null,
-     "latency_ms": 15.8,
+     "latency_ms": 16.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||year",
@@ -7429,7 +7439,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.35
+      "warehouse_ms": 7.919
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7489,7 +7499,7 @@
       }
      },
      "code": null,
-     "latency_ms": 17.1,
+     "latency_ms": 18.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
@@ -7503,7 +7513,7 @@
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.139
+      "warehouse_ms": 6.449
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7588,21 +7598,21 @@
       }
      },
      "code": null,
-     "latency_ms": 17.3,
+     "latency_ms": 18.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate|job_level|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 14,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 8.491
+      "warehouse_ms": 7.865
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7662,21 +7672,21 @@
       }
      },
      "code": null,
-     "latency_ms": 12.0,
+     "latency_ms": 15.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 10,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.921
+      "warehouse_ms": 2.925
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7744,21 +7754,21 @@
       }
      },
      "code": null,
-     "latency_ms": 11.3,
+     "latency_ms": 14.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||year",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 10,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.871
+      "warehouse_ms": 4.283
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7817,21 +7827,21 @@
       }
      },
      "code": null,
-     "latency_ms": 17.2,
+     "latency_ms": 22.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 14,
+      "latency_ms": 16,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.215
+      "warehouse_ms": 6.427
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7904,21 +7914,21 @@
       }
      },
      "code": null,
-     "latency_ms": 11.3,
+     "latency_ms": 13.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.716
+      "warehouse_ms": 3.552
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7978,21 +7988,21 @@
       }
      },
      "code": null,
-     "latency_ms": 11.2,
+     "latency_ms": 13.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.183
+      "warehouse_ms": 2.421
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8072,21 +8082,21 @@
       }
      },
      "code": null,
-     "latency_ms": 11.2,
+     "latency_ms": 14.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.996
+      "warehouse_ms": 3.401
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8170,7 +8180,7 @@
       }
      },
      "code": null,
-     "latency_ms": 19.6,
+     "latency_ms": 22.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary|tenure_band|none",
@@ -8184,7 +8194,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.47
+      "warehouse_ms": 7.48
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8244,21 +8254,21 @@
       }
      },
      "code": null,
-     "latency_ms": 10.4,
+     "latency_ms": 15.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 10,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.821
+      "warehouse_ms": 2.841
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8311,21 +8321,21 @@
       }
      },
      "code": null,
-     "latency_ms": 10.4,
+     "latency_ms": 14.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.995
+      "warehouse_ms": 2.678
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8378,21 +8388,21 @@
       }
      },
      "code": null,
-     "latency_ms": 95.4,
+     "latency_ms": 11.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 45,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.228
+      "warehouse_ms": 0.6
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8458,21 +8468,21 @@
       }
      },
      "code": null,
-     "latency_ms": 31.0,
+     "latency_ms": 19.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 24,
+      "latency_ms": 10,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.239
+      "warehouse_ms": 4.425
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8532,21 +8542,21 @@
       }
      },
      "code": null,
-     "latency_ms": 29.7,
+     "latency_ms": 32.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 28,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.034
+      "warehouse_ms": 2.154
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8619,21 +8629,21 @@
       }
      },
      "code": null,
-     "latency_ms": 35.1,
+     "latency_ms": 22.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 26,
+      "latency_ms": 18,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.447
+      "warehouse_ms": 12.446
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8706,21 +8716,21 @@
       }
      },
      "code": null,
-     "latency_ms": 13.0,
+     "latency_ms": 72.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 68,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.573
+      "warehouse_ms": 2.559
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8786,21 +8796,21 @@
       }
      },
      "code": null,
-     "latency_ms": 20.9,
+     "latency_ms": 23.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 16,
+      "latency_ms": 14,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.242
+      "warehouse_ms": 6.193
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8880,21 +8890,21 @@
       }
      },
      "code": null,
-     "latency_ms": 16.4,
+     "latency_ms": 14.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 10,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.695
+      "warehouse_ms": 1.847
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8954,21 +8964,21 @@
       }
      },
      "code": null,
-     "latency_ms": 18.3,
+     "latency_ms": 13.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.815
+      "warehouse_ms": 1.465
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9055,21 +9065,21 @@
       }
      },
      "code": null,
-     "latency_ms": 17.3,
+     "latency_ms": 15.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 10,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.841
+      "warehouse_ms": 2.58
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9151,21 +9161,21 @@
       }
      },
      "code": null,
-     "latency_ms": 32.8,
+     "latency_ms": 30.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 28,
+      "latency_ms": 25,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 12.174
+      "warehouse_ms": 11.976
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9225,21 +9235,21 @@
       }
      },
      "code": null,
-     "latency_ms": 14.3,
+     "latency_ms": 19.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 12,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.411
+      "warehouse_ms": 1.511
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9307,21 +9317,21 @@
       }
      },
      "code": null,
-     "latency_ms": 13.9,
+     "latency_ms": 26.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||year",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 17,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.637
+      "warehouse_ms": 2.057
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9401,21 +9411,21 @@
       }
      },
      "code": null,
-     "latency_ms": 11.2,
+     "latency_ms": 25.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 15,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.612
+      "warehouse_ms": 2.128
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9491,21 +9501,21 @@
       }
      },
      "code": null,
-     "latency_ms": 35.3,
+     "latency_ms": 35.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||year",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 21,
+      "latency_ms": 27,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 11.844
+      "warehouse_ms": 11.582
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9565,21 +9575,21 @@
       }
      },
      "code": null,
-     "latency_ms": 12.1,
+     "latency_ms": 23.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 13,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.276
+      "warehouse_ms": 2.333
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9632,21 +9642,21 @@
       }
      },
      "code": null,
-     "latency_ms": 10.4,
+     "latency_ms": 21.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 6,
+      "latency_ms": 13,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.152
+      "warehouse_ms": 2.114
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9706,21 +9716,21 @@
       }
      },
      "code": null,
-     "latency_ms": 13.7,
+     "latency_ms": 30.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 18,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.214
+      "warehouse_ms": 2.663
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9779,21 +9789,21 @@
       }
      },
      "code": null,
-     "latency_ms": 17.2,
+     "latency_ms": 34.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 22,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.979
+      "warehouse_ms": 10.494
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9853,21 +9863,21 @@
       }
      },
      "code": null,
-     "latency_ms": 13.2,
+     "latency_ms": 34.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 20,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.218
+      "warehouse_ms": 2.981
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9940,21 +9950,21 @@
       }
      },
      "code": null,
-     "latency_ms": 12.9,
+     "latency_ms": 32.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 18,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.784
+      "warehouse_ms": 3.79
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10041,21 +10051,21 @@
       }
      },
      "code": null,
-     "latency_ms": 13.4,
+     "latency_ms": 28.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 18,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.923
+      "warehouse_ms": 3.366
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10151,21 +10161,21 @@
       }
      },
      "code": null,
-     "latency_ms": 22.3,
+     "latency_ms": 47.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary|job_level|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 17,
+      "latency_ms": 35,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.336
+      "warehouse_ms": 13.447
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10233,21 +10243,21 @@
       }
      },
      "code": null,
-     "latency_ms": 11.5,
+     "latency_ms": 32.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||year",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 20,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.533
+      "warehouse_ms": 2.652
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10307,21 +10317,21 @@
       }
      },
      "code": null,
-     "latency_ms": 10.9,
+     "latency_ms": 39.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 19,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.226
+      "warehouse_ms": 2.329
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10381,21 +10391,21 @@
       }
      },
      "code": null,
-     "latency_ms": 11.9,
+     "latency_ms": 35.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 18,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.143
+      "warehouse_ms": 3.359
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10461,21 +10471,21 @@
       }
      },
      "code": null,
-     "latency_ms": 19.8,
+     "latency_ms": 40.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 16,
+      "latency_ms": 27,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.55
+      "warehouse_ms": 13.531
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10528,21 +10538,21 @@
       }
      },
      "code": null,
-     "latency_ms": 13.0,
+     "latency_ms": 21.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 14,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.567
+      "warehouse_ms": 2.053
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10622,21 +10632,21 @@
       }
      },
      "code": null,
-     "latency_ms": 12.8,
+     "latency_ms": 25.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 14,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.714
+      "warehouse_ms": 2.815
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10723,21 +10733,21 @@
       }
      },
      "code": null,
-     "latency_ms": 11.9,
+     "latency_ms": 23.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 15,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.261
+      "warehouse_ms": 2.736
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10803,21 +10813,21 @@
       }
      },
      "code": null,
-     "latency_ms": 19.1,
+     "latency_ms": 35.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 15,
+      "latency_ms": 23,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.332
+      "warehouse_ms": 7.91
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10890,21 +10900,21 @@
       }
      },
      "code": null,
-     "latency_ms": 11.3,
+     "latency_ms": 23.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 13,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.59
+      "warehouse_ms": 3.128
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10964,21 +10974,21 @@
       }
      },
      "code": null,
-     "latency_ms": 11.1,
+     "latency_ms": 24.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 16,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.603
+      "warehouse_ms": 2.264
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11075,21 +11085,21 @@
       }
      },
      "code": null,
-     "latency_ms": 21.8,
+     "latency_ms": 31.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 18,
+      "latency_ms": 25,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.317
+      "warehouse_ms": 8.453
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11171,21 +11181,21 @@
       }
      },
      "code": null,
-     "latency_ms": 22.7,
+     "latency_ms": 31.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 16,
+      "latency_ms": 23,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 9.582
+      "warehouse_ms": 11.958
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11245,21 +11255,21 @@
       }
      },
      "code": null,
-     "latency_ms": 10.9,
+     "latency_ms": 17.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 11,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.192
+      "warehouse_ms": 1.845
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11312,21 +11322,21 @@
       }
      },
      "code": null,
-     "latency_ms": 11.4,
+     "latency_ms": 13.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.122
+      "warehouse_ms": 1.089
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11392,21 +11402,21 @@
       }
      },
      "code": null,
-     "latency_ms": 17.4,
+     "latency_ms": 15.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 11,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.113
+      "warehouse_ms": 4.658
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11489,14 +11499,14 @@
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 16,
+      "latency_ms": 15,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 9.781
+      "warehouse_ms": 9.085
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11581,21 +11591,21 @@
       }
      },
      "code": null,
-     "latency_ms": 14.1,
+     "latency_ms": 14.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days|job_level|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.379
+      "warehouse_ms": 1.498
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11615,7 +11625,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 5.8,
+     "latency_ms": 9.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -11681,21 +11691,21 @@
       }
      },
      "code": null,
-     "latency_ms": 13.4,
+     "latency_ms": 10.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.136
+      "warehouse_ms": 1.085
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11754,21 +11764,21 @@
       }
      },
      "code": null,
-     "latency_ms": 16.4,
+     "latency_ms": 11.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.085
+      "warehouse_ms": 3.975
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11834,21 +11844,21 @@
       }
      },
      "code": null,
-     "latency_ms": 17.8,
+     "latency_ms": 13.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 10,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.532
+      "warehouse_ms": 4.603
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11945,21 +11955,21 @@
       }
      },
      "code": null,
-     "latency_ms": 17.4,
+     "latency_ms": 14.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 14,
+      "latency_ms": 10,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.159
+      "warehouse_ms": 5.144
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11979,14 +11989,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 6.8,
+     "latency_ms": 5.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 3,
+      "latency_ms": 2,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -12045,21 +12055,21 @@
       }
      },
      "code": null,
-     "latency_ms": 16.5,
+     "latency_ms": 11.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.398
+      "warehouse_ms": 1.986
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12156,21 +12166,21 @@
       }
      },
      "code": null,
-     "latency_ms": 20.7,
+     "latency_ms": 12.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 15,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.194
+      "warehouse_ms": 4.491
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12236,21 +12246,21 @@
       }
      },
      "code": null,
-     "latency_ms": 18.8,
+     "latency_ms": 14.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 14,
+      "latency_ms": 11,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.782
+      "warehouse_ms": 5.076
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12340,21 +12350,21 @@
       }
      },
      "code": null,
-     "latency_ms": 15.7,
+     "latency_ms": 12.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.097
+      "warehouse_ms": 4.272
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12408,21 +12418,21 @@
       }
      },
      "code": null,
-     "latency_ms": 12.4,
+     "latency_ms": 12.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.179
+      "warehouse_ms": 0.92
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12492,21 +12502,21 @@
       }
      },
      "code": null,
-     "latency_ms": 20.0,
+     "latency_ms": 14.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||year",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 16,
+      "latency_ms": 12,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 10.901
+      "warehouse_ms": 7.057
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12588,21 +12598,21 @@
       }
      },
      "code": null,
-     "latency_ms": 26.6,
+     "latency_ms": 16.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 22,
+      "latency_ms": 13,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 11.083
+      "warehouse_ms": 8.222
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12668,21 +12678,21 @@
       }
      },
      "code": null,
-     "latency_ms": 22.6,
+     "latency_ms": 12.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 15,
+      "latency_ms": 10,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.101
+      "warehouse_ms": 4.592
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12702,7 +12712,7 @@
    "turns": [
     {
      "code": "METRIC_NOT_ALLOWED",
-     "latency_ms": 12.1,
+     "latency_ms": 5.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -12735,14 +12745,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 14.4,
+     "latency_ms": 5.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 1,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -12808,21 +12818,21 @@
       }
      },
      "code": null,
-     "latency_ms": 24.8,
+     "latency_ms": 15.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 18,
+      "latency_ms": 10,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.501
+      "warehouse_ms": 5.078
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12888,21 +12898,21 @@
       }
      },
      "code": null,
-     "latency_ms": 16.8,
+     "latency_ms": 13.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 10,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.744
+      "warehouse_ms": 4.812
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12922,14 +12932,14 @@
    "turns": [
     {
      "code": "SCOPE_VIOLATION",
-     "latency_ms": 12.9,
+     "latency_ms": 5.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "SCOPE_VIOLATION",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 3,
+      "latency_ms": 1,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -12955,14 +12965,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 9.2,
+     "latency_ms": 7.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 3,
+      "latency_ms": 2,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -12988,14 +12998,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 17.3,
+     "latency_ms": 5.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 3,
+      "latency_ms": 2,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -13021,14 +13031,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 6.9,
+     "latency_ms": 5.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 3,
+      "latency_ms": 2,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -13054,7 +13064,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 7.1,
+     "latency_ms": 5.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -13088,7 +13098,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 6.0,
+     "latency_ms": 5.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -13154,21 +13164,21 @@
       }
      },
      "code": null,
-     "latency_ms": 15.9,
+     "latency_ms": 13.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.398
+      "warehouse_ms": 4.521
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -13187,14 +13197,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 7.7,
+     "latency_ms": 5.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 2,
+      "latency_ms": 1,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -13220,14 +13230,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 6.1,
+     "latency_ms": 5.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 2,
+      "latency_ms": 1,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -13254,14 +13264,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 10.3,
+     "latency_ms": 6.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 3,
+      "latency_ms": 2,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -13326,21 +13336,21 @@
       }
      },
      "code": null,
-     "latency_ms": 32.9,
+     "latency_ms": 13.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 24,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 10.488
+      "warehouse_ms": 4.513
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -13359,7 +13369,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 6.9,
+     "latency_ms": 5.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -13393,7 +13403,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 6.1,
+     "latency_ms": 5.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -13459,21 +13469,21 @@
       }
      },
      "code": null,
-     "latency_ms": 17.0,
+     "latency_ms": 14.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 11,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.439
+      "warehouse_ms": 5.434
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -13493,14 +13503,14 @@
    "turns": [
     {
      "code": "SCOPE_VIOLATION",
-     "latency_ms": 9.1,
+     "latency_ms": 6.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "SCOPE_VIOLATION",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 3,
+      "latency_ms": 2,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -13526,7 +13536,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 7.2,
+     "latency_ms": 5.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -13560,14 +13570,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 7.5,
+     "latency_ms": 5.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 2,
+      "latency_ms": 1,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -13626,21 +13636,21 @@
       }
      },
      "code": null,
-     "latency_ms": 13.4,
+     "latency_ms": 11.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.769
+      "warehouse_ms": 2.301
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -13734,21 +13744,21 @@
       }
      },
      "code": null,
-     "latency_ms": 21.7,
+     "latency_ms": 14.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 15,
+      "latency_ms": 11,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.5
+      "warehouse_ms": 5.261
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -13767,7 +13777,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 8.2,
+     "latency_ms": 5.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -13801,14 +13811,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 7.2,
+     "latency_ms": 6.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 3,
+      "latency_ms": 2,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -13894,21 +13904,21 @@
       }
      },
      "code": null,
-     "latency_ms": 18.1,
+     "latency_ms": 14.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 10,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.172
+      "warehouse_ms": 4.794
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -13928,14 +13938,14 @@
    "turns": [
     {
      "code": "PII_REQUEST",
-     "latency_ms": 6.0,
+     "latency_ms": 4.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "PII_REQUEST",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 1,
+      "latency_ms": 0,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -13962,14 +13972,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 6.6,
+     "latency_ms": 5.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 3,
+      "latency_ms": 2,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -14028,21 +14038,21 @@
       }
      },
      "code": null,
-     "latency_ms": 18.3,
+     "latency_ms": 12.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.153
+      "warehouse_ms": 4.555
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -14062,7 +14072,7 @@
    "turns": [
     {
      "code": "DIMENSION_NOT_APPROVED",
-     "latency_ms": 6.9,
+     "latency_ms": 5.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -14096,7 +14106,7 @@
    "turns": [
     {
      "code": "SCOPE_VIOLATION",
-     "latency_ms": 7.8,
+     "latency_ms": 5.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -14130,14 +14140,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 8.0,
+     "latency_ms": 4.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 2,
+      "latency_ms": 1,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -14196,21 +14206,21 @@
       }
      },
      "code": null,
-     "latency_ms": 18.4,
+     "latency_ms": 13.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 14,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.785
+      "warehouse_ms": 4.922
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -14230,7 +14240,7 @@
    "turns": [
     {
      "code": "PII_REQUEST",
-     "latency_ms": 6.3,
+     "latency_ms": 4.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -14264,7 +14274,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 6.4,
+     "latency_ms": 4.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -14330,21 +14340,21 @@
       }
      },
      "code": null,
-     "latency_ms": 15.9,
+     "latency_ms": 14.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 10,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.319
+      "warehouse_ms": 4.492
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -14411,21 +14421,21 @@
       }
      },
      "code": null,
-     "latency_ms": 33.0,
+     "latency_ms": 15.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 22,
+      "latency_ms": 11,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.077
+      "warehouse_ms": 4.478
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -14445,7 +14455,7 @@
    "turns": [
     {
      "code": "PII_REQUEST",
-     "latency_ms": 7.6,
+     "latency_ms": 6.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -14541,21 +14551,21 @@
       }
      },
      "code": null,
-     "latency_ms": 19.2,
+     "latency_ms": 37.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 14,
+      "latency_ms": 32,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.711
+      "warehouse_ms": 23.774
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -14640,21 +14650,21 @@
       }
      },
      "code": null,
-     "latency_ms": 24.0,
+     "latency_ms": 22.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 19,
+      "latency_ms": 15,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 8.002
+      "warehouse_ms": 6.707
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -14949,21 +14959,21 @@
       }
      },
      "code": null,
-     "latency_ms": 23.9,
+     "latency_ms": 22.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|department,location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 19,
+      "latency_ms": 16,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.86
+      "warehouse_ms": 6.416
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -14983,7 +14993,7 @@
    "turns": [
     {
      "code": "DIMENSION_NOT_APPROVED",
-     "latency_ms": 6.1,
+     "latency_ms": 8.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -15058,21 +15068,21 @@
       }
      },
      "code": null,
-     "latency_ms": 19.9,
+     "latency_ms": 22.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 15,
+      "latency_ms": 16,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.936
+      "warehouse_ms": 5.621
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -15092,7 +15102,7 @@
    "turns": [
     {
      "code": "DIMENSION_NOT_APPROVED",
-     "latency_ms": 9.8,
+     "latency_ms": 8.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -15401,21 +15411,21 @@
       }
      },
      "code": null,
-     "latency_ms": 22.0,
+     "latency_ms": 16.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|department,location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 18,
+      "latency_ms": 12,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.264
+      "warehouse_ms": 5.801
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -15435,14 +15445,14 @@
    "turns": [
     {
      "code": "WRITE_REQUEST",
-     "latency_ms": 6.9,
+     "latency_ms": 4.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "WRITE_REQUEST",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 2,
+      "latency_ms": 1,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -15504,21 +15514,21 @@
       }
      },
      "code": null,
-     "latency_ms": 16.7,
+     "latency_ms": 11.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.681
+      "warehouse_ms": 3.766
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -15576,21 +15586,21 @@
       }
      },
      "code": null,
-     "latency_ms": 17.9,
+     "latency_ms": 21.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 16,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.983
+      "warehouse_ms": 6.466
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -15651,21 +15661,21 @@
       }
      },
      "code": null,
-     "latency_ms": 17.0,
+     "latency_ms": 15.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 11,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.999
+      "warehouse_ms": 4.996
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -15729,21 +15739,21 @@
       }
      },
      "code": null,
-     "latency_ms": 21.8,
+     "latency_ms": 19.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 17,
+      "latency_ms": 14,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 8
+      "warehouse_ms": 6.131
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -15805,21 +15815,21 @@
       }
      },
      "code": null,
-     "latency_ms": 19.5,
+     "latency_ms": 15.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 11,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.448
+      "warehouse_ms": 4.843
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -15877,21 +15887,21 @@
       }
      },
      "code": null,
-     "latency_ms": 21.9,
+     "latency_ms": 19.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 16,
+      "latency_ms": 14,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.868
+      "warehouse_ms": 5.299
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -15911,7 +15921,7 @@
    "turns": [
     {
      "code": "DIMENSION_NOT_APPROVED",
-     "latency_ms": 6.0,
+     "latency_ms": 7.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -15945,7 +15955,7 @@
    "turns": [
     {
      "code": "PII_REQUEST",
-     "latency_ms": 7.0,
+     "latency_ms": 7.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -15979,7 +15989,7 @@
    "turns": [
     {
      "code": "DIMENSION_NOT_APPROVED",
-     "latency_ms": 7.2,
+     "latency_ms": 8.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -16013,7 +16023,7 @@
    "turns": [
     {
      "code": "WRITE_REQUEST",
-     "latency_ms": 6.2,
+     "latency_ms": 5.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -16047,7 +16057,7 @@
    "turns": [
     {
      "code": "WRITE_REQUEST",
-     "latency_ms": 7.4,
+     "latency_ms": 4.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -16081,7 +16091,7 @@
    "turns": [
     {
      "code": "PII_REQUEST",
-     "latency_ms": 5.7,
+     "latency_ms": 6.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -16115,14 +16125,14 @@
    "turns": [
     {
      "code": "RESULT_TOO_LARGE",
-     "latency_ms": 8.6,
+     "latency_ms": 7.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "RESULT_TOO_LARGE",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 3,
+      "latency_ms": 2,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -16149,7 +16159,7 @@
    "turns": [
     {
      "code": "RESULT_TOO_LARGE",
-     "latency_ms": 7.2,
+     "latency_ms": 7.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|department,job_level|month",
@@ -16183,14 +16193,14 @@
    "turns": [
     {
      "code": "RESULT_TOO_LARGE",
-     "latency_ms": 6.9,
+     "latency_ms": 12.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate|location,tenure_band|month",
       "decision": "RESULT_TOO_LARGE",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 2,
+      "latency_ms": 4,
       "llm_ms": 0,
       "llm_provider": "stub",
       "model": "stub-keyword-planner",
@@ -16232,20 +16242,20 @@
    },
    "latency_ms": {
     "all_turns": {
-     "max": 1690.8,
+     "max": 1635.5,
      "n": 214,
      "p50": 15.9,
-     "p95": 29.7,
-     "p99": 36.1
+     "p95": 37.2,
+     "p99": 82.7
     },
     "answerable_final_turns": {
-     "max": 1690.8,
+     "max": 1635.5,
      "n": 150,
-     "p50": 16.8,
-     "p95": 30.3,
-     "p99": 95.4
+     "p50": 18.8,
+     "p95": 40.8,
+     "p99": 1383.8
     },
-    "p95_answerable_ms": 30.3,
+    "p95_answerable_ms": 40.8,
     "server_llm_ms": {
      "max": 0,
      "n": 214,
@@ -16254,11 +16264,11 @@
      "p99": 0
     },
     "server_warehouse_ms": {
-     "max": 12.2,
+     "max": 1371.5,
      "n": 172,
-     "p50": 5.8,
-     "p95": 10.5,
-     "p99": 11.8
+     "p50": 5.5,
+     "p95": 13.4,
+     "p99": 31.0
     }
    },
    "meets_accuracy_target": null,
