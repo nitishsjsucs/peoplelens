@@ -1,0 +1,37 @@
+{
+ "department": [
+  "Engineering",
+  "Sales",
+  "Customer Success",
+  "Marketing",
+  "Finance",
+  "People",
+  "Operations",
+  "Legal"
+ ],
+ "location": [
+  "San Jose",
+  "New York",
+  "Austin",
+  "London",
+  "Bengaluru"
+ ],
+ "job_level": [
+  "L1",
+  "L2",
+  "L3",
+  "L4",
+  "L5",
+  "L6"
+ ],
+ "employment_type": [
+  "full_time",
+  "part_time"
+ ],
+ "tenure_band": [
+  "<1y",
+  "1-2y",
+  "2-5y",
+  "5y+"
+ ]
+}

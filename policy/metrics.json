@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "metrics": [
+    {
+      "id": "headcount",
+      "label": "Headcount",
+      "family": "workforce",
+      "kind": "stock",
+      "entity": "workforce",
+      "mf_metrics": ["headcount"],
+      "cohort_metric": "headcount",
+      "unit": "employees",
+      "definition": "Active employees at the last month end in each period.",
+      "tolerance": {"headcount": {"type": "exact"}},
+      "default_range": {"start": "2025-12-01", "end": "2025-12-31"},
+      "aliases": ["headcount", "head count", "employees", "people", "staff", "workforce size", "how many"]
+    },
+    {
+      "id": "fte",
+      "label": "FTE",
+      "family": "workforce",
+      "kind": "stock",
+      "entity": "workforce",
+      "mf_metrics": ["fte"],
+      "cohort_metric": "cohort_employees",
+      "unit": "FTE",
+      "definition": "Sum of full-time-equivalent of active employees at the last month end in each period.",
+      "tolerance": {"fte": {"type": "abs", "value": 1e-6}},
+      "default_range": {"start": "2025-12-01", "end": "2025-12-31"},
+      "aliases": ["fte", "full time equivalent", "full-time equivalent", "full time equivalents"]
+    },
+    {
+      "id": "turnover_rate",
+      "label": "Turnover rate",
+      "family": "workforce",
+      "kind": "flow",
+      "entity": "workforce",
+      "mf_metrics": ["turnover_rate"],
+      "cohort_metric": "avg_headcount",
+      "unit": "ratio",
+      "definition": "Terminations divided by average monthly headcount in the period. Not annualized.",
+      "tolerance": {"turnover_rate": {"type": "rel", "value": 1e-6}},
+      "default_range": {"start": "2025-01-01", "end": "2025-12-31"},
+      "aliases": ["turnover", "attrition", "attrition rate", "churn", "leavers rate", "separation rate"]
+    },
+    {
+      "id": "offer_acceptance_rate",
+      "label": "Offer acceptance rate",
+      "family": "recruiting",
+      "kind": "flow",
+      "entity": "offer",
+      "mf_metrics": ["offer_acceptance_rate"],
+      "cohort_metric": "offers_extended",
+      "unit": "ratio",
+      "definition": "Accepted offers divided by offers extended, by offer date.",
+      "tolerance": {"offer_acceptance_rate": {"type": "rel", "value": 1e-6}},
+      "default_range": {"start": "2025-01-01", "end": "2025-12-31"},
+      "aliases": ["offer acceptance", "acceptance rate", "offers accepted", "offer accept rate"]
+    },
+    {
+      "id": "time_to_fill_days",
+      "label": "Time to fill (days)",
+      "family": "recruiting",
+      "kind": "flow",
+      "entity": "requisition",
+      "mf_metrics": ["time_to_fill_days"],
+      "cohort_metric": "filled_requisitions",
+      "unit": "days",
+      "definition": "Average days from requisition opened date to filled date, for requisitions filled in the period.",
+      "tolerance": {"time_to_fill_days": {"type": "rel", "value": 1e-6}},
+      "default_range": {"start": "2025-01-01", "end": "2025-12-31"},
+      "aliases": ["time to fill", "time-to-fill", "days to fill", "days to hire", "time to hire"]
+    },
+    {
+      "id": "compensation_summary",
+      "label": "Compensation summary",
+      "family": "workforce",
+      "kind": "stock",
+      "entity": "workforce",
+      "mf_metrics": ["avg_base_salary", "median_base_salary"],
+      "cohort_metric": "cohort_employees",
+      "unit": "USD",
+      "definition": "Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "tolerance": {
+        "avg_base_salary": {"type": "rel", "value": 1e-6},
+        "median_base_salary": {"type": "median_band", "lower_factor": 0.99, "upper_factor": 1.01, "rank_fraction": 0.02, "rank_min": 1}
+      },
+      "default_range": {"start": "2025-12-01", "end": "2025-12-31"},
+      "aliases": ["compensation", "salary", "salaries", "pay", "base pay", "base salary", "median salary", "average salary"]
+    }
+  ]
+}

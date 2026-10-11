@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "min_cohort": 10,
+  "max_group_by": 2,
+  "max_restricted_dimensions": 2,
+  "max_rows": 500,
+  "max_range_months": 36,
+  "data_start": "2023-01-01",
+  "data_end": "2025-12-31",
+  "as_of": "2025-12-31",
+  "per_query_byte_cap": {
+    "people_analytics": 209715200,
+    "hr_business_partner": 104857600,
+    "talent_acquisition": 104857600,
+    "executive": 104857600
+  },
+  "bigquery_min_bytes_per_table": 10485760,
+  "daily_byte_budget": 5368709120,
+  "rate_limit_per_minute": 30,
+  "gateway_rate_limit_per_minute": 120,
+  "eval_pacing_per_minute": 25,
+  "dry_run_cache_seconds": 3600,
+  "query_timeout_ms": 8000
+}

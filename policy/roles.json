@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "roles": [
+    {
+      "id": "people_analytics",
+      "label": "People Analytics",
+      "metrics": ["headcount", "fte", "turnover_rate", "offer_acceptance_rate", "time_to_fill_days", "compensation_summary"],
+      "dimensions": ["department", "location", "job_level", "employment_type", "tenure_band"],
+      "grains": ["none", "month", "quarter", "year"],
+      "scope": "all"
+    },
+    {
+      "id": "hr_business_partner",
+      "label": "HR Business Partner",
+      "metrics": ["headcount", "fte", "turnover_rate", "compensation_summary"],
+      "dimensions": ["department", "location", "job_level", "tenure_band"],
+      "grains": ["none", "month", "quarter", "year"],
+      "scope": "assigned_departments"
+    },
+    {
+      "id": "talent_acquisition",
+      "label": "Talent Acquisition",
+      "metrics": ["headcount", "offer_acceptance_rate", "time_to_fill_days"],
+      "dimensions": ["department", "location", "job_level"],
+      "grains": ["none", "month", "quarter", "year"],
+      "scope": "all"
+    },
+    {
+      "id": "executive",
+      "label": "Executive",
+      "metrics": ["headcount", "fte", "turnover_rate", "offer_acceptance_rate", "time_to_fill_days", "compensation_summary"],
+      "dimensions": ["department", "location"],
+      "grains": ["none", "quarter", "year"],
+      "scope": "all"
+    }
+  ]
+}

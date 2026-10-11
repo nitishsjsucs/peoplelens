@@ -163,6 +163,8 @@ def test_compensation_summary(facts):
     # 70k 80k 85k 90k 95k 100k 120k 230k (E06 promoted to 230k on 03-01)
     assert cell.values["avg_base_salary"] == pytest.approx(870000 / 8)
     assert (cell.median_lower, cell.median_upper) == (90000, 95000)
+    # Rank band: one rank either side of the middle values (n = 8, 2% of n rounds up to 1).
+    assert (cell.median_band_low, cell.median_band_high) == (85000, 100000)
     assert cell.values["median_base_salary"] == pytest.approx(92500)
 
 

@@ -23,3 +23,6 @@ __pycache__/
 .DS_Store
 .idea/
 .vscode/
+
+# dbt writes an anonymous user id next to profiles.yml
+.user.yml

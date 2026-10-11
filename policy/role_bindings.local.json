@@ -1,0 +1,6 @@
+{
+  "email:analyst@example.test": {"role": "people_analytics", "scope": {"departments": "all"}},
+  "email:hrbp@example.test": {"role": "hr_business_partner", "scope": {"departments": ["Engineering", "Sales"]}},
+  "email:recruiter@example.test": {"role": "talent_acquisition", "scope": {"departments": "all"}},
+  "email:exec@example.test": {"role": "executive", "scope": {"departments": "all"}}
+}

@@ -17,6 +17,7 @@ Conventions (identical to the dbt models):
 from __future__ import annotations
 
 import csv
+import math
 from collections import defaultdict
 from dataclasses import dataclass, field
 from datetime import date, timedelta
@@ -93,6 +94,8 @@ class Cell:
     cohort: float
     median_lower: int | None = None
     median_upper: int | None = None
+    median_band_low: int | None = None
+    median_band_high: int | None = None
     extra: dict[str, float] = field(default_factory=dict)
 
     def key(self) -> tuple:
@@ -103,6 +106,8 @@ class Cell:
         if self.median_lower is not None:
             out["median_lower"] = self.median_lower
             out["median_upper"] = self.median_upper
+            out["median_band_low"] = self.median_band_low
+            out["median_band_high"] = self.median_band_high
         return out
 
 
@@ -259,6 +264,27 @@ def _cell(q: Query, dims: tuple[str, ...], bucket: date | None, values: dict, co
     )
 
 
+# Approximate medians (APPROX_QUANTILES on BigQuery, approx_quantile on DuckDB) are judged
+# by rank: the result must lie between the sorted values this many ranks either side of
+# the middle values (then widened by the value factors in policy/metrics.json).
+MEDIAN_RANK_FRACTION = 0.02
+MEDIAN_RANK_MIN = 1
+
+
+def median_band(sorted_values: list[int]) -> tuple[int, int, int, int]:
+    """(lower middle, upper middle, band low, band high) of a non-empty sorted list."""
+    n = len(sorted_values)
+    lo_mid = (n - 1) // 2
+    hi_mid = n // 2
+    radius = max(MEDIAN_RANK_MIN, math.ceil(MEDIAN_RANK_FRACTION * n))
+    return (
+        sorted_values[lo_mid],
+        sorted_values[hi_mid],
+        sorted_values[max(0, lo_mid - radius)],
+        sorted_values[min(n - 1, hi_mid + radius)],
+    )
+
+
 def _evaluate_stock(q: Query, facts: Facts) -> list[Cell]:
     rows = [r for r in facts.workforce if _keep(r, q, r.month_start)]
     last: dict[date | None, date] = {}
@@ -283,13 +309,11 @@ def _evaluate_stock(q: Query, facts: Facts) -> list[Cell]:
         elif q.metric == "compensation_summary":
             salaries = sorted(r.base_salary_eom for r in actives)
             if salaries:
-                n = len(salaries)
-                lower = salaries[(n - 1) // 2]
-                upper = salaries[n // 2]
-                avg = sum(salaries) / n
+                lower, upper, band_low, band_high = median_band(salaries)
+                avg = sum(salaries) / len(salaries)
                 med = (lower + upper) / 2
             else:
-                lower = upper = None
+                lower = upper = band_low = band_high = None
                 avg = med = None
             out.append(
                 _cell(
@@ -300,6 +324,8 @@ def _evaluate_stock(q: Query, facts: Facts) -> list[Cell]:
                     float(headcount),
                     median_lower=lower,
                     median_upper=upper,
+                    median_band_low=band_low,
+                    median_band_high=band_high,
                 )
             )
         else:

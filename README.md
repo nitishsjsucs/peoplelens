@@ -13,7 +13,7 @@ v1 is being built from scratch, commit by commit, following the plan in SPEC.md 
 | Seeded synthetic HR data with exact counts | done: `pl data generate`, counts asserted by pytest |
 | dbt models on DuckDB (local) and BigQuery (production) | DuckDB built and tested locally (94 dbt nodes pass); BigQuery profile parses offline, not yet run against BigQuery |
 | MetricFlow semantic layer, six governed metrics | done: `mf validate-configs` passes; queries run on DuckDB; independent Python reference implementation with hand-computed fixture tests |
-| Policy (four roles, five approved dimensions, limits) and compiled query catalog | planned |
+| Policy (four roles, five approved dimensions, limits) and compiled query catalog | done: 312 entries per dialect compiled by MetricFlow; all 312 DuckDB entries x 3 parameter sets match the independent reference; BigQuery SQL rendered offline, not yet run on BigQuery |
 | Local DuckDB warehouse sidecar and byte estimator | planned |
 | Worker: Access JWT verification and role bindings | planned |
 | Worker: policy validation, catalog binding, suppression (k = 10) | planned |
@@ -110,7 +110,16 @@ make dbt        # pl dbt --dialect duckdb seed, then build (models plus every db
 uv run pl mf validate   # dbt parse (DuckDB) then mf validate-configs --skip-dw
 ```
 
-Further local commands (`make catalog`, `make dev-up`, `make eval-stub`) are added as their commits land.
+```bash
+make catalog                      # MetricFlow renders all 312 query shapes for BigQuery, then DuckDB
+uv run pl catalog build --check   # recompile and diff against worker/src/generated (CI runs this)
+```
+
+The Worker never runs MetricFlow (it is Python). Every query it executes is SQL that MetricFlow generated at build time from the governed semantic layer: one entry per (metric, group-by set of up to two approved dimensions, grain), with named parameters for filters, scope and time range. Filters bind as arrays with an `'__all__'` sentinel, never NULL.
+
+Approximate medians are compared by rank: a median passes when it lies between the sorted salaries 2% of the cohort (at least one rank) either side of the middle values, widened by 1% in value. In the parity sweep 14 of 17,534 DuckDB `approx_quantile` medians fall outside a plain [lower middle x 0.99, upper middle x 1.01] value band (worst 1.84%, at a gap between adjacent salaries) while sitting at the correct rank, so the value-only band from the original spec was too strict.
+
+Further local commands (`make dev-up`, `make eval-stub`) are added as their commits land.
 
 ## Production setup
 

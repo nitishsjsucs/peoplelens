@@ -62,6 +62,12 @@ def _cmd_mf_validate(args: argparse.Namespace) -> int:
     return run_mf_validate()
 
 
+def _cmd_catalog_build(args: argparse.Namespace) -> int:
+    from peoplelens.catalog.compiler import build
+
+    return build(check=args.check)
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="pl", description="PeopleLens developer CLI")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -86,6 +92,12 @@ def build_parser() -> argparse.ArgumentParser:
     mf_sub = mf.add_subparsers(dest="mf_command", required=True)
     mfv = mf_sub.add_parser("validate", help="mf validate-configs --skip-dw after a DuckDB dbt parse")
     mfv.set_defaults(func=_cmd_mf_validate)
+
+    catalog = sub.add_parser("catalog", help="compile-ahead MetricFlow query catalog")
+    catalog_sub = catalog.add_subparsers(dest="catalog_command", required=True)
+    cbuild = catalog_sub.add_parser("build", help="compile both dialects (BigQuery first, then DuckDB)")
+    cbuild.add_argument("--check", action="store_true", help="compile and diff against worker/src/generated, write nothing")
+    cbuild.set_defaults(func=_cmd_catalog_build)
 
     return parser
 
