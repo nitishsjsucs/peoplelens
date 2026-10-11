@@ -1,6 +1,6 @@
 # PeopleLens v1 Specification
 
-Status: architecture spec for a from-scratch v1 build. Written 2026-10-10, revised the same day after review round 1 (section 24), and revised again on 2026-10-10 so that production runs entirely on the Cloudflare Workers Free plan, on one Google Cloud project shared with three other repos (section 25, ADR `docs/adr/0001-production-on-workers-free-plan.md`). The v1 commit plan (commits 1 to 17) is built; the Free plan migration commits M1 to M8 in section 19 come next.
+Status: architecture spec for a from-scratch v1 build. Written 2026-10-10, revised the same day after review round 1 (section 24), and revised again on 2026-10-10 so that production runs entirely on the Cloudflare Workers Free plan, on one Google Cloud project shared with three other repos (section 25, ADR `docs/adr/0001-production-on-workers-free-plan.md`). The v1 commit plan (commits 1 to 17) is built, and builder 3 built the Free plan migration commits M1 to M8 of section 19.1 on 2026-10-10 and 2026-10-11 (PROGRESS.md items 23 to 31); what remains is the operator's production setup (section 17).
 Owner: Nitish (github.com/nitishsjsucs/peoplelens). The builder works locally, commits, and never pushes.
 
 This document is the contract for the build. Every number in the resume text below must be implemented and either asserted by a test or measured by an eval. Where a fact about a package, CLI, or cloud API was checked on 2026-10-10, the check is recorded in section 23 (Verification log). Anything marked **UNVERIFIED** (or **U** in section 17) must be confirmed before it is relied on, and each such step has a doctor check that names it when it fails.
@@ -1074,7 +1074,7 @@ Decision (ADR `docs/adr/0001-production-on-workers-free-plan.md`): production ru
 - **One Cloudflare account, four repos.** Every Free daily allowance (Workers requests, Workers AI neurons, Durable Object requests and rows, Queue operations, Workers Logs events) is account wide and is shared with three other repos. PeopleLens enforces its own share in code (25.4 B) instead of assuming the whole allowance.
 - **One Google Cloud project, four repos.** Every resource this repo creates carries the `peoplelens` prefix, and every data grant is scoped to a dataset or a resource. The only project-level role is `roles/bigquery.jobUser`, which grants no data access (25.4 E).
 
-Builder 3 implements this section through the migration commits in section 19 (M1 to M8), before any other work. Until then, the code still contains the Basin Pipelines audit path and the doctor's "Workers Paid" check that this section removes.
+Builder 3 implemented this section through the migration commits in section 19.1 (M1 to M8); the Basin Pipelines audit path and the doctor's "Workers Paid" check are gone, and the budgets below are pinned by `tests/py/test_free_plan_budget.py` and `worker/test/freePlan.test.ts`. Where builder 3 deviated (the 130-neuron baseline reservation, a stricter token bound, the committed `bench:cpu` method), PROGRESS.md lists it.
 
 ### 25.1 Verified Free plan facts
 

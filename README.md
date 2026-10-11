@@ -6,22 +6,23 @@ The design contract is [SPEC.md](SPEC.md). Build progress is tracked in [PROGRES
 
 ## Status
 
-v1 was built from scratch, commit by commit, following the plan in SPEC.md section 19; every planned commit is done and passes locally. What remains needs cloud accounts (see Production setup). This table is updated in every commit that changes status.
+v1 was built from scratch, commit by commit, following the plan in SPEC.md section 19, and then moved onto the **Cloudflare Workers Free plan** in a Cloudflare account and a Google Cloud project that three other repos share (SPEC.md section 25, [ADR 0001](docs/adr/0001-production-on-workers-free-plan.md), migration commits M1 to M8). Every planned commit is done and passes locally. What remains needs cloud accounts and an operator (see Production setup). This table is updated in every commit that changes status.
 
 | Area | Status |
 |---|---|
 | Seeded synthetic HR data with exact counts | done: `pl data generate`, counts asserted by pytest |
-| dbt models on DuckDB (local) and BigQuery (production) | DuckDB built and tested locally (94 dbt nodes pass); BigQuery profile parses offline, not yet run against BigQuery |
+| dbt models on DuckDB (local) and BigQuery (production) | DuckDB built and tested locally (94 dbt nodes pass); the production BigQuery profile compiles offline (every model parses as BigQuery SQL, authorized views read only `peoplelens_core`), not yet run against BigQuery; every dbt job is capped at 1 GiB billed and labeled `app=peoplelens` |
 | MetricFlow semantic layer, six governed metrics | done: `mf validate-configs` passes; queries run on DuckDB; independent Python reference implementation with hand-computed fixture tests |
 | Policy (four roles, five approved dimensions, limits) and compiled query catalog | done: 312 entries per dialect compiled by MetricFlow; all 312 DuckDB entries x 3 parameter sets match the independent reference; BigQuery SQL rendered offline, not yet run on BigQuery |
 | Local DuckDB warehouse sidecar and byte estimator | done (local only): read-only DuckDB, bearer token, executes only catalog SQL; byte estimates model BigQuery on-demand billing and are labeled as estimates |
 | Worker: Access JWT verification and role bindings | done: RS256 verification (static local JWKS, or the team's remote JWKS in production), user and service-token bindings, fail-closed production guards; tested in Miniflare, not yet deployed |
 | Worker: policy validation, catalog binding, suppression (k = 10) | done: approved metrics, dimensions, values, grains, ranges and HRBP scope enforced server-side; primary, complementary, hidden-sum and complement-rule suppression with property tests |
-| Worker: cost guard, BigQuery client, per-user budgets | done: row bound, per-query byte cap, daily budget and rate limit in a SQLite Durable Object; BigQuery REST client (service-account JWT, bigquery.readonly, maximumBytesBilled on every job) tested against a fetch mock only, never against BigQuery |
+| Worker: cost guard, BigQuery client, per-user budgets | done: row bound, per-query byte cap, daily budget and rate limit in a SQLite Durable Object; BigQuery REST client (service-account JWT, bigquery.readonly, maximumBytesBilled on every job, one dry run per catalog key per isolate, at most 3 polls per query) tested against a fetch mock only, never against BigQuery |
 | Worker: planner (Workers AI, OpenAI-compatible local, stub) | done: one structured planner call (the LLM picks the action and metric; breakdowns, filters, grain and period are grounded in the question text), deterministic time phrases and request screening, clarifications with selectable options, multi-turn follow-ups, whitelisted logging; 8,000 fuzzed planner outputs leak nothing. Workers AI and AI Gateway are exercised only against a fake binding until deployed |
-| Eval harness (200 items, text-to-SQL baseline) | done: 200 frozen items (150 answerable, 20 clarification, 30 adversarial; 214 turns), gold from the independent reference, comparator with median rank bands, leakage checks, pacing, sqlglot-guarded text-to-SQL baseline; official local runs below |
-| CI (python, worker, stub end-to-end) | defined in `.github/workflows/ci.yml`; every job's commands pass in a fresh clone on macOS and in a Linux container (Debian bookworm arm64, node 24, uv 0.12.17) with the CI environment; not yet run on GitHub's ubuntu-latest runners |
-| Ops: doctor, phased bootstrap, deploy, smoke | built and unit-tested with mocked CLIs and HTTP; the BigQuery, AI Gateway, Access, Workers and bq calls were rechecked against the official API references on 2026-10-10, which found and fixed defects that would have broken the production smoke, eval and first deploy or let the metadata-only logging check pass on a stored payload (PROGRESS.md commits 18 and 19); `make doctor` runs here and reports the missing cloud prerequisites; bootstrap, deploy and smoke have not been run against Cloudflare or Google Cloud |
+| Workers Free plan safeguards | done and tested, not yet deployed: `AccountBudgetDO` holds this repo's share of the account's daily allowances (6,000 Workers AI neurons, 800 audit queue messages), reserved before and settled after every Workers AI call; Workers AI error 3036 (daily allocation used up) is the refusal `AI_DAILY_LIMIT` (503, `Retry-After` to 00:00 UTC), 3040 is retried once, 5035 is a configuration error; the planner prompt prefix is built once per isolate; a question makes at most 19 external subrequests (Free limit 50) |
+| Eval harness (200 items, text-to-SQL baseline) | done: 200 frozen items (150 answerable, 20 clarification, 30 adversarial; 214 turns), gold from the independent reference, comparator with median rank bands, leakage checks, pacing, sqlglot-guarded text-to-SQL baseline; official local runs below. The production eval is resumable and budget-capped (about 5 UTC days per run), not yet run |
+| CI (python, worker, stub end-to-end) | defined in `.github/workflows/ci.yml`; every job's commands pass in a fresh clone on macOS (last at the M7 code, 2026-10-11) and earlier in a Linux container (Debian bookworm arm64, node 24, uv 0.12.17); not yet run on GitHub's ubuntu-latest runners |
+| Ops: doctor, phased bootstrap, deploy, smoke | built and unit-tested with mocked CLIs and HTTP; no step needs Workers Paid; every BigQuery job the ops code runs carries a byte cap; `make doctor` runs here read-only and reports the missing cloud prerequisites; bootstrap, deploy and smoke have not been run against Cloudflare or Google Cloud |
 | Audit trail | done locally: one metadata-only event per question (HMAC of the subject, decision codes, counts, bytes, timings; never question text or values) through a queue into immutable staged NDJSON objects, then `pl audit commit` appends them to an Iceberg table exactly once (the CI e2e job checks 214 rows, then 0 on a replay); production path (Queue, R2 staging, Basin Catalog, all on Workers Free) scripted in the bootstrap, not run |
 | Web UI (React, served as Worker static assets) | done: chat with answer tables, hidden-cell notes and clickable clarification options; checked in a browser against the local stack; production serving is behind Access once deployed |
 | Results | four official local evals (Qwen3-1.7B on DuckDB) and the stub CI run, 2026-10-10; no production runs yet |
@@ -34,18 +35,19 @@ Nothing has been deployed to Cloudflare or run against BigQuery from this repo y
 
 ```mermaid
 flowchart LR
-  UI[Browser, pl CLI or eval harness] -->|HTTPS| ACC[Cloudflare Access]
-  ACC -->|Cf-Access-Jwt-Assertion| W[Worker peoplelens, Hono]
+  UI[Browser, pl CLI or eval harness] -->|HTTPS| ACC[Cloudflare Access, Zero Trust Free]
+  ACC -->|Cf-Access-Jwt-Assertion| W[Worker peoplelens, Hono,<br/>Workers Free plan]
   W --> AUTH[Verify RS256 JWT against team JWKS]
   AUTH --> RB[Role binding]
   W <--> DO[(UserDO, SQLite Durable Object:<br/>sessions, budgets, rate limit)]
-  W --> PLAN[Planner]
-  PLAN -->|metadata-only logging| GW[AI Gateway peoplelens]
-  GW --> WAI[Workers AI llama-3.3-70b, JSON mode]
+  W <--> AB[(AccountBudgetDO, one SQLite instance:<br/>this repo's daily share,<br/>6,000 neurons, 800 audit messages)]
+  W --> PLAN[Planner, prompt prefix built once per isolate]
+  PLAN -->|reserve 200 neurons, metadata-only logging,<br/>settle with the returned usage| GW[AI Gateway peoplelens]
+  GW --> WAI[Workers AI llama-3.3-70b, JSON mode;<br/>error 3036 becomes AI_DAILY_LIMIT]
   PLAN --> POL[Policy engine]
   POL --> CAT[(Compiled MetricFlow catalog,<br/>BigQuery dialect)]
   CAT --> COST[Cost guard: row bound, dry run,<br/>maximumBytesBilled, daily budget]
-  COST --> BQ[(BigQuery authorized views)]
+  COST --> BQ[(BigQuery authorized views,<br/>shared project, peoplelens_* datasets)]
   BQ --> SUP[Suppression k=10 plus complement rule]
   SUP --> NAR[Deterministic narrative]
   W -.->|optional audit, one of 800 daily slots| Q[Queue peoplelens-audit]
@@ -81,18 +83,21 @@ Local pieces are stand-ins. DuckDB is not BigQuery, llama-server is not Workers 
 
 | Piece | Local and CI | Production | Status |
 |---|---|---|---|
-| Worker API | wrangler dev --local on 8794 | Cloudflare Workers (`peoplelens`) | local verified; production pending deploy |
-| Identity | local RS256 keys, static JWKS | Cloudflare Access, team JWKS | stand-in locally; Access pending |
+| Worker API | wrangler dev --local on 8794 | Cloudflare Workers (`peoplelens`) on the Workers Free plan | local verified; production pending deploy |
+| Identity | local RS256 keys, static JWKS | Cloudflare Access (Zero Trust Free), team JWKS | stand-in locally; Access pending |
 | LLM | Qwen3-1.7B via llama-server, or a deterministic stub | Workers AI llama-3.3-70b via AI Gateway | stand-in locally; Workers AI pending |
+| Workers AI allowance | none (no Workers AI locally) | 10,000 neurons per account per UTC day, shared with three other repos; this repo's share 6,000, enforced by `AccountBudgetDO`; error 3036 becomes `AI_DAILY_LIMIT` | prod only; tested against fakes |
 | Semantic layer | MetricFlow, DuckDB dialect | MetricFlow, BigQuery dialect | both compiled in CI; BigQuery SQL not yet executed |
-| Warehouse | DuckDB file (dbt-duckdb) | BigQuery | stand-in locally; BigQuery pending |
-| Cost limits | estimated bytes | BigQuery dry run plus maximumBytesBilled | estimate locally |
+| Warehouse | DuckDB file (dbt-duckdb) | BigQuery in a Google Cloud project shared with three other repos (`peoplelens_*` datasets, scoped grants) | stand-in locally; BigQuery pending |
+| Cost limits | estimated bytes | BigQuery dry run plus maximumBytesBilled on every job | estimate locally |
 | Suppression and complement rule | same Worker code | same Worker code | both (tested, fuzzed, evaluated locally) |
 | Authorized views | plain DuckDB views | BigQuery authorized views (phase A) | prod only, not run |
 | Column security, masking | not emulated | BigQuery policy tags and data policies (phase C), masking demo in `make smoke ARGS="--drills"` | prod only, optional, not run |
 | Time travel and recovery | not emulated | dataset time-travel windows (phase A), runbook, recovery drill in `make smoke ARGS="--drills"` | prod only, not run |
 | Web UI | Vite build served by wrangler dev assets on 8794 (paste a token from `pl token`) | Workers static assets behind Cloudflare Access | local verified |
 | Audit trail (metadata only) | Miniflare queue; the consumer stages NDJSON through the sidecar into `.dev/audit-staging`; `uv run pl audit commit` appends to a pyiceberg SqlCatalog table (`uv run pl audit tail`) | Queue `peoplelens-audit` (800 messages a day, then direct R2 puts), R2 staging bucket `peoplelens-audit`, `make audit-commit` into the Basin Catalog Iceberg table `peoplelens.audit_events` through pyiceberg RestCatalog (`make bootstrap ARGS="--with-audit ..."`); no Basin Pipelines (Workers Paid only) | local verified; production coded, not run |
+| Production eval | one sitting | resumable and budget-capped, about 5 UTC days per run on one commit and one deployed build (`make eval-prod`) | prod only, not run |
+| Cloudflare plan | n/a | Workers Free; no Workers Paid feature anywhere (pinned by tests) | prod only |
 | Cloudflare Workflows | not used | not used | not used |
 
 Cloudflare Workflows: not used. Nothing in this product is a long-running durable multi-step process. Queues, R2 and Basin Catalog are used only by the optional audit trail; Basin Pipelines is not used (it needs Workers Paid).
@@ -154,17 +159,25 @@ The stub planner exists for CI. Its results are never reported as model accuracy
 
 Refusal codes returned by `POST /api/ask` (SPEC.md 7.4): `UNAUTHENTICATED`, `NO_ROLE_BINDING`, `METRIC_NOT_ALLOWED`, `DIMENSION_NOT_APPROVED`, `PII_REQUEST`, `WRITE_REQUEST`, `SCOPE_VIOLATION`, `GRAIN_NOT_ALLOWED`, `TIME_RANGE_INVALID`, `RESULT_TOO_LARGE`, `COST_LIMIT_EXCEEDED`, `DAILY_BUDGET_EXCEEDED`, `RATE_LIMITED` (HTTP 429), `OUT_OF_DOMAIN`, `PLANNER_INVALID_OUTPUT`, and `AI_DAILY_LIMIT` (HTTP 503 with `Retry-After` set to the seconds until 00:00 UTC: this repo's Workers AI share for the UTC day is used up, or Workers AI answered error 3036 because the account's free daily allocation is). The planner model can choose only the first fifteen; `AI_DAILY_LIMIT` is server-only. A model that needs Workers Paid (Workers AI error 5035) gives `CONFIG_INVALID` (HTTP 503), and a capacity error (3040) is retried once after 1 s.
 
+```bash
+npm run bench:cpu --workspace worker   # CPU per /api/ask on the production wiring, in Node (not a CI gate)
+```
+
+`bench:cpu` runs the production request path (BigQuery catalog, Workers AI client with its budget, BigQuery client, remote JWKS) with fakes only beyond each network or Durable Object boundary, over the 214 eval turns in one warm process and in 5 fresh processes. Workers Free allows 10 ms of CPU per request; the latest numbers are under Workers Free plan budget below.
+
 ## Production setup
 
-Nothing below has been run yet: this machine has no Google Cloud CLI, no Google credentials and no Cloudflare login. Everything is scripted so it can run the moment those exist, and `make doctor` names each missing piece with its exact fix.
+Production runs entirely on the **Cloudflare Workers Free plan** (do not upgrade; nothing needs Workers Paid), in a Cloudflare account and a Google Cloud project that three other repos share. Every resource this repo creates starts with `peoplelens`, every data grant is scoped to a dataset or a resource, the only project-level role any `peoplelens-*` identity holds is `roles/bigquery.jobUser`, and every BigQuery job carries a byte cap. Placeholders below (`<shared-project-id>`, `<account-id>`, `<billing-account-id>`, `<you>`, `<domain>`) stand for your own values; none are committed here. The full checklist, with what was verified and how, is SPEC.md section 17. Nothing below has been run from this repo yet; `make doctor` names each missing piece with its exact fix.
 
 ### What you need (SPEC.md 17.1)
 
 | Provider | What | Cost |
 |---|---|---|
-| Cloudflare | Account on **Workers Paid** ($5/month; Workers AI on Free stops after 10,000 neurons a day, about a quarter of one production eval) | $5/month |
-| Cloudflare | Workers AI, AI Gateway, Zero Trust Free (Access, up to 50 users) | usage; about $0.35 per production eval above the free allocation (estimate) |
-| Google Cloud | A project with billing enabled (not the BigQuery sandbox), on-demand pricing, a $5 budget alert | expected $0 (free tier) |
+| Cloudflare | Account on **Workers Free**, logged in with `npx wrangler login`, with a workers.dev subdomain | $0 |
+| Cloudflare | Workers AI on Free: 10,000 neurons per account per UTC day, shared with the other repos; this repo caps itself at 6,000 for the Worker plus 2,000 for the eval baseline on eval days | $0 (no overage on Free: calls fail with 3036, which the Worker reports as `AI_DAILY_LIMIT`) |
+| Cloudflare | AI Gateway (core features free), Zero Trust Free (Access, 50 seats shared; this repo needs 5) with the One-time PIN login method | $0 |
+| Cloudflare | Only for the optional audit trail: R2 activated with a card on file, Queues and Basin Catalog on Free | $0 inside the free allowances |
+| Google Cloud | The shared project with billing enabled (the BigQuery sandbox rejects DML and expires tables after 60 days), on-demand pricing, a $5 budget alert | expected $0: one full production cycle scans about 12 GB of the 1 TiB monthly free tier |
 | GitHub | nothing (CI needs no secrets) | $0 |
 
 ### Steps
@@ -176,48 +189,70 @@ Nothing below has been run yet: this machine has no Google Cloud CLI, no Google 
    npx wrangler login && npx wrangler whoami          # note the account id
    gcloud auth login
    gcloud auth application-default login
+   gcloud config set project <shared-project-id>
+   gcloud auth application-default set-quota-project <shared-project-id>
    ```
 2. A custom Cloudflare API token named `peoplelens-bootstrap` (My Profile > API Tokens > Create Custom Token), account-scoped, with: AI Gateway Edit; Workers AI Read and Edit; Access: Apps and Policies Edit; Access: Service Tokens Edit; Access: Organizations, Identity Providers, and Groups Read; Workers Scripts Edit; Account Settings Read. wrangler's OAuth login has no AI Gateway or Access scopes, which is why this token exists. Save it:
    ```bash
    mkdir -m 700 -p .secrets && touch .secrets/cloudflare.env && chmod 600 .secrets/cloudflare.env
-   nano .secrets/cloudflare.env    # two lines: CLOUDFLARE_ACCOUNT_ID=<id> and CLOUDFLARE_API_TOKEN=<token>
+   nano .secrets/cloudflare.env    # two lines: CLOUDFLARE_ACCOUNT_ID=<account-id> and CLOUDFLARE_API_TOKEN=<token>
    ```
    Paste the token in an editor rather than on the command line, so it stays out of your shell history.
-3. Cloudflare console: upgrade to Workers Paid; complete Zero Trust onboarding (team name, Free plan); add the One-time PIN login method (Zero Trust > Settings > Authentication > Login methods). If the account has no workers.dev subdomain, pick one or pass `--workers-subdomain`.
-4. Google Cloud project:
+3. Cloudflare console: stay on Workers Free; complete Zero Trust onboarding (team name, Free plan) and add the One-time PIN login method (Zero Trust > Integrations > Identity providers > Add new > One-time PIN). If the account has no workers.dev subdomain, pick one or pass `--workers-subdomain`.
+4. Google Cloud: enable billing on the shared project and add a budget alert (Billing > Budgets and alerts, $5, alerts at 50, 90 and 100%; optionally a second budget on the label `app=peoplelens`, which every PeopleLens job carries):
    ```bash
-   gcloud projects create peoplelens-<suffix> --name="PeopleLens"
-   gcloud billing projects link peoplelens-<suffix> --billing-account=<BILLING_ID>
-   gcloud config set project peoplelens-<suffix>
-   gcloud auth application-default set-quota-project peoplelens-<suffix>
+   gcloud billing accounts list
+   gcloud billing projects link <shared-project-id> --billing-account=<billing-account-id>
    ```
-   Add a $5 budget alert in Billing > Budgets and alerts.
-5. Check, then create everything (idempotent and resumable; `--dry-run` prints the plan):
+5. Check, then create everything (idempotent and resumable; `--dry-run` prints the plan). Role identities can be plus-addresses of one mailbox, each a separate Zero Trust seat:
    ```bash
-   make doctor
-   make bootstrap ARGS="--gcp-project peoplelens-<suffix> --role-emails analyst=<email>,hrbp=<email>:Engineering+Sales,recruiter=<email>,exec=<email>"
-   make doctor
+   make doctor ARGS="--gcp-project <shared-project-id>"
+   make bootstrap ARGS="--gcp-project <shared-project-id> --role-emails analyst=<you>+analyst@<domain>,hrbp=<you>+hrbp@<domain>:Engineering+Sales,recruiter=<you>+recruiter@<domain>,exec=<you>+exec@<domain>"
+   make doctor ARGS="--gcp-project <shared-project-id>"
+   ```
+6. Smoke, on a UTC day without a production eval (it needs about 2,500 neurons, at most 4,300, and stops if fewer than 4,800 of this repo's 6,000 are left):
+   ```bash
    make smoke                                   # writes eval/results/<date>-prod-smoke.json
    git add eval/results && git commit -m "eval: production smoke"
-   make eval-prod ARGS="--official"             # an official run needs a clean working tree
    ```
-   Gmail plus-addresses (`you+exec@gmail.com`) work with One-time PIN. Every step is safe to rerun; `make bootstrap ARGS="--phase b ..."` reruns one phase.
+7. Production eval, resumable over about 5 UTC days (12 at most), on one commit and one deployed build:
+   ```bash
+   make eval-prod ARGS="--official"             # day 1 (an official run needs a clean tree and the deployed build = HEAD)
+   make eval-prod ARGS="--official --resume"    # once per UTC day until the report is written
+   ```
+   An eval day uses up to 8,000 of the account's 10,000 neurons, so agree eval days with the other repos, or lower a day's share with `--neurons-today <n>`. The report goes to `eval/results/<first day>-prod-llama-3.3-70b.{json,md}` and records the days, the neurons per day and the model.
 
 ### Optional: the audit trail in production
 
-Not needed for anything on the resume, and it runs on Workers Free (no Basin Pipelines). If you want it: add Queues Edit and Workers R2 Storage Edit to the `peoplelens-bootstrap` token; run `make bootstrap ARGS="--gcp-project <project> --phase a --with-audit"` (lists first, then creates queue `peoplelens-audit`, R2 bucket `peoplelens-audit` and enables Basin Catalog on it, records its Catalog URI and Warehouse, and redeploys with the generated config and `AUDIT_HMAC_KEY`). To commit staged events into the Iceberg table, create an R2 API token with Admin Read & Write (R2 > Manage R2 API Tokens), add its token value, Access Key ID and Secret Access Key to `.secrets/cloudflare.env` as `AUDIT_R2_TOKEN`, `AUDIT_R2_ACCESS_KEY_ID` and `AUDIT_R2_SECRET_ACCESS_KEY`, then run `make audit-commit` whenever you want the table up to date. That token covers every bucket in the account, so keep it in `.secrets/` and rotate it after use.
+Not needed for anything on the resume, and it runs on Workers Free (no Basin Pipelines). If you want it: add Queues Edit and Workers R2 Storage Edit to the `peoplelens-bootstrap` token; run `make bootstrap ARGS="--gcp-project <shared-project-id> --phase a --with-audit"` (lists first, then creates queue `peoplelens-audit`, R2 bucket `peoplelens-audit` and enables Basin Catalog on it, records its Catalog URI and Warehouse, and redeploys with the generated config and `AUDIT_HMAC_KEY`). To commit staged events into the Iceberg table, create an R2 API token with Admin Read & Write (R2 > Manage R2 API Tokens), add its token value, Access Key ID and Secret Access Key to `.secrets/cloudflare.env` as `AUDIT_R2_TOKEN`, `AUDIT_R2_ACCESS_KEY_ID` and `AUDIT_R2_SECRET_ACCESS_KEY`, then run `make audit-commit` whenever you want the table up to date (`make smoke ARGS="--with-audit"` checks it end to end). That token covers every bucket in the account, so keep it in `.secrets/` and rotate it after use.
 
 ### What the bootstrap does
 
 | Phase | Steps | Notes |
 |---|---|---|
-| A: warehouse, gateway, first deploy | enable APIs; datasets `peoplelens_raw` (48 h time travel), `_staging`, `_core`, `_semantic` (168 h); service accounts `peoplelens-worker`, `-eval`, `-analyst` with `bigquery.jobUser` and dataset-level `dataViewer` only; `pl dbt --dialect bigquery seed` and `build` (semantic views are authorized views over core); service-account keys; AI Gateway `peoplelens` (authentication on, logs on, 120 requests per minute); `wrangler deploy --env production --secrets-file` | the Worker is live but answers 503 on every `/api` route until phase B (fails closed) |
+| A: warehouse, gateway, first deploy | enable APIs; datasets `peoplelens_raw` (48 h time travel), `_staging`, `_core`, `_semantic` (168 h); service accounts `peoplelens-worker`, `-eval`, `-analyst` with `bigquery.jobUser` (the only project-level role) and dataset-level `dataViewer` only; `pl dbt --dialect bigquery seed` and `build` (semantic views are authorized views over core; 1 GiB cap per dbt job); service-account keys; AI Gateway `peoplelens` (authentication on, logs on, 120 requests per minute; retried without `log_management` if the API rejects it); `wrangler deploy --env production --secrets-file --var BUILD_COMMIT:<HEAD>` | the Worker is live but answers 503 on every `/api` route until phase B (fails closed) |
 | B: Access and identities | team domain; an Access application whose destination is the Worker; an Allow policy for the four emails and a Service Auth policy for four eval service tokens (secrets saved to `.secrets/prod_eval.env`); `ROLE_BINDINGS_JSON`; redeploy with `ACCESS_TEAM_DOMAIN`, `ACCESS_AUD`, `ROLE_BINDINGS_JSON` | if the API cannot create the Access application, it prints the dashboard fallback |
-| C: governance | Data Catalog taxonomy with `pii_high`, `protected_class`, `compensation` tags; fine-grained readers granted before tagging; masking policies (SHA256, ALWAYS_NULL, DEFAULT_MASKING_VALUE); `dbt build` with `apply_policy_tags=true` | not on the critical path; doctor reports it separately |
+| C: governance | Data Catalog taxonomy `peoplelens` with `pii_high`, `protected_class`, `compensation` tags; fine-grained readers granted before tagging; masking policies `peoplelens_<tag>` (SHA256, ALWAYS_NULL, DEFAULT_MASKING_VALUE); `dbt build` with `apply_policy_tags=true` | not on the critical path; doctor reports it separately |
 
-`make smoke` then dry-runs and executes all 312 BigQuery catalog entries and compares them with the reference implementation, checks that BigQuery itself refuses a job capped at 1 MiB `maximumBytesBilled`, asks questions as each of the four service tokens, and fetches one AI Gateway log (polling for up to a minute, because logs are written asynchronously) to confirm that custom metadata is present, that no request or response payload is stored, and that the question text appears nowhere in the log. It writes `eval/results/<date>-prod-smoke.json`. `make smoke ARGS="--drills"` adds the masking demo (as `peoplelens-analyst`, salaries come back masked; as you, they do not; needs phase C) and a time-travel recovery drill that deletes and restores a scratch copy of `dim_month` (never a real table). See `warehouse/bigquery/recovery/RUNBOOK.md`.
+`make smoke` then dry-runs and executes all 312 BigQuery catalog entries (each capped at 200 MiB) and compares them with the reference implementation, checks that BigQuery itself refuses a job capped at 1 MiB `maximumBytesBilled`, checks this repo's Workers AI share for the day, asks 27 questions as the four service tokens while `wrangler tail` watches for any request over the Free CPU limit (`exceededCpu`), and fetches one AI Gateway log (polling for up to a minute, because logs are written asynchronously) to confirm that custom metadata is present, that no request or response payload is stored, and that the question text appears nowhere in the log. It writes `eval/results/<date>-prod-smoke.json`. `make smoke ARGS="--drills"` adds the masking demo (as `peoplelens-analyst`, salaries come back masked; as you, they do not; needs phase C) and a time-travel recovery drill that deletes and restores a scratch copy of `dim_month` (never a real table). See `warehouse/bigquery/recovery/RUNBOOK.md`.
 
-Later deploys: `make deploy` (secrets persist), `make deploy ARGS="--rotate-key"` for a fresh service-account key. Every deploy rebuilds the web UI first, and once the audit trail is enabled every deploy keeps its queue and R2 bindings. The ops scripts give wrangler the account id from `.secrets/cloudflare.env`, so the Worker lands in the same account the API token manages even when your login can see several accounts.
+Later deploys: `make deploy` (secrets persist), `make deploy ARGS="--rotate-key"` for a fresh service-account key. Every deploy rebuilds the web UI first, sends its commit as `BUILD_COMMIT` (reported by `/api/health`, so a multi-day eval can check the build never changed), and once the audit trail is enabled every deploy keeps its queue and R2 bindings. The ops scripts give wrangler the account id from `.secrets/cloudflare.env`, so the Worker lands in the same account the API token manages even when your login can see several accounts.
+
+## Workers Free plan budget
+
+Every daily Free allowance is account-wide and shared with three other repos, so this repo enforces its own share in code (SPEC.md 25.5 has the derivations, all measured from this repo; tests pin the caps).
+
+| Resource | Free allowance (account) | PeopleLens use and cap |
+|---|---|---|
+| Workers AI neurons | 10,000 per UTC day | Worker share 6,000 (`AccountBudgetDO`; 200 reserved per planner call, settled to the returned usage, about 110 typical); eval days at most 5,000 through the Worker plus 2,000 for the REST baseline, so at least 2,000 stay with the other repos |
+| CPU per request | 10 ms | planner prefix and number formatters built at startup; see the measurement below |
+| External subrequests per request | 50 | at most 19 (JWKS 1, Google token 1, dry run 1, `jobs.query` 4, polls 12) |
+| Workers requests, Durable Object requests and rows, Workers Logs | 100,000 requests, 100,000 DO requests, 100,000 rows written, 200,000 log events per day | well under 1% on the heaviest day |
+| Queue operations (audit, optional) | 10,000 per day | at most 800 messages (2,400 operations) per day, then direct R2 puts |
+| R2 and Basin Catalog (audit, optional) | 10 GB-month, 1 M Class A, 10 M Class B, 1 M catalog operations per month | at most one put per batch; compaction off |
+| BigQuery (Google free tier, billing on) | 1 TiB of queries and 10 GiB of storage per month (shared) | about 12 GB per full production cycle; every job capped (Worker 100 or 200 MiB per query, dbt 1 GiB per job, smoke parity and baseline 200 MiB, drills and governance 100 MiB) |
+
+CPU per `/api/ask`, measured in Node with `npm run bench:cpu --workspace worker` on 2026-10-10 at 23:51 PDT (Apple M5, Node 25.9.0, machine load average 8.6; workerd itself is not measured): warm, over 1,070 asks, p50 1.17, p95 2.86, p99 4.32 and max 8.17 ms; on a cold isolate the first ask took 12.0 to 13.6 ms, the second 3.7 to 4.2 ms and the next three 0.7 to 2.7 ms. A run two minutes earlier at load average 16 gave 31 to 40 ms for the cold first ask, because a loaded Apple silicon machine runs processes on efficiency cores. The cold first request is over the 10 ms limit and relies on the per-isolate flexibility Cloudflare documents for infrequent overruns; `make smoke` fails if any request ends with `exceededCpu`.
 
 ## Resume claims: what is proven here and what needs production
 
@@ -229,9 +264,9 @@ Later deploys: `make deploy` (secrets persist), `make deploy ARGS="--rotate-key"
 | Query-cost limits | row bound, byte cap and daily budget enforced on local estimates | BigQuery itself refusing a job over `maximumBytesBilled` (smoke step 3) |
 | Suppression below 10 | primary, complementary, hidden-sum and complement rules; property tests; 0 leaks in every local eval | same code in production |
 | Metadata-only AI Gateway logging | every Workers AI call sends the metadata-only header and ids-only metadata (tested against a fake binding) | smoke step 5 reads a real gateway log and checks the bodies are absent |
-| Workers AI and AI Gateway | not exercised (local LLM is Qwen3-1.7B) | deploy, then `make smoke` and `make eval-prod` |
+| Workers AI and AI Gateway | not exercised (local LLM is Qwen3-1.7B); the Free plan budget, error handling and gateway options are tested against fakes | deploy, then `make smoke` and `make eval-prod` (Workers Free: about 5 UTC days per eval run) |
 | About 200 eval items, semantic vs text-to-SQL | 200 items, 214 turns; local runs below | `make eval-prod` for Workers AI 70B on BigQuery |
-| 90% accuracy and p95 under 5 s (targets) | measured locally below, on a 1.7B model | measured in production by `make eval-prod` |
+| 90% accuracy and p95 under 5 s (targets) | measured locally below, on a 1.7B model | measured in production by `make eval-prod`, resumable over about 5 UTC days, every number from llama-3.3-70b on BigQuery |
 
 ## Results
 
