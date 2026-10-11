@@ -141,7 +141,7 @@ def test_audit_bootstrap_lists_before_creating_and_never_uses_pipelines(isolated
     assert "pipelines" not in prod and "pipelines" not in cfg
     assert prod["queues"] == {
         "producers": [{"binding": "AUDIT_QUEUE", "queue": "peoplelens-audit"}],
-        "consumers": [{"queue": "peoplelens-audit", "max_batch_size": 100, "max_batch_timeout": 30, "max_retries": 10}],
+        "consumers": [{"queue": "peoplelens-audit", "max_batch_size": 100, "max_batch_timeout": 30, "max_retries": 3}],
     }
     assert prod["r2_buckets"] == [{"binding": "AUDIT_BUCKET", "bucket_name": "peoplelens-audit"}]
     deploy = runner.log[-1]

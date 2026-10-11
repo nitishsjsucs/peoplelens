@@ -131,6 +131,8 @@ export interface FreePlanLimits {
   audit_batch_max: number;
   audit_batch_timeout_s: number;
   audit_max_retries: number;
+  /** Direct R2 puts per UTC day once the queue share is used up; beyond it events are dropped and logged. */
+  audit_direct_puts_per_day: number;
   bq_max_polls_per_query: number;
   max_external_subrequests: number;
 }

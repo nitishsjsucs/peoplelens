@@ -1,7 +1,7 @@
 // Metadata-only audit trail on the Workers Free plan (SPEC.md 25.4 A and section 13):
 // queue slot or direct put, content-addressed consumer batches, retries, whitelist.
 import { env as baseEnv } from "cloudflare:workers";
-import { beforeAll, describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 import {
   AUDIT_FIELDS,
   BATCH_KEY,
@@ -147,6 +147,37 @@ describe("audit producer", () => {
     await emitAudit(event("r-2"), { queue, store, reserveSlot: async () => false, releaseSlot: async () => undefined });
     expect(store.puts[2]).toEqual(store.puts[1]);
     expect(await emitAudit(event("r-3"), { store: null, reserveSlot: async () => false, releaseSlot: async () => undefined })).toBe("dropped");
+  });
+
+  it("once the day's direct puts are used up as well, the event is dropped and logged, never put", async () => {
+    const store = { puts: [] as [string, string][], kind: "r2" as const, async put(k: string, b: string) { this.puts.push([k, b]); } };
+    const none = { reserveSlot: async () => false, releaseSlot: async () => undefined };
+    expect(await emitAudit(event("d-1"), { store, ...none, reserveDirect: async () => true })).toBe("direct");
+    expect(await emitAudit(event("d-2"), { store, ...none, reserveDirect: async () => false })).toBe("capped");
+    expect(await emitAudit(event("d-3"), { store, ...none, reserveDirect: async () => { throw new Error("DO down"); } })).toBe("capped");
+    expect(store.puts.map(([k]) => k)).toEqual(["staging/v1/dt=2026-10-10/direct-d-1.ndjson"]);
+  });
+
+  it("through /api/ask: no queue slot and no direct put left means no R2 write and an audit_dropped log", async () => {
+    const bucket = new MemoryBucket();
+    const env = localEnv(keys, { AUDIT_HMAC_KEY: HMAC }) as Env;
+    env.AUDIT_QUEUE = { send: async () => undefined } as unknown as Queue<unknown>;
+    env.AUDIT_BUCKET = bucket.asBinding();
+    const now = Date.UTC(2026, 11, 4, 12);
+    const budget = env.ACCOUNT_BUDGET.get(env.ACCOUNT_BUDGET.idFromName(ACCOUNT_BUDGET_NAME));
+    const direct = POLICY.limits.free_plan.audit_direct_puts_per_day;
+    expect((await budget.reserve(utcDay(now), "audit_queue_messages", SLOTS, SLOTS)).ok).toBe(true);
+    expect((await budget.reserve(utcDay(now), "audit_direct_puts", direct, direct)).ok).toBe(true);
+    const logs: string[] = [];
+    const spy = vi.spyOn(console, "log").mockImplementation((line: unknown) => void logs.push(String(line)));
+    try {
+      await askOnce(env, now);
+    } finally {
+      spy.mockRestore();
+    }
+    expect(bucket.objects.size).toBe(0);
+    expect(logs.some((l) => l.includes('"event":"audit_dropped"'))).toBe(true);
+    expect((await budget.usage(utcDay(now))).audit_direct_puts).toBe(direct);
   });
 
   it("strips anything outside the whitelist on every path", async () => {

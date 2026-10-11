@@ -184,7 +184,9 @@ export function createApp(deps: AppDeps) {
     const store = stagingStore(c.env);
     if (c.env.AUDIT_HMAC_KEY && (c.env.AUDIT_QUEUE || store)) {
       const t = now();
-      const slots = budgetPort(c.env, "audit_queue_messages", POLICY.limits.free_plan.audit_queue_messages_per_day, t);
+      const free = POLICY.limits.free_plan;
+      const slots = budgetPort(c.env, "audit_queue_messages", free.audit_queue_messages_per_day, t);
+      const direct = budgetPort(c.env, "audit_direct_puts", free.audit_direct_puts_per_day, t);
       const send = buildAuditEvent(result.body, principal, c.env.AUDIT_HMAC_KEY, t)
         .then((event) =>
           emitAudit(event, {
@@ -192,11 +194,13 @@ export function createApp(deps: AppDeps) {
             store,
             reserveSlot: async () => (await slots.reserve(1)).ok,
             releaseSlot: () => slots.settle(1, 0),
+            reserveDirect: async () => (await direct.reserve(1)).ok,
             now: t,
           }),
         )
         .then((where) => {
-          if (where !== "queue") logEvent({ event: "audit_event", request_id: result.body.request_id, decision: where });
+          if (where === "capped") logEvent({ event: "audit_dropped", request_id: result.body.request_id, decision: where });
+          else if (where !== "queue") logEvent({ event: "audit_event", request_id: result.body.request_id, decision: where });
         })
         .catch(() => logEvent({ event: "audit_error", request_id: result.body.request_id }));
       let waited = false;

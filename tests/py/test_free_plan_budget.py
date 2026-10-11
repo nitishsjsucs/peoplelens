@@ -159,15 +159,31 @@ def test_smoke_step_4_fits_the_workers_share():
 
 
 def test_audit_queue_share_and_consumer_settings():
-    assert FREE["audit_queue_messages_per_day"] * FREE["queue_ops_per_message"] <= 0.25 * ACCOUNT_QUEUE_OPS_PER_DAY
+    # A message costs 1 write + 1 read per delivery + 1 delete, and each retry is another delivery, so
+    # a consumer that fails every batch (an R2 outage, a broken binding) costs 3 + max_retries per message.
+    worst_ops = FREE["audit_queue_messages_per_day"] * (FREE["queue_ops_per_message"] + FREE["audit_max_retries"])
+    assert worst_ops <= 0.25 * ACCOUNT_QUEUE_OPS_PER_DAY, worst_ops
+    assert (FREE["audit_queue_messages_per_day"], FREE["audit_max_retries"], worst_ops) == (400, 3, 2_400)
     prod = generated_config()["env"]["production"]
     (consumer,) = prod["queues"]["consumers"]
     assert consumer["max_batch_size"] == FREE["audit_batch_max"] <= 100
     assert consumer["max_batch_timeout"] == FREE["audit_batch_timeout_s"] <= 60
-    assert consumer["max_retries"] == FREE["audit_max_retries"] <= 10
+    assert consumer["max_retries"] == FREE["audit_max_retries"]
+    # Local (Miniflare) consumer: no max_retries key, so the queue's default applies; it never touches the account.
     (local,) = wrangler_config()["queues"]["consumers"]
     assert local["max_batch_size"] <= 100 and local["max_batch_timeout"] <= 60
     assert prod["r2_buckets"] == [{"binding": "AUDIT_BUCKET", "bucket_name": "peoplelens-audit"}]
+
+
+def test_audit_direct_puts_stay_inside_r2_free_class_a():
+    """Beyond the queue share, events go straight to R2 (one Class A put each), capped per day:
+    a looping identity at the rate limit (43,200 asks a day) cannot exceed R2's free 1 M Class A a month."""
+    r2_class_a_free_per_month = 1_000_000
+    direct = FREE["audit_direct_puts_per_day"] * 31
+    batches = FREE["audit_queue_messages_per_day"] * 31  # the consumer's puts: at worst one per message
+    assert direct + batches <= 0.1 * r2_class_a_free_per_month, (direct, batches)
+    producer = (WORKER_DIR / "src" / "index.ts").read_text()
+    assert '"audit_direct_puts", free.audit_direct_puts_per_day' in producer and "audit_dropped" in producer
 
 
 def test_subrequest_bound_matches_the_worker():

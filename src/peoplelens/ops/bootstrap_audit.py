@@ -1,7 +1,7 @@
 """`make bootstrap ARGS="--with-audit ..."`: the optional metadata-only audit trail in
 production (below the core cut line), on the Workers Free plan (SPEC.md 25.4 A).
 
-Worker -> Queue `peoplelens-audit` (one of this repo's 800 daily slots in
+Worker -> Queue `peoplelens-audit` (one of this repo's 400 daily slots in
 AccountBudgetDO; otherwise a direct put) -> the same Worker's queue() handler ->
 immutable NDJSON objects in R2 bucket `peoplelens-audit` (staging/v1/...) ->
 `make audit-commit` (Python, pyiceberg RestCatalog) -> Basin Catalog Iceberg table
@@ -31,7 +31,7 @@ QUEUE = "peoplelens-audit"
 BUCKET = "peoplelens-audit"
 GENERATED_CONFIG = WORKER_DIR / "wrangler.audit.generated.jsonc"
 _FREE = load_policy().limits["free_plan"]
-# Production consumer: batches of up to 100 events, at most 30 s apart, 10 retries
+# Production consumer: batches of up to 100 events, at most 30 s apart, 3 retries
 # (60 s apart, set by the consumer's retryAll); no retention or delivery-delay setting
 # (Free retention is fixed at 24 h).
 CONSUMER = {

@@ -5,7 +5,8 @@
 //
 // One SQLite-backed instance, idFromName("peoplelens"). Counters:
 //   neurons               cap free_plan.worker_neurons_per_day (6,000)
-//   audit_queue_messages  cap free_plan.audit_queue_messages_per_day (800)
+//   audit_queue_messages  cap free_plan.audit_queue_messages_per_day (400)
+//   audit_direct_puts     cap free_plan.audit_direct_puts_per_day (2,000; R2 Class A beyond the queue share)
 // A Durable Object runs one request at a time and none of these methods awaits
 // between its read and its write, so concurrent reservations can never exceed a cap.
 import { DurableObject } from "cloudflare:workers";
@@ -77,7 +78,11 @@ export class AccountBudgetDO extends DurableObject<Env> {
   }
 
   async usage(day: string): Promise<Record<BudgetCounter, number>> {
-    if (!DAY.test(day)) return { neurons: 0, audit_queue_messages: 0 };
-    return { neurons: this.used(day, "neurons"), audit_queue_messages: this.used(day, "audit_queue_messages") };
+    if (!DAY.test(day)) return { neurons: 0, audit_queue_messages: 0, audit_direct_puts: 0 };
+    return {
+      neurons: this.used(day, "neurons"),
+      audit_queue_messages: this.used(day, "audit_queue_messages"),
+      audit_direct_puts: this.used(day, "audit_direct_puts"),
+    };
   }
 }

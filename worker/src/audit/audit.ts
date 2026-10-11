@@ -5,9 +5,11 @@
 // audit table cannot be joined back to an identity without the key.
 //
 // Workers Free plan design (SPEC.md 25.4 A; Basin Pipelines is Workers Paid only):
-//   Producer: one of this repo's 800 daily queue slots (AccountBudgetDO), then
+//   Producer: one of this repo's 400 daily queue slots (AccountBudgetDO), then
 //     Queue peoplelens-audit; when no slot is granted or the send fails, the event
-//     is put straight into staging at staging/v1/dt=<day>/direct-<request_id>.ndjson.
+//     is put straight into staging at staging/v1/dt=<day>/direct-<request_id>.ndjson,
+//     at most free_plan.audit_direct_puts_per_day (2,000) times a day; beyond that it
+//     is dropped and logged as audit_dropped (R2 Class A stays inside the free tier).
 //   Consumer (queue() in the same Worker): one immutable NDJSON object per batch at
 //     staging/v1/dt=<day>/<32 hex of sha256(sorted request ids)>.ndjson, then ackAll;
 //     on failure retryAll after 60 s. The key is content-addressed, so a redelivered
@@ -190,15 +192,20 @@ export interface ProducerDeps {
   /** One of the day's audit queue slots (AccountBudgetDO); false when the share is used up. */
   reserveSlot(): Promise<boolean>;
   releaseSlot(): Promise<void>;
+  /** One of the day's direct staging puts (AccountBudgetDO); false when that share is used up too.
+   * Without it, an identity looping on refusals could turn every request into an R2 Class A
+   * operation (43,200 a day at the rate limit, above R2's free 1 M a month). */
+  reserveDirect?(): Promise<boolean>;
   now?: number;
 }
 
 /**
  * Send one event: through the queue when a slot is granted, otherwise (or when the
  * send fails) straight into staging under a key unique to the request, so a Free
- * Queue limit never drops an event.
+ * Queue limit never drops an event; once the day's direct puts are used up as well,
+ * the event is dropped ("capped") and the caller logs it.
  */
-export async function emitAudit(raw: AuditEvent, deps: ProducerDeps): Promise<"queue" | "direct" | "dropped"> {
+export async function emitAudit(raw: AuditEvent, deps: ProducerDeps): Promise<"queue" | "direct" | "dropped" | "capped"> {
   const event = cleanAuditRecord(raw);
   if (!event) return "dropped";
   if (deps.queue) {
@@ -218,6 +225,15 @@ export async function emitAudit(raw: AuditEvent, deps: ProducerDeps): Promise<"q
     }
   }
   if (!deps.store) return "dropped";
+  if (deps.reserveDirect) {
+    let granted = false;
+    try {
+      granted = await deps.reserveDirect();
+    } catch {
+      granted = false;
+    }
+    if (!granted) return "capped";
+  }
   await deps.store.put(await directKey(event, deps.now), toNdjson([event]));
   return "direct";
 }

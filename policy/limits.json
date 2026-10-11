@@ -36,11 +36,12 @@
         "output": 204805
       }
     },
-    "audit_queue_messages_per_day": 800,
+    "audit_queue_messages_per_day": 400,
     "queue_ops_per_message": 3,
     "audit_batch_max": 100,
     "audit_batch_timeout_s": 30,
-    "audit_max_retries": 10,
+    "audit_max_retries": 3,
+    "audit_direct_puts_per_day": 2000,
     "bq_max_polls_per_query": 3,
     "max_external_subrequests": 27
   }

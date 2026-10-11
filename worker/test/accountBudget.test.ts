@@ -52,10 +52,11 @@ describe("AccountBudgetDO", () => {
   it("keeps counters and UTC days separate", async () => {
     const b = budget("separate-test");
     await b.reserve("2026-01-03", "neurons", 100, 6000);
-    await b.reserve("2026-01-03", "audit_queue_messages", 1, 800);
+    await b.reserve("2026-01-03", "audit_queue_messages", 1, 400);
+    await b.reserve("2026-01-03", "audit_direct_puts", 2, 2000);
     await b.reserve("2026-01-04", "neurons", 7, 6000);
-    expect(await b.usage("2026-01-03")).toEqual({ neurons: 100, audit_queue_messages: 1 });
-    expect(await b.usage("2026-01-04")).toEqual({ neurons: 7, audit_queue_messages: 0 });
+    expect(await b.usage("2026-01-03")).toEqual({ neurons: 100, audit_queue_messages: 1, audit_direct_puts: 2 });
+    expect(await b.usage("2026-01-04")).toEqual({ neurons: 7, audit_queue_messages: 0, audit_direct_puts: 0 });
   });
 
   it("concurrent reservations never exceed the cap", async () => {
