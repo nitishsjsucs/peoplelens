@@ -65,7 +65,7 @@ Builder 3 (Free plan migration, SPEC.md 19.1):
 | `uv run pl mf validate` | pass (0 errors, 0 warnings) |
 | `uv run pl catalog build --check` | pass: 312 entries per dialect, BigQuery compiled first, then DuckDB |
 | `uv run pl-eval gold --check`; frozen eval set equals a fresh generation (pytest) | pass |
-| `uv run pytest -q` | 542 passed (includes the 312 x 3 parity sweep; 493 at builder 1's last commit, re-run by builder 2 before any change, plus 22 ops tests in commit 18, 3 in commit 19, 1 in commit 20 and 1 in commit 21; 520 at commit 22b; 525 after the 5 offline dbt-bigquery compile tests in commit 23; 526 after M1; 542 after M4) |
+| `uv run pytest -q` | 541 passed (includes the 312 x 3 parity sweep; 493 at builder 1's last commit, re-run by builder 2 before any change, plus 22 ops tests in commit 18, 3 in commit 19, 1 in commit 20 and 1 in commit 21; 520 at commit 22b; 525 after the 5 offline dbt-bigquery compile tests in commit 23; 526 after M1; 541 after M4) |
 | `npm run typecheck` (worker and web) | pass (re-run by builder 3 at every commit) |
 | `npm test` (web build, web vitest, worker vitest in workerd) | web 3 passed; worker 302 passed (includes 4 x 2,000 fuzzed planner outputs and a check that every templated eval and dev question resolves to its gold period and grain; 267 at commit 22b, 279 after M1, 291 after M2, 296 after M3, 302 after M4) |
 | `npx wrangler deploy --env production --dry-run --outdir .wrangler/dry` (CI=true, no token) | pass; 2,486.03 KiB (gzip 227.00 KiB) including the UI assets after M4 (2,471 KiB at commit 22b); BigQuery catalog only; bindings `USER_DO`, `ACCOUNT_BUDGET`, `AI` |
