@@ -1,0 +1,99 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  CI: "true"
+  PL_STRICT: "1"
+  WRANGLER_SEND_METRICS: "false"
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: "0.12.17"
+          python-version: "3.12"
+          enable-cache: true
+      - name: Install (dbt-bigquery is a default dependency)
+        run: uv sync --frozen
+      - name: Seeds are byte-identical to a fresh generation
+        run: uv run pl data generate --check
+      - name: Build the DuckDB warehouse (every dbt test runs)
+        run: |
+          uv run pl dbt --dialect duckdb seed
+          uv run pl dbt --dialect duckdb build
+      - name: MetricFlow config validation
+        run: uv run pl mf validate
+      - name: Compiled catalogs are fresh (BigQuery, then DuckDB)
+        run: uv run pl catalog build --check
+      - name: Gold equals the reference implementation
+        run: uv run pl-eval gold --check
+      - name: pytest (312 x 3 parity sweep, offline BigQuery checks)
+        run: uv run pytest -q
+
+  worker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - name: vitest in workerd (@cloudflare/vitest-plugin)
+        run: npm test
+      - name: Production config and bundle (no credentials)
+        working-directory: worker
+        run: npx wrangler deploy --env production --dry-run --outdir .wrangler/dry
+
+  e2e:
+    needs: [python, worker]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: "0.12.17"
+          python-version: "3.12"
+          enable-cache: true
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: uv sync --frozen
+      - run: uv run pl data generate --check
+      - run: |
+          uv run pl dbt --dialect duckdb seed
+          uv run pl dbt --dialect duckdb build
+      - run: uv run pl mf validate
+      - run: uv run pl catalog build --check
+      - run: npm ci
+      - name: Start the local stack (stub planner, DuckDB sidecar, wrangler dev --local)
+        run: uv run pl dev up --llm stub
+      - name: Stub eval with safety assertions
+        run: uv run pl-eval run --llm stub --assert-safety
+      - name: Stop the local stack
+        if: always()
+        run: uv run pl dev down
+      - name: Upload the stub eval report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: eval-stub-report
+          path: |
+            eval/results/*-local-stub.json
+            eval/results/*-local-stub.md
+            .dev/logs/
+          if-no-files-found: warn

@@ -123,8 +123,22 @@ def score_baseline(items: list[dict], records: list[dict] | None) -> dict | None
     }
 
 
+STUB_HIDDEN = (
+    "result_accuracy", "answerable_correct", "accuracy_by_metric", "clarification_accuracy",
+    "two_turn_accuracy", "meets_accuracy_target",
+)
+
+
 def build(run: dict, items: list[dict], semantic: list[dict], baseline: list[dict] | None) -> dict:
     sem = score_semantic(items, semantic)
+    if run.get("llm_provider") == "stub":
+        # The stub is a CI fixture, not a model: its accuracy is never reported.
+        for key in STUB_HIDDEN:
+            sem[key] = None
+        for rec in semantic:
+            rec.pop("correct", None)
+            rec.pop("compare_detail", None)
+        sem["accuracy_not_reported"] = "stub planner (CI fixture); accuracy is reported only for real models"
     base = score_baseline(items, baseline)
     summary = {
         "items": len(semantic),
@@ -164,19 +178,26 @@ def markdown(result: dict) -> str:
         "",
         "| Metric | Value |",
         "|---|---|",
-        f"| Result accuracy (answerable, {sem['answerable_items']}) | {_fmt(sem['result_accuracy'])} ({sem['answerable_correct']}/{sem['answerable_items']}) |",
-        f"| Clarification accuracy (20) | {_fmt(sem['clarification_accuracy'])} |",
-        f"| Two-turn accuracy (10) | {_fmt(sem['two_turn_accuracy'])} |",
+        *(
+            [f"| Result accuracy | not reported ({sem['accuracy_not_reported']}) |"]
+            if sem.get("accuracy_not_reported")
+            else [
+                f"| Result accuracy (answerable, {sem['answerable_items']}) | {_fmt(sem['result_accuracy'])} ({sem['answerable_correct']}/{sem['answerable_items']}) |",
+                f"| Clarification accuracy (20) | {_fmt(sem['clarification_accuracy'])} |",
+                f"| Two-turn accuracy (10) | {_fmt(sem['two_turn_accuracy'])} |",
+            ]
+        ),
+        f"| Answers on the answerable slice | {sem['answers_on_answerable']} of {sem['answerable_items']} |",
         f"| Adversarial pass rate (30) | {_fmt(sem['adversarial_pass_rate'])} ({sem['adversarial_passed']}/{sem['adversarial_items']}) |",
         f"| Safety violations | {sem['safety_violations']} |",
         f"| p95 latency, answerable final turns | {lat['p95_answerable_ms']} ms |",
         f"| Latency over all {lat['all_turns']['n']} turns (p50 / p95 / p99 / max) | {lat['all_turns']['p50']} / {lat['all_turns']['p95']} / {lat['all_turns']['p99']} / {lat['all_turns']['max']} ms |",
         f"| Server LLM time (p50 / p95) | {lat['server_llm_ms']['p50']} / {lat['server_llm_ms']['p95']} ms |",
         f"| Server warehouse time (p50 / p95) | {lat['server_warehouse_ms']['p50']} / {lat['server_warehouse_ms']['p95']} ms |",
-        f"| Meets 90% accuracy target | {sem['meets_accuracy_target']} |",
+        f"| Meets 90% accuracy target | {'not reported' if sem.get('accuracy_not_reported') else sem['meets_accuracy_target']} |",
         f"| Meets p95 < 5 s target | {sem['meets_latency_target']} |",
         "",
-        "Accuracy by metric: " + ", ".join(f"{m} {_fmt(v)}" for m, v in sem["accuracy_by_metric"].items()),
+        "Accuracy by metric: " + (", ".join(f"{m} {_fmt(v)}" for m, v in sem["accuracy_by_metric"].items()) if sem["accuracy_by_metric"] else "not reported"),
         "",
         "Response types: " + ", ".join(f"{k} {v}" for k, v in sorted(sem["types"].items(), key=lambda kv: str(kv[0]))),
         "",

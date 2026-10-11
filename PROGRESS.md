@@ -4,7 +4,7 @@ Tracks the SPEC.md section 19 commit plan. Updated at every commit.
 
 ## Position
 
-Commit 11 of 17 (plus the inserted dev-stack commit 10a) (core cut line after commit 14).
+Commit 12 of 17 (plus the inserted dev-stack commit 10a) (core cut line after commit 14).
 
 ## Done
 
@@ -20,10 +20,11 @@ Commit 11 of 17 (plus the inserted dev-stack commit 10a) (core cut line after co
 10. `feat(worker): planner with Workers AI, OpenAI-compatible and stub providers`
 10a. `feat(dev): local stack orchestrator, local identities and pl ask/chat` (inserted: the eval runner needs it)
 11. `feat(eval): 200-item eval set, gold, comparator and text-to-SQL baseline`
+12. `ci: python, worker and stub end-to-end jobs`
 
 ## Next
 
-12. `ci: python, worker and stub end-to-end jobs`
+13. `feat(ops): doctor, idempotent bootstrap, deploy and smoke for Cloudflare and BigQuery`
 
 ## Check status (at this commit)
 
@@ -37,10 +38,11 @@ Commit 11 of 17 (plus the inserted dev-stack commit 10a) (core cut line after co
 | `uv run pl mf validate` | pass (0 errors, 0 warnings) |
 | `mf query` sample (headcount and fte by department, Dec 2025; turnover, offer acceptance, time to fill by year) | matches the reference implementation |
 | `uv run pl catalog build --check` | pass: 312 entries per dialect, BigQuery compiled first, then DuckDB, about 23 s |
-| `uv run pytest -q` | 461 passed (includes the 312 x 3 parity sweep), about 21 s |
+| `uv run pytest -q` | 462 passed (includes the 312 x 3 parity sweep), about 21 s |
 | `uv run pl dev up --llm stub`, `pl ask` (5 questions), `pl dev down` | pass; ports 8794 and 9244 free afterwards, no workerd left |
 | `uv run pl-eval gold --check`, `uv run pl-eval generate --check` (as a pytest) | pass |
 | `uv run pl-eval run --llm stub --assert-safety` (trial, not official, report kept outside the repo) | pass: 200 items, 214 turns, 0 safety violations, 0 schema-invalid, 148 answers on the answerable slice (floor pinned at 143) |
+| CI dry run: each job's commands in a fresh `git clone` with `CI=true PL_STRICT=1 WRANGLER_SEND_METRICS=false` (python, worker, e2e) | pass on macOS; GitHub's ubuntu-latest run is pending the owner's push |
 | `npm run typecheck` | pass |
 | `npm test` (vitest in workerd via @cloudflare/vitest-plugin) | 248 passed (includes 4 x 2,000 fuzzed planner outputs and a check that all 207 templated eval and dev questions resolve to their gold period and grain) |
 | `npx wrangler deploy --env production --dry-run --outdir .wrangler/dry` (CI=true, no token) | pass; bundle 2,454 KiB (gzip 219 KiB), BigQuery catalog only |
@@ -58,6 +60,7 @@ Commit 11 of 17 (plus the inserted dev-stack commit 10a) (core cut line after co
 - Clarification options in the eval are answered with a typed reply (for example "Headcount, please."), not `choose_option`, so the second turn is LLM-independent of option labels.
 - The local warehouse sidecar speaks HTTP/1.1 keep-alive and the Worker retries a dropped local connection once: with HTTP/1.0 the first stub eval hit 9 "Network connection lost" errors (workerd reuses pooled connections the server had closed).
 - The DDL screening pattern was broadened from "drop table" to "drop ... table" after reading the adversarial set ("Drop the offers table"); the adversarial pass rate is therefore not a blind measurement for that item.
+- Stub eval reports never include accuracy (fields are null and the Markdown says "not reported"); they report safety, schema validity, answer counts and latency only.
 - `pl-eval run --dev` runs the dev set for prompt iteration; its reports never go to `eval/results/`.
 - Added `src/peoplelens/dev/client.py` (HTTP client shared by `pl ask`, `pl chat` and the eval runner) and `tests/py/test_dev_tokens.py`.
 - The request pipeline lives in `worker/src/ask.ts` (not in the section 4 layout) so `index.ts` stays a thin router and the fuzz test can drive the pipeline without HTTP.

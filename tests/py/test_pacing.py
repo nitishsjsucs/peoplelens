@@ -52,3 +52,24 @@ def test_percentiles():
     assert percentile(vals, 50) == 50
     assert percentile([], 95) is None
     assert dist([1.0, 2.0])["max"] == 2.0
+
+
+def test_stub_reports_never_include_accuracy():
+    from peoplelens.eval.report import build, markdown
+
+    items = [{"id": "A1", "slice": "answerable", "category": "headcount", "turns": [{"text": "q"}]}]
+    turn = {"type": "answer", "code": None, "latency_ms": 5.0, "schema_valid": True, "violations": [],
+            "passes_expectation": True, "meta": {"llm_ms": 0, "warehouse_ms": 1}}
+    semantic = [{"id": "A1", "slice": "answerable", "category": "headcount", "turns": [turn], "correct": True}]
+    run = {"llm_provider": "stub", "target": "local", "model": "stub", "date": "2026-10-10", "command": "x",
+           "git_commit": "c", "dirty": False, "official": False, "warehouse": "duckdb_local", "hardware": "h",
+           "duration_s": 1, "pacing_wait_s": 0}
+    result = build(run, items, semantic, None)
+    sem = result["summary"]["semantic"]
+    assert sem["result_accuracy"] is None and sem["meets_accuracy_target"] is None
+    assert "correct" not in result["semantic_items"][0]
+    md = markdown(result)
+    assert "not reported" in md and "100.0%" not in md
+    run["llm_provider"] = "openai_compat"
+    semantic[0]["correct"] = True
+    assert build(run, items, semantic, None)["summary"]["semantic"]["result_accuracy"] == 1.0

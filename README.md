@@ -20,7 +20,7 @@ v1 is being built from scratch, commit by commit, following the plan in SPEC.md 
 | Worker: cost guard, BigQuery client, per-user budgets | done: row bound, per-query byte cap, daily budget and rate limit in a SQLite Durable Object; BigQuery REST client (service-account JWT, bigquery.readonly, maximumBytesBilled on every job) tested against a fetch mock only, never against BigQuery |
 | Worker: planner (Workers AI, OpenAI-compatible local, stub) | done: one structured planner call, deterministic time phrases and request screening, clarifications with selectable options, multi-turn follow-ups, whitelisted logging; 8,000 fuzzed planner outputs leak nothing. Workers AI and AI Gateway are exercised only against a fake binding until deployed |
 | Eval harness (200 items, text-to-SQL baseline) | built: 200 frozen items (150 answerable, 20 clarification, 30 adversarial; 214 turns), gold from the independent reference, comparator with median rank bands, leakage checks, pacing, sqlglot-guarded text-to-SQL baseline; no official results yet |
-| CI (python, worker, stub end-to-end) | planned |
+| CI (python, worker, stub end-to-end) | defined in `.github/workflows/ci.yml`; every job's commands pass in a fresh clone on macOS with `CI=true PL_STRICT=1`; not yet run on GitHub's ubuntu-latest runners |
 | Ops: doctor, phased bootstrap, deploy, smoke | planned |
 | Results | none yet |
 
