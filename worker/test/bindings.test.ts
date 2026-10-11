@@ -5,6 +5,7 @@ import { ENV_VAR_NAMES } from "../src/env";
 
 interface WranglerEnv {
   name?: string;
+  assets?: { directory: string; not_found_handling?: string; run_worker_first?: string[] | boolean };
   main?: string;
   workers_dev?: boolean;
   ai?: { binding: string };
@@ -52,6 +53,12 @@ describe("wrangler.jsonc", () => {
     expect(config.migrations).toEqual([{ tag: "v1", new_sqlite_classes: ["UserDO"] }]);
     for (const env of [config, prod]) {
       expect(Object.keys(env.vars ?? {}).sort()).toEqual([...ENV_VAR_NAMES].sort());
+    }
+  });
+
+  it("serves the UI as static assets with /api/* routed to the Worker first, in both environments", () => {
+    for (const env of [config, prod]) {
+      expect(env.assets).toEqual({ directory: "../web/dist", not_found_handling: "single-page-application", run_worker_first: ["/api/*"] });
     }
   });
 

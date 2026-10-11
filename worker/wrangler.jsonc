@@ -13,6 +13,13 @@
   "workers_dev": false,
   "preview_urls": false,
   "observability": { "enabled": true },
+  // The React UI (web/dist, built by `npm run build:web`) is served as static
+  // assets; /api/* always reaches the Worker first.
+  "assets": {
+    "directory": "../web/dist",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
   "durable_objects": {
     "bindings": [{ "name": "USER_DO", "class_name": "UserDO" }]
   },
@@ -29,6 +36,11 @@
       "main": "src/entry.production.ts",
       "workers_dev": true,
       "ai": { "binding": "AI" },
+      "assets": {
+        "directory": "../web/dist",
+        "not_found_handling": "single-page-application",
+        "run_worker_first": ["/api/*"]
+      },
       "durable_objects": {
         "bindings": [{ "name": "USER_DO", "class_name": "UserDO" }]
       },

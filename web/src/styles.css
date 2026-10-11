@@ -1,0 +1,75 @@
+:root {
+  --bg: #f7f7f5;
+  --fg: #1c1c1a;
+  --muted: #6b6b66;
+  --card: #ffffff;
+  --border: #e2e2dc;
+  --accent: #2f5d8a;
+  --accent-fg: #ffffff;
+  --hidden: #8a8a84;
+  --error: #a33a2b;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161615;
+    --fg: #ececea;
+    --muted: #a3a39d;
+    --card: #1f1f1d;
+    --border: #33332f;
+    --accent: #7aa7d6;
+    --accent-fg: #0f1720;
+    --hidden: #85857f;
+    --error: #e08b7d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161615;
+  --fg: #ececea;
+  --muted: #a3a39d;
+  --card: #1f1f1d;
+  --border: #33332f;
+  --accent: #7aa7d6;
+  --accent-fg: #0f1720;
+  --hidden: #85857f;
+  --error: #e08b7d;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+main { max-width: 860px; margin: 0 auto; padding: 24px 16px 96px; }
+h1 { margin: 0 0 4px; font-size: 24px; }
+.sub, .meta, .note, .pending { color: var(--muted); }
+.meta { font-size: 12px; margin: 6px 0 0; }
+.turn { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 12px 0; }
+.question { font-weight: 600; margin: 0 0 8px; }
+.narrative { margin: 0 0 10px; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+th { color: var(--muted); font-weight: 600; text-transform: capitalize; }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+tr.suppressed td { color: var(--hidden); font-style: italic; }
+.refusal, .error { color: var(--error); }
+.options, .examples { display: flex; flex-wrap: wrap; gap: 8px; }
+button {
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--fg);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font: inherit;
+  cursor: pointer;
+}
+button[type="submit"] { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+button:disabled { opacity: 0.55; cursor: default; }
+form { position: fixed; left: 0; right: 0; bottom: 0; display: flex; gap: 8px; padding: 12px 16px; background: var(--bg); border-top: 1px solid var(--border); max-width: 860px; margin: 0 auto; }
+input { flex: 1; min-width: 0; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--card); color: var(--fg); font: inherit; }
+.token input { width: 100%; margin-top: 6px; font-family: ui-monospace, monospace; font-size: 12px; }
+code { font-family: ui-monospace, monospace; font-size: 13px; }

@@ -5,14 +5,16 @@
   "description": "Governed AI workforce analytics agent on Cloudflare Workers, MetricFlow and BigQuery",
   "license": "MIT",
   "workspaces": [
-    "worker"
+    "worker",
+    "web"
   ],
   "engines": {
     "node": ">=22"
   },
   "scripts": {
-    "test": "npm run test --workspace worker",
-    "typecheck": "npm run typecheck --workspace worker",
+    "test": "npm run build:web && npm run test --workspace web && npm run test --workspace worker",
+    "typecheck": "npm run typecheck --workspace worker && npm run typecheck --workspace web",
+    "build:web": "npm run build --workspace web",
     "dev": "uv run pl dev up",
     "doctor": "uv run pl-ops doctor",
     "setup:prod": "uv run pl-ops bootstrap",

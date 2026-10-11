@@ -4,7 +4,7 @@ Tracks the SPEC.md section 19 commit plan. Updated at every commit.
 
 ## Position
 
-Commit 14 of 17 (plus inserted commits 10a, 12a and 13a); the core cut line is reached (core cut line after commit 14).
+Commit 15 of 17 (plus inserted commits); the core cut line is passed (core cut line after commit 14).
 
 ## Done
 
@@ -28,10 +28,11 @@ Commit 14 of 17 (plus inserted commits 10a, 12a and 13a); the core cut line is r
 14a. `fix(worker): ask when no metric is named; short replies keep the conversation's scope`
 14b. `eval: second official local run after the conversation fixes`
 14c. `docs: report both official local runs; record machine load in eval reports`
+15. `feat(web): React chat UI served as Worker static assets`
 
 ## Next
 
-15. Conversation fixes found by the local eval (metric grounding with clarification when no metric is named; short replies keep the conversation's scope), validated on new dev items, then a fresh official local run. Then 15 to 17 below the cut line: `feat(web)`, `feat(audit)`, `feat(ops): masking demo and time-travel drill`.
+16. `feat(audit): metadata-only audit trail via Queues and Basin, pyiceberg locally`, then 17 `feat(ops): masking demo and time-travel drill`.
 
 ## Check status (at this commit)
 
@@ -55,7 +56,9 @@ Commit 14 of 17 (plus inserted commits 10a, 12a and 13a); the core cut line is r
 | `uv run pl-eval run --llm openai_compat --official` (2026-10-10, commit a0cc3a6) | semantic 149/150 answerable correct, p95 3,696 ms, 30/30 adversarial, 0 safety violations, 0/20 clarification; baseline 33/150 |
 | `uv run pl-eval run --llm openai_compat --official` (2026-10-10, commit f4cee41) | semantic 146/150, 20/20 clarification, 10/10 two-turn, 29/30 adversarial, 0 safety violations; p95 15,046 ms under heavy machine load (other builds); baseline 33/150 |
 | `uv run pl-eval run --llm stub --assert-safety --official` (2026-10-10, commit c0271ce) | assertions pass: 200 items, 0 violations, 148 answers |
-| `npm run typecheck` | pass |
+| `npm run typecheck` (worker and web) | pass |
+| `npm test` (web build, web vitest 3, worker vitest) | pass |
+| Web UI in a browser against `pl dev up --llm stub` | renders, accepts a local token, answers "Headcount by location" for the HRBP scope (1,000 people across five locations), shows the narrative and table |
 | `npm test` (vitest in workerd via @cloudflare/vitest-plugin) | 255 passed (includes 4 x 2,000 fuzzed planner outputs and a check that all 207 templated eval and dev questions resolve to their gold period and grain) |
 | `npx wrangler deploy --env production --dry-run --outdir .wrangler/dry` (CI=true, no token) | pass; bundle 2,454 KiB (gzip 219 KiB), BigQuery catalog only |
 

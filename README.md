@@ -22,6 +22,7 @@ v1 is being built from scratch, commit by commit, following the plan in SPEC.md 
 | Eval harness (200 items, text-to-SQL baseline) | done: 200 frozen items (150 answerable, 20 clarification, 30 adversarial; 214 turns), gold from the independent reference, comparator with median rank bands, leakage checks, pacing, sqlglot-guarded text-to-SQL baseline; official local runs below |
 | CI (python, worker, stub end-to-end) | defined in `.github/workflows/ci.yml`; every job's commands pass in a fresh clone on macOS with `CI=true PL_STRICT=1`; not yet run on GitHub's ubuntu-latest runners |
 | Ops: doctor, phased bootstrap, deploy, smoke | built and unit-tested with mocked CLIs and HTTP; `make doctor` runs here and reports the missing cloud prerequisites; bootstrap, deploy and smoke have not been run against Cloudflare or Google Cloud |
+| Web UI (React, served as Worker static assets) | done: chat with answer tables, hidden-cell notes and clickable clarification options; checked in a browser against the local stack; production serving is behind Access once deployed |
 | Results | local eval (Qwen3-1.7B on DuckDB) and stub CI run, 2026-10-10; no production runs yet |
 
 Nothing has been deployed to Cloudflare or run against BigQuery from this repo yet.
@@ -82,6 +83,7 @@ Local pieces are stand-ins. DuckDB is not BigQuery, llama-server is not Workers 
 | Authorized views | plain DuckDB views | BigQuery authorized views | planned |
 | Column security, masking | not emulated | BigQuery policy tags and data policies | planned, optional |
 | Time travel and recovery | not emulated | dataset time-travel window | planned |
+| Web UI | Vite build served by wrangler dev assets on 8794 (paste a token from `pl token`) | Workers static assets behind Cloudflare Access | local verified |
 | Audit trail (Queues, Basin Pipelines, Basin Catalog) | pyiceberg SqlCatalog | Queues plus Basin Pipelines plus Basin Catalog | not built |
 | Cloudflare Workflows | not used | not used | not used |
 
@@ -122,7 +124,7 @@ Approximate medians are compared by rank: a median passes when it lies between t
 `uv run pl warehouse serve` (started for you by `make dev-up`) is the local stand-in for BigQuery: it binds 127.0.0.1 on an ephemeral port, needs `PL_WAREHOUSE_TOKEN`, opens the DuckDB file read-only, and refuses any SQL whose sha256 is not in the compiled DuckDB catalog. Its byte counts are estimates (a model of BigQuery on-demand billing with the 10 MB per-table minimum), not BigQuery dry runs.
 
 ```bash
-make dev-up                       # local stack with the stub planner (or: make dev-up ARGS="--llm openai_compat")
+make dev-up                       # local stack with the stub planner; the UI is at http://127.0.0.1:8794/ (or: make dev-up ARGS="--llm openai_compat")
 uv run pl ask "headcount by department" --role executive
 uv run pl chat --role hr_business_partner
 make dev-down                     # stops everything and checks ports 8794 and 9244 are free

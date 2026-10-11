@@ -12,6 +12,7 @@ import json
 import os
 import secrets
 import shutil
+import subprocess
 import sys
 import urllib.request
 
@@ -62,6 +63,12 @@ def up(llm_provider: str = "stub", timeout: float = 90.0) -> int:
     if shutil.which("npx") is None:
         print("npx not found; install Node 22 or newer")
         return 2
+
+    if not (REPO_ROOT / "web" / "dist" / "index.html").exists():
+        built = subprocess.run(["npm", "run", "build:web"], cwd=str(REPO_ROOT), capture_output=True, text=True, check=False)
+        if built.returncode != 0:
+            print("building the web UI failed (npm run build:web); see its output:\n" + built.stdout[-800:])
+            return 1
 
     _, jwks = ensure_keys()
     shutil.rmtree(STATE_DIR, ignore_errors=True)
