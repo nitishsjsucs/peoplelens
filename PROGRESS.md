@@ -26,6 +26,8 @@ Commit 14 of 17 (plus inserted commits 10a, 12a and 13a); the core cut line is r
 13a. `eval: official local run with Qwen3-1.7B and the text-to-SQL baseline`
 14. `docs: local eval results and production setup guide` (official stub run, README Results)
 14a. `fix(worker): ask when no metric is named; short replies keep the conversation's scope`
+14b. `eval: second official local run after the conversation fixes`
+14c. `docs: report both official local runs; record machine load in eval reports`
 
 ## Next
 
@@ -51,6 +53,7 @@ Commit 14 of 17 (plus inserted commits 10a, 12a and 13a); the core cut line is r
 | `uv run pl-ops doctor --fast` on this Mac | runs; reports wrangler login, `.secrets/cloudflare.env` and gcloud as MISSING (expected: no cloud credentials here) |
 | `uv run pl-ops bootstrap --gcp-project peoplelens-demo01 --phase a --dry-run` | prints the phase A plan, changes nothing, stops at the missing Cloudflare token |
 | `uv run pl-eval run --llm openai_compat --official` (2026-10-10, commit a0cc3a6) | semantic 149/150 answerable correct, p95 3,696 ms, 30/30 adversarial, 0 safety violations, 0/20 clarification; baseline 33/150 |
+| `uv run pl-eval run --llm openai_compat --official` (2026-10-10, commit f4cee41) | semantic 146/150, 20/20 clarification, 10/10 two-turn, 29/30 adversarial, 0 safety violations; p95 15,046 ms under heavy machine load (other builds); baseline 33/150 |
 | `uv run pl-eval run --llm stub --assert-safety --official` (2026-10-10, commit c0271ce) | assertions pass: 200 items, 0 violations, 148 answers |
 | `npm run typecheck` | pass |
 | `npm test` (vitest in workerd via @cloudflare/vitest-plugin) | 255 passed (includes 4 x 2,000 fuzzed planner outputs and a check that all 207 templated eval and dev questions resolve to their gold period and grain) |

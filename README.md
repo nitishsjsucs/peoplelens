@@ -206,19 +206,21 @@ Only numbers produced by this repo's scripts, each with its command and date. Th
 
 ### Local eval, Qwen3-1.7B (2026-10-10)
 
-`uv run pl-eval run --llm openai_compat --official` against commit `a0cc3a6`; report: [eval/results/2026-10-10-local-qwen3-1.7b.md](eval/results/2026-10-10-local-qwen3-1.7b.md).
+Two official runs, both reported. Command: `uv run pl-eval run --llm openai_compat --official`. Reports: [run 2 (latest)](eval/results/2026-10-10-local-qwen3-1.7b.md); run 1 is the same file at commit `c0271ce` in git history.
 
-| Measure | Semantic path (the product) | Direct text-to-SQL baseline (same model, harness only) |
-|---|---|---|
-| Result accuracy on the 150 answerable items | **99.3%** (149/150) | 22.0% (33/150) |
-| p95 latency, answerable items | **3,696 ms** (target below 5,000 ms: met) | 2,006 ms (LLM plus SQL, no safeguards) |
-| Latency over all 214 turns (p50 / p95 / p99 / max) | 2,201 / 3,639 / 4,281 / 4,506 ms | n/a |
-| Adversarial items passed (30) | 30/30 | n/a |
-| Safety violations (leakage) | 0 | 14 on 7 adversarial items |
-| Clarification items (20) | **0/20**: the 1.7B model never asked a clarifying question | n/a |
-| Two-turn items (10) | 0/10 | n/a |
+| Measure | Run 1, commit `a0cc3a6` | Run 2, commit `f4cee41` (after the conversation fixes) | Text-to-SQL baseline (same model, harness only; both runs) |
+|---|---|---|---|
+| Result accuracy, 150 answerable items | 99.3% (149/150) | **97.3%** (146/150) | 22.0% (33/150) |
+| Clarification items (20) | 0/20 | **20/20** | n/a |
+| Two-turn items (10) | 0/10 | **10/10** | n/a |
+| Adversarial items passed (30) | 30/30 | 29/30 | n/a |
+| Safety violations (leakage) | 0 | **0** | 14 on 7 adversarial items |
+| p95 latency, answerable items | 3,696 ms | **15,046 ms** | 2,006 ms / 1,571 ms |
+| Latency over all 214 turns (p50 / p95 / max) | 2,201 / 3,639 / 4,506 ms | 4,028 / 15,046 / 40,052 ms | n/a |
 
-Server-side, the planner LLM call took 2,166 ms at p50 and 3,582 ms at p95; warehouse time was 9 ms at p50. The baseline's SQL was rejected by the guard 8 times and failed to execute 62 times.
+What changed between the runs: run 1 showed that the 1.7B model never asked a clarifying question and that a short reply such as "Headcount, please." lost the previous turn's filters. The fixes (validated on dev items only) made the metric a grounded slot (no metric named: ask), kept the conversation's scope for short replies, and turned the model's spurious refusals of ambiguous in-domain questions into clarifications. Two answerable items that name no metric ("What does the L2 population look like by ...") now get a clarification instead of a guessed headcount, which the eval scores as wrong.
+
+Latency in run 2 is not comparable to run 1: this Mac was shared with other builds during run 2 (load average about 60 to 85 over the run, seen right after it ended), llama-server's generation slowed from about 18 ms to as much as 160 ms per token, and two items hit the Worker's 20 s local LLM timeout (they were answered with "Could you rephrase?", which is why one adversarial item failed its expected-type check). The target of p95 below 5 s was met in run 1 and missed in run 2; the production target needs Workers AI numbers from `make eval-prod`. Later reports record the machine's load average.
 
 ### Stub run (CI fixture, 2026-10-10)
 

@@ -212,8 +212,16 @@ def run_baseline_items(items: list[dict], gold: dict, llm, executor, pacer: Pace
     return out
 
 
+def load_average() -> list[float] | None:
+    try:
+        return [round(x, 1) for x in os.getloadavg()]
+    except OSError:
+        return None
+
+
 def main(args) -> int:
     started = time.time()
+    load_start = load_average()
     commit, dirty = git_state()
     if args.official and (dirty or args.limit):
         print("an official run needs a clean working tree and no --limit", file=sys.stderr)
@@ -284,6 +292,8 @@ def main(args) -> int:
         "pacing_wait_s": round(pacer.waited_s, 1),
         "baseline": baseline_info,
         "limit": args.limit or None,
+        "load_average_start": load_start,
+        "load_average_end": load_average(),
     }
     result = report_mod.build(run_info, items, semantic, baseline)
     stem = args.out or str(RESULTS_DIR / f"{run_info['date']}-{args.target}-{model}")

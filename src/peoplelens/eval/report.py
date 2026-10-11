@@ -173,6 +173,7 @@ def markdown(result: dict) -> str:
         f"- Warehouse: {run['warehouse']}; hardware: {run['hardware']}",
         f"- Items: {s['items']} ({', '.join(f'{k} {v}' for k, v in sorted(s['slices'].items()))}); turns: {s['turns']}",
         f"- Duration: {run['duration_s']} s (pacing waits {run['pacing_wait_s']} s, never counted as latency)",
+        f"- Machine load average (1, 5, 15 min) at start and end: {run.get('load_average_start')} / {run.get('load_average_end')}",
         "",
         "## Semantic path (the product)",
         "",
