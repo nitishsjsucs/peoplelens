@@ -21,10 +21,10 @@ v1 was built from scratch, commit by commit, following the plan in SPEC.md secti
 | Worker: planner (Workers AI, OpenAI-compatible local, stub) | done: one structured planner call (the LLM picks the action and metric; breakdowns, filters, grain and period are grounded in the question text), deterministic time phrases and request screening, clarifications with selectable options, multi-turn follow-ups, whitelisted logging; 8,000 fuzzed planner outputs leak nothing. Workers AI and AI Gateway are exercised only against a fake binding until deployed |
 | Eval harness (200 items, text-to-SQL baseline) | done: 200 frozen items (150 answerable, 20 clarification, 30 adversarial; 214 turns), gold from the independent reference, comparator with median rank bands, leakage checks, pacing, sqlglot-guarded text-to-SQL baseline; official local runs below |
 | CI (python, worker, stub end-to-end) | defined in `.github/workflows/ci.yml`; every job's commands pass in a fresh clone on macOS with `CI=true PL_STRICT=1`; not yet run on GitHub's ubuntu-latest runners |
-| Ops: doctor, phased bootstrap, deploy, smoke | built and unit-tested with mocked CLIs and HTTP; `make doctor` runs here and reports the missing cloud prerequisites; bootstrap, deploy and smoke have not been run against Cloudflare or Google Cloud |
+| Ops: doctor, phased bootstrap, deploy, smoke | built and unit-tested with mocked CLIs and HTTP; the BigQuery, AI Gateway, Access, Workers and bq calls were rechecked against the official API references on 2026-10-10, which found and fixed defects that would have broken the production smoke, eval and first deploy or let the metadata-only logging check pass on a stored payload (PROGRESS.md commits 18 and 19); `make doctor` runs here and reports the missing cloud prerequisites; bootstrap, deploy and smoke have not been run against Cloudflare or Google Cloud |
 | Audit trail | done locally: one metadata-only event per question (HMAC of the subject, decision codes, counts, bytes, timings; never question text or values) through a queue into an Iceberg table; production path (Basin Pipelines and Basin Catalog) scripted in the bootstrap, not run |
 | Web UI (React, served as Worker static assets) | done: chat with answer tables, hidden-cell notes and clickable clarification options; checked in a browser against the local stack; production serving is behind Access once deployed |
-| Results | local eval (Qwen3-1.7B on DuckDB) and stub CI run, 2026-10-10; no production runs yet |
+| Results | four official local evals (Qwen3-1.7B on DuckDB) and the stub CI run, 2026-10-10; no production runs yet |
 
 Nothing has been deployed to Cloudflare or run against BigQuery from this repo yet.
 
@@ -228,22 +228,22 @@ Only numbers produced by this repo's scripts, each with its command and date. Th
 
 ### Local eval, Qwen3-1.7B (2026-10-10)
 
-Three official runs, all reported. Command: `uv run pl-eval run --llm openai_compat --official`. Reports: [run 3 (latest)](eval/results/2026-10-10-local-qwen3-1.7b.md); runs 1 and 2 are the same file at commits `c0271ce` and `4c14570` in git history.
+Four official runs, all reported. Command: `uv run pl-eval run --llm openai_compat --official`. Reports: [run 4 (latest)](eval/results/2026-10-10-local-qwen3-1.7b.md); runs 1 to 3 are the same file at commits `c0271ce`, `4c14570` and `8a4c975` in git history. Run 4 re-measured the same Worker and planner code as run 3 (commits after `c462b5d` changed only the production ops scripts and the eval client).
 
-| Measure | Run 1, commit `a0cc3a6` | Run 2, commit `f4cee41` | Run 3, commit `c462b5d` (latest) | Text-to-SQL baseline (same model, harness only) |
-|---|---|---|---|---|
-| Result accuracy, 150 answerable items | 99.3% (149/150) | 97.3% (146/150) | **98.0%** (147/150) | 22.0% (33/150) in all three runs |
-| Clarification items (20) | 0/20 | 20/20 | **20/20** | n/a |
-| Two-turn items (10) | 0/10 | 10/10 | **10/10** | n/a |
-| Adversarial items passed (30) | 30/30 | 29/30 | **30/30** | n/a |
-| Safety violations (leakage) | 0 | 0 | **0** | 14 on 7 adversarial items |
-| p95 latency, answerable items | 3,696 ms | 15,046 ms | **5,196 ms** | 2,006 / 1,571 / 2,478 ms |
-| Latency over all 214 turns (p50 / p95 / max) | 2,201 / 3,639 / 4,506 ms | 4,028 / 15,046 / 40,052 ms | 2,702 / 5,118 / 7,772 ms | n/a |
-| Machine load average (1 min) at start / end | not recorded | not recorded (60 to 85 right after) | 5.0 / 68.8 | |
+| Measure | Run 1, commit `a0cc3a6` | Run 2, commit `f4cee41` | Run 3, commit `c462b5d` | Run 4, commit `7821669` (latest) | Text-to-SQL baseline (same model, harness only) |
+|---|---|---|---|---|---|
+| Result accuracy, 150 answerable items | 99.3% (149/150) | 97.3% (146/150) | 98.0% (147/150) | **98.0%** (147/150) | 22.0% (33/150) in all four runs |
+| Clarification items (20) | 0/20 | 20/20 | 20/20 | **20/20** | n/a |
+| Two-turn items (10) | 0/10 | 10/10 | 10/10 | **10/10** | n/a |
+| Adversarial items passed (30) | 30/30 | 29/30 | 30/30 | **30/30** | n/a |
+| Safety violations (leakage) | 0 | 0 | 0 | **0** | 14 on 7 adversarial items (every run) |
+| p95 latency, answerable items | 3,696 ms | 15,046 ms | 5,196 ms | **5,353 ms** | 2,006 / 1,571 / 2,478 / 1,838 ms |
+| Latency over all 214 turns (p50 / p95 / max) | 2,201 / 3,639 / 4,506 ms | 4,028 / 15,046 / 40,052 ms | 2,702 / 5,118 / 7,772 ms | 2,856 / 5,110 / 7,869 ms | n/a |
+| Machine load average (1 min) at start / end | not recorded | not recorded (60 to 85 right after) | 5.0 / 68.8 | 8.1 / 14.9 (5 min average 27.4 at the end) | |
 
 What changed after run 1: it showed that the 1.7B model never asked a clarifying question and that a short reply such as "Headcount, please." lost the previous turn's filters. The fixes (validated on dev items only) made the metric a grounded slot (no metric named: ask), kept the conversation's scope for short replies, and turned the model's spurious refusals of ambiguous in-domain questions into clarifications. Two answerable items that name no metric ("What does the L2 population look like by ...") now get a clarification instead of a guessed headcount, which the eval scores as wrong; the third miss is "How many full-time staff ...", which the model reads as FTE.
 
-Latency depends on what else this Mac is doing: it was shared with other builds during runs 2 and 3 (llama-server's generation slowed from about 18 ms to as much as 160 ms per token in run 2, where two items hit the Worker's 20 s local LLM timeout). The p95 target of 5 s was met in run 1, missed in run 2, and missed by 196 ms in run 3, all on a 1.7B model on a laptop; the production figure needs Workers AI numbers from `make eval-prod`.
+Latency depends on what else this Mac is doing: it was shared with other builds during runs 2 to 4 (llama-server's generation slowed from about 18 ms to as much as 160 ms per token in run 2, where two items hit the Worker's 20 s local LLM timeout). The p95 target of 5 s was met in run 1, missed in run 2, missed by 196 ms in run 3 and by 353 ms in run 4, all on a 1.7B model on a laptop shared with other builds (in run 4 the model's own time was 2,774 ms at p50 and 4,961 ms at p95, and the DuckDB stand-in 17 ms and 70 ms); the production figure needs Workers AI numbers from `make eval-prod`. Runs 3 and 4 missed the same three items.
 
 ### Stub run (CI fixture, 2026-10-10)
 
