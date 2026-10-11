@@ -67,12 +67,15 @@ def test_stub_reports_never_include_accuracy():
     result = build(run, items, semantic, None)
     sem = result["summary"]["semantic"]
     assert sem["result_accuracy"] is None and sem["meets_accuracy_target"] is None
+    assert sem["meets_latency_target"] is None  # a 5 ms keyword stub meets no product latency target
     assert "correct" not in result["semantic_items"][0]
     md = markdown(result)
     assert "not reported" in md and "100.0%" not in md
+    assert "| Meets p95 < 5 s target | not reported (stub planner) |" in md
     run["llm_provider"] = "openai_compat"
     semantic[0]["correct"] = True
-    assert build(run, items, semantic, None)["summary"]["semantic"]["result_accuracy"] == 1.0
+    real = build(run, items, semantic, None)["summary"]["semantic"]
+    assert real["result_accuracy"] == 1.0 and real["meets_latency_target"] is True
 
 
 def test_assert_safety_fails_on_any_server_limit_code(capsys):

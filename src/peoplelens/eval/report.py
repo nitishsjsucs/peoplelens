@@ -126,6 +126,8 @@ def score_baseline(items: list[dict], records: list[dict] | None) -> dict | None
 STUB_HIDDEN = (
     "result_accuracy", "answerable_correct", "accuracy_by_metric", "clarification_accuracy",
     "two_turn_accuracy", "meets_accuracy_target",
+    # The stub answers with no LLM, so a latency target "met" by it says nothing about the product.
+    "meets_latency_target",
 )
 
 
@@ -206,7 +208,7 @@ def markdown(result: dict) -> str:
         f"| Server LLM time (p50 / p95) | {lat['server_llm_ms']['p50']} / {lat['server_llm_ms']['p95']} ms |",
         f"| Server warehouse time (p50 / p95) | {lat['server_warehouse_ms']['p50']} / {lat['server_warehouse_ms']['p95']} ms |",
         f"| Meets 90% accuracy target | {'not reported' if sem.get('accuracy_not_reported') else sem['meets_accuracy_target']} |",
-        f"| Meets p95 < 5 s target | {sem['meets_latency_target']} |",
+        f"| Meets p95 < 5 s target | {'not reported (stub planner)' if sem.get('accuracy_not_reported') else sem['meets_latency_target']} |",
         "",
         "Accuracy by metric: " + (", ".join(f"{m} {_fmt(v)}" for m, v in sem["accuracy_by_metric"].items()) if sem["accuracy_by_metric"] else "not reported"),
         "",
