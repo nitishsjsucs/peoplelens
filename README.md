@@ -6,7 +6,7 @@ The design contract is [SPEC.md](SPEC.md). Build progress is tracked in [PROGRES
 
 ## Status
 
-v1 was built from scratch, commit by commit, following the plan in SPEC.md section 19, and then moved onto the **Cloudflare Workers Free plan** in a Cloudflare account and a Google Cloud project that three other repos share (SPEC.md section 25, [ADR 0001](docs/adr/0001-production-on-workers-free-plan.md), migration commits M1 to M8). Every planned commit is done, and a review round (four lenses: correctness, security, honesty, Free plan fit) was fixed on 2026-10-11 (PROGRESS.md items 38 to 52); every check passes locally, GitHub Actions on `ubuntu-latest` passed up to the commit before that round, and the official local evals were re-run on the final code (2026-10-11). What remains needs cloud accounts and an operator (see Production setup; `make doctor` lists each missing piece). This table is updated in every commit that changes status.
+v1 was built from scratch, commit by commit, following the plan in SPEC.md section 19, and then moved onto the **Cloudflare Workers Free plan** in a Cloudflare account and a Google Cloud project that three other repos share (SPEC.md section 25, [ADR 0001](docs/adr/0001-production-on-workers-free-plan.md), migration commits M1 to M8). Every planned commit is done, and a review round (four lenses: correctness, security, honesty, Free plan fit) was fixed on 2026-10-11 (PROGRESS.md items 38 to 53); every check passes locally, GitHub Actions on `ubuntu-latest` passed up to the commit before that round, and the official local evals were re-run on the final code (2026-10-11). What remains needs cloud accounts and an operator (see Production setup; `make doctor` lists each missing piece). This table is updated in every commit that changes status.
 
 | Area | Status |
 |---|---|
@@ -210,7 +210,7 @@ Production runs entirely on the **Cloudflare Workers Free plan** (do not upgrade
    make bootstrap ARGS="--gcp-project <shared-project-id> --role-emails analyst=<you>+analyst@<domain>,hrbp=<you>+hrbp@<domain>:Engineering+Sales,recruiter=<you>+recruiter@<domain>,exec=<you>+exec@<domain>"
    make doctor ARGS="--gcp-project <shared-project-id>"
    ```
-6. Smoke, on a UTC day without a production eval (it needs about 2,500 neurons, at most 4,300, and stops if fewer than 4,800 of this repo's 6,000 are left):
+6. Smoke, on a UTC day without a production eval (it needs about 2,500 neurons, at most 4,300 if no planner call is retried, and stops if fewer than 4,800 of this repo's 6,000 are left):
    ```bash
    make smoke                                   # writes eval/results/<date>-prod-smoke.json
    git add eval/results && git commit -m "eval: production smoke"
