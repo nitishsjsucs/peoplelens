@@ -4,7 +4,7 @@ Tracks the SPEC.md section 19 commit plan. Updated at every commit.
 
 ## Position
 
-Commit 7 of 17 (core cut line after commit 14).
+Commit 8 of 17 (core cut line after commit 14).
 
 ## Done
 
@@ -15,10 +15,11 @@ Commit 7 of 17 (core cut line after commit 14).
 5. `feat(policy): roles, dimensions, limits and the query catalog compiler`
 6. `feat(warehouse): local DuckDB sidecar and BigQuery byte estimator`
 7. `feat(worker): Hono worker, Access JWT verification, role bindings`
+8. `feat(worker): policy validation, catalog binding and suppression`
 
 ## Next
 
-8. `feat(worker): policy validation, catalog binding and suppression`
+9. `feat(worker): cost guard, BigQuery client and UserDO budgets`
 
 ## Check status (at this commit)
 
@@ -34,12 +35,15 @@ Commit 7 of 17 (core cut line after commit 14).
 | `uv run pl catalog build --check` | pass: 312 entries per dialect, BigQuery compiled first, then DuckDB, about 23 s |
 | `uv run pytest -q` | 414 passed (includes the 312 x 3 parity sweep), about 21 s |
 | `npm run typecheck` | pass |
-| `npm test` (vitest in workerd via @cloudflare/vitest-plugin) | 28 passed |
+| `npm test` (vitest in workerd via @cloudflare/vitest-plugin) | 185 passed |
 | `npx wrangler deploy --env production --dry-run --outdir .wrangler/dry` (CI=true, no token) | pass; bundle 1,594 KiB (gzip 74 KiB), BigQuery catalog only |
 
 ## Deviations from SPEC.md
 
 - Median comparison uses a rank band instead of the value-only band: gold stores the lower and upper middle values plus the sorted salaries `max(1, ceil(0.02 n))` ranks either side of them; a median passes in [band low x 0.99, band high x 1.01]. Reason: in the 312 x 3 parity sweep 14 of 17,534 DuckDB `approx_quantile` medians sat at the correct rank but up to 1.84% outside [lower middle x 0.99, upper middle x 1.01] because of gaps between adjacent salaries (example: 127,300 between ranks 64 and 65 of 129, whose values are 125,000 and 131,700). BigQuery's `APPROX_QUANTILES(x, 2)[OFFSET(1)]` returns an input value at or next to the middle rank, which the band also accepts.
+- Suppression invariant 3 is stated as "suppressed cohort sum is 0, at least k, or the whole partition is suppressed": a partition whose total is below k (for example two cells of 3 and 4 and nothing else) cannot reach k, and suppressing all of it is the strongest possible outcome.
+- Complement rule compares with a strict `0 < diff < k` (with a 1e-9 tolerance) rather than integer 1 to 9, so fractional cohorts (turnover's average headcount) are covered too.
+- Validation codes chosen where the spec leaves them open: more than 2 group-by dimensions is `RESULT_TOO_LARGE`; more than 2 restricted (filtered or scoped) dimensions is `DIMENSION_NOT_APPROVED`; an unknown filter value or unknown metric is `OUT_OF_DOMAIN`; a disallowed grain is `GRAIN_NOT_ALLOWED` carried as a clarification with the allowed grains as options.
 - Worker entry points are `worker/src/entry.local.ts` (bundles the DuckDB catalog) and `worker/src/entry.production.ts` (bundles the BigQuery catalog), selected by `main` per wrangler environment, because wrangler's `alias` is top-level only and cannot differ per environment. Both call `createWorker()` from `src/index.ts`.
 - `src/peoplelens/policy.py`, `catalog/results.py` and `reference/tolerance.py` added (policy loader, row-to-cell mapping, tolerance rules) beyond the section 4 layout.
 - Catalog JSON is about 1.45 MB per dialect (spec estimated 0.85 MB) because every entry carries a where-filter for each approved dimension of its metric.

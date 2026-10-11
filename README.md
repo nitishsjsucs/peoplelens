@@ -16,7 +16,7 @@ v1 is being built from scratch, commit by commit, following the plan in SPEC.md 
 | Policy (four roles, five approved dimensions, limits) and compiled query catalog | done: 312 entries per dialect compiled by MetricFlow; all 312 DuckDB entries x 3 parameter sets match the independent reference; BigQuery SQL rendered offline, not yet run on BigQuery |
 | Local DuckDB warehouse sidecar and byte estimator | done (local only): read-only DuckDB, bearer token, executes only catalog SQL; byte estimates model BigQuery on-demand billing and are labeled as estimates |
 | Worker: Access JWT verification and role bindings | done: RS256 verification (static local JWKS, or the team's remote JWKS in production), user and service-token bindings, fail-closed production guards; tested in Miniflare, not yet deployed |
-| Worker: policy validation, catalog binding, suppression (k = 10) | planned |
+| Worker: policy validation, catalog binding, suppression (k = 10) | done: approved metrics, dimensions, values, grains, ranges and HRBP scope enforced server-side; primary, complementary, hidden-sum and complement-rule suppression with property tests |
 | Worker: cost guard, BigQuery client, per-user budgets | planned |
 | Worker: planner (Workers AI, OpenAI-compatible local, stub) | planned |
 | Eval harness (200 items, text-to-SQL baseline) | planned |
