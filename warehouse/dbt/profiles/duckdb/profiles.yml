@@ -1,0 +1,10 @@
+# Local warehouse. Use `uv run pl dbt --dialect duckdb ...`, which sets PL_DUCKDB_PATH
+# to the absolute path of .dev/warehouse/peoplelens.duckdb and creates the directory.
+# There is deliberately no default: bare `dbt` fails fast instead of writing elsewhere.
+peoplelens:
+  target: duckdb
+  outputs:
+    duckdb:
+      type: duckdb
+      path: "{{ env_var('PL_DUCKDB_PATH') }}"
+      threads: 4

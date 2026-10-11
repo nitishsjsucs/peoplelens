@@ -1,0 +1,49 @@
+name: peoplelens
+version: "1.0.0"
+config-version: 2
+profile: peoplelens
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+vars:
+  # Bootstrap phase C sets this to true after the taxonomy, data policies and
+  # fine-grained reader grants exist. It never has an effect on DuckDB.
+  apply_policy_tags: false
+  # Policy tag resource names (projects/<p>/locations/us/taxonomies/<t>/policyTags/<id>),
+  # passed by `pl-ops bootstrap --phase c`. Unused unless apply_policy_tags is true.
+  policy_tag_pii_high: ""
+  policy_tag_protected_class: ""
+  policy_tag_compensation: ""
+
+seeds:
+  peoplelens:
+    +schema: raw
+    +quote_columns: false
+    +persist_docs:
+      relation: false
+      columns: "{{ (target.type == 'bigquery' and var('apply_policy_tags', false)) | as_bool }}"
+    +labels: "{{ {'app': 'peoplelens', 'layer': 'raw'} if target.type == 'bigquery' else {} }}"
+
+models:
+  peoplelens:
+    staging:
+      +schema: staging
+      +materialized: view
+    core:
+      +schema: core
+      +materialized: table
+      +persist_docs:
+        relation: false
+        columns: "{{ (target.type == 'bigquery' and var('apply_policy_tags', false)) | as_bool }}"
+    semantic:
+      +schema: semantic
+      +materialized: view
+
+data_tests:
+  peoplelens:
+    +severity: error

@@ -1,0 +1,14 @@
+# Offline BigQuery render only (no credentials are used): `dbt parse` and the
+# MetricFlow catalog compiler read this profile to produce BigQuery-dialect SQL
+# against the placeholder project id below. The Worker swaps the placeholder for
+# the real GCP_PROJECT_ID at query time.
+peoplelens:
+  target: bigquery_compile
+  outputs:
+    bigquery_compile:
+      type: bigquery
+      method: oauth
+      project: peoplelens-project-id
+      dataset: peoplelens
+      location: US
+      threads: 4

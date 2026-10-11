@@ -1,0 +1,117 @@
+version: 2
+
+# Raw synthetic seeds. PII columns (names, emails, date of birth, gender) exist
+# only here, to demonstrate BigQuery policy tags and masking; staging drops them.
+# Policy tags are applied only when the dbt var apply_policy_tags is true
+# (bootstrap phase C), through column-level persist_docs.
+#
+# Tag mapping (each masking rule fits its column type):
+#   pii_high        SHA256 (STRING only): full_name, work_email, candidate full_name, email
+#   protected_class ALWAYS_NULL (any type): date_of_birth (DATE), gender
+#   compensation    DEFAULT_MASKING_VALUE: base_salary_usd
+
+seeds:
+  - name: raw_employees
+    description: One row per person ever employed in the dataset (2,400).
+    config:
+      column_types:
+        employee_id: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        full_name: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        work_email: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        date_of_birth: date
+        gender: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        hire_date: date
+        termination_date: date
+        termination_type: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        employment_type: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        fte: "{{ 'float64' if target.type == 'bigquery' else 'double' }}"
+    columns:
+      - name: employee_id
+        description: Synthetic employee id (E00001..E02400).
+      - name: full_name
+        description: Synthetic full name (PII).
+        policy_tags: ["{{ var('policy_tag_pii_high') }}"]
+      - name: work_email
+        description: Synthetic work email at lumenworks.example (PII).
+        policy_tags: ["{{ var('policy_tag_pii_high') }}"]
+      - name: date_of_birth
+        description: Synthetic date of birth (protected class).
+        policy_tags: ["{{ var('policy_tag_protected_class') }}"]
+      - name: gender
+        description: Synthetic gender code (protected class).
+        policy_tags: ["{{ var('policy_tag_protected_class') }}"]
+      - name: hire_date
+      - name: termination_date
+      - name: termination_type
+      - name: employment_type
+      - name: fte
+
+  - name: raw_job_history
+    description: Effective-dated job rows (hire, promotion, transfer); 2,820 rows.
+    config:
+      column_types:
+        employee_id: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        effective_date: date
+        end_date: date
+        department: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        location: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        job_level: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        job_family: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        change_reason: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+
+  - name: raw_compensation_history
+    description: Effective-dated base salary rows (hire, April 1 merit, promotion).
+    config:
+      column_types:
+        employee_id: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        effective_date: date
+        base_salary_usd: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        change_reason: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+    columns:
+      - name: employee_id
+      - name: effective_date
+      - name: base_salary_usd
+        description: Annual base salary in USD (compensation).
+        policy_tags: ["{{ var('policy_tag_compensation') }}"]
+      - name: change_reason
+
+  - name: raw_requisitions
+    description: Requisitions opened 2022-09-01 to 2025-12-31 (1,050).
+    config:
+      column_types:
+        requisition_id: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        department: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        location: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        job_level: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        opened_date: date
+        status: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        filled_date: date
+        closed_date: date
+
+  - name: raw_offers
+    description: Offers extended (1,080), one candidate per offer.
+    config:
+      column_types:
+        offer_id: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        requisition_id: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        candidate_id: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        offer_date: date
+        decision: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        decision_date: date
+        hired_employee_id: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+
+  - name: raw_candidates
+    description: Candidates (1,080). PII only; nothing downstream reads it.
+    config:
+      column_types:
+        candidate_id: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        full_name: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+        email: "{{ 'string' if target.type == 'bigquery' else 'varchar' }}"
+    columns:
+      - name: candidate_id
+      - name: full_name
+        description: Synthetic candidate name (PII).
+        policy_tags: ["{{ var('policy_tag_pii_high') }}"]
+      - name: email
+        description: Synthetic candidate email at mail.example (PII).
+        policy_tags: ["{{ var('policy_tag_pii_high') }}"]

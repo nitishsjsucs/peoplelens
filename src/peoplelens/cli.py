@@ -43,6 +43,25 @@ def _cmd_data_stats(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_dbt(args: argparse.Namespace) -> int:
+    from peoplelens.dbt_runner import DbtRunnerError, run_dbt
+
+    rest = list(args.dbt_args)
+    if rest and rest[0] == "--":
+        rest = rest[1:]
+    try:
+        return run_dbt(args.dialect, rest).returncode
+    except DbtRunnerError as exc:
+        print(f"pl dbt: {exc}", file=sys.stderr)
+        return 2
+
+
+def _cmd_mf_validate(args: argparse.Namespace) -> int:
+    from peoplelens.dbt_runner import run_mf_validate
+
+    return run_mf_validate()
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="pl", description="PeopleLens developer CLI")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -54,6 +73,19 @@ def build_parser() -> argparse.ArgumentParser:
     gen.set_defaults(func=_cmd_data_generate)
     stats = data_sub.add_parser("stats", help="print exact counts computed from the seed CSVs")
     stats.set_defaults(func=_cmd_data_stats)
+
+    dbt = sub.add_parser(
+        "dbt",
+        help="run dbt with the dialect's profiles dir and PL_DUCKDB_PATH (the only supported way to run dbt)",
+    )
+    dbt.add_argument("--dialect", required=True, choices=["duckdb", "bigquery_compile", "bigquery"])
+    dbt.add_argument("dbt_args", nargs=argparse.REMAINDER, help="arguments passed to dbt, for example: build")
+    dbt.set_defaults(func=_cmd_dbt)
+
+    mf = sub.add_parser("mf", help="MetricFlow helpers")
+    mf_sub = mf.add_subparsers(dest="mf_command", required=True)
+    mfv = mf_sub.add_parser("validate", help="mf validate-configs --skip-dw after a DuckDB dbt parse")
+    mfv.set_defaults(func=_cmd_mf_validate)
 
     return parser
 

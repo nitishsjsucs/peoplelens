@@ -1,0 +1,114 @@
+version: 2
+
+models:
+  - name: dim_month
+    description: The 36 months of the analysis window.
+    columns:
+      - name: month_start
+        data_tests: [unique, not_null]
+      - name: month_end
+        data_tests: [unique, not_null]
+
+  - name: dim_employee
+    description: One row per employee, no PII.
+    columns:
+      - name: employee_id
+        data_tests: [unique, not_null]
+
+  - name: fct_workforce_monthly
+    description: One row per employee per month employed at any point in the month.
+    columns:
+      - name: workforce_key
+        data_tests: [unique, not_null]
+      - name: employee_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_employee')
+                field: employee_id
+      - name: month_start
+        data_tests: [not_null]
+      - name: department
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Engineering", "Sales", "Customer Success", "Marketing", "Finance", "People", "Operations", "Legal"]
+      - name: location
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["San Jose", "New York", "Austin", "London", "Bengaluru"]
+      - name: job_level
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["L1", "L2", "L3", "L4", "L5", "L6"]
+      - name: employment_type
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["full_time", "part_time"]
+      - name: tenure_band
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["<1y", "1-2y", "2-5y", "5y+"]
+      - name: is_active_eom
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [0, 1]
+                quote: false
+      - name: base_salary_eom
+        description: Base salary in USD at the reference date (compensation).
+        policy_tags: ["{{ var('policy_tag_compensation') }}"]
+        data_tests: [not_null]
+
+  - name: fct_requisitions
+    columns:
+      - name: requisition_id
+        data_tests: [unique, not_null]
+      - name: department
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["Engineering", "Sales", "Customer Success", "Marketing", "Finance", "People", "Operations", "Legal"]
+      - name: location
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["San Jose", "New York", "Austin", "London", "Bengaluru"]
+      - name: job_level
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["L1", "L2", "L3", "L4", "L5", "L6"]
+
+  - name: fct_offers
+    columns:
+      - name: offer_id
+        data_tests: [unique, not_null]
+      - name: requisition_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('fct_requisitions')
+                field: requisition_id
+      - name: department
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["Engineering", "Sales", "Customer Success", "Marketing", "Finance", "People", "Operations", "Legal"]
+      - name: is_accepted
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [0, 1]
+                quote: false

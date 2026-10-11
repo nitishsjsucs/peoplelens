@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: metricflow_time_spine
+    description: Day-grain time spine for MetricFlow.
+    time_spine:
+      standard_granularity_column: date_day
+    columns:
+      - name: date_day
+        granularity: day
+        data_tests: [unique, not_null]
+
+  - name: sem_workforce_monthly
+    description: Semantic view over fct_workforce_monthly.
+    columns:
+      - name: workforce_key
+        data_tests: [unique, not_null]
+
+  - name: sem_requisitions
+    description: Semantic view over filled requisitions.
+    columns:
+      - name: requisition_id
+        data_tests: [unique, not_null]
+      - name: days_to_fill
+        data_tests: [not_null]
+
+  - name: sem_offers
+    description: Semantic view over offers.
+    columns:
+      - name: offer_id
+        data_tests: [unique, not_null]

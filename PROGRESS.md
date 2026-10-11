@@ -4,16 +4,17 @@ Tracks the SPEC.md section 19 commit plan. Updated at every commit.
 
 ## Position
 
-Commit 2 of 17 (core cut line after commit 14).
+Commit 3 of 17 (core cut line after commit 14).
 
 ## Done
 
 1. `chore: scaffold repo with README, spec, license, tooling pins`
 2. `feat(data): seeded synthetic HR generator with exact counts` (compensation rows pinned at 7,196)
+3. `feat(dbt): staging, core and semantic models on DuckDB with count tests`
 
 ## Next
 
-3. `feat(dbt): staging, core and semantic models on DuckDB with count tests`
+4. `feat(semantic): MetricFlow semantic models and six governed metrics`
 
 ## Check status (at this commit)
 
@@ -22,7 +23,9 @@ Commit 2 of 17 (core cut line after commit 14).
 | `uv sync --frozen` | pass (131 packages in uv.lock) |
 | `npm ci` | pass |
 | `uv run pl data generate --check` | pass |
-| `uv run pytest -q` | 14 passed |
+| `uv run pl dbt --dialect duckdb seed` then `build` (from a clean clone, no `.dev/`) | pass: 6 seeds, 14 models, 74 data tests (12 singular count tests) |
+| `uv run pl dbt --dialect bigquery_compile parse --no-partial-parse` | pass (offline, no credentials) |
+| `uv run pytest -q` | 35 passed |
 
 ## Deviations from SPEC.md
 

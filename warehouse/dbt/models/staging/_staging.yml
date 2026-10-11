@@ -1,0 +1,74 @@
+version: 2
+
+models:
+  - name: stg_employees
+    description: Employees without PII columns.
+    columns:
+      - name: employee_id
+        data_tests: [unique, not_null]
+      - name: hire_date
+        data_tests: [not_null]
+      - name: termination_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["voluntary", "involuntary"]
+      - name: employment_type
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["full_time", "part_time"]
+      - name: fte
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [1.0, 0.8, 0.5]
+                quote: false
+
+  - name: stg_job_history
+    columns:
+      - name: employee_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_employees')
+                field: employee_id
+      - name: change_reason
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["hire", "promotion", "transfer"]
+
+  - name: stg_compensation
+    columns:
+      - name: employee_id
+        data_tests: [not_null]
+      - name: base_salary_usd
+        data_tests: [not_null]
+      - name: change_reason
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["hire", "merit", "promotion"]
+
+  - name: stg_requisitions
+    columns:
+      - name: requisition_id
+        data_tests: [unique, not_null]
+      - name: status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["filled", "open", "cancelled"]
+
+  - name: stg_offers
+    columns:
+      - name: offer_id
+        data_tests: [unique, not_null]
+      - name: decision
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["accepted", "declined"]
