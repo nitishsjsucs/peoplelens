@@ -198,13 +198,13 @@ Production runs entirely on the **Cloudflare Workers Free plan** (do not upgrade
    nano .secrets/cloudflare.env    # two lines: CLOUDFLARE_ACCOUNT_ID=<account-id> and CLOUDFLARE_API_TOKEN=<token>
    ```
    Paste the token in an editor rather than on the command line, so it stays out of your shell history.
-3. Cloudflare console: stay on Workers Free; complete Zero Trust onboarding (team name, Free plan) and add the One-time PIN login method (Zero Trust > Integrations > Identity providers > Add new > One-time PIN). If the account has no workers.dev subdomain, pick one or pass `--workers-subdomain`.
-4. Google Cloud: enable billing on the shared project and add a budget alert (Billing > Budgets and alerts, $5, alerts at 50, 90 and 100%; optionally a second budget on the label `app=peoplelens`, which every PeopleLens job carries):
+3. Cloudflare console: stay on Workers Free; complete Zero Trust onboarding (team name, Free plan) and add the One-time PIN login method (Zero Trust > Integrations > Identity providers > Add new identity provider > One-time PIN). If the account has no workers.dev subdomain, pick one or pass `--workers-subdomain`.
+4. Google Cloud: enable billing on the shared project and add a budget alert (Billing > Budgets and alerts, $5, alerts at 50, 90 and 100%; optionally a second budget on the label `app=peoplelens`, which every PeopleLens job carries). The account you link must be open (`OPEN` is `True`); a project linked to a closed account shows `billingEnabled: false`, and linking it again does not help, so reopen it first (Billing > Manage billing accounts, clear the Active filter, open the account > Account management > Reopen billing account; Google says the projects linked to it then start incurring charges again, so rerun `make doctor` to confirm) or link another one. `make doctor` says which case applies:
    ```bash
    gcloud billing accounts list
    gcloud billing projects link <shared-project-id> --billing-account=<billing-account-id>
    ```
-5. Check, then create everything (idempotent and resumable; `--dry-run` prints the plan). Role identities can be plus-addresses of one mailbox, each a separate Zero Trust seat:
+5. Check, then create everything (idempotent and resumable; `--dry-run` prints the plan). The doctor is read-only; it lists every check with its exact fix (including the ones it cannot run until the API token exists) and ends with the missing required items in order. Before the bootstrap, the APIs it will enable are a warning, not a failure. Role identities can be plus-addresses of one mailbox, each a separate Zero Trust seat:
    ```bash
    make doctor ARGS="--gcp-project <shared-project-id>"
    make bootstrap ARGS="--gcp-project <shared-project-id> --role-emails analyst=<you>+analyst@<domain>,hrbp=<you>+hrbp@<domain>:Engineering+Sales,recruiter=<you>+recruiter@<domain>,exec=<you>+exec@<domain>"

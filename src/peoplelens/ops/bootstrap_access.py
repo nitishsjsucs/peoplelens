@@ -105,7 +105,7 @@ def phase_b(api: CloudflareApi, emails: dict[str, dict], runner: Runner, plan: P
         raise BootstrapError("no Zero Trust organization: complete onboarding and pick a team name (SPEC.md 17.4 step 3)")
     plan.add(f"Zero Trust team domain {team}")
     if not any(p.get("type") == "onetimepin" for p in api.identity_providers()):
-        plan.add("WARN: no One-time PIN login method; add it in Zero Trust > Settings > Authentication (17.4 step 4)")
+        plan.add("WARN: no One-time PIN login method; add it in Zero Trust > Integrations > Identity providers > Add new identity provider > One-time PIN (17.4 step 4)")
 
     # 11. Access application protecting the Worker
     aud = access_aud
