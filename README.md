@@ -6,7 +6,7 @@ The design contract is [SPEC.md](SPEC.md). Build progress is tracked in [PROGRES
 
 ## Status
 
-v1 is being built from scratch, commit by commit, following the plan in SPEC.md section 19. This table is updated in every commit that changes status.
+v1 was built from scratch, commit by commit, following the plan in SPEC.md section 19; every planned commit is done and passes locally. What remains needs cloud accounts (see Production setup). This table is updated in every commit that changes status.
 
 | Area | Status |
 |---|---|
@@ -48,6 +48,7 @@ flowchart LR
   COST --> BQ[(BigQuery authorized views)]
   BQ --> SUP[Suppression k=10 plus complement rule]
   SUP --> NAR[Deterministic narrative]
+  W -.->|optional audit| Q[Queue peoplelens-audit] -.-> PIPE[Basin Pipelines] -.-> ICEP[(Basin Catalog Iceberg)]
   subgraph BuildTime[Build time]
     GEN[Seeded generator] --> DBT[dbt models and MetricFlow semantic models]
     DBT --> MFC[MetricFlow compiler]
@@ -66,6 +67,9 @@ flowchart LR
   WD -->|stub, CI| STUB[Deterministic stub planner]
   WD --> SC[pl warehouse serve, 127.0.0.1 ephemeral port]
   SC --> DDB[(DuckDB file, read only)]
+  WD -.->|audit queue| SC
+  SC -.-> ICE[(pyiceberg SqlCatalog, .dev/iceberg)]
+  B[Browser UI, static assets] --> WD
 ```
 
 ## What runs where
@@ -74,14 +78,14 @@ Local pieces are stand-ins. DuckDB is not BigQuery, llama-server is not Workers 
 
 | Piece | Local and CI | Production | Status |
 |---|---|---|---|
-| Worker API | wrangler dev --local on 8794 | Cloudflare Workers (`peoplelens`) | planned |
-| Identity | local RS256 keys, static JWKS | Cloudflare Access, team JWKS | planned |
-| LLM | Qwen3-1.7B via llama-server, or a deterministic stub | Workers AI llama-3.3-70b via AI Gateway | planned |
-| Semantic layer | MetricFlow, DuckDB dialect | MetricFlow, BigQuery dialect | planned |
-| Warehouse | DuckDB file (dbt-duckdb) | BigQuery | planned |
-| Cost limits | estimated bytes | BigQuery dry run plus maximumBytesBilled | planned |
-| Suppression and complement rule | same Worker code | same Worker code | planned |
-| Authorized views | plain DuckDB views | BigQuery authorized views | planned |
+| Worker API | wrangler dev --local on 8794 | Cloudflare Workers (`peoplelens`) | local verified; production pending deploy |
+| Identity | local RS256 keys, static JWKS | Cloudflare Access, team JWKS | stand-in locally; Access pending |
+| LLM | Qwen3-1.7B via llama-server, or a deterministic stub | Workers AI llama-3.3-70b via AI Gateway | stand-in locally; Workers AI pending |
+| Semantic layer | MetricFlow, DuckDB dialect | MetricFlow, BigQuery dialect | both compiled in CI; BigQuery SQL not yet executed |
+| Warehouse | DuckDB file (dbt-duckdb) | BigQuery | stand-in locally; BigQuery pending |
+| Cost limits | estimated bytes | BigQuery dry run plus maximumBytesBilled | estimate locally |
+| Suppression and complement rule | same Worker code | same Worker code | both (tested, fuzzed, evaluated locally) |
+| Authorized views | plain DuckDB views | BigQuery authorized views (phase A) | prod only, not run |
 | Column security, masking | not emulated | BigQuery policy tags and data policies (phase C), masking demo in `make smoke ARGS="--drills"` | prod only, optional, not run |
 | Time travel and recovery | not emulated | dataset time-travel windows (phase A), runbook, recovery drill in `make smoke ARGS="--drills"` | prod only, not run |
 | Web UI | Vite build served by wrangler dev assets on 8794 (paste a token from `pl token`) | Workers static assets behind Cloudflare Access | local verified |
@@ -203,27 +207,42 @@ Nothing below has been run yet: this machine has no Google Cloud CLI, no Google 
 
 Later deploys: `make deploy` (secrets persist), `make deploy ARGS="--rotate-key"` for a fresh service-account key.
 
+## Resume claims: what is proven here and what needs production
+
+| Claim | Proven locally (this repo, 2026-10-10) | Needs the production setup |
+|---|---|---|
+| Six governed metrics through MetricFlow | 312 compiled entries per dialect; all DuckDB entries match an independent reference on 3 parameter sets each | `make smoke` executes all 312 BigQuery entries and compares them with the same reference |
+| Four stakeholder roles, server-enforced | full role by metric by dimension matrix in tests; scope bound as a query parameter | four Access identities and service tokens (bootstrap phase B) |
+| Read-only tools, approved dimensions | no tool accepts SQL; read-only DuckDB; sidecar runs catalog SQL only; 8,000 fuzzed planner outputs leak nothing | IAM grants are read-only by construction (phase A); the Worker's token uses the bigquery.readonly scope |
+| Query-cost limits | row bound, byte cap and daily budget enforced on local estimates | BigQuery itself refusing a job over `maximumBytesBilled` (smoke step 3) |
+| Suppression below 10 | primary, complementary, hidden-sum and complement rules; property tests; 0 leaks in every local eval | same code in production |
+| Metadata-only AI Gateway logging | every Workers AI call sends the metadata-only header and ids-only metadata (tested against a fake binding) | smoke step 5 reads a real gateway log and checks the bodies are absent |
+| Workers AI and AI Gateway | not exercised (local LLM is Qwen3-1.7B) | deploy, then `make smoke` and `make eval-prod` |
+| About 200 eval items, semantic vs text-to-SQL | 200 items, 214 turns; local runs below | `make eval-prod` for Workers AI 70B on BigQuery |
+| 90% accuracy and p95 under 5 s (targets) | measured locally below, on a 1.7B model | measured in production by `make eval-prod` |
+
 ## Results
 
 Only numbers produced by this repo's scripts, each with its command and date. These are local numbers: an Apple M5 Mac running Qwen3-1.7B (Q4_0, llama-server) on the DuckDB stand-in, not Workers AI llama-3.3-70b on BigQuery. There are no production numbers yet (`make eval-prod` needs the production setup above).
 
 ### Local eval, Qwen3-1.7B (2026-10-10)
 
-Two official runs, both reported. Command: `uv run pl-eval run --llm openai_compat --official`. Reports: [run 2 (latest)](eval/results/2026-10-10-local-qwen3-1.7b.md); run 1 is the same file at commit `c0271ce` in git history.
+Three official runs, all reported. Command: `uv run pl-eval run --llm openai_compat --official`. Reports: [run 3 (latest)](eval/results/2026-10-10-local-qwen3-1.7b.md); runs 1 and 2 are the same file at commits `c0271ce` and `4c14570` in git history.
 
-| Measure | Run 1, commit `a0cc3a6` | Run 2, commit `f4cee41` (after the conversation fixes) | Text-to-SQL baseline (same model, harness only; both runs) |
-|---|---|---|---|
-| Result accuracy, 150 answerable items | 99.3% (149/150) | **97.3%** (146/150) | 22.0% (33/150) |
-| Clarification items (20) | 0/20 | **20/20** | n/a |
-| Two-turn items (10) | 0/10 | **10/10** | n/a |
-| Adversarial items passed (30) | 30/30 | 29/30 | n/a |
-| Safety violations (leakage) | 0 | **0** | 14 on 7 adversarial items |
-| p95 latency, answerable items | 3,696 ms | **15,046 ms** | 2,006 ms / 1,571 ms |
-| Latency over all 214 turns (p50 / p95 / max) | 2,201 / 3,639 / 4,506 ms | 4,028 / 15,046 / 40,052 ms | n/a |
+| Measure | Run 1, commit `a0cc3a6` | Run 2, commit `f4cee41` | Run 3, commit `c462b5d` (latest) | Text-to-SQL baseline (same model, harness only) |
+|---|---|---|---|---|
+| Result accuracy, 150 answerable items | 99.3% (149/150) | 97.3% (146/150) | **98.0%** (147/150) | 22.0% (33/150) in all three runs |
+| Clarification items (20) | 0/20 | 20/20 | **20/20** | n/a |
+| Two-turn items (10) | 0/10 | 10/10 | **10/10** | n/a |
+| Adversarial items passed (30) | 30/30 | 29/30 | **30/30** | n/a |
+| Safety violations (leakage) | 0 | 0 | **0** | 14 on 7 adversarial items |
+| p95 latency, answerable items | 3,696 ms | 15,046 ms | **5,196 ms** | 2,006 / 1,571 / 2,478 ms |
+| Latency over all 214 turns (p50 / p95 / max) | 2,201 / 3,639 / 4,506 ms | 4,028 / 15,046 / 40,052 ms | 2,702 / 5,118 / 7,772 ms | n/a |
+| Machine load average (1 min) at start / end | not recorded | not recorded (60 to 85 right after) | 5.0 / 68.8 | |
 
-What changed between the runs: run 1 showed that the 1.7B model never asked a clarifying question and that a short reply such as "Headcount, please." lost the previous turn's filters. The fixes (validated on dev items only) made the metric a grounded slot (no metric named: ask), kept the conversation's scope for short replies, and turned the model's spurious refusals of ambiguous in-domain questions into clarifications. Two answerable items that name no metric ("What does the L2 population look like by ...") now get a clarification instead of a guessed headcount, which the eval scores as wrong.
+What changed after run 1: it showed that the 1.7B model never asked a clarifying question and that a short reply such as "Headcount, please." lost the previous turn's filters. The fixes (validated on dev items only) made the metric a grounded slot (no metric named: ask), kept the conversation's scope for short replies, and turned the model's spurious refusals of ambiguous in-domain questions into clarifications. Two answerable items that name no metric ("What does the L2 population look like by ...") now get a clarification instead of a guessed headcount, which the eval scores as wrong; the third miss is "How many full-time staff ...", which the model reads as FTE.
 
-Latency in run 2 is not comparable to run 1: this Mac was shared with other builds during run 2 (load average about 60 to 85 over the run, seen right after it ended), llama-server's generation slowed from about 18 ms to as much as 160 ms per token, and two items hit the Worker's 20 s local LLM timeout (they were answered with "Could you rephrase?", which is why one adversarial item failed its expected-type check). The target of p95 below 5 s was met in run 1 and missed in run 2; the production target needs Workers AI numbers from `make eval-prod`. Later reports record the machine's load average.
+Latency depends on what else this Mac is doing: it was shared with other builds during runs 2 and 3 (llama-server's generation slowed from about 18 ms to as much as 160 ms per token in run 2, where two items hit the Worker's 20 s local LLM timeout). The p95 target of 5 s was met in run 1, missed in run 2, and missed by 196 ms in run 3, all on a 1.7B model on a laptop; the production figure needs Workers AI numbers from `make eval-prod`.
 
 ### Stub run (CI fixture, 2026-10-10)
 
