@@ -3,7 +3,7 @@
 // says (writes, person-level data, sensitive or unapproved attributes, access
 // escalation). Screening runs before the LLM call.
 import { POLICY } from "../policy/policy";
-import { DIMENSION_IDS, type DimensionId, type MetricId, type Policy, type RefusalCode } from "../policy/types";
+import { DIMENSION_IDS, type DimensionId, type MetricId, type PlannerRefusalCode, type Policy } from "../policy/types";
 
 export interface ValueMention {
   dimension: DimensionId;
@@ -72,7 +72,7 @@ export function findBreakdowns(text: string): DimensionId[] {
 }
 
 export interface Screen {
-  code: RefusalCode;
+  code: PlannerRefusalCode;
   message: string;
 }
 

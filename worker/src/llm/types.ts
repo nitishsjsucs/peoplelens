@@ -39,9 +39,17 @@ export interface LlmClient {
   plan(input: PlannerInput): Promise<PlanCall>;
 }
 
+/**
+ * Why a provider call failed. Workers AI on the Free plan adds three kinds
+ * (SPEC.md 25.4 B): "quota" (error 3036, the account's daily free allocation is
+ * used up, or this repo's share in AccountBudgetDO is), "capacity" (3040, retried
+ * once) and "paid_model" (5035, the model needs Workers Paid: a configuration error).
+ */
+export type LlmErrorKind = "json_mode" | "upstream" | "timeout" | "parse" | "quota" | "capacity" | "paid_model";
+
 export class LlmError extends Error {
   constructor(
-    readonly kind: "json_mode" | "upstream" | "timeout" | "parse",
+    readonly kind: LlmErrorKind,
     message: string,
     readonly gatewayLogId: string | null = null,
   ) {

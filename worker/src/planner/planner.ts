@@ -23,6 +23,8 @@ export interface PlanContext {
   requestId: string;
   turn: number;
   policy?: Policy;
+  /** Wait before retrying a Workers AI capacity error (3040); injectable for tests. */
+  sleep?: (ms: number) => Promise<void>;
 }
 
 export interface PlanResult {
@@ -30,12 +32,29 @@ export interface PlanResult {
   intent: QueryIntent | null;
   llmMs: number;
   gatewayLogId: string | null;
+  /** Token counts summed over every attempt that reported usage (counts only, no text). */
   usage: TokenUsage | null;
   attempts: number;
   invalidOutput: boolean;
   screened: boolean;
   screenMessage: string | null;
   llmError: string | null;
+  /**
+   * Set when the planner stopped without asking the user to rephrase: "quota" (Workers
+   * AI 3036, or this repo's daily share refused) becomes AI_DAILY_LIMIT; "paid_model"
+   * (5035) is a configuration error. Neither is retried.
+   */
+  llmFailure: "quota" | "paid_model" | null;
+}
+
+/** Milliseconds a capacity error (3040) waits before its one retry. */
+export const CAPACITY_RETRY_MS = 1000;
+
+function addUsage(total: TokenUsage | null, add: TokenUsage | undefined): TokenUsage | null {
+  if (!add) return total;
+  const prompt = (total?.prompt_tokens ?? 0) + (add.prompt_tokens ?? 0);
+  const completion = (total?.completion_tokens ?? 0) + (add.completion_tokens ?? 0);
+  return { prompt_tokens: prompt, completion_tokens: completion, total_tokens: prompt + completion };
 }
 
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
@@ -109,6 +128,7 @@ export async function plan(ctx: PlanContext): Promise<PlanResult> {
     screened: false,
     screenMessage: null,
     llmError: null,
+    llmFailure: null,
   };
 
   const screen = screenRequest(ctx.question);
@@ -131,19 +151,26 @@ export async function plan(ctx: PlanContext): Promise<PlanResult> {
 
   let output: PlannerOutput | null = null;
   let result = { ...base };
+  const sleep = ctx.sleep ?? ((ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms)));
   for (let attempt = 1; attempt <= 2 && output === null; attempt++) {
     result.attempts = attempt;
     try {
       const call = await ctx.llm.plan(input);
       result.llmMs += call.ms;
       if (call.gatewayLogId) result.gatewayLogId = call.gatewayLogId;
-      if (call.usage) result.usage = call.usage;
+      result.usage = addUsage(result.usage, call.usage);
       output = parsePlannerOutput(call.raw);
       if (output === null) result.invalidOutput = true;
     } catch (err) {
-      result.invalidOutput = true;
       result.llmError = err instanceof LlmError ? err.kind : "error";
       if (err instanceof LlmError && err.gatewayLogId) result.gatewayLogId = err.gatewayLogId;
+      // The daily allocation and a paid-only model are not transient: never retry them,
+      // and never answer "Could you rephrase?" for them.
+      if (err instanceof LlmError && (err.kind === "quota" || err.kind === "paid_model")) {
+        return { ...result, llmFailure: err.kind };
+      }
+      result.invalidOutput = true;
+      if (err instanceof LlmError && err.kind === "capacity" && attempt < 2) await sleep(CAPACITY_RETRY_MS);
     }
   }
   if (output === null) {

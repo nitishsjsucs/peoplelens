@@ -2,7 +2,16 @@
 // JSON-mode decoders), mapped by the server into a PlannerOutput. Enums keep
 // unapproved dimensions out of the decoder's reach; the server validates anyway.
 import { z } from "zod";
-import { DIMENSION_IDS, type DimensionId, GRAINS, type Grain, METRIC_IDS, type QueryIntent, REFUSAL_CODES, type RefusalCode } from "../policy/types";
+import {
+  DIMENSION_IDS,
+  type DimensionId,
+  GRAINS,
+  type Grain,
+  METRIC_IDS,
+  PLANNER_REFUSAL_CODES,
+  type PlannerRefusalCode,
+  type QueryIntent,
+} from "../policy/types";
 
 export const PLANNER_JSON_SCHEMA: Record<string, unknown> = {
   type: "object",
@@ -41,7 +50,7 @@ export const PLANNER_JSON_SCHEMA: Record<string, unknown> = {
         required: ["label", "metric"],
       },
     },
-    refusal_reason: { type: "string", enum: [...REFUSAL_CODES, ""] },
+    refusal_reason: { type: "string", enum: [...PLANNER_REFUSAL_CODES, ""] },
   },
   required: [
     "action",
@@ -97,7 +106,7 @@ export interface DraftIntent {
 export type PlannerOutput =
   | { action: "query"; intent: DraftIntent }
   | { action: "clarify"; question: string; options: ClarifyOptionOut[]; draft: Partial<DraftIntent> }
-  | { action: "refuse"; reason: RefusalCode };
+  | { action: "refuse"; reason: PlannerRefusalCode };
 
 /** Parse raw model output (object or JSON text). Returns null when it is not a usable plan. */
 export function parsePlannerOutput(raw: unknown): PlannerOutput | null {
@@ -129,6 +138,8 @@ export function parsePlannerOutput(raw: unknown): PlannerOutput | null {
     if (f.metric) draft.metric = f.metric;
     return { action: "clarify", question: f.clarification_question.trim(), options, draft };
   }
-  const reason = (REFUSAL_CODES as readonly string[]).includes(f.refusal_reason) ? (f.refusal_reason as RefusalCode) : "OUT_OF_DOMAIN";
+  const reason = (PLANNER_REFUSAL_CODES as readonly string[]).includes(f.refusal_reason)
+    ? (f.refusal_reason as PlannerRefusalCode)
+    : "OUT_OF_DOMAIN";
   return { action: "refuse", reason };
 }

@@ -31,7 +31,7 @@ export interface Harness {
   warehouse: FakeWarehouse;
   llm: RecordingLlm;
   clock: { t: number };
-  call(email: string, path: string, body?: unknown): Promise<{ status: number; json: Record<string, unknown> }>;
+  call(email: string, path: string, body?: unknown): Promise<{ status: number; json: Record<string, unknown>; headers: Headers }>;
   session(email: string): Promise<string>;
   ask(email: string, session: string, message: string): Promise<Record<string, unknown>>;
   choose(email: string, session: string, option: string): Promise<Record<string, unknown>>;
@@ -62,7 +62,7 @@ export function harness(keys: TestKeys, opts: { warehouse?: FakeWarehouse; llm?:
         (init.headers as Record<string, string>)["content-type"] = "application/json";
       }
       const res = await app.fetch(new Request(`${ORIGIN}${path}`, init), env);
-      return { status: res.status, json: (await res.json()) as Record<string, unknown> };
+      return { status: res.status, json: (await res.json()) as Record<string, unknown>, headers: res.headers };
     },
     async session(email) {
       const r = await h.call(email, "/api/sessions", {});

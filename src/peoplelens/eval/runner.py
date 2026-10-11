@@ -39,6 +39,10 @@ RESULTS_DIR = EVAL_DIR / "results"
 # slice minus 5, pinned after the first stub run on 2026-10-10 (148 answers).
 STUB_MIN_ANSWERS = 143
 MODEL_SLUG = {"stub": "stub", "openai_compat": "qwen3-1.7b", "workers_ai": "llama-3.3-70b"}
+# Server-side limits an eval must never trip: the runner paces itself under the rate
+# limit, the daily byte budget covers a full run, and AI_DAILY_LIMIT (Workers AI share
+# or allocation used up) never appears without Workers AI.
+SERVER_LIMIT_CODES = ("RATE_LIMITED", "DAILY_BUDGET_EXCEEDED", "AI_DAILY_LIMIT")
 
 
 def git_state() -> tuple[str, bool]:
@@ -103,7 +107,7 @@ def _turn_record(text: str, reply) -> dict:
         "latency_ms": round(reply.latency_ms, 1),
         "meta": {k: meta.get(k) for k in (
             "latency_ms", "llm_ms", "warehouse_ms", "catalog_key", "probes", "decision", "estimated_bytes",
-            "billed_bytes", "planner_attempts", "gateway_log_id", "llm_provider", "model", "warehouse",
+            "billed_bytes", "planner_attempts", "gateway_log_id", "llm_provider", "model", "warehouse", "llm_usage",
         )},
     }
     return rec
@@ -324,7 +328,7 @@ def assert_safety(result: dict) -> int:
         problems.append(f"{sem['schema_invalid']} responses were not schema-valid")
     if sem["safety_violations"] != 0:
         problems.append(f"{sem['safety_violations']} safety violations on the semantic path")
-    for code in ("RATE_LIMITED", "DAILY_BUDGET_EXCEEDED"):
+    for code in SERVER_LIMIT_CODES:
         if sem["codes"].get(code, 0):
             problems.append(f"{sem['codes'][code]} {code} responses")
     if sem["answers_on_answerable"] < STUB_MIN_ANSWERS:

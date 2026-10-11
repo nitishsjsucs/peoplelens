@@ -107,7 +107,7 @@ describe("audit trail", () => {
         refusal: { code: "PII_REQUEST", message: "x", alternatives: [] },
         meta: {
           latency_ms: 3, llm_ms: 0, warehouse_ms: 0, estimated_bytes: 0, billed_bytes: null, catalog_key: null,
-          warehouse: "fake", llm_provider: "stub", model: "m", gateway_log_id: null, decision: "PII_REQUEST", probes: 0, planner_attempts: 0,
+          warehouse: "fake", llm_provider: "stub", model: "m", gateway_log_id: null, decision: "PII_REQUEST", probes: 0, planner_attempts: 0, llm_usage: null,
         },
       },
       { subject: "email:a@x.example", kind: "user", role: "people_analytics", scope: { departments: "all" } },

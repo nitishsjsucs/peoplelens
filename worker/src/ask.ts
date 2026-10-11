@@ -8,7 +8,7 @@ import { type CatalogFile, catalogKey, lookupEntry } from "./catalog/catalog";
 import { applyComplementRule, complementProbes } from "./guard/complement";
 import { checkCost, rowUpperBound } from "./guard/cost";
 import { type SuppressionCounts, suppressCells, toCells } from "./guard/suppression";
-import type { LlmClient } from "./llm/types";
+import type { LlmClient, TokenUsage } from "./llm/types";
 import { logEvent } from "./log";
 import { plan, resolveDraft } from "./planner/planner";
 import type { DraftIntent } from "./planner/schema";
@@ -65,7 +65,29 @@ export interface AskMeta {
   decision: string | null;
   probes: number;
   planner_attempts: number;
+  /** Token counts summed over the planner's attempts, and Workers AI neurons when the
+   * model has a pinned rate (null otherwise). Counts only, never text. Null when no
+   * attempt reported usage (no LLM call, or a provider without usage). */
+  llm_usage: LlmUsage | null;
   estimate_note?: string;
+}
+
+export interface LlmUsage {
+  prompt_tokens: number;
+  completion_tokens: number;
+  neurons: number | null;
+}
+
+export function llmUsageMeta(usage: TokenUsage | null): LlmUsage | null {
+  if (!usage) return null;
+  return { prompt_tokens: usage.prompt_tokens ?? 0, completion_tokens: usage.completion_tokens ?? 0, neurons: null };
+}
+
+/** Seconds from `now` (epoch ms) to the next 00:00 UTC, when the Workers AI allowance resets. */
+export function secondsUntilUtcMidnight(now: number): number {
+  const d = new Date(now);
+  const next = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + 1);
+  return Math.max(1, Math.ceil((next - now) / 1000));
 }
 
 export interface AskResponse {
@@ -99,6 +121,7 @@ const REFUSAL_MESSAGES: Partial<Record<RefusalCode, string>> = {
   OUT_OF_DOMAIN: "I can answer questions about the six governed workforce metrics only.",
   SCOPE_VIOLATION: "That is outside the data your role can see.",
   PLANNER_INVALID_OUTPUT: "I could not turn that into a governed query.",
+  AI_DAILY_LIMIT: "PeopleLens has used its Workers AI allowance for today. It resets at 00:00 UTC; please try again then.",
 };
 
 async function sha16(text: string): Promise<string> {
@@ -127,7 +150,13 @@ function draftOf(i: QueryIntent): Partial<DraftIntent> {
   };
 }
 
-export async function ask(deps: AskDeps, body: AskBody): Promise<{ status: number; body: AskResponse }> {
+export interface AskResult {
+  status: number;
+  body: AskResponse;
+  headers?: Record<string, string>;
+}
+
+export async function ask(deps: AskDeps, body: AskBody): Promise<AskResult> {
   const policy = deps.policy ?? POLICY;
   const values = deps.values ?? DIMENSION_VALUES;
   const limits = policy.limits;
@@ -146,11 +175,12 @@ export async function ask(deps: AskDeps, body: AskBody): Promise<{ status: numbe
     decision: null,
     probes: 0,
     planner_attempts: 0,
+    llm_usage: null,
   };
   let sessionId: string | null = null;
   let turnRecord: TurnRecord | null = null;
 
-  const finish = async (status: number, res: Omit<AskResponse, "request_id" | "meta">) => {
+  const finish = async (status: number, res: Omit<AskResponse, "request_id" | "meta">, headers?: Record<string, string>): Promise<AskResult> => {
     meta.latency_ms = deps.now() - t0;
     if (sessionId && turnRecord) await deps.user.saveTurn(sessionId, turnRecord);
     const out: AskResponse = { request_id: deps.requestId, ...res, meta };
@@ -172,19 +202,32 @@ export async function ask(deps: AskDeps, body: AskBody): Promise<{ status: numbe
       model: meta.model,
       gateway_log_id: meta.gateway_log_id,
       probes: meta.probes,
+      prompt_tokens: meta.llm_usage?.prompt_tokens ?? null,
+      completion_tokens: meta.llm_usage?.completion_tokens ?? null,
+      neurons: meta.llm_usage?.neurons ?? null,
     });
-    return { status, body: out };
+    return headers ? { status, body: out, headers } : { status, body: out };
   };
 
-  const refusal = (code: RefusalCode | "BAD_REQUEST" | "NOT_FOUND", message?: string, alternatives: string[] = [], status = 200) => {
+  const refusal = (
+    code: RefusalCode | "BAD_REQUEST" | "NOT_FOUND",
+    message?: string,
+    alternatives: string[] = [],
+    status = 200,
+    headers?: Record<string, string>,
+  ) => {
     meta.decision = code;
     if (sessionId) {
       turnRecord = { ts: deps.now(), type: "refusal", intent: null, pending: null, code, catalogKey: meta.catalog_key };
     }
-    return finish(status, {
-      type: "refusal",
-      refusal: { code, message: message ?? REFUSAL_MESSAGES[code as RefusalCode] ?? "Request refused.", alternatives },
-    });
+    return finish(
+      status,
+      {
+        type: "refusal",
+        refusal: { code, message: message ?? REFUSAL_MESSAGES[code as RefusalCode] ?? "Request refused.", alternatives },
+      },
+      headers,
+    );
   };
 
   const clarification = (pending: PendingClarification) => {
@@ -240,6 +283,15 @@ export async function ask(deps: AskDeps, body: AskBody): Promise<{ status: numbe
     meta.llm_ms = planned.llmMs;
     meta.gateway_log_id = planned.gatewayLogId;
     meta.planner_attempts = planned.attempts;
+    meta.llm_usage = llmUsageMeta(planned.usage);
+    if (planned.llmFailure === "quota") {
+      // Workers AI 3036 (the account's daily free allocation is used up): a clear,
+      // retryable refusal instead of a misleading "Could you rephrase?".
+      return refusal("AI_DAILY_LIMIT", undefined, [], 503, { "Retry-After": String(secondsUntilUtcMidnight(deps.now())) });
+    }
+    if (planned.llmFailure === "paid_model") {
+      throw new ApiError(503, "CONFIG_INVALID", "the planner model requires Workers Paid; set PLANNER_MODEL to a Free plan model (see make doctor)");
+    }
     if (planned.invalidOutput && planned.output.action === "clarify") meta.decision = "PLANNER_INVALID_OUTPUT";
     const out = planned.output;
     if (out.action === "refuse") return refusal(out.reason, planned.screenMessage ?? undefined);

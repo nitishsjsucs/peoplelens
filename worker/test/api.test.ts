@@ -6,6 +6,9 @@ import { ROLE_EMAILS, type TestKeys, makeKeys, mintToken, userClaims } from "./h
 import { createApp } from "../src/index";
 import { DUCK_CATALOG } from "./helpers/app";
 import { localEnv } from "./helpers/env";
+import { fakeAi } from "./helpers/fakeAi";
+import { WorkersAiClient } from "../src/llm/workersAi";
+import { secondsUntilUtcMidnight } from "../src/ask";
 
 let keys: TestKeys;
 beforeAll(async () => {
@@ -185,3 +188,57 @@ describe("/api/ask", () => {
     expect((await h.call(A, "/api/ask", { session_id: "nope", message: "headcount" })).status).toBe(404);
   });
 });
+
+describe("Workers AI daily allowance (Free plan)", () => {
+  const MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
+  const errorResponse = (status: number, code: number, message: string) =>
+    new Response(JSON.stringify({ success: false, errors: [{ code, message }] }), { status, headers: { "cf-aig-log-id": "log-q" } });
+
+  it("3036 gives AI_DAILY_LIMIT (503, Retry-After to 00:00 UTC) after exactly one Workers AI call", async () => {
+    const { ai, calls } = fakeAi([errorResponse(429, 3036, "You have used up your daily free allocation of 10,000 neurons.")]);
+    const h = harness(keys, { llm: new RecordingLlm(new WorkersAiClient(ai, MODEL, "peoplelens")) });
+    const s = await h.session(A);
+    const r = await h.call(A, "/api/ask", { session_id: s, message: "headcount by department" });
+    expect(calls).toHaveLength(1);
+    expect(r.status).toBe(503);
+    expect(r.json).toMatchObject({ type: "refusal", refusal: { code: "AI_DAILY_LIMIT" } });
+    expect(r.headers.get("Retry-After")).toBe(String(secondsUntilUtcMidnight(h.clock.t)));
+    expect(Number(r.headers.get("Retry-After"))).toBeGreaterThan(0);
+    expect((r.json as Json).meta).toMatchObject({ decision: "AI_DAILY_LIMIT", gateway_log_id: "log-q", planner_attempts: 1, llm_usage: null });
+    expect(h.warehouse.calls).toEqual([]);
+  });
+
+  it("5035 (a model that needs Workers Paid) is a configuration error, not a clarification", async () => {
+    const { ai, calls } = fakeAi([errorResponse(403, 5035, "This model requires a Workers Paid plan.")]);
+    const h = harness(keys, { llm: new RecordingLlm(new WorkersAiClient(ai, MODEL, "peoplelens")) });
+    const s = await h.session(A);
+    const r = await h.call(A, "/api/ask", { session_id: s, message: "headcount by department" });
+    expect(calls).toHaveLength(1);
+    expect(r.status).toBe(503);
+    expect((r.json as Json).refusal.code).toBe("CONFIG_INVALID");
+  });
+
+  it("meta.llm_usage carries token counts only", async () => {
+    const { ai } = fakeAi([planJsonFor("headcount", ["department"])]);
+    const h = harness(keys, { llm: new RecordingLlm(new WorkersAiClient(ai, MODEL, "peoplelens")) });
+    const s = await h.session(A);
+    const r = (await h.ask(A, s, "headcount by department")) as Json;
+    expect(r.type).toBe("answer");
+    expect(Object.keys(r.meta.llm_usage).sort()).toEqual(["completion_tokens", "neurons", "prompt_tokens"]);
+    expect(r.meta.llm_usage.prompt_tokens).toBe(900);
+    expect(r.meta.llm_usage.completion_tokens).toBe(60);
+    const stub = harness(keys);
+    const s2 = await stub.session(A);
+    expect(((await stub.ask(A, s2, "headcount by department")) as Json).meta.llm_usage).toBeNull();
+  });
+
+  it("Retry-After counts down to the next 00:00 UTC", () => {
+    expect(secondsUntilUtcMidnight(Date.UTC(2026, 9, 10, 23, 59, 30))).toBe(30);
+    expect(secondsUntilUtcMidnight(Date.UTC(2026, 9, 10, 0, 0, 0))).toBe(86400);
+    expect(secondsUntilUtcMidnight(Date.UTC(2026, 9, 10, 12))).toBe(43200);
+  });
+});
+
+function planJsonFor(metric: string, groupBy: string[]): Record<string, unknown> {
+  return planJson({ metric, group_by: groupBy });
+}

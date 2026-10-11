@@ -140,13 +140,15 @@ make llm-up / make llm-down       # llama-server with Qwen3-1.7B on 127.0.0.1:81
 
 ```bash
 make eval-stub      # stub planner; asserts 200 items, schema-valid responses, zero safety violations,
-                    # no RATE_LIMITED or DAILY_BUDGET_EXCEEDED, and at least 143 answers on the answerable slice
+                    # no RATE_LIMITED, DAILY_BUDGET_EXCEEDED or AI_DAILY_LIMIT, and at least 143 answers on the answerable slice
 make llm-up && make dev-up ARGS="--llm openai_compat" && make eval-local   # Qwen3-1.7B via llama-server, plus the text-to-SQL baseline
 uv run pl-eval generate --check   # the frozen eval set equals a fresh deterministic generation
 uv run pl-eval gold --check       # eval/gold.json equals the reference implementation
 ```
 
 The stub planner exists for CI. Its results are never reported as model accuracy.
+
+Refusal codes returned by `POST /api/ask` (SPEC.md 7.4): `UNAUTHENTICATED`, `NO_ROLE_BINDING`, `METRIC_NOT_ALLOWED`, `DIMENSION_NOT_APPROVED`, `PII_REQUEST`, `WRITE_REQUEST`, `SCOPE_VIOLATION`, `GRAIN_NOT_ALLOWED`, `TIME_RANGE_INVALID`, `RESULT_TOO_LARGE`, `COST_LIMIT_EXCEEDED`, `DAILY_BUDGET_EXCEEDED`, `RATE_LIMITED` (HTTP 429), `OUT_OF_DOMAIN`, `PLANNER_INVALID_OUTPUT`, and `AI_DAILY_LIMIT` (HTTP 503 with `Retry-After` set to the seconds until 00:00 UTC: this repo's Workers AI share for the UTC day is used up, or Workers AI answered error 3036 because the account's free daily allocation is). The planner model can choose only the first fifteen; `AI_DAILY_LIMIT` is server-only. A model that needs Workers Paid (Workers AI error 5035) gives `CONFIG_INVALID` (HTTP 503), and a capacity error (3040) is retried once after 1 s.
 
 ## Production setup
 

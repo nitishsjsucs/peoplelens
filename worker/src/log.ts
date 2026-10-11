@@ -21,6 +21,13 @@ const ALLOWED_KEYS = new Set([
   "probes",
   "rows",
   "error_name",
+  // Workers AI usage (counts) and the account-budget counters (Free plan, M1 and M2)
+  "prompt_tokens",
+  "completion_tokens",
+  "neurons",
+  "counter",
+  "used",
+  "cap",
 ]);
 
 type Scalar = string | number | boolean | null;

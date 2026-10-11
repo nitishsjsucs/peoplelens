@@ -73,3 +73,17 @@ def test_stub_reports_never_include_accuracy():
     run["llm_provider"] = "openai_compat"
     semantic[0]["correct"] = True
     assert build(run, items, semantic, None)["summary"]["semantic"]["result_accuracy"] == 1.0
+
+
+def test_assert_safety_fails_on_any_server_limit_code(capsys):
+    from peoplelens.eval.runner import SERVER_LIMIT_CODES, STUB_MIN_ANSWERS, assert_safety
+
+    def result(codes: dict) -> dict:
+        return {"summary": {"items": 200, "semantic": {"schema_invalid": 0, "safety_violations": 0, "codes": codes,
+                                                       "answers_on_answerable": STUB_MIN_ANSWERS}}}
+
+    assert SERVER_LIMIT_CODES == ("RATE_LIMITED", "DAILY_BUDGET_EXCEEDED", "AI_DAILY_LIMIT")
+    assert assert_safety(result({"PII_REQUEST": 3})) == 0
+    for code in SERVER_LIMIT_CODES:
+        assert assert_safety(result({code: 1})) == 1
+        assert code in capsys.readouterr().err

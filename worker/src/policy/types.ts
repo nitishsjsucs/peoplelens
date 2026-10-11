@@ -22,7 +22,11 @@ export type RoleId = (typeof ROLE_IDS)[number];
 
 export type Entity = "workforce" | "requisition" | "offer";
 
-export const REFUSAL_CODES = [
+/**
+ * Codes the planner's JSON schema offers the model (unchanged since v1, so the
+ * schema the token counts in SPEC.md 25.5 were measured on stays identical).
+ */
+export const PLANNER_REFUSAL_CODES = [
   "UNAUTHENTICATED",
   "NO_ROLE_BINDING",
   "METRIC_NOT_ALLOWED",
@@ -39,6 +43,14 @@ export const REFUSAL_CODES = [
   "OUT_OF_DOMAIN",
   "PLANNER_INVALID_OUTPUT",
 ] as const;
+export type PlannerRefusalCode = (typeof PLANNER_REFUSAL_CODES)[number];
+
+/**
+ * Every refusal code the API can return. AI_DAILY_LIMIT (HTTP 503 with Retry-After
+ * to 00:00 UTC) is server-only: this repo's Workers AI share for the UTC day is used
+ * up, or Workers AI answered 3036. The model can never choose it.
+ */
+export const REFUSAL_CODES = [...PLANNER_REFUSAL_CODES, "AI_DAILY_LIMIT"] as const;
 export type RefusalCode = (typeof REFUSAL_CODES)[number];
 
 export interface MetricDef {

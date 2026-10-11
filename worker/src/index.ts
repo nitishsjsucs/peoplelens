@@ -161,7 +161,7 @@ export function createApp(deps: AppDeps) {
       }
       if (!waited) await send;
     }
-    return c.json(result.body, result.status as 200);
+    return c.json(result.body, result.status as 200, result.headers ?? {});
   });
 
   app.notFound((c) => c.json({ error: { code: "NOT_FOUND" } }, 404));
