@@ -4,7 +4,7 @@ Tracks the SPEC.md section 19 commit plan. Updated at every commit.
 
 ## Position
 
-Commit 12 of 17 (plus the inserted dev-stack commit 10a) (core cut line after commit 14).
+Commit 13 of 17 (plus inserted commits 10a and 12a) (core cut line after commit 14).
 
 ## Done
 
@@ -22,10 +22,11 @@ Commit 12 of 17 (plus the inserted dev-stack commit 10a) (core cut line after co
 11. `feat(eval): 200-item eval set, gold, comparator and text-to-SQL baseline`
 12. `ci: python, worker and stub end-to-end jobs`
 12a. `feat(worker): ground planner drafts in the question text` (inserted after dev-set prompt work with Qwen3-1.7B)
+13. `feat(ops): doctor, idempotent bootstrap, deploy and smoke for Cloudflare and BigQuery`
 
 ## Next
 
-13. `feat(ops): doctor, idempotent bootstrap, deploy and smoke for Cloudflare and BigQuery`
+14. `docs: local eval results and production setup guide`
 
 ## Check status (at this commit)
 
@@ -39,11 +40,13 @@ Commit 12 of 17 (plus the inserted dev-stack commit 10a) (core cut line after co
 | `uv run pl mf validate` | pass (0 errors, 0 warnings) |
 | `mf query` sample (headcount and fte by department, Dec 2025; turnover, offer acceptance, time to fill by year) | matches the reference implementation |
 | `uv run pl catalog build --check` | pass: 312 entries per dialect, BigQuery compiled first, then DuckDB, about 23 s |
-| `uv run pytest -q` | 462 passed (includes the 312 x 3 parity sweep), about 21 s |
+| `uv run pytest -q` | 485 passed (includes the 312 x 3 parity sweep), about 21 s |
 | `uv run pl dev up --llm stub`, `pl ask` (5 questions), `pl dev down` | pass; ports 8794 and 9244 free afterwards, no workerd left |
 | `uv run pl-eval gold --check`, `uv run pl-eval generate --check` (as a pytest) | pass |
 | `uv run pl-eval run --llm stub --assert-safety` (trial, not official, report kept outside the repo) | pass: 200 items, 214 turns, 0 safety violations, 0 schema-invalid, 148 answers on the answerable slice (floor pinned at 143) |
 | CI dry run: each job's commands in a fresh `git clone` with `CI=true PL_STRICT=1 WRANGLER_SEND_METRICS=false` (python, worker, e2e) | pass on macOS; GitHub's ubuntu-latest run is pending the owner's push |
+| `uv run pl-ops doctor --fast` on this Mac | runs; reports wrangler login, `.secrets/cloudflare.env` and gcloud as MISSING (expected: no cloud credentials here) |
+| `uv run pl-ops bootstrap --gcp-project peoplelens-demo01 --phase a --dry-run` | prints the phase A plan, changes nothing, stops at the missing Cloudflare token |
 | `npm run typecheck` | pass |
 | `npm test` (vitest in workerd via @cloudflare/vitest-plugin) | 255 passed (includes 4 x 2,000 fuzzed planner outputs and a check that all 207 templated eval and dev questions resolve to their gold period and grain) |
 | `npx wrangler deploy --env production --dry-run --outdir .wrangler/dry` (CI=true, no token) | pass; bundle 2,454 KiB (gzip 219 KiB), BigQuery catalog only |
@@ -61,6 +64,8 @@ Commit 12 of 17 (plus the inserted dev-stack commit 10a) (core cut line after co
 - Clarification options in the eval are answered with a typed reply (for example "Headcount, please."), not `choose_option`, so the second turn is LLM-independent of option labels.
 - The local warehouse sidecar speaks HTTP/1.1 keep-alive and the Worker retries a dropped local connection once: with HTTP/1.0 the first stub eval hit 9 "Network connection lost" errors (workerd reuses pooled connections the server had closed).
 - The DDL screening pattern was broadened from "drop table" to "drop ... table" after reading the adversarial set ("Drop the offers table"); the adversarial pass rate is therefore not a blind measurement for that item.
+- Ops modules added beyond the section 4 layout: `ops/prod_eval.py` (BigQuery as the eval service account, Workers AI REST baseline) and `catalog/parity.py` (shared by the DuckDB parity sweep and `make smoke`). The text-to-SQL baseline takes a dialect: DuckDB locally, BigQuery standard SQL in production (few-shot SQL transpiled with sqlglot, TIMESTAMP literals, APPROX_QUANTILES for medians).
+- Not verified against live services (no gcloud, no credentials, no Cloudflare login on the build machine): every gcloud and bq command form, the Cloudflare Access and AI Gateway request and response shapes (field names follow SPEC.md 17; those marked P or U there remain unverified), and the BigQuery REST TIMESTAMP and `totalBytesBilled` handling in the Worker. Doctor and smoke are the checks that will surface any mismatch.
 - Planner grounding (`worker/src/planner/grounding.ts`): the LLM chooses the action (query, clarify, refuse) and the metric; breakdowns, filters (including "except X" complements) and grain must be supported by the question text or the conversation it follows, and the default period is enforced server-side (model dates are used only for time words the deterministic resolver cannot read). Reason, from the dev set only: Qwen3-1.7B invented breakdowns, grains and filters on 31 of 57 dev questions; with grounding the dev set scored 57 of 57 (dev runs are prompt-iteration aids, not results).
 - Stub eval reports never include accuracy (fields are null and the Markdown says "not reported"); they report safety, schema validity, answer counts and latency only.
 - `pl-eval run --dev` runs the dev set for prompt iteration; its reports never go to `eval/results/`.

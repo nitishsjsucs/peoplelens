@@ -12,6 +12,7 @@ read-only DuckDB connection (locally) or as the peoplelens-eval service account
 from __future__ import annotations
 
 import json
+import re
 import threading
 import time
 from dataclasses import dataclass, field
@@ -97,14 +98,32 @@ def fewshot_sql() -> list[dict]:
     return raw.get("baseline_sql") or []
 
 
-def build_messages(question: str) -> list[dict]:
+def dialect_sql(sql: str, dialect: str) -> str:
+    """Few-shot SQL is written for DuckDB; transpile it for BigQuery (MEDIAN becomes APPROX_QUANTILES)."""
+    if dialect == "duckdb":
+        return " ".join(sql.split())
+    out = sqlglot.transpile(sql, read="duckdb", write="bigquery")[0]
+    # BigQuery semantic views carry TIMESTAMP time columns, and BigQuery has no MEDIAN aggregate.
+    out = re.sub(r"CAST\('(\d{4}-\d{2}-\d{2})' AS DATE\)", r"TIMESTAMP('\1')", out)
+    out = re.sub(r"MEDIAN\((.+?)\) AS", r"APPROX_QUANTILES(\1, 2)[OFFSET(1)] AS", out)
+    return out
+
+
+def build_messages(question: str, dialect: str = "duckdb") -> list[dict]:
     policy = load()
     defs = "\n".join(f"- {m['id']}: {m['definition']}" for m in policy.metrics.values())
-    system = f"You write DuckDB SQL for workforce analytics questions.\n\n{DDL}\n\nGoverned metrics:\n{defs}\n\n{RULES}"
+    name = "DuckDB" if dialect == "duckdb" else "BigQuery standard"
+    rules = RULES.replace("DuckDB SELECT", f"{name} SELECT")
+    ddl = DDL
+    if dialect == "bigquery":
+        for col in ("month_start", "filled_date", "offer_date"):
+            ddl = re.sub(rf"({col}) DATE", r"\1 TIMESTAMP", ddl)
+        rules += " Use APPROX_QUANTILES(x, 2)[OFFSET(1)] for a median; time columns are TIMESTAMP."
+    system = f"You write {name} SQL for workforce analytics questions.\n\n{ddl}\n\nGoverned metrics:\n{defs}\n\n{rules}"
     messages = [{"role": "system", "content": system}]
     for ex in fewshot_sql():
         messages.append({"role": "user", "content": ex["question"]})
-        messages.append({"role": "assistant", "content": json.dumps({"sql": " ".join(ex["sql"].split())})})
+        messages.append({"role": "assistant", "content": json.dumps({"sql": dialect_sql(ex["sql"], dialect)})})
     messages.append({"role": "user", "content": question})
     return messages
 
@@ -115,12 +134,12 @@ FORBIDDEN = (
 )
 
 
-def guard(sql: str) -> str:
+def guard(sql: str, dialect: str = "duckdb") -> str:
     """Return the capped SQL, or raise GuardError."""
     if not sql or not sql.strip():
         raise GuardError("empty")
     try:
-        statements = [s for s in sqlglot.parse(sql, read="duckdb") if s is not None]
+        statements = [s for s in sqlglot.parse(sql, read=dialect) if s is not None]
     except sqlglot.errors.ParseError as exc:
         raise GuardError(f"parse error: {str(exc)[:80]}") from exc
     if len(statements) != 1:
@@ -138,7 +157,7 @@ def guard(sql: str) -> str:
             raise GuardError("table functions are not allowed")
         if name not in ALLOWED_TABLES and name not in ctes:
             raise GuardError(f"table {name} is not allowed")
-        if table.db and table.db.lower() not in ("semantic",):
+        if table.db and table.db.lower() not in ("semantic", "peoplelens_semantic"):
             raise GuardError("only the semantic schema is allowed")
     for fn in tree.find_all(exp.Anonymous):
         if fn.name.lower().startswith(("read_", "glob", "scan_", "sniff_", "query", "duckdb_")):
@@ -147,7 +166,7 @@ def guard(sql: str) -> str:
         for proj in select.expressions:
             if isinstance(proj, exp.Star) or (isinstance(proj, exp.Column) and isinstance(proj.this, exp.Star)):
                 raise GuardError("SELECT * is not allowed")
-    inner = tree.sql(dialect="duckdb")
+    inner = tree.sql(dialect=dialect)
     return f"SELECT * FROM ({inner}) AS baseline_q LIMIT {ROW_CAP}"
 
 
@@ -164,6 +183,7 @@ class LocalExecutor:
     """Read-only DuckDB connection (never the sidecar)."""
 
     kind = "duckdb-local"
+    dialect = "duckdb"
 
     def __init__(self, db_path, timeout_s: float = 10.0):
         self.con = duckdb.connect(str(db_path), read_only=True)
@@ -188,7 +208,7 @@ class LocalExecutor:
 def run_baseline(question: str, llm, executor) -> BaselineResult:
     out = BaselineResult()
     try:
-        text, out.llm_ms, out.usage = llm.complete(build_messages(question), SQL_SCHEMA)
+        text, out.llm_ms, out.usage = llm.complete(build_messages(question, executor.dialect), SQL_SCHEMA)
     except Exception as exc:  # noqa: BLE001 - any LLM failure is a baseline miss
         out.exec_error = f"llm: {type(exc).__name__}"
         return out
@@ -197,7 +217,7 @@ def run_baseline(question: str, llm, executor) -> BaselineResult:
         out.guard_error = "no sql in output"
         return out
     try:
-        out.guarded_sql = guard(out.sql)
+        out.guarded_sql = guard(out.sql, executor.dialect)
     except GuardError as exc:
         out.guard_error = str(exc)
         return out

@@ -1,0 +1,37 @@
+{
+  "taxonomy": {
+    "displayName": "peoplelens",
+    "description": "PeopleLens column-level security for synthetic HR data",
+    "activatedPolicyTypes": ["FINE_GRAINED_ACCESS_CONTROL"]
+  },
+  "location": "us",
+  "policy_tags": [
+    {
+      "displayName": "pii_high",
+      "description": "Names and emails (STRING only: SHA256 masking)",
+      "dbt_var": "policy_tag_pii_high",
+      "masking": "SHA256",
+      "columns": ["raw_employees.full_name", "raw_employees.work_email", "raw_candidates.full_name", "raw_candidates.email"]
+    },
+    {
+      "displayName": "protected_class",
+      "description": "Date of birth and gender (ALWAYS_NULL works for any type)",
+      "dbt_var": "policy_tag_protected_class",
+      "masking": "ALWAYS_NULL",
+      "columns": ["raw_employees.date_of_birth", "raw_employees.gender"]
+    },
+    {
+      "displayName": "compensation",
+      "description": "Base salary (DEFAULT_MASKING_VALUE)",
+      "dbt_var": "policy_tag_compensation",
+      "masking": "DEFAULT_MASKING_VALUE",
+      "columns": ["raw_compensation_history.base_salary_usd", "fct_workforce_monthly.base_salary_eom"]
+    }
+  ],
+  "fine_grained_readers": {
+    "compensation": ["serviceAccount:peoplelens-worker@{project}.iam.gserviceaccount.com", "serviceAccount:peoplelens-eval@{project}.iam.gserviceaccount.com", "user:{owner}"],
+    "pii_high": ["user:{owner}"],
+    "protected_class": ["user:{owner}"]
+  },
+  "masked_readers": ["serviceAccount:peoplelens-analyst@{project}.iam.gserviceaccount.com"]
+}

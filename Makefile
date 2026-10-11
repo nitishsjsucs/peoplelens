@@ -59,4 +59,4 @@ smoke:
 	$(UV) run pl-ops smoke $(ARGS)
 
 eval-prod:
-	$(UV) run pl-eval run --target prod $(ARGS)
+	$(UV) run pl-eval run --target prod --llm workers_ai $(ARGS)

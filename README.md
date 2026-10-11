@@ -21,7 +21,7 @@ v1 is being built from scratch, commit by commit, following the plan in SPEC.md 
 | Worker: planner (Workers AI, OpenAI-compatible local, stub) | done: one structured planner call (the LLM picks the action and metric; breakdowns, filters, grain and period are grounded in the question text), deterministic time phrases and request screening, clarifications with selectable options, multi-turn follow-ups, whitelisted logging; 8,000 fuzzed planner outputs leak nothing. Workers AI and AI Gateway are exercised only against a fake binding until deployed |
 | Eval harness (200 items, text-to-SQL baseline) | built: 200 frozen items (150 answerable, 20 clarification, 30 adversarial; 214 turns), gold from the independent reference, comparator with median rank bands, leakage checks, pacing, sqlglot-guarded text-to-SQL baseline; no official results yet |
 | CI (python, worker, stub end-to-end) | defined in `.github/workflows/ci.yml`; every job's commands pass in a fresh clone on macOS with `CI=true PL_STRICT=1`; not yet run on GitHub's ubuntu-latest runners |
-| Ops: doctor, phased bootstrap, deploy, smoke | planned |
+| Ops: doctor, phased bootstrap, deploy, smoke | built and unit-tested with mocked CLIs and HTTP; `make doctor` runs here and reports the missing cloud prerequisites; bootstrap, deploy and smoke have not been run against Cloudflare or Google Cloud |
 | Results | none yet |
 
 Nothing has been deployed to Cloudflare or run against BigQuery from this repo yet.
@@ -143,7 +143,62 @@ The stub planner exists for CI. Its results are never reported as model accuracy
 
 ## Production setup
 
-Production needs a Cloudflare account (Workers Paid for the production eval), a Zero Trust organization, and a Google Cloud project with billing. The full guide, including the doctor and the idempotent bootstrap, lands with the ops commit. Until then see SPEC.md section 17.
+Nothing below has been run yet: this machine has no Google Cloud CLI, no Google credentials and no Cloudflare login. Everything is scripted so it can run the moment those exist, and `make doctor` names each missing piece with its exact fix.
+
+### What you need (SPEC.md 17.1)
+
+| Provider | What | Cost |
+|---|---|---|
+| Cloudflare | Account on **Workers Paid** ($5/month; Workers AI on Free stops after 10,000 neurons a day, about a quarter of one production eval) | $5/month |
+| Cloudflare | Workers AI, AI Gateway, Zero Trust Free (Access, up to 50 users) | usage; about $0.35 per production eval above the free allocation (estimate) |
+| Google Cloud | A project with billing enabled (not the BigQuery sandbox), on-demand pricing, a $5 budget alert | expected $0 (free tier) |
+| GitHub | nothing (CI needs no secrets) | $0 |
+
+### Steps
+
+1. Tools and logins:
+   ```bash
+   brew install --cask gcloud-cli
+   make setup
+   npx wrangler login && npx wrangler whoami          # note the account id
+   gcloud auth login
+   gcloud auth application-default login
+   ```
+2. A custom Cloudflare API token named `peoplelens-bootstrap` (My Profile > API Tokens > Create Custom Token), account-scoped, with: AI Gateway Edit; Workers AI Read and Edit; Access: Apps and Policies Edit; Access: Service Tokens Edit; Access: Organizations, Identity Providers, and Groups Read; Workers Scripts Edit; Account Settings Read. wrangler's OAuth login has no AI Gateway or Access scopes, which is why this token exists. Save it:
+   ```bash
+   mkdir -m 700 -p .secrets
+   printf 'CLOUDFLARE_ACCOUNT_ID=<id>\nCLOUDFLARE_API_TOKEN=<token>\n' > .secrets/cloudflare.env && chmod 600 .secrets/cloudflare.env
+   ```
+3. Cloudflare console: upgrade to Workers Paid; complete Zero Trust onboarding (team name, Free plan); add the One-time PIN login method (Zero Trust > Settings > Authentication > Login methods). If the account has no workers.dev subdomain, pick one or pass `--workers-subdomain`.
+4. Google Cloud project:
+   ```bash
+   gcloud projects create peoplelens-<suffix> --name="PeopleLens"
+   gcloud billing projects link peoplelens-<suffix> --billing-account=<BILLING_ID>
+   gcloud config set project peoplelens-<suffix>
+   gcloud auth application-default set-quota-project peoplelens-<suffix>
+   ```
+   Add a $5 budget alert in Billing > Budgets and alerts.
+5. Check, then create everything (idempotent and resumable; `--dry-run` prints the plan):
+   ```bash
+   make doctor
+   make bootstrap ARGS="--gcp-project peoplelens-<suffix> --role-emails analyst=<email>,hrbp=<email>:Engineering+Sales,recruiter=<email>,exec=<email>"
+   make doctor
+   make smoke
+   make eval-prod
+   ```
+   Gmail plus-addresses (`you+exec@gmail.com`) work with One-time PIN.
+
+### What the bootstrap does
+
+| Phase | Steps | Notes |
+|---|---|---|
+| A: warehouse, gateway, first deploy | enable APIs; datasets `peoplelens_raw` (48 h time travel), `_staging`, `_core`, `_semantic` (168 h); service accounts `peoplelens-worker`, `-eval`, `-analyst` with `bigquery.jobUser` and dataset-level `dataViewer` only; `pl dbt --dialect bigquery seed` and `build` (semantic views are authorized views over core); service-account keys; AI Gateway `peoplelens` (authentication on, logs on, 120 requests per minute); `wrangler deploy --env production --secrets-file` | the Worker is live but answers 503 on every `/api` route until phase B (fails closed) |
+| B: Access and identities | team domain; an Access application whose destination is the Worker; an Allow policy for the four emails and a Service Auth policy for four eval service tokens (secrets saved to `.secrets/prod_eval.env`); `ROLE_BINDINGS_JSON`; redeploy with `ACCESS_TEAM_DOMAIN`, `ACCESS_AUD`, `ROLE_BINDINGS_JSON` | if the API cannot create the Access application, it prints the dashboard fallback |
+| C: governance | Data Catalog taxonomy with `pii_high`, `protected_class`, `compensation` tags; fine-grained readers granted before tagging; masking policies (SHA256, ALWAYS_NULL, DEFAULT_MASKING_VALUE); `dbt build` with `apply_policy_tags=true` | not on the critical path; doctor reports it separately |
+
+`make smoke` then dry-runs and executes all 312 BigQuery catalog entries and compares them with the reference implementation, checks that BigQuery itself refuses a job capped at 1 MiB `maximumBytesBilled`, asks questions as each of the four service tokens, and fetches one AI Gateway log to confirm custom metadata is present and request and response bodies are absent. It writes `eval/results/<date>-prod-smoke.json`.
+
+Later deploys: `make deploy` (secrets persist), `make deploy ARGS="--rotate-key"` for a fresh service-account key.
 
 ## Results
 
