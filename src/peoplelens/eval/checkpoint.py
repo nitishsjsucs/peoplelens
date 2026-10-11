@@ -74,7 +74,7 @@ def daily_budget(spent_today: dict, ai_budget_used: float | None, neurons_today:
 
 def item_worst_case(item: dict, with_baseline: bool, free: dict = FREE) -> Budget:
     """An item starts only if its worst case fits: 200 per turn through the planner and
-    127 per baseline turn (only answerable and adversarial items run the baseline)."""
+    130 per baseline turn (only answerable and adversarial items run the baseline)."""
     turns = len(item["turns"])
     base_turns = turns if with_baseline and item["slice"] in BASELINE_SLICES else 0
     return Budget(float(turns * free["planner_reserve_neurons"]), float(base_turns * free["baseline_reserve_neurons"]))

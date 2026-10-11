@@ -16,6 +16,12 @@ import { bindQuery } from "../src/catalog/bind";
 import { catalogKey } from "../src/catalog/catalog";
 import { validateIntent } from "../src/policy/validate";
 import type { GoogleTokenSource } from "../src/warehouse/googleAuth";
+import questionsText from "../../eval/questions.jsonl?raw";
+import wranglerText from "../wrangler.jsonc?raw";
+import { PLANNER_JSON_SCHEMA } from "../src/planner/schema";
+import { resolveTimePhrase } from "../src/planner/timephrases";
+import { findValueMentions } from "../src/planner/values";
+import type { QueryIntent, RoleId } from "../src/policy/types";
 import { RecordingLlm } from "./helpers/app";
 import { plan as planJson } from "./helpers/fakeAi";
 import { HRBP } from "./helpers/principals";
@@ -231,3 +237,63 @@ describe("narrative number formatting built at startup", () => {
     expect(formatValue("employees", null)).toBe("hidden");
   });
 });
+
+describe("no Workers Paid feature (SPEC.md 1 and 10.1)", () => {
+  const PAID_KEYS = ["pipelines", "tail_consumers", "streaming_tail_consumers", "logpush", "limits"];
+  const PAID_BILLING_MODELS = ["kimi-k2.6", "kimi-k2.7-code", "glm-5.2", "glm-5.3", "glm-5.3-flash", "deepseek-v4-flash-0731", "deepseek-v4-pro-0813"];
+  const config = JSON.parse(
+    wranglerText
+      .split("\n")
+      .filter((l) => !l.trim().startsWith("//"))
+      .join("\n"),
+  ) as Record<string, unknown> & { migrations: Record<string, unknown>[]; env: { production: { vars: Record<string, string>; durable_objects: { bindings: { name: string }[] } } } };
+  const keys = (o: unknown): string[] =>
+    o && typeof o === "object" ? Object.entries(o as Record<string, unknown>).flatMap(([k, v]) => [k, ...keys(v)]) : [];
+
+  it("wrangler.jsonc has no Paid-only key, and every Durable Object is SQLite-backed", () => {
+    expect(keys(config).filter((k) => PAID_KEYS.includes(k))).toEqual([]);
+    for (const m of config.migrations) expect(Object.keys(m).sort()).toEqual(["new_sqlite_classes", "tag"]);
+    expect(config.env.production.durable_objects.bindings.map((b) => b.name)).toContain("ACCOUNT_BUDGET");
+  });
+
+  it("the production planner model is not a paid-billing model and has pinned neuron rates", () => {
+    const model = config.env.production.vars["PLANNER_MODEL"] ?? "";
+    expect(model).toBe("@cf/meta/llama-3.3-70b-instruct-fp8-fast");
+    expect(PAID_BILLING_MODELS).not.toContain(model.split("/").pop());
+    expect(FREE.model_neurons_per_m_tokens[model]).toEqual({ input: 26668, output: 204805 });
+  });
+});
+
+describe("the planner reservation covers the largest planner prompt (SPEC.md 25.5)", () => {
+  it("(prompt characters + schema characters) / 3 plus 5 tokens per message in, 300 out, is at most 200 neurons", () => {
+    const rates = FREE.model_neurons_per_m_tokens["@cf/meta/llama-3.3-70b-instruct-fp8-fast"]!;
+    const items = questionsText
+      .split("\n")
+      .filter((l) => l.trim())
+      .map((l) => JSON.parse(l) as { role: RoleId; turns: { text: string }[] });
+    // A follow-up turn also carries the previous query; this one is as long as an intent gets.
+    const previous: QueryIntent = {
+      metric: "compensation_summary",
+      groupBy: ["department", "location"],
+      grain: "quarter",
+      timeRange: { start: "2023-01-01", end: "2025-12-31" },
+      filters: [{ dimension: "job_level", values: ["L1", "L2", "L3"] }, { dimension: "tenure_band", values: ["<1y", "1-2y", "2-5y"] }],
+    };
+    const schemaChars = JSON.stringify(PLANNER_JSON_SCHEMA).length;
+    let worst = 0;
+    for (const item of items) {
+      for (const turn of item.turns) {
+        for (const prev of [null, previous]) {
+          const principal = { subject: "x", kind: "user" as const, role: item.role, scope: { departments: item.role === "hr_business_partner" ? ["Engineering", "Sales"] : ("all" as const) } };
+          const messages = buildMessages({ question: turn.text, principal, timeHint: resolveTimePhrase(turn.text), values: findValueMentions(turn.text), previous: prev });
+          const chars = messages.reduce((n, m) => n + m.content.length, 0) + schemaChars;
+          const tokensIn = chars / 3 + 5 * (messages.length + 1);
+          worst = Math.max(worst, (tokensIn * rates.input + 300 * rates.output) / 1_000_000);
+        }
+      }
+    }
+    expect(worst).toBeGreaterThan(180);
+    expect(worst).toBeLessThanOrEqual(FREE.planner_reserve_neurons);
+  });
+});
+

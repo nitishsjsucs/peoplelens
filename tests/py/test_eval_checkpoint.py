@@ -144,9 +144,9 @@ def test_daily_budget_formula():
 
 def test_item_worst_cases(items):
     by_id = {i["id"]: i for i in items}
-    assert cp.item_worst_case(by_id["A-headcount-01"], True) == cp.Budget(200, 127)
+    assert cp.item_worst_case(by_id["A-headcount-01"], True) == cp.Budget(200, 130)
     assert cp.item_worst_case(by_id["CL-11"], True) == cp.Budget(400, 0)  # clarification items run no baseline
-    assert cp.item_worst_case(by_id["AD-DF-01"], True) == cp.Budget(400, 254)
+    assert cp.item_worst_case(by_id["AD-DF-01"], True) == cp.Budget(400, 260)
     assert cp.item_worst_case(by_id["AD-DF-01"], False) == cp.Budget(400, 0)
     assert cp.neurons(BASE_USAGE) == 50.63
 
@@ -218,8 +218,8 @@ def test_a_rest_3036_mid_item_discards_the_item_and_stops(tmp_path, items, gold)
 
 
 def test_a_resume_on_another_commit_build_or_model_is_refused(tmp_path, items, gold, capsys):
-    # 450 neurons split 5:2 is 321 semantic and 129 baseline: exactly one item fits.
-    assert run(tmp_path, items, gold, World(), neurons_today=450) == 0
+    # 470 neurons split 5:2 is 335.7 semantic and 134.3 baseline: exactly one item fits.
+    assert run(tmp_path, items, gold, World(), neurons_today=470) == 0
     assert len(the_run(tmp_path).records()) == 1
     assert run(tmp_path, items, gold, World(), day=DAY2, resume=True, head="b" * 40) == 2
     assert "start a new run" in capsys.readouterr().err
