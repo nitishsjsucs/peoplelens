@@ -107,7 +107,7 @@ export function validateIntent(
     if (!isDimensionId(d) || !allowedDims.includes(d)) {
       return refuse(
         "DIMENSION_NOT_APPROVED",
-        `Breaking ${policy.metrics[metric].label} down by ${String(d)} is not approved for your role.`,
+        `That breakdown of ${policy.metrics[metric].label} is not approved for your role.`,
         allowedDims,
       );
     }
@@ -163,7 +163,7 @@ export function validateIntent(
     if (!isDimensionId(f.dimension) || !allowedDims.includes(f.dimension)) {
       return refuse(
         "DIMENSION_NOT_APPROVED",
-        `Filtering ${policy.metrics[metric].label} by ${String(f.dimension)} is not approved for your role.`,
+        `That filter on ${policy.metrics[metric].label} is not approved for your role.`,
         allowedDims,
       );
     }
@@ -173,7 +173,7 @@ export function validateIntent(
     for (const raw of f.values) {
       const c = typeof raw === "string" ? canonicalValue(policy, dim, raw) : undefined;
       if (!c || !values[dim].includes(c)) {
-        return refuse("OUT_OF_DOMAIN", `${String(raw)} is not a known ${policy.dimensions[dim].label.toLowerCase()}.`, values[dim]);
+        return refuse("OUT_OF_DOMAIN", `One of the requested values is not a known ${policy.dimensions[dim].label.toLowerCase()}.`, values[dim]);
       }
       if (!canon.includes(c)) canon.push(c);
     }

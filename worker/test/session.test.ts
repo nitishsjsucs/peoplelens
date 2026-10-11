@@ -67,7 +67,7 @@ describe("UserDO sessions", () => {
     const id = await s.createSession(1);
     expect(await s.getSession(id)).toMatchObject({ id, lastIntent: null, pending: null, turns: 0 });
     await s.saveTurn(id, { ts: 2, type: "answer", intent: INTENT, pending: null, code: null, catalogKey: "headcount|department|none" });
-    const pending = { question: "Which metric?", options: [{ id: "o1", label: "Headcount", intent: INTENT }], base: null };
+    const pending = { question: "Which metric?", options: [{ id: "o1", label: "Headcount", patch: { metric: "headcount" as const } }], base: null };
     await s.saveTurn(id, { ts: 3, type: "clarification", intent: null, pending, code: null, catalogKey: null });
     const state = await s.getSession(id);
     expect(state?.lastIntent).toEqual(INTENT);

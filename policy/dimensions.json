@@ -4,74 +4,242 @@
     {
       "id": "department",
       "label": "Department",
-      "values": ["Engineering", "Sales", "Customer Success", "Marketing", "Finance", "People", "Operations", "Legal"],
+      "values": [
+        "Engineering",
+        "Sales",
+        "Customer Success",
+        "Marketing",
+        "Finance",
+        "People",
+        "Operations",
+        "Legal"
+      ],
       "aliases": {
-        "eng": "Engineering", "engineering": "Engineering", "engineers": "Engineering", "r&d": "Engineering",
+        "eng": "Engineering",
+        "engineering": "Engineering",
+        "engineers": "Engineering",
+        "r&d": "Engineering",
         "sales": "Sales",
-        "cs": "Customer Success", "customer success": "Customer Success", "support": "Customer Success",
-        "marketing": "Marketing", "mktg": "Marketing",
+        "cs": "Customer Success",
+        "customer success": "Customer Success",
+        "support": "Customer Success",
+        "marketing": "Marketing",
+        "mktg": "Marketing",
         "finance": "Finance",
-        "people": "People", "hr": "People", "people team": "People",
-        "operations": "Operations", "ops": "Operations",
-        "legal": "Legal"
+        "hr": "People",
+        "people team": "People",
+        "operations": "Operations",
+        "ops": "Operations",
+        "legal": "Legal",
+        "people department": "People",
+        "people org": "People"
       },
-      "mf_names": {"workforce": "workforce__department", "requisition": "requisition__department", "offer": "offer__department"}
+      "mf_names": {
+        "workforce": "workforce__department",
+        "requisition": "requisition__department",
+        "offer": "offer__department"
+      }
     },
     {
       "id": "location",
       "label": "Location",
-      "values": ["San Jose", "New York", "Austin", "London", "Bengaluru"],
+      "values": [
+        "San Jose",
+        "New York",
+        "Austin",
+        "London",
+        "Bengaluru"
+      ],
       "aliases": {
-        "san jose": "San Jose", "sj": "San Jose", "san jose hq": "San Jose", "hq": "San Jose",
-        "new york": "New York", "nyc": "New York", "ny": "New York",
-        "austin": "Austin", "atx": "Austin",
-        "london": "London", "uk": "London",
-        "bengaluru": "Bengaluru", "bangalore": "Bengaluru", "india": "Bengaluru"
+        "san jose": "San Jose",
+        "sj": "San Jose",
+        "san jose hq": "San Jose",
+        "hq": "San Jose",
+        "new york": "New York",
+        "nyc": "New York",
+        "ny": "New York",
+        "austin": "Austin",
+        "atx": "Austin",
+        "london": "London",
+        "uk": "London",
+        "bengaluru": "Bengaluru",
+        "bangalore": "Bengaluru",
+        "india": "Bengaluru"
       },
-      "mf_names": {"workforce": "workforce__location", "requisition": "requisition__location", "offer": "offer__location"}
+      "mf_names": {
+        "workforce": "workforce__location",
+        "requisition": "requisition__location",
+        "offer": "offer__location"
+      }
     },
     {
       "id": "job_level",
       "label": "Job level",
-      "values": ["L1", "L2", "L3", "L4", "L5", "L6"],
+      "values": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
       "aliases": {
-        "l1": "L1", "level 1": "L1", "l2": "L2", "level 2": "L2", "l3": "L3", "level 3": "L3",
-        "l4": "L4", "level 4": "L4", "l5": "L5", "level 5": "L5", "l6": "L6", "level 6": "L6"
+        "l1": "L1",
+        "level 1": "L1",
+        "l2": "L2",
+        "level 2": "L2",
+        "l3": "L3",
+        "level 3": "L3",
+        "l4": "L4",
+        "level 4": "L4",
+        "l5": "L5",
+        "level 5": "L5",
+        "l6": "L6",
+        "level 6": "L6"
       },
-      "mf_names": {"workforce": "workforce__job_level", "requisition": "requisition__job_level", "offer": "offer__job_level"}
+      "mf_names": {
+        "workforce": "workforce__job_level",
+        "requisition": "requisition__job_level",
+        "offer": "offer__job_level"
+      }
     },
     {
       "id": "employment_type",
       "label": "Employment type",
-      "values": ["full_time", "part_time"],
+      "values": [
+        "full_time",
+        "part_time"
+      ],
       "aliases": {
-        "full time": "full_time", "full-time": "full_time", "fulltime": "full_time",
-        "part time": "part_time", "part-time": "part_time", "parttime": "part_time"
+        "full time": "full_time",
+        "full-time": "full_time",
+        "fulltime": "full_time",
+        "part time": "part_time",
+        "part-time": "part_time",
+        "parttime": "part_time"
       },
-      "mf_names": {"workforce": "workforce__employment_type"}
+      "mf_names": {
+        "workforce": "workforce__employment_type"
+      }
     },
     {
       "id": "tenure_band",
       "label": "Tenure band",
-      "values": ["<1y", "1-2y", "2-5y", "5y+"],
+      "values": [
+        "<1y",
+        "1-2y",
+        "2-5y",
+        "5y+"
+      ],
       "aliases": {
-        "less than a year": "<1y", "under 1 year": "<1y", "under a year": "<1y", "new hires": "<1y",
-        "1 to 2 years": "1-2y", "one to two years": "1-2y",
-        "2 to 5 years": "2-5y", "two to five years": "2-5y",
-        "5+ years": "5y+", "over 5 years": "5y+", "more than 5 years": "5y+", "five plus years": "5y+"
+        "less than a year": "<1y",
+        "under 1 year": "<1y",
+        "under a year": "<1y",
+        "1 to 2 years": "1-2y",
+        "one to two years": "1-2y",
+        "2 to 5 years": "2-5y",
+        "two to five years": "2-5y",
+        "5+ years": "5y+",
+        "over 5 years": "5y+",
+        "more than 5 years": "5y+",
+        "five plus years": "5y+"
       },
-      "mf_names": {"workforce": "workforce__tenure_band"}
+      "mf_names": {
+        "workforce": "workforce__tenure_band"
+      }
     }
   ],
   "not_approved": [
-    {"id": "gender", "code": "DIMENSION_NOT_APPROVED", "aliases": ["gender", "sex", "male", "female", "women", "men"]},
-    {"id": "age", "code": "DIMENSION_NOT_APPROVED", "aliases": ["age", "age band", "age group", "older", "younger"]},
-    {"id": "date_of_birth", "code": "PII_REQUEST", "aliases": ["date of birth", "dob", "birthday", "birth date"]},
-    {"id": "name", "code": "PII_REQUEST", "aliases": ["name", "names", "full name", "who"]},
-    {"id": "email", "code": "PII_REQUEST", "aliases": ["email", "emails", "e-mail", "email address"]},
-    {"id": "employee_id", "code": "PII_REQUEST", "aliases": ["employee id", "employee ids", "employee_id", "badge"]},
-    {"id": "candidate_id", "code": "PII_REQUEST", "aliases": ["candidate id", "candidate ids", "candidate names"]},
-    {"id": "job_family", "code": "DIMENSION_NOT_APPROVED", "aliases": ["job family", "job families", "role family"]},
-    {"id": "manager", "code": "DIMENSION_NOT_APPROVED", "aliases": ["manager", "managers", "reports to", "team lead"]}
+    {
+      "id": "gender",
+      "code": "DIMENSION_NOT_APPROVED",
+      "aliases": [
+        "gender",
+        "sex",
+        "male",
+        "female",
+        "women",
+        "men"
+      ]
+    },
+    {
+      "id": "age",
+      "code": "DIMENSION_NOT_APPROVED",
+      "aliases": [
+        "age",
+        "age band",
+        "age group",
+        "older",
+        "younger"
+      ]
+    },
+    {
+      "id": "date_of_birth",
+      "code": "PII_REQUEST",
+      "aliases": [
+        "date of birth",
+        "dob",
+        "birthday",
+        "birth date"
+      ]
+    },
+    {
+      "id": "name",
+      "code": "PII_REQUEST",
+      "aliases": [
+        "name",
+        "names",
+        "full name",
+        "who"
+      ]
+    },
+    {
+      "id": "email",
+      "code": "PII_REQUEST",
+      "aliases": [
+        "email",
+        "emails",
+        "e-mail",
+        "email address"
+      ]
+    },
+    {
+      "id": "employee_id",
+      "code": "PII_REQUEST",
+      "aliases": [
+        "employee id",
+        "employee ids",
+        "employee_id",
+        "badge"
+      ]
+    },
+    {
+      "id": "candidate_id",
+      "code": "PII_REQUEST",
+      "aliases": [
+        "candidate id",
+        "candidate ids",
+        "candidate names"
+      ]
+    },
+    {
+      "id": "job_family",
+      "code": "DIMENSION_NOT_APPROVED",
+      "aliases": [
+        "job family",
+        "job families",
+        "role family"
+      ]
+    },
+    {
+      "id": "manager",
+      "code": "DIMENSION_NOT_APPROVED",
+      "aliases": [
+        "manager",
+        "managers",
+        "reports to",
+        "team lead"
+      ]
+    }
   ]
 }

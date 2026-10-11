@@ -3,6 +3,7 @@
 // rate limit. No question text and no result values are stored.
 import { DurableObject } from "cloudflare:workers";
 import type { Env } from "../env";
+import type { DraftIntent } from "../planner/schema";
 import type { QueryIntent } from "../policy/types";
 
 export interface RateDecision {
@@ -20,13 +21,13 @@ export interface BudgetDecision {
 export interface PendingOption {
   id: string;
   label: string;
-  intent: QueryIntent | null;
+  patch: Partial<DraftIntent>;
 }
 
 export interface PendingClarification {
   question: string;
   options: PendingOption[];
-  base: QueryIntent | null;
+  base: Partial<DraftIntent> | null;
 }
 
 export interface TurnRecord {

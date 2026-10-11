@@ -218,12 +218,13 @@
     "marketing": "Marketing",
     "mktg": "Marketing",
     "finance": "Finance",
-    "people": "People",
     "hr": "People",
     "people team": "People",
     "operations": "Operations",
     "ops": "Operations",
-    "legal": "Legal"
+    "legal": "Legal",
+    "people department": "People",
+    "people org": "People"
    },
    "mf_names": {
     "workforce": "workforce__department",
@@ -326,7 +327,6 @@
     "less than a year": "<1y",
     "under 1 year": "<1y",
     "under a year": "<1y",
-    "new hires": "<1y",
     "1 to 2 years": "1-2y",
     "one to two years": "1-2y",
     "2 to 5 years": "2-5y",

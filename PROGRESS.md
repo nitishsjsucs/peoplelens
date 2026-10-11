@@ -4,7 +4,7 @@ Tracks the SPEC.md section 19 commit plan. Updated at every commit.
 
 ## Position
 
-Commit 9 of 17 (core cut line after commit 14).
+Commit 10 of 17 (core cut line after commit 14).
 
 ## Done
 
@@ -17,10 +17,11 @@ Commit 9 of 17 (core cut line after commit 14).
 7. `feat(worker): Hono worker, Access JWT verification, role bindings`
 8. `feat(worker): policy validation, catalog binding and suppression`
 9. `feat(worker): cost guard, BigQuery client and UserDO budgets`
+10. `feat(worker): planner with Workers AI, OpenAI-compatible and stub providers`
 
 ## Next
 
-10. `feat(worker): planner with Workers AI, OpenAI-compatible and stub providers`
+11. `feat(eval): 200-item eval set, gold, comparator and text-to-SQL baseline`
 
 ## Check status (at this commit)
 
@@ -36,8 +37,8 @@ Commit 9 of 17 (core cut line after commit 14).
 | `uv run pl catalog build --check` | pass: 312 entries per dialect, BigQuery compiled first, then DuckDB, about 23 s |
 | `uv run pytest -q` | 414 passed (includes the 312 x 3 parity sweep), about 21 s |
 | `npm run typecheck` | pass |
-| `npm test` (vitest in workerd via @cloudflare/vitest-plugin) | 205 passed |
-| `npx wrangler deploy --env production --dry-run --outdir .wrangler/dry` (CI=true, no token) | pass; bundle 1,594 KiB (gzip 74 KiB), BigQuery catalog only |
+| `npm test` (vitest in workerd via @cloudflare/vitest-plugin) | 245 passed (includes 4 x 2,000 fuzzed planner outputs) |
+| `npx wrangler deploy --env production --dry-run --outdir .wrangler/dry` (CI=true, no token) | pass; bundle 2,454 KiB (gzip 219 KiB), BigQuery catalog only |
 
 ## Deviations from SPEC.md
 
@@ -47,6 +48,11 @@ Commit 9 of 17 (core cut line after commit 14).
 - Validation codes chosen where the spec leaves them open: more than 2 group-by dimensions is `RESULT_TOO_LARGE`; more than 2 restricted (filtered or scoped) dimensions is `DIMENSION_NOT_APPROVED`; an unknown filter value or unknown metric is `OUT_OF_DOMAIN`; a disallowed grain is `GRAIN_NOT_ALLOWED` carried as a clarification with the allowed grains as options.
 - `UserDO.saveTurn` returns `false` for an unknown session instead of throwing, because an exception thrown inside a Durable Object RPC method is reported as an uncaught exception by workerd.
 - The BigQuery client requests `formatOptions.useInt64Timestamp` and decodes both TIMESTAMP encodings (epoch seconds in float notation and int64 microseconds); `totalBytesBilled` is read when the jobs.query response carries it, otherwise billed bytes are reported as null and the reservation stands. Both are unverified against real BigQuery until `make smoke`.
+- The request pipeline lives in `worker/src/ask.ts` (not in the section 4 layout) so `index.ts` stays a thin router and the fuzz test can drive the pipeline without HTTP.
+- Deterministic request screening (`planner/values.ts`) refuses write requests, person-level or PII requests, unapproved or sensitive attributes and access-escalation attempts before the LLM is called; resolved time phrases and explicit grain words override the model's dates and grain. Both are server-side and LLM-independent.
+- The planner's clarification options carry a metric only (`{label, metric}`); a policy clarification (disallowed grain) carries a grain. A typed reply to a clarification is merged with the pending draft; `choose_option` resolves without an LLM call.
+- Refusal messages never echo planner-supplied strings (dimension names or values), only policy labels.
+- `policy/dimensions.json`: removed the aliases "people" (it collides with "how many people") and "new hires" (it collides with recruiting language).
 - Worker entry points are `worker/src/entry.local.ts` (bundles the DuckDB catalog) and `worker/src/entry.production.ts` (bundles the BigQuery catalog), selected by `main` per wrangler environment, because wrangler's `alias` is top-level only and cannot differ per environment. Both call `createWorker()` from `src/index.ts`.
 - `src/peoplelens/policy.py`, `catalog/results.py` and `reference/tolerance.py` added (policy loader, row-to-cell mapping, tolerance rules) beyond the section 4 layout.
 - Catalog JSON is about 1.45 MB per dialect (spec estimated 0.85 MB) because every entry carries a where-filter for each approved dimension of its metric.
