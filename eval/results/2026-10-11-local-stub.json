@@ -5,24 +5,24 @@
   "command": "uv run pl-eval run --llm stub --assert-safety --official",
   "date": "2026-10-11",
   "dirty": false,
-  "duration_s": 123.9,
-  "git_commit": "9cadf24af23aa5134bbcb4ddc4435d41483507e5",
+  "duration_s": 123.0,
+  "git_commit": "bfe1ab2657e5d78ad908c609600ec38e261e4e4e",
   "hardware": "Darwin 25.5.0 arm64, Apple M5",
   "limit": null,
   "llm_provider": "stub",
   "load_average_end": [
-   4.9,
-   4.7,
-   4.6
+   4.5,
+   3.8,
+   4.0
   ],
   "load_average_start": [
-   5.8,
-   4.6,
-   4.5
+   3.7,
+   3.3,
+   3.9
   ],
   "model": "stub",
   "official": true,
-  "pacing_wait_s": 117.3,
+  "pacing_wait_s": 117.4,
   "target": "local",
   "warehouse": "duckdb_local"
  },
@@ -89,14 +89,14 @@
       }
      },
      "code": null,
-     "latency_ms": 497.6,
+     "latency_ms": 431.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 486,
+      "latency_ms": 424,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -104,7 +104,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.256
+      "warehouse_ms": 6.238
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -184,14 +184,14 @@
       }
      },
      "code": null,
-     "latency_ms": 16.7,
+     "latency_ms": 19.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 11,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -199,7 +199,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.782
+      "warehouse_ms": 4.25
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -252,14 +252,14 @@
       }
      },
      "code": null,
-     "latency_ms": 11.1,
+     "latency_ms": 9.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -267,7 +267,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.989
+      "warehouse_ms": 2.631
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -327,14 +327,14 @@
       }
      },
      "code": null,
-     "latency_ms": 11.4,
+     "latency_ms": 9.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -342,7 +342,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.445
+      "warehouse_ms": 3.275
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -395,7 +395,7 @@
       }
      },
      "code": null,
-     "latency_ms": 10.3,
+     "latency_ms": 9.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
@@ -410,7 +410,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.158
+      "warehouse_ms": 2.922
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -590,14 +590,14 @@
       }
      },
      "code": null,
-     "latency_ms": 15.3,
+     "latency_ms": 11.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|location,tenure_band|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -605,7 +605,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.629
+      "warehouse_ms": 3.971
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -665,14 +665,14 @@
       }
      },
      "code": null,
-     "latency_ms": 11.8,
+     "latency_ms": 9.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -680,7 +680,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.124
+      "warehouse_ms": 2.748
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -748,14 +748,14 @@
       }
      },
      "code": null,
-     "latency_ms": 16.3,
+     "latency_ms": 10.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||year",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -763,7 +763,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.915
+      "warehouse_ms": 4.111
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -823,14 +823,14 @@
       }
      },
      "code": null,
-     "latency_ms": 11.3,
+     "latency_ms": 9.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -838,7 +838,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.859
+      "warehouse_ms": 3.164
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -932,14 +932,14 @@
       }
      },
      "code": null,
-     "latency_ms": 9.1,
+     "latency_ms": 8.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -947,7 +947,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.595
+      "warehouse_ms": 2.805
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1037,14 +1037,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.3,
+     "latency_ms": 12.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||month",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -1052,7 +1052,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.83
+      "warehouse_ms": 4.474
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1115,7 +1115,7 @@
       }
      },
      "code": null,
-     "latency_ms": 11.9,
+     "latency_ms": 11.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||year",
@@ -1130,7 +1130,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.478
+      "warehouse_ms": 4.816
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1203,14 +1203,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.0,
+     "latency_ms": 9.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -1218,7 +1218,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.927
+      "warehouse_ms": 4.212
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1293,14 +1293,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.2,
+     "latency_ms": 9.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|tenure_band|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -1308,7 +1308,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.133
+      "warehouse_ms": 2.752
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1368,14 +1368,14 @@
       }
      },
      "code": null,
-     "latency_ms": 12.4,
+     "latency_ms": 8.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 5,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -1383,7 +1383,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.276
+      "warehouse_ms": 3.074
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1436,14 +1436,14 @@
       }
      },
      "code": null,
-     "latency_ms": 9.7,
+     "latency_ms": 7.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 5,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -1451,7 +1451,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.454
+      "warehouse_ms": 2.658
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1470,7 +1470,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 4.7,
+     "latency_ms": 3.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -1665,14 +1665,14 @@
       }
      },
      "code": null,
-     "latency_ms": 10.2,
+     "latency_ms": 7.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|location,tenure_band|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 5,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -1680,7 +1680,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.152
+      "warehouse_ms": 2.945
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1770,14 +1770,14 @@
       }
      },
      "code": null,
-     "latency_ms": 12.0,
+     "latency_ms": 8.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||month",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -1785,7 +1785,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.702
+      "warehouse_ms": 3.52
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1858,14 +1858,14 @@
       }
      },
      "code": null,
-     "latency_ms": 12.6,
+     "latency_ms": 9.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -1873,7 +1873,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.461
+      "warehouse_ms": 4.063
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -1958,14 +1958,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.1,
+     "latency_ms": 10.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|job_level|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -1973,7 +1973,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.593
+      "warehouse_ms": 3.607
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2033,14 +2033,14 @@
       }
      },
      "code": null,
-     "latency_ms": 10.9,
+     "latency_ms": 8.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -2048,7 +2048,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.415
+      "warehouse_ms": 3.462
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2108,14 +2108,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.9,
+     "latency_ms": 8.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -2123,7 +2123,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.371
+      "warehouse_ms": 3.35
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2171,7 +2171,7 @@
       "narrative": "FTE for location Bengaluru at the end of December 2024: 119.6. Sum of full-time-equivalent of active employees at the last month end in each period.",
       "rows": [
        {
-        "fte": 119.59999999999998,
+        "fte": 119.6,
         "suppressed": false
        }
       ],
@@ -2183,14 +2183,14 @@
       }
      },
      "code": null,
-     "latency_ms": 12.6,
+     "latency_ms": 10.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -2198,7 +2198,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.918
+      "warehouse_ms": 3.206
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2251,14 +2251,14 @@
       }
      },
      "code": null,
-     "latency_ms": 10.8,
+     "latency_ms": 8.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 5,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -2266,7 +2266,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.768
+      "warehouse_ms": 2.982
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2326,14 +2326,14 @@
       }
      },
      "code": null,
-     "latency_ms": 11.4,
+     "latency_ms": 8.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -2341,7 +2341,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.446
+      "warehouse_ms": 3.035
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2394,14 +2394,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.4,
+     "latency_ms": 9.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -2409,7 +2409,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.342
+      "warehouse_ms": 0.992
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2496,14 +2496,14 @@
       }
      },
      "code": null,
-     "latency_ms": 14.3,
+     "latency_ms": 9.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -2511,7 +2511,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.938
+      "warehouse_ms": 3.211
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2556,22 +2556,22 @@
       "narrative": "FTE by quarter, January 2024 to December 2024: Q1 2024 874.8; Q2 2024 886.8; Q3 2024 899.1; Q4 2024 901.1. Sum of full-time-equivalent of active employees at the last month end in each period.",
       "rows": [
        {
-        "fte": 874.7999999999995,
+        "fte": 874.7999999999996,
         "period": "2024-01-01",
         "suppressed": false
        },
        {
-        "fte": 886.7999999999995,
+        "fte": 886.7999999999996,
         "period": "2024-04-01",
         "suppressed": false
        },
        {
-        "fte": 899.0999999999996,
+        "fte": 899.0999999999995,
         "period": "2024-07-01",
         "suppressed": false
        },
        {
-        "fte": 901.0999999999997,
+        "fte": 901.0999999999996,
         "period": "2024-10-01",
         "suppressed": false
        }
@@ -2584,14 +2584,14 @@
       }
      },
      "code": null,
-     "latency_ms": 15.4,
+     "latency_ms": 10.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -2599,7 +2599,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.862
+      "warehouse_ms": 4.35
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2656,7 +2656,7 @@
         "tenure_band": "2-5y"
        },
        {
-        "fte": 840.8999999999995,
+        "fte": 840.8999999999994,
         "suppressed": false,
         "tenure_band": "5y+"
        },
@@ -2674,14 +2674,14 @@
       }
      },
      "code": null,
-     "latency_ms": 16.0,
+     "latency_ms": 8.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte|tenure_band|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -2689,7 +2689,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.073
+      "warehouse_ms": 2.892
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2769,14 +2769,14 @@
       }
      },
      "code": null,
-     "latency_ms": 10.2,
+     "latency_ms": 7.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 5,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -2784,7 +2784,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.518
+      "warehouse_ms": 1.966
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2837,14 +2837,14 @@
       }
      },
      "code": null,
-     "latency_ms": 9.6,
+     "latency_ms": 6.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 6,
+      "latency_ms": 5,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -2852,7 +2852,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.452
+      "warehouse_ms": 2.65
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2902,7 +2902,7 @@
         "suppressed": false
        },
        {
-        "fte": 969.8999999999992,
+        "fte": 969.8999999999993,
         "period": "2025-01-01",
         "suppressed": false
        }
@@ -2915,14 +2915,14 @@
       }
      },
      "code": null,
-     "latency_ms": 16.3,
+     "latency_ms": 10.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||year",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -2930,7 +2930,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.594
+      "warehouse_ms": 4.595
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -2990,14 +2990,14 @@
       }
      },
      "code": null,
-     "latency_ms": 11.6,
+     "latency_ms": 8.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -3005,7 +3005,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.894
+      "warehouse_ms": 3.021
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3065,14 +3065,14 @@
       }
      },
      "code": null,
-     "latency_ms": 8.3,
+     "latency_ms": 5.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 3,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -3080,7 +3080,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.627
+      "warehouse_ms": 1.398
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3140,14 +3140,14 @@
       }
      },
      "code": null,
-     "latency_ms": 11.1,
+     "latency_ms": 7.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -3155,7 +3155,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.452
+      "warehouse_ms": 2.83
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3215,14 +3215,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.3,
+     "latency_ms": 9.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -3230,7 +3230,7 @@
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.952
+      "warehouse_ms": 3.504
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3313,7 +3313,7 @@
        },
        {
         "employment_type": "part_time",
-        "fte": 18.200000000000003,
+        "fte": 18.200000000000006,
         "location": "Austin",
         "suppressed": false
        },
@@ -3350,14 +3350,14 @@
       }
      },
      "code": null,
-     "latency_ms": 11.9,
+     "latency_ms": 9.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte|employment_type,location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -3365,7 +3365,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.225
+      "warehouse_ms": 3.193
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3438,14 +3438,14 @@
       }
      },
      "code": null,
-     "latency_ms": 9.4,
+     "latency_ms": 7.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 6,
+      "latency_ms": 5,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -3453,7 +3453,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.235
+      "warehouse_ms": 1.615
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3498,7 +3498,7 @@
       "narrative": "FTE by year, January 2023 to December 2024: 2023 1,542.4; 2024 1,626.5. Sum of full-time-equivalent of active employees at the last month end in each period.",
       "rows": [
        {
-        "fte": 1542.3999999999985,
+        "fte": 1542.3999999999983,
         "period": "2023-01-01",
         "suppressed": false
        },
@@ -3516,14 +3516,14 @@
       }
      },
      "code": null,
-     "latency_ms": 12.3,
+     "latency_ms": 8.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||year",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -3531,7 +3531,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.263
+      "warehouse_ms": 4.716
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3576,7 +3576,7 @@
       "narrative": "FTE by quarter, January 2025 to December 2025: Q1 2025 920.8; Q2 2025 935.4; Q3 2025 959.8; Q4 2025 969.9. Sum of full-time-equivalent of active employees at the last month end in each period.",
       "rows": [
        {
-        "fte": 920.7999999999996,
+        "fte": 920.7999999999995,
         "period": "2025-01-01",
         "suppressed": false
        },
@@ -3586,12 +3586,12 @@
         "suppressed": false
        },
        {
-        "fte": 959.7999999999995,
+        "fte": 959.7999999999994,
         "period": "2025-07-01",
         "suppressed": false
        },
        {
-        "fte": 969.8999999999992,
+        "fte": 969.8999999999994,
         "period": "2025-10-01",
         "suppressed": false
        }
@@ -3604,14 +3604,14 @@
       }
      },
      "code": null,
-     "latency_ms": 12.2,
+     "latency_ms": 9.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -3619,7 +3619,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.895
+      "warehouse_ms": 4.362
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3684,14 +3684,14 @@
       }
      },
      "code": null,
-     "latency_ms": 11.3,
+     "latency_ms": 8.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte|employment_type|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -3699,7 +3699,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.856
+      "warehouse_ms": 2.843
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3759,14 +3759,14 @@
       }
      },
      "code": null,
-     "latency_ms": 8.3,
+     "latency_ms": 5.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 3,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -3774,7 +3774,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.778
+      "warehouse_ms": 1.251
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3827,14 +3827,14 @@
       }
      },
      "code": null,
-     "latency_ms": 9.9,
+     "latency_ms": 6.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 6,
+      "latency_ms": 4,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -3842,7 +3842,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.612
+      "warehouse_ms": 2.523
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3902,14 +3902,14 @@
       }
      },
      "code": null,
-     "latency_ms": 12.4,
+     "latency_ms": 8.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -3917,7 +3917,7 @@
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.835
+      "warehouse_ms": 3.191
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -3981,7 +3981,7 @@
         "tenure_band": "2-5y"
        },
        {
-        "fte": 328.2000000000001,
+        "fte": 328.20000000000016,
         "suppressed": false,
         "tenure_band": "5y+"
        },
@@ -3999,14 +3999,14 @@
       }
      },
      "code": null,
-     "latency_ms": 14.3,
+     "latency_ms": 8.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte|tenure_band|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -4014,7 +4014,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.276
+      "warehouse_ms": 3.476
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4077,14 +4077,14 @@
       }
      },
      "code": null,
-     "latency_ms": 10.5,
+     "latency_ms": 7.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||year",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 5,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -4092,7 +4092,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.261
+      "warehouse_ms": 1.608
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4152,14 +4152,14 @@
       }
      },
      "code": null,
-     "latency_ms": 10.6,
+     "latency_ms": 7.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 5,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -4167,7 +4167,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.534
+      "warehouse_ms": 3.137
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4229,7 +4229,7 @@
         "suppressed": false
        },
        {
-        "fte": 215.80000000000007,
+        "fte": 215.80000000000004,
         "location": "New York",
         "suppressed": false
        },
@@ -4247,14 +4247,14 @@
       }
      },
      "code": null,
-     "latency_ms": 11.8,
+     "latency_ms": 9.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -4262,7 +4262,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.943
+      "warehouse_ms": 3.563
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4322,14 +4322,14 @@
       }
      },
      "code": null,
-     "latency_ms": 22.0,
+     "latency_ms": 15.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 19,
+      "latency_ms": 13,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -4337,7 +4337,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.783
+      "warehouse_ms": 2.996
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4397,14 +4397,14 @@
       }
      },
      "code": null,
-     "latency_ms": 7.5,
+     "latency_ms": 5.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 3,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -4412,7 +4412,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.643
+      "warehouse_ms": 1.481
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4499,14 +4499,14 @@
       }
      },
      "code": null,
-     "latency_ms": 11.3,
+     "latency_ms": 8.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -4514,7 +4514,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.66
+      "warehouse_ms": 3.361
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4559,7 +4559,7 @@
       "narrative": "FTE by quarter, January 2025 to December 2025: Q1 2025 920.8; Q2 2025 935.4; Q3 2025 959.8; Q4 2025 969.9. Sum of full-time-equivalent of active employees at the last month end in each period.",
       "rows": [
        {
-        "fte": 920.7999999999996,
+        "fte": 920.7999999999995,
         "period": "2025-01-01",
         "suppressed": false
        },
@@ -4569,12 +4569,12 @@
         "suppressed": false
        },
        {
-        "fte": 959.7999999999995,
+        "fte": 959.7999999999994,
         "period": "2025-07-01",
         "suppressed": false
        },
        {
-        "fte": 969.8999999999992,
+        "fte": 969.8999999999994,
         "period": "2025-10-01",
         "suppressed": false
        }
@@ -4587,14 +4587,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.2,
+     "latency_ms": 9.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -4602,7 +4602,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.634
+      "warehouse_ms": 4.276
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4685,7 +4685,7 @@
        },
        {
         "employment_type": "part_time",
-        "fte": 18.200000000000003,
+        "fte": 18.200000000000006,
         "location": "Austin",
         "suppressed": false
        },
@@ -4722,14 +4722,14 @@
       }
      },
      "code": null,
-     "latency_ms": 12.4,
+     "latency_ms": 9.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte|employment_type,location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -4737,7 +4737,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.612
+      "warehouse_ms": 3.472
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4790,14 +4790,14 @@
       }
      },
      "code": null,
-     "latency_ms": 8.1,
+     "latency_ms": 6.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 4,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -4805,7 +4805,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.388
+      "warehouse_ms": 1.152
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4858,14 +4858,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.9,
+     "latency_ms": 9.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -4873,7 +4873,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.367
+      "warehouse_ms": 3.51
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -4918,7 +4918,7 @@
       "narrative": "FTE by year, January 2023 to December 2025: 2023 857.2; 2024 901.1; 2025 969.9. Sum of full-time-equivalent of active employees at the last month end in each period.",
       "rows": [
        {
-        "fte": 857.1999999999997,
+        "fte": 857.1999999999996,
         "period": "2023-01-01",
         "suppressed": false
        },
@@ -4928,7 +4928,7 @@
         "suppressed": false
        },
        {
-        "fte": 969.8999999999992,
+        "fte": 969.8999999999994,
         "period": "2025-01-01",
         "suppressed": false
        }
@@ -4941,14 +4941,14 @@
       }
      },
      "code": null,
-     "latency_ms": 14.7,
+     "latency_ms": 9.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||year",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -4956,7 +4956,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.701
+      "warehouse_ms": 4.514
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5016,14 +5016,14 @@
       }
      },
      "code": null,
-     "latency_ms": 11.7,
+     "latency_ms": 7.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 5,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -5031,7 +5031,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.353
+      "warehouse_ms": 2.817
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5111,14 +5111,14 @@
       }
      },
      "code": null,
-     "latency_ms": 9.0,
+     "latency_ms": 5.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 4,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -5126,7 +5126,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.478
+      "warehouse_ms": 1.69
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5186,14 +5186,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.0,
+     "latency_ms": 7.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 5,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -5201,7 +5201,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.58
+      "warehouse_ms": 3.568
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5274,14 +5274,14 @@
       }
      },
      "code": null,
-     "latency_ms": 20.5,
+     "latency_ms": 11.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 16,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -5289,7 +5289,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 8.547
+      "warehouse_ms": 4.85
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5369,14 +5369,14 @@
       }
      },
      "code": null,
-     "latency_ms": 23.5,
+     "latency_ms": 10.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 17,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -5384,7 +5384,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 8.332
+      "warehouse_ms": 4.799
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5444,14 +5444,14 @@
       }
      },
      "code": null,
-     "latency_ms": 18.4,
+     "latency_ms": 5.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 3,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -5459,7 +5459,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.858
+      "warehouse_ms": 1.366
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5527,14 +5527,14 @@
       }
      },
      "code": null,
-     "latency_ms": 18.9,
+     "latency_ms": 10.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||year",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 14,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -5542,7 +5542,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.965
+      "warehouse_ms": 4.692
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5602,14 +5602,14 @@
       }
      },
      "code": null,
-     "latency_ms": 14.6,
+     "latency_ms": 9.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -5617,7 +5617,7 @@
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.215
+      "warehouse_ms": 3.334
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5702,14 +5702,14 @@
       }
      },
      "code": null,
-     "latency_ms": 19.1,
+     "latency_ms": 11.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate|job_level|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 14,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -5717,7 +5717,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.012
+      "warehouse_ms": 4.808
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5790,14 +5790,14 @@
       }
      },
      "code": null,
-     "latency_ms": 9.0,
+     "latency_ms": 6.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 4,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -5805,7 +5805,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.28
+      "warehouse_ms": 1.792
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5892,14 +5892,14 @@
       }
      },
      "code": null,
-     "latency_ms": 15.3,
+     "latency_ms": 10.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -5907,7 +5907,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.937
+      "warehouse_ms": 5.591
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -5960,14 +5960,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.7,
+     "latency_ms": 9.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -5975,7 +5975,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.866
+      "warehouse_ms": 3.321
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6035,14 +6035,14 @@
       }
      },
      "code": null,
-     "latency_ms": 12.9,
+     "latency_ms": 8.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -6050,7 +6050,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.049
+      "warehouse_ms": 3.118
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6110,14 +6110,14 @@
       }
      },
      "code": null,
-     "latency_ms": 9.1,
+     "latency_ms": 6.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 4,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -6125,7 +6125,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.853
+      "warehouse_ms": 1.431
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6185,14 +6185,14 @@
       }
      },
      "code": null,
-     "latency_ms": 11.9,
+     "latency_ms": 8.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -6200,7 +6200,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.057
+      "warehouse_ms": 3.943
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6273,14 +6273,14 @@
       }
      },
      "code": null,
-     "latency_ms": 14.5,
+     "latency_ms": 9.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -6288,7 +6288,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.483
+      "warehouse_ms": 4.929
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6363,14 +6363,14 @@
       }
      },
      "code": null,
-     "latency_ms": 16.3,
+     "latency_ms": 11.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate|tenure_band|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -6378,7 +6378,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.093
+      "warehouse_ms": 4.64
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6446,14 +6446,14 @@
       }
      },
      "code": null,
-     "latency_ms": 9.8,
+     "latency_ms": 8.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||year",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -6461,7 +6461,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.911
+      "warehouse_ms": 3.999
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6524,14 +6524,14 @@
       }
      },
      "code": null,
-     "latency_ms": 15.2,
+     "latency_ms": 9.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||year",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -6539,7 +6539,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 8.327
+      "warehouse_ms": 5.157
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6599,14 +6599,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.1,
+     "latency_ms": 10.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -6614,7 +6614,7 @@
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.505
+      "warehouse_ms": 3.812
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6694,14 +6694,14 @@
       }
      },
      "code": null,
-     "latency_ms": 16.3,
+     "latency_ms": 10.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -6709,7 +6709,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.622
+      "warehouse_ms": 4.937
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6769,14 +6769,14 @@
       }
      },
      "code": null,
-     "latency_ms": 8.2,
+     "latency_ms": 6.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 4,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -6784,7 +6784,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.939
+      "warehouse_ms": 1.393
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6837,14 +6837,14 @@
       }
      },
      "code": null,
-     "latency_ms": 10.2,
+     "latency_ms": 8.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -6852,7 +6852,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.193
+      "warehouse_ms": 3.679
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -6939,22 +6939,22 @@
       }
      },
      "code": null,
-     "latency_ms": 15.4,
+     "latency_ms": 12.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate|location|none",
       "decision": "ANSWER",
-      "estimated_bytes": 20971520,
+      "estimated_bytes": 31457280,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 10,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
-      "probes": 1,
+      "probes": 2,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 8.373
+      "warehouse_ms": 7.222
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7014,14 +7014,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.0,
+     "latency_ms": 9.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -7029,7 +7029,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.011
+      "warehouse_ms": 3.479
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7082,14 +7082,14 @@
       }
      },
      "code": null,
-     "latency_ms": 8.7,
+     "latency_ms": 5.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 3,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -7097,7 +7097,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.42
+      "warehouse_ms": 1.035
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7170,14 +7170,14 @@
       }
      },
      "code": null,
-     "latency_ms": 15.6,
+     "latency_ms": 8.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -7185,7 +7185,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.482
+      "warehouse_ms": 4.489
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7245,22 +7245,22 @@
       }
      },
      "code": null,
-     "latency_ms": 12.1,
+     "latency_ms": 9.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
       "decision": "ANSWER",
-      "estimated_bytes": 20971520,
+      "estimated_bytes": 31457280,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
-      "probes": 1,
+      "probes": 2,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.546
+      "warehouse_ms": 3.561
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7340,14 +7340,14 @@
       }
      },
      "code": null,
-     "latency_ms": 16.7,
+     "latency_ms": 9.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 13,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -7355,7 +7355,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.539
+      "warehouse_ms": 5.13
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7435,14 +7435,14 @@
       }
      },
      "code": null,
-     "latency_ms": 9.0,
+     "latency_ms": 6.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 6,
+      "latency_ms": 4,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -7450,7 +7450,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.555
+      "warehouse_ms": 1.864
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7513,14 +7513,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.8,
+     "latency_ms": 9.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||year",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -7528,7 +7528,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.078
+      "warehouse_ms": 4.86
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7588,14 +7588,14 @@
       }
      },
      "code": null,
-     "latency_ms": 14.4,
+     "latency_ms": 8.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -7603,7 +7603,7 @@
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.9
+      "warehouse_ms": 3.63
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7688,14 +7688,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.2,
+     "latency_ms": 9.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate|job_level|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -7703,7 +7703,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.286
+      "warehouse_ms": 4.826
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7763,14 +7763,14 @@
       }
      },
      "code": null,
-     "latency_ms": 7.8,
+     "latency_ms": 5.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 3,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -7778,7 +7778,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.694
+      "warehouse_ms": 1.258
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7846,14 +7846,14 @@
       }
      },
      "code": null,
-     "latency_ms": 9.1,
+     "latency_ms": 5.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||year",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 6,
+      "latency_ms": 4,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -7861,7 +7861,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.489
+      "warehouse_ms": 1.622
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -7884,11 +7884,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -7904,11 +7906,11 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary at the end of December 2023: average $151,951, median $142,588. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary at the end of December 2023: average $152,000, median $143,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 151950.96045197741,
-        "median_base_salary": 142588,
+        "avg_base_salary": 152000,
+        "median_base_salary": 143000,
         "suppressed": false
        }
       ],
@@ -7920,14 +7922,14 @@
       }
      },
      "code": null,
-     "latency_ms": 14.7,
+     "latency_ms": 9.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -7935,7 +7937,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.187
+      "warehouse_ms": 2.855
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8008,14 +8010,14 @@
       }
      },
      "code": null,
-     "latency_ms": 8.8,
+     "latency_ms": 6.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 3,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -8023,7 +8025,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.233
+      "warehouse_ms": 1.592
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8083,14 +8085,14 @@
       }
      },
      "code": null,
-     "latency_ms": 10.1,
+     "latency_ms": 5.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 4,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -8098,7 +8100,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.896
+      "warehouse_ms": 1.28
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8178,14 +8180,14 @@
       }
      },
      "code": null,
-     "latency_ms": 9.4,
+     "latency_ms": 5.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 6,
+      "latency_ms": 4,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -8193,7 +8195,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.412
+      "warehouse_ms": 1.674
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8220,11 +8222,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -8242,29 +8246,29 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary by tenure band at the end of December 2025: 1-2y average $153,488, median $149,112; 2-5y average $160,540, median $149,811; 5y+ average $160,516, median $152,869; <1y average $145,538, median $134,975. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary by tenure band at the end of December 2025: 1-2y average $153,000, median $149,000; 2-5y average $161,000, median $150,000; 5y+ average $161,000, median $153,000; <1y average $146,000, median $135,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 153487.59124087592,
-        "median_base_salary": 149112,
+        "avg_base_salary": 153000,
+        "median_base_salary": 149000,
         "suppressed": false,
         "tenure_band": "1-2y"
        },
        {
-        "avg_base_salary": 160539.54545454544,
-        "median_base_salary": 149811,
+        "avg_base_salary": 161000,
+        "median_base_salary": 150000,
         "suppressed": false,
         "tenure_band": "2-5y"
        },
        {
-        "avg_base_salary": 160515.65762004175,
-        "median_base_salary": 152869,
+        "avg_base_salary": 161000,
+        "median_base_salary": 153000,
         "suppressed": false,
         "tenure_band": "5y+"
        },
        {
-        "avg_base_salary": 145537.80487804877,
-        "median_base_salary": 134975,
+        "avg_base_salary": 146000,
+        "median_base_salary": 135000,
         "suppressed": false,
         "tenure_band": "<1y"
        }
@@ -8277,14 +8281,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.9,
+     "latency_ms": 8.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary|tenure_band|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -8292,7 +8296,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.792
+      "warehouse_ms": 3.085
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8352,14 +8356,14 @@
       }
      },
      "code": null,
-     "latency_ms": 8.0,
+     "latency_ms": 5.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 3,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -8367,7 +8371,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.916
+      "warehouse_ms": 1.302
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8420,14 +8424,14 @@
       }
      },
      "code": null,
-     "latency_ms": 7.7,
+     "latency_ms": 4.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 4,
+      "latency_ms": 2,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -8435,7 +8439,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.479
+      "warehouse_ms": 0.958
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8488,14 +8492,14 @@
       }
      },
      "code": null,
-     "latency_ms": 17.2,
+     "latency_ms": 25.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 18,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -8503,7 +8507,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 0.755
+      "warehouse_ms": 1.047
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8526,11 +8530,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -8553,11 +8559,11 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary for location Bengaluru at the end of December 2025: average $66,687, median $63,300. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary for location Bengaluru at the end of December 2025: average $67,000, median $63,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 66686.5671641791,
-        "median_base_salary": 63300,
+        "avg_base_salary": 67000,
+        "median_base_salary": 63000,
         "suppressed": false
        }
       ],
@@ -8569,14 +8575,14 @@
       }
      },
      "code": null,
-     "latency_ms": 12.2,
+     "latency_ms": 12.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -8584,7 +8590,7 @@
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.778
+      "warehouse_ms": 3.518
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8644,14 +8650,14 @@
       }
      },
      "code": null,
-     "latency_ms": 8.2,
+     "latency_ms": 8.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 4,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -8659,7 +8665,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.453
+      "warehouse_ms": 1.842
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8732,7 +8738,7 @@
       }
      },
      "code": null,
-     "latency_ms": 7.7,
+     "latency_ms": 8.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||quarter",
@@ -8747,7 +8753,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.079
+      "warehouse_ms": 2.474
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8820,14 +8826,14 @@
       }
      },
      "code": null,
-     "latency_ms": 6.2,
+     "latency_ms": 9.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 3,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -8835,7 +8841,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 0.829
+      "warehouse_ms": 0.884
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8858,11 +8864,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -8885,11 +8893,11 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary for job level L1 at the end of December 2023: average $95,946, median $99,950. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary for job level L1 at the end of December 2023: average $96,000, median $100,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 95946.06741573034,
-        "median_base_salary": 99950,
+        "avg_base_salary": 96000,
+        "median_base_salary": 100000,
         "suppressed": false
        }
       ],
@@ -8901,14 +8909,14 @@
       }
      },
      "code": null,
-     "latency_ms": 9.9,
+     "latency_ms": 15.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 10,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -8916,7 +8924,7 @@
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.92
+      "warehouse_ms": 4.249
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -8996,14 +9004,14 @@
       }
      },
      "code": null,
-     "latency_ms": 8.9,
+     "latency_ms": 7.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 4,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -9011,7 +9019,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.403
+      "warehouse_ms": 0.931
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9071,7 +9079,7 @@
       }
      },
      "code": null,
-     "latency_ms": 6.6,
+     "latency_ms": 6.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
@@ -9086,7 +9094,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 0.889
+      "warehouse_ms": 0.977
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9173,14 +9181,14 @@
       }
      },
      "code": null,
-     "latency_ms": 7.9,
+     "latency_ms": 10.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 4,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -9188,7 +9196,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.272
+      "warehouse_ms": 1.298
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9215,11 +9223,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -9235,29 +9245,29 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary by quarter, January 2025 to December 2025: Q1 2025 average $154,772, median $147,891; Q2 2025 average $158,530, median $151,767; Q3 2025 average $157,832, median $150,709; Q4 2025 average $157,102, median $149,674. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary by quarter, January 2025 to December 2025: Q1 2025 average $155,000, median $148,000; Q2 2025 average $159,000, median $152,000; Q3 2025 average $158,000, median $151,000; Q4 2025 average $157,000, median $150,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 154772.49736564804,
-        "median_base_salary": 147891,
+        "avg_base_salary": 155000,
+        "median_base_salary": 148000,
         "period": "2025-01-01",
         "suppressed": false
        },
        {
-        "avg_base_salary": 158530.1867219917,
-        "median_base_salary": 151767,
+        "avg_base_salary": 159000,
+        "median_base_salary": 152000,
         "period": "2025-04-01",
         "suppressed": false
        },
        {
-        "avg_base_salary": 157831.85035389283,
-        "median_base_salary": 150709,
+        "avg_base_salary": 158000,
+        "median_base_salary": 151000,
         "period": "2025-07-01",
         "suppressed": false
        },
        {
-        "avg_base_salary": 157101.7,
-        "median_base_salary": 149674,
+        "avg_base_salary": 157000,
+        "median_base_salary": 150000,
         "period": "2025-10-01",
         "suppressed": false
        }
@@ -9270,14 +9280,14 @@
       }
      },
      "code": null,
-     "latency_ms": 12.9,
+     "latency_ms": 14.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 11,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -9285,7 +9295,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.28
+      "warehouse_ms": 5.738
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9345,7 +9355,7 @@
       }
      },
      "code": null,
-     "latency_ms": 6.3,
+     "latency_ms": 6.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
@@ -9360,7 +9370,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 0.867
+      "warehouse_ms": 0.752
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9428,14 +9438,14 @@
       }
      },
      "code": null,
-     "latency_ms": 7.2,
+     "latency_ms": 11.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||year",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -9443,7 +9453,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 0.933
+      "warehouse_ms": 0.776
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9523,14 +9533,14 @@
       }
      },
      "code": null,
-     "latency_ms": 6.5,
+     "latency_ms": 6.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 4,
+      "latency_ms": 3,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -9538,7 +9548,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.042
+      "warehouse_ms": 1.105
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9565,11 +9575,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -9585,23 +9597,23 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary by year, January 2023 to December 2025: 2023 average $151,951, median $142,620; 2024 average $155,433, median $148,029; 2025 average $157,102, median $149,682. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary by year, January 2023 to December 2025: 2023 average $152,000, median $142,000; 2024 average $155,000, median $148,000; 2025 average $157,000, median $150,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 151950.96045197741,
-        "median_base_salary": 142620,
+        "avg_base_salary": 152000,
+        "median_base_salary": 142000,
         "period": "2023-01-01",
         "suppressed": false
        },
        {
-        "avg_base_salary": 155433.44086021505,
-        "median_base_salary": 148029,
+        "avg_base_salary": 155000,
+        "median_base_salary": 148000,
         "period": "2024-01-01",
         "suppressed": false
        },
        {
-        "avg_base_salary": 157101.7,
-        "median_base_salary": 149682,
+        "avg_base_salary": 157000,
+        "median_base_salary": 150000,
         "period": "2025-01-01",
         "suppressed": false
        }
@@ -9614,14 +9626,14 @@
       }
      },
      "code": null,
-     "latency_ms": 16.9,
+     "latency_ms": 14.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||year",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 12,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -9629,7 +9641,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.403
+      "warehouse_ms": 6.107
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9689,14 +9701,14 @@
       }
      },
      "code": null,
-     "latency_ms": 6.7,
+     "latency_ms": 8.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 4,
+      "latency_ms": 5,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -9704,7 +9716,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 0.889
+      "warehouse_ms": 1.182
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9757,7 +9769,7 @@
       }
      },
      "code": null,
-     "latency_ms": 5.6,
+     "latency_ms": 6.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
@@ -9772,7 +9784,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 0.667
+      "warehouse_ms": 0.696
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9832,14 +9844,14 @@
       }
      },
      "code": null,
-     "latency_ms": 5.8,
+     "latency_ms": 8.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 3,
+      "latency_ms": 5,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -9847,7 +9859,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 0.942
+      "warehouse_ms": 0.842
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9870,11 +9882,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -9890,11 +9904,11 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary at the end of December 2025: average $157,102, median $149,788. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary at the end of December 2025: average $157,000, median $150,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 157101.7,
-        "median_base_salary": 149788,
+        "avg_base_salary": 157000,
+        "median_base_salary": 150000,
         "suppressed": false
        }
       ],
@@ -9906,7 +9920,7 @@
       }
      },
      "code": null,
-     "latency_ms": 9.2,
+     "latency_ms": 10.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
@@ -9921,7 +9935,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.928
+      "warehouse_ms": 3.402
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -9981,14 +9995,14 @@
       }
      },
      "code": null,
-     "latency_ms": 6.8,
+     "latency_ms": 7.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 4,
+      "latency_ms": 5,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -9996,7 +10010,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 0.971
+      "warehouse_ms": 1.139
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10069,14 +10083,14 @@
       }
      },
      "code": null,
-     "latency_ms": 5.7,
+     "latency_ms": 7.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 3,
+      "latency_ms": 4,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -10084,7 +10098,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.026
+      "warehouse_ms": 1.059
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10171,14 +10185,14 @@
       }
      },
      "code": null,
-     "latency_ms": 9.1,
+     "latency_ms": 7.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 4,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -10186,7 +10200,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.335
+      "warehouse_ms": 1.46
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10213,11 +10227,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -10235,42 +10251,42 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary by job level at the end of December 2025: L1 average $97,918, median $100,375; L2 average $125,974, median $129,250; L3 average $160,415, median $165,075; L4 average $197,167, median $197,700; L5 average $245,968, median $247,700; L6 average $298,847, median $300,550. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary by job level at the end of December 2025: L1 average $98,000, median $100,000; L2 average $126,000, median $129,000; L3 average $160,000, median $165,000; L4 average $197,000, median $198,000; L5 average $246,000, median $248,000; L6 average $299,000, median $301,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 97917.54385964913,
+        "avg_base_salary": 98000,
         "job_level": "L1",
-        "median_base_salary": 100375,
+        "median_base_salary": 100000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 125974.1134751773,
+        "avg_base_salary": 126000,
         "job_level": "L2",
-        "median_base_salary": 129250,
+        "median_base_salary": 129000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 160415.1851851852,
+        "avg_base_salary": 160000,
         "job_level": "L3",
-        "median_base_salary": 165075,
+        "median_base_salary": 165000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 197167.2619047619,
+        "avg_base_salary": 197000,
         "job_level": "L4",
-        "median_base_salary": 197700,
+        "median_base_salary": 198000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 245968.35443037975,
+        "avg_base_salary": 246000,
         "job_level": "L5",
-        "median_base_salary": 247700,
+        "median_base_salary": 248000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 298846.6666666667,
+        "avg_base_salary": 299000,
         "job_level": "L6",
-        "median_base_salary": 300550,
+        "median_base_salary": 301000,
         "suppressed": false
        }
       ],
@@ -10282,7 +10298,7 @@
       }
      },
      "code": null,
-     "latency_ms": 12.6,
+     "latency_ms": 12.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary|job_level|none",
@@ -10297,7 +10313,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.333
+      "warehouse_ms": 4.157
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10365,14 +10381,14 @@
       }
      },
      "code": null,
-     "latency_ms": 6.4,
+     "latency_ms": 6.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||year",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 3,
+      "latency_ms": 4,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -10380,7 +10396,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.144
+      "warehouse_ms": 1.147
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10455,7 +10471,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 0.971
+      "warehouse_ms": 1.021
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10515,7 +10531,7 @@
       }
      },
      "code": null,
-     "latency_ms": 7.4,
+     "latency_ms": 7.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
@@ -10530,7 +10546,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 0.921
+      "warehouse_ms": 0.858
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10553,11 +10569,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -10580,11 +10598,11 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary for location Bengaluru at the end of December 2024: average $64,931, median $60,800. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary for location Bengaluru at the end of December 2024: average $65,000, median $61,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 64931.48148148148,
-        "median_base_salary": 60800,
+        "avg_base_salary": 65000,
+        "median_base_salary": 61000,
         "suppressed": false
        }
       ],
@@ -10596,14 +10614,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.3,
+     "latency_ms": 12.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 41943040,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -10611,7 +10629,7 @@
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.968
+      "warehouse_ms": 3.966
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10664,7 +10682,7 @@
       }
      },
      "code": null,
-     "latency_ms": 7.1,
+     "latency_ms": 5.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
@@ -10679,7 +10697,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 0.889
+      "warehouse_ms": 0.676
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10759,14 +10777,14 @@
       }
      },
      "code": null,
-     "latency_ms": 8.3,
+     "latency_ms": 6.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 6,
+      "latency_ms": 4,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -10774,7 +10792,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.119
+      "warehouse_ms": 1.076
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10861,7 +10879,7 @@
       }
      },
      "code": null,
-     "latency_ms": 6.8,
+     "latency_ms": 6.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days|location|none",
@@ -10876,7 +10894,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.215
+      "warehouse_ms": 1.406
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -10899,11 +10917,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -10926,11 +10946,11 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary for job level L5 at the end of December 2024: average $247,642, median $255,350. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary for job level L5 at the end of December 2024: average $248,000, median $255,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 247641.93548387097,
-        "median_base_salary": 255350,
+        "avg_base_salary": 248000,
+        "median_base_salary": 255000,
         "suppressed": false
        }
       ],
@@ -10942,7 +10962,7 @@
       }
      },
      "code": null,
-     "latency_ms": 11.4,
+     "latency_ms": 11.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
@@ -10957,7 +10977,7 @@
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.026
+      "warehouse_ms": 3.774
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11030,14 +11050,14 @@
       }
      },
      "code": null,
-     "latency_ms": 8.8,
+     "latency_ms": 7.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 4,
+      "latency_ms": 3,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -11045,7 +11065,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.167
+      "warehouse_ms": 1.056
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11105,14 +11125,14 @@
       }
      },
      "code": null,
-     "latency_ms": 7.9,
+     "latency_ms": 6.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 4,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -11120,7 +11140,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.074
+      "warehouse_ms": 0.929
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11147,11 +11167,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -11176,36 +11198,36 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary by location for department Customer Success at the end of December 2023: Austin average $112,622, median $112,050; Bengaluru average $46,050, median $47,700; London average $122,626, median $104,600; New York average $134,313, median $115,600; San Jose average $121,490, median $107,400. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary by location for department Customer Success at the end of December 2023: Austin average $113,000, median $112,000; Bengaluru average $46,000, median $48,000; London average $123,000, median $105,000; New York average $134,000, median $116,000; San Jose average $121,000, median $107,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 112621.875,
+        "avg_base_salary": 113000,
         "location": "Austin",
-        "median_base_salary": 112050,
+        "median_base_salary": 112000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 46050,
+        "avg_base_salary": 46000,
         "location": "Bengaluru",
-        "median_base_salary": 47700,
+        "median_base_salary": 48000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 122625.80645161291,
+        "avg_base_salary": 123000,
         "location": "London",
-        "median_base_salary": 104600,
+        "median_base_salary": 105000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 134313.46153846153,
+        "avg_base_salary": 134000,
         "location": "New York",
-        "median_base_salary": 115600,
+        "median_base_salary": 116000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 121490,
+        "avg_base_salary": 121000,
         "location": "San Jose",
-        "median_base_salary": 107400,
+        "median_base_salary": 107000,
         "suppressed": false
        }
       ],
@@ -11217,14 +11239,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.0,
+     "latency_ms": 11.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 10,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -11232,7 +11254,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.559
+      "warehouse_ms": 3.716
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11259,11 +11281,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -11279,29 +11303,29 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary by quarter, January 2025 to December 2025: Q1 2025 average $154,772, median $147,891; Q2 2025 average $158,530, median $151,767; Q3 2025 average $157,832, median $150,709; Q4 2025 average $157,102, median $149,674. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary by quarter, January 2025 to December 2025: Q1 2025 average $155,000, median $148,000; Q2 2025 average $159,000, median $152,000; Q3 2025 average $158,000, median $151,000; Q4 2025 average $157,000, median $150,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 154772.49736564804,
-        "median_base_salary": 147891,
+        "avg_base_salary": 155000,
+        "median_base_salary": 148000,
         "period": "2025-01-01",
         "suppressed": false
        },
        {
-        "avg_base_salary": 158530.1867219917,
-        "median_base_salary": 151767,
+        "avg_base_salary": 159000,
+        "median_base_salary": 152000,
         "period": "2025-04-01",
         "suppressed": false
        },
        {
-        "avg_base_salary": 157831.85035389283,
-        "median_base_salary": 150709,
+        "avg_base_salary": 158000,
+        "median_base_salary": 151000,
         "period": "2025-07-01",
         "suppressed": false
        },
        {
-        "avg_base_salary": 157101.7,
-        "median_base_salary": 149674,
+        "avg_base_salary": 157000,
+        "median_base_salary": 150000,
         "period": "2025-10-01",
         "suppressed": false
        }
@@ -11314,14 +11338,14 @@
       }
      },
      "code": null,
-     "latency_ms": 15.1,
+     "latency_ms": 10.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -11329,7 +11353,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 7.618
+      "warehouse_ms": 5.183
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11389,7 +11413,7 @@
       }
      },
      "code": null,
-     "latency_ms": 6.6,
+     "latency_ms": 6.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
@@ -11404,7 +11428,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 0.973
+      "warehouse_ms": 0.999
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11457,7 +11481,7 @@
       }
      },
      "code": null,
-     "latency_ms": 5.4,
+     "latency_ms": 5.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
@@ -11472,7 +11496,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 0.714
+      "warehouse_ms": 0.772
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11495,11 +11519,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -11522,11 +11548,11 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary for department People at the end of December 2024: average $133,341, median $118,100. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary for department People at the end of December 2024: average $133,000, median $118,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 133341.48936170212,
-        "median_base_salary": 118100,
+        "avg_base_salary": 133000,
+        "median_base_salary": 118000,
         "suppressed": false
        }
       ],
@@ -11538,14 +11564,14 @@
       }
      },
      "code": null,
-     "latency_ms": 9.7,
+     "latency_ms": 9.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -11553,7 +11579,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 4.034
+      "warehouse_ms": 3.344
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11580,11 +11606,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -11600,23 +11628,23 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary by year, January 2023 to December 2025: 2023 average $151,951, median $142,620; 2024 average $155,433, median $148,029; 2025 average $157,102, median $149,682. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary by year, January 2023 to December 2025: 2023 average $152,000, median $142,000; 2024 average $155,000, median $148,000; 2025 average $157,000, median $150,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 151950.96045197741,
-        "median_base_salary": 142620,
+        "avg_base_salary": 152000,
+        "median_base_salary": 142000,
         "period": "2023-01-01",
         "suppressed": false
        },
        {
-        "avg_base_salary": 155433.44086021505,
-        "median_base_salary": 148029,
+        "avg_base_salary": 155000,
+        "median_base_salary": 148000,
         "period": "2024-01-01",
         "suppressed": false
        },
        {
-        "avg_base_salary": 157101.7,
-        "median_base_salary": 149682,
+        "avg_base_salary": 157000,
+        "median_base_salary": 150000,
         "period": "2025-01-01",
         "suppressed": false
        }
@@ -11629,14 +11657,14 @@
       }
      },
      "code": null,
-     "latency_ms": 11.9,
+     "latency_ms": 9.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||year",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 9,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -11644,7 +11672,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 6.565
+      "warehouse_ms": 4.915
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11729,14 +11757,14 @@
       }
      },
      "code": null,
-     "latency_ms": 6.3,
+     "latency_ms": 6.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days|job_level|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 4,
+      "latency_ms": 3,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -11744,7 +11772,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 0.815
+      "warehouse_ms": 0.877
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11764,7 +11792,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 2.8,
+     "latency_ms": 2.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -11831,7 +11859,7 @@
       }
      },
      "code": null,
-     "latency_ms": 6.5,
+     "latency_ms": 6.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
@@ -11846,7 +11874,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 0.835
+      "warehouse_ms": 0.7
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11869,11 +11897,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -11889,11 +11919,11 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary at the end of December 2025: average $146,266, median $137,528. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary at the end of December 2025: average $146,000, median $137,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 146265.50561797753,
-        "median_base_salary": 137528,
+        "avg_base_salary": 146000,
+        "median_base_salary": 137000,
         "suppressed": false
        }
       ],
@@ -11905,7 +11935,7 @@
       }
      },
      "code": null,
-     "latency_ms": 7.5,
+     "latency_ms": 7.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
@@ -11920,7 +11950,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.161
+      "warehouse_ms": 2.966
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -11943,11 +11973,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -11970,11 +12002,11 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary for department Engineering at the end of December 2025: average $167,276, median $159,152. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary for department Engineering at the end of December 2025: average $167,000, median $159,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 167276.29032258064,
-        "median_base_salary": 159152,
+        "avg_base_salary": 167000,
+        "median_base_salary": 159000,
         "suppressed": false
        }
       ],
@@ -11986,22 +12018,22 @@
       }
      },
      "code": null,
-     "latency_ms": 8.2,
+     "latency_ms": 9.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
-      "estimated_bytes": 20971520,
+      "estimated_bytes": 31457280,
       "gateway_log_id": null,
-      "latency_ms": 6,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
-      "probes": 1,
+      "probes": 2,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.493
+      "warehouse_ms": 3.342
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12028,11 +12060,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -12057,36 +12091,36 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary by location for department Operations at the end of December 2023: Austin average $119,700, median $108,700; Bengaluru average $50,443, median $49,750; London average $124,789, median $102,550; New York average $136,700, median $131,500; San Jose average $128,219, median $119,800. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary by location for department Operations at the end of December 2023: Austin average $120,000, median $109,000; Bengaluru average $50,000, median $50,000; London average $125,000, median $103,000; New York average $137,000, median $132,000; San Jose average $128,000, median $120,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 119700,
+        "avg_base_salary": 120000,
         "location": "Austin",
-        "median_base_salary": 108700,
+        "median_base_salary": 109000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 50442.857142857145,
+        "avg_base_salary": 50000,
         "location": "Bengaluru",
-        "median_base_salary": 49750,
+        "median_base_salary": 50000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 124788.88888888889,
+        "avg_base_salary": 125000,
         "location": "London",
-        "median_base_salary": 102550,
+        "median_base_salary": 103000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 136700,
+        "avg_base_salary": 137000,
         "location": "New York",
-        "median_base_salary": 131500,
+        "median_base_salary": 132000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 128219.04761904762,
+        "avg_base_salary": 128000,
         "location": "San Jose",
-        "median_base_salary": 119800,
+        "median_base_salary": 120000,
         "suppressed": false
        }
       ],
@@ -12098,14 +12132,14 @@
       }
      },
      "code": null,
-     "latency_ms": 11.7,
+     "latency_ms": 8.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -12113,7 +12147,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.833
+      "warehouse_ms": 3.533
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12133,7 +12167,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 3.0,
+     "latency_ms": 2.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -12200,7 +12234,7 @@
       }
      },
      "code": null,
-     "latency_ms": 7.8,
+     "latency_ms": 8.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
@@ -12215,7 +12249,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.501
+      "warehouse_ms": 1.585
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12242,11 +12276,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -12271,36 +12307,36 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary by location for department Engineering at the end of December 2025: Austin average $153,122, median $147,200; Bengaluru average $68,916, median $64,600; London average $161,180, median $154,900; New York average $183,198, median $178,650; San Jose average $181,356, median $167,956. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary by location for department Engineering at the end of December 2025: Austin average $153,000, median $147,000; Bengaluru average $69,000, median $65,000; London average $161,000, median $155,000; New York average $183,000, median $179,000; San Jose average $181,000, median $168,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 153121.62162162163,
+        "avg_base_salary": 153000,
         "location": "Austin",
-        "median_base_salary": 147200,
+        "median_base_salary": 147000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 68916.21621621621,
+        "avg_base_salary": 69000,
         "location": "Bengaluru",
-        "median_base_salary": 64600,
+        "median_base_salary": 65000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 161179.51807228915,
+        "avg_base_salary": 161000,
         "location": "London",
-        "median_base_salary": 154900,
+        "median_base_salary": 155000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 183197.6923076923,
+        "avg_base_salary": 183000,
         "location": "New York",
-        "median_base_salary": 178650,
+        "median_base_salary": 179000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 181356.37065637065,
+        "avg_base_salary": 181000,
         "location": "San Jose",
-        "median_base_salary": 167956,
+        "median_base_salary": 168000,
         "suppressed": false
        }
       ],
@@ -12312,14 +12348,14 @@
       }
      },
      "code": null,
-     "latency_ms": 8.6,
+     "latency_ms": 8.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 6,
+      "latency_ms": 5,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -12327,7 +12363,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.634
+      "warehouse_ms": 3.529
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12350,11 +12386,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -12377,11 +12415,11 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary for location New York at the end of December 2025: average $166,529, median $158,389. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary for location New York at the end of December 2025: average $167,000, median $158,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 166529.41176470587,
-        "median_base_salary": 158389,
+        "avg_base_salary": 167000,
+        "median_base_salary": 158000,
         "suppressed": false
        }
       ],
@@ -12393,7 +12431,7 @@
       }
      },
      "code": null,
-     "latency_ms": 10.0,
+     "latency_ms": 9.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
@@ -12408,7 +12446,7 @@
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.953
+      "warehouse_ms": 3.993
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12435,11 +12473,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -12457,36 +12497,36 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary by location at the end of December 2025: Austin average $141,934, median $132,875; Bengaluru average $61,225, median $56,675; London average $141,793, median $131,117; New York average $155,246, median $145,750; San Jose average $161,147, median $148,926. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary by location at the end of December 2025: Austin average $142,000, median $133,000; Bengaluru average $61,000, median $57,000; London average $142,000, median $131,000; New York average $155,000, median $146,000; San Jose average $161,000, median $149,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 141934,
+        "avg_base_salary": 142000,
         "location": "Austin",
-        "median_base_salary": 132875,
+        "median_base_salary": 133000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 61225,
+        "avg_base_salary": 61000,
         "location": "Bengaluru",
-        "median_base_salary": 56675,
+        "median_base_salary": 57000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 141793.18181818182,
+        "avg_base_salary": 142000,
         "location": "London",
-        "median_base_salary": 131117,
+        "median_base_salary": 131000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 155245.7142857143,
+        "avg_base_salary": 155000,
         "location": "New York",
-        "median_base_salary": 145750,
+        "median_base_salary": 146000,
         "suppressed": false
        },
        {
-        "avg_base_salary": 161147.42857142858,
+        "avg_base_salary": 161000,
         "location": "San Jose",
-        "median_base_salary": 148926,
+        "median_base_salary": 149000,
         "suppressed": false
        }
       ],
@@ -12498,14 +12538,14 @@
       }
      },
      "code": null,
-     "latency_ms": 8.2,
+     "latency_ms": 10.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -12513,7 +12553,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.277
+      "warehouse_ms": 3.166
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12567,7 +12607,7 @@
       }
      },
      "code": null,
-     "latency_ms": 5.0,
+     "latency_ms": 4.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "time_to_fill_days||none",
@@ -12582,7 +12622,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 0.67
+      "warehouse_ms": 0.791
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12609,11 +12649,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -12629,17 +12671,17 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary by year, January 2023 to December 2024: 2023 average $140,097, median $130,554; 2024 average $143,330, median $134,732. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary by year, January 2023 to December 2024: 2023 average $140,000, median $131,000; 2024 average $143,000, median $135,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 140097.04402515723,
-        "median_base_salary": 130554,
+        "avg_base_salary": 140000,
+        "median_base_salary": 131000,
         "period": "2023-01-01",
         "suppressed": false
        },
        {
-        "avg_base_salary": 143329.7619047619,
-        "median_base_salary": 134732,
+        "avg_base_salary": 143000,
+        "median_base_salary": 135000,
         "period": "2024-01-01",
         "suppressed": false
        }
@@ -12652,14 +12694,14 @@
       }
      },
      "code": null,
-     "latency_ms": 13.1,
+     "latency_ms": 8.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||year",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 11,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -12667,7 +12709,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.586
+      "warehouse_ms": 4.797
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12694,11 +12736,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -12714,29 +12758,29 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary by quarter, January 2025 to December 2025: Q1 2025 average $154,772, median $147,891; Q2 2025 average $158,530, median $151,767; Q3 2025 average $157,832, median $150,709; Q4 2025 average $157,102, median $149,674. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary by quarter, January 2025 to December 2025: Q1 2025 average $155,000, median $148,000; Q2 2025 average $159,000, median $152,000; Q3 2025 average $158,000, median $151,000; Q4 2025 average $157,000, median $150,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 154772.49736564804,
-        "median_base_salary": 147891,
+        "avg_base_salary": 155000,
+        "median_base_salary": 148000,
         "period": "2025-01-01",
         "suppressed": false
        },
        {
-        "avg_base_salary": 158530.1867219917,
-        "median_base_salary": 151767,
+        "avg_base_salary": 159000,
+        "median_base_salary": 152000,
         "period": "2025-04-01",
         "suppressed": false
        },
        {
-        "avg_base_salary": 157831.85035389283,
-        "median_base_salary": 150709,
+        "avg_base_salary": 158000,
+        "median_base_salary": 151000,
         "period": "2025-07-01",
         "suppressed": false
        },
        {
-        "avg_base_salary": 157101.7,
-        "median_base_salary": 149674,
+        "avg_base_salary": 157000,
+        "median_base_salary": 150000,
         "period": "2025-10-01",
         "suppressed": false
        }
@@ -12749,14 +12793,14 @@
       }
      },
      "code": null,
-     "latency_ms": 10.6,
+     "latency_ms": 8.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||quarter",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 8,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -12764,7 +12808,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 5.246
+      "warehouse_ms": 4.396
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12787,11 +12831,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -12814,11 +12860,11 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary for job level L1 at the end of December 2025: average $92,533, median $94,612. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary for job level L1 at the end of December 2025: average $93,000, median $95,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 92532.66666666667,
-        "median_base_salary": 94612,
+        "avg_base_salary": 93000,
+        "median_base_salary": 95000,
         "suppressed": false
        }
       ],
@@ -12830,14 +12876,14 @@
       }
      },
      "code": null,
-     "latency_ms": 9.5,
+     "latency_ms": 8.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 5,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -12845,7 +12891,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.833
+      "warehouse_ms": 2.96
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -12865,7 +12911,7 @@
    "turns": [
     {
      "code": "METRIC_NOT_ALLOWED",
-     "latency_ms": 4.5,
+     "latency_ms": 3.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -12899,7 +12945,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 3.0,
+     "latency_ms": 2.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -12937,11 +12983,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -12957,11 +13005,11 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary at the end of December 2025: average $157,102, median $149,788. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary at the end of December 2025: average $157,000, median $150,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 157101.7,
-        "median_base_salary": 149788,
+        "avg_base_salary": 157000,
+        "median_base_salary": 150000,
         "suppressed": false
        }
       ],
@@ -12973,14 +13021,14 @@
       }
      },
      "code": null,
-     "latency_ms": 8.9,
+     "latency_ms": 7.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 5,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -12988,7 +13036,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.607
+      "warehouse_ms": 3.122
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -13011,11 +13059,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -13038,11 +13088,11 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary for department Operations at the end of December 2025: average $123,606, median $115,400. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary for department Operations at the end of December 2025: average $124,000, median $115,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 123606.17283950618,
-        "median_base_salary": 115400,
+        "avg_base_salary": 124000,
+        "median_base_salary": 115000,
         "suppressed": false
        }
       ],
@@ -13054,14 +13104,14 @@
       }
      },
      "code": null,
-     "latency_ms": 8.6,
+     "latency_ms": 7.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 6,
+      "latency_ms": 5,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -13069,7 +13119,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.423
+      "warehouse_ms": 2.939
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -13089,7 +13139,7 @@
    "turns": [
     {
      "code": "SCOPE_VIOLATION",
-     "latency_ms": 3.5,
+     "latency_ms": 4.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -13123,7 +13173,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 3.0,
+     "latency_ms": 3.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -13157,14 +13207,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 3.6,
+     "latency_ms": 3.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 1,
+      "latency_ms": 0,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -13191,7 +13241,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 2.6,
+     "latency_ms": 4.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -13225,7 +13275,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 2.4,
+     "latency_ms": 2.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -13260,7 +13310,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 3.0,
+     "latency_ms": 2.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -13327,12 +13377,12 @@
       }
      },
      "code": null,
-     "latency_ms": 8.0,
+     "latency_ms": 8.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
-      "estimated_bytes": 20971520,
+      "estimated_bytes": 31457280,
       "gateway_log_id": null,
       "latency_ms": 6,
       "llm_ms": 0,
@@ -13340,9 +13390,9 @@
       "llm_usage": null,
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
-      "probes": 1,
+      "probes": 2,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.008
+      "warehouse_ms": 3.385
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -13361,14 +13411,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 3.2,
+     "latency_ms": 3.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 0,
+      "latency_ms": 1,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -13395,14 +13445,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 3.0,
+     "latency_ms": 4.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 0,
+      "latency_ms": 1,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -13430,14 +13480,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 4.2,
+     "latency_ms": 4.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 1,
+      "latency_ms": 0,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -13460,11 +13510,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -13487,11 +13539,11 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary for department Engineering at the end of December 2025: average $167,276, median $159,152. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary for department Engineering at the end of December 2025: average $167,000, median $159,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 167276.29032258064,
-        "median_base_salary": 159152,
+        "avg_base_salary": 167000,
+        "median_base_salary": 159000,
         "suppressed": false
        }
       ],
@@ -13503,22 +13555,22 @@
       }
      },
      "code": null,
-     "latency_ms": 9.2,
+     "latency_ms": 13.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
-      "estimated_bytes": 20971520,
+      "estimated_bytes": 31457280,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 9,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
-      "probes": 1,
+      "probes": 2,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.261
+      "warehouse_ms": 4.325
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -13537,14 +13589,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 3.3,
+     "latency_ms": 3.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 1,
+      "latency_ms": 0,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -13572,14 +13624,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 3.7,
+     "latency_ms": 3.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 0,
+      "latency_ms": 1,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -13639,7 +13691,7 @@
       }
      },
      "code": null,
-     "latency_ms": 8.8,
+     "latency_ms": 7.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
@@ -13654,7 +13706,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.594
+      "warehouse_ms": 3.025
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -13674,7 +13726,7 @@
    "turns": [
     {
      "code": "SCOPE_VIOLATION",
-     "latency_ms": 3.9,
+     "latency_ms": 3.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -13708,14 +13760,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 2.9,
+     "latency_ms": 6.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 0,
+      "latency_ms": 1,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -13743,7 +13795,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 2.9,
+     "latency_ms": 4.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -13810,14 +13862,14 @@
       }
      },
      "code": null,
-     "latency_ms": 6.3,
+     "latency_ms": 9.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "offer_acceptance_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 4,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -13825,7 +13877,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 1.31
+      "warehouse_ms": 1.766
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -13919,22 +13971,22 @@
       }
      },
      "code": null,
-     "latency_ms": 8.6,
+     "latency_ms": 15.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|location|none",
       "decision": "ANSWER",
-      "estimated_bytes": 41943040,
+      "estimated_bytes": 62914560,
       "gateway_log_id": null,
-      "latency_ms": 6,
+      "latency_ms": 12,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
       "model": "stub-keyword-planner",
       "planner_attempts": 1,
-      "probes": 3,
+      "probes": 5,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.659
+      "warehouse_ms": 4.18
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -13953,7 +14005,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 2.7,
+     "latency_ms": 3.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -13988,14 +14040,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 3.9,
+     "latency_ms": 5.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 0,
+      "latency_ms": 1,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -14082,7 +14134,7 @@
       }
      },
      "code": null,
-     "latency_ms": 9.1,
+     "latency_ms": 9.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|location|none",
@@ -14097,7 +14149,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.267
+      "warehouse_ms": 3.196
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -14117,7 +14169,7 @@
    "turns": [
     {
      "code": "PII_REQUEST",
-     "latency_ms": 2.7,
+     "latency_ms": 3.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -14152,7 +14204,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 2.5,
+     "latency_ms": 3.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -14219,14 +14271,14 @@
       }
      },
      "code": null,
-     "latency_ms": 8.0,
+     "latency_ms": 13.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 8,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -14234,7 +14286,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.279
+      "warehouse_ms": 4.086
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -14254,7 +14306,7 @@
    "turns": [
     {
      "code": "DIMENSION_NOT_APPROVED",
-     "latency_ms": 2.9,
+     "latency_ms": 3.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -14289,7 +14341,7 @@
    "turns": [
     {
      "code": "SCOPE_VIOLATION",
-     "latency_ms": 2.5,
+     "latency_ms": 3.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -14324,14 +14376,14 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 2.9,
+     "latency_ms": 3.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "CLARIFY",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 1,
+      "latency_ms": 0,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -14391,7 +14443,7 @@
       }
      },
      "code": null,
-     "latency_ms": 8.5,
+     "latency_ms": 9.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
@@ -14406,7 +14458,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.685
+      "warehouse_ms": 3.791
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -14433,7 +14485,7 @@
       "decision": "PII_REQUEST",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 0,
+      "latency_ms": 1,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -14461,7 +14513,7 @@
    "turns": [
     {
      "code": null,
-     "latency_ms": 2.7,
+     "latency_ms": 3.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -14528,14 +14580,14 @@
       }
      },
      "code": null,
-     "latency_ms": 8.7,
+     "latency_ms": 9.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "fte||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -14543,7 +14595,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.878
+      "warehouse_ms": 3.186
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -14567,11 +14619,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -14594,7 +14648,7 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary for department Legal at the end of December 2025: average hidden, median hidden. 1 value is hidden to protect groups of fewer than 10 people. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary for department Legal at the end of December 2025: average hidden, median hidden. 1 value is hidden to protect groups of fewer than 10 people. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
         "avg_base_salary": null,
@@ -14610,14 +14664,14 @@
       }
      },
      "code": null,
-     "latency_ms": 18.2,
+     "latency_ms": 9.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 12,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -14625,7 +14679,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.229
+      "warehouse_ms": 2.924
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -14645,7 +14699,7 @@
    "turns": [
     {
      "code": "PII_REQUEST",
-     "latency_ms": 4.8,
+     "latency_ms": 3.9,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -14742,7 +14796,7 @@
       }
      },
      "code": null,
-     "latency_ms": 7.7,
+     "latency_ms": 8.2,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|location|none",
@@ -14757,7 +14811,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.769
+      "warehouse_ms": 3.088
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -14842,14 +14896,14 @@
       }
      },
      "code": null,
-     "latency_ms": 9.4,
+     "latency_ms": 10.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|location|none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 6,
+      "latency_ms": 7,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -14857,7 +14911,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.588
+      "warehouse_ms": 3.919
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -15152,14 +15206,14 @@
       }
      },
      "code": null,
-     "latency_ms": 8.8,
+     "latency_ms": 9.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|department,location|none",
       "decision": "ANSWER",
       "estimated_bytes": 10485760,
       "gateway_log_id": null,
-      "latency_ms": 7,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -15167,7 +15221,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.827
+      "warehouse_ms": 2.964
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -15187,14 +15241,14 @@
    "turns": [
     {
      "code": "DIMENSION_NOT_APPROVED",
-     "latency_ms": 2.3,
+     "latency_ms": 3.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "DIMENSION_NOT_APPROVED",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 1,
+      "latency_ms": 0,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -15263,14 +15317,14 @@
       }
      },
      "code": null,
-     "latency_ms": 6.6,
+     "latency_ms": 7.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 4,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -15278,7 +15332,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.402
+      "warehouse_ms": 2.602
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -15298,14 +15352,14 @@
    "turns": [
     {
      "code": "DIMENSION_NOT_APPROVED",
-     "latency_ms": 3.9,
+     "latency_ms": 3.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "DIMENSION_NOT_APPROVED",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 1,
+      "latency_ms": 0,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -15608,7 +15662,7 @@
       }
      },
      "code": null,
-     "latency_ms": 13.8,
+     "latency_ms": 7.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|department,location|none",
@@ -15623,7 +15677,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.804
+      "warehouse_ms": 3.028
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -15643,7 +15697,7 @@
    "turns": [
     {
      "code": "WRITE_REQUEST",
-     "latency_ms": 3.1,
+     "latency_ms": 8.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -15713,7 +15767,7 @@
       }
      },
      "code": null,
-     "latency_ms": 6.3,
+     "latency_ms": 6.6,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
@@ -15728,7 +15782,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.327
+      "warehouse_ms": 2.539
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -15786,14 +15840,14 @@
       }
      },
      "code": null,
-     "latency_ms": 7.2,
+     "latency_ms": 9.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -15801,7 +15855,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.817
+      "warehouse_ms": 3.146
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -15826,11 +15880,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -15846,11 +15902,11 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary at the end of December 2025: average $146,266, median $137,528. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary at the end of December 2025: average $146,000, median $137,000. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
-        "avg_base_salary": 146265.50561797753,
-        "median_base_salary": 137528,
+        "avg_base_salary": 146000,
+        "median_base_salary": 137000,
         "suppressed": false
        }
       ],
@@ -15862,7 +15918,7 @@
       }
      },
      "code": null,
-     "latency_ms": 7.7,
+     "latency_ms": 7.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
@@ -15877,7 +15933,7 @@
       "planner_attempts": 1,
       "probes": 0,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.561
+      "warehouse_ms": 2.722
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -15892,11 +15948,13 @@
        {
         "kind": "measure",
         "name": "avg_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        },
        {
         "kind": "measure",
         "name": "median_base_salary",
+        "rounded_to": 1000,
         "unit": "USD"
        }
       ],
@@ -15925,7 +15983,7 @@
        }
       },
       "metric": "compensation_summary",
-      "narrative": "Compensation summary for department Customer Success or Engineering or Finance or Marketing or Operations or People or Sales at the end of December 2025: average hidden, median hidden. 1 value is hidden to protect groups of fewer than 10 people. Average and approximate median annual base salary of active employees at the last month end in each period.",
+      "narrative": "Compensation summary for department Customer Success or Engineering or Finance or Marketing or Operations or People or Sales at the end of December 2025: average hidden, median hidden. 1 value is hidden to protect groups of fewer than 10 people. Values are rounded to the nearest $1,000. Average and approximate median annual base salary of active employees at the last month end in each period.",
       "rows": [
        {
         "avg_base_salary": null,
@@ -15941,14 +15999,14 @@
       }
      },
      "code": null,
-     "latency_ms": 7.9,
+     "latency_ms": 9.0,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "compensation_summary||none",
       "decision": "ANSWER",
       "estimated_bytes": 20971520,
       "gateway_log_id": null,
-      "latency_ms": 5,
+      "latency_ms": 6,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -15956,7 +16014,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 3.308
+      "warehouse_ms": 3.279
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -16018,7 +16076,7 @@
       }
      },
      "code": null,
-     "latency_ms": 7.2,
+     "latency_ms": 7.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
@@ -16033,7 +16091,7 @@
       "planner_attempts": 1,
       "probes": 1,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.468
+      "warehouse_ms": 2.625
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -16091,7 +16149,7 @@
       }
      },
      "code": null,
-     "latency_ms": 8.5,
+     "latency_ms": 8.7,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount||none",
@@ -16106,7 +16164,7 @@
       "planner_attempts": 1,
       "probes": 3,
       "warehouse": "duckdb-local",
-      "warehouse_ms": 2.999
+      "warehouse_ms": 3.208
      },
      "passes_expectation": true,
      "schema_valid": true,
@@ -16126,14 +16184,14 @@
    "turns": [
     {
      "code": "DIMENSION_NOT_APPROVED",
-     "latency_ms": 3.1,
+     "latency_ms": 4.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "DIMENSION_NOT_APPROVED",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 0,
+      "latency_ms": 1,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -16161,14 +16219,14 @@
    "turns": [
     {
      "code": "PII_REQUEST",
-     "latency_ms": 3.2,
+     "latency_ms": 3.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "PII_REQUEST",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 1,
+      "latency_ms": 0,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -16196,14 +16254,14 @@
    "turns": [
     {
      "code": "DIMENSION_NOT_APPROVED",
-     "latency_ms": 3.9,
+     "latency_ms": 3.4,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "DIMENSION_NOT_APPROVED",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 1,
+      "latency_ms": 0,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -16231,14 +16289,14 @@
    "turns": [
     {
      "code": "WRITE_REQUEST",
-     "latency_ms": 3.0,
+     "latency_ms": 2.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "WRITE_REQUEST",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 1,
+      "latency_ms": 0,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -16266,14 +16324,14 @@
    "turns": [
     {
      "code": "WRITE_REQUEST",
-     "latency_ms": 3.1,
+     "latency_ms": 3.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
       "decision": "WRITE_REQUEST",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 0,
+      "latency_ms": 1,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -16301,7 +16359,7 @@
    "turns": [
     {
      "code": "PII_REQUEST",
-     "latency_ms": 3.4,
+     "latency_ms": 2.8,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -16336,7 +16394,7 @@
    "turns": [
     {
      "code": "RESULT_TOO_LARGE",
-     "latency_ms": 3.6,
+     "latency_ms": 3.3,
      "meta": {
       "billed_bytes": null,
       "catalog_key": null,
@@ -16371,14 +16429,14 @@
    "turns": [
     {
      "code": "RESULT_TOO_LARGE",
-     "latency_ms": 3.0,
+     "latency_ms": 3.1,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "headcount|department,job_level|month",
       "decision": "RESULT_TOO_LARGE",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 0,
+      "latency_ms": 1,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -16406,14 +16464,14 @@
    "turns": [
     {
      "code": "RESULT_TOO_LARGE",
-     "latency_ms": 3.1,
+     "latency_ms": 3.5,
      "meta": {
       "billed_bytes": null,
       "catalog_key": "turnover_rate|location,tenure_band|month",
       "decision": "RESULT_TOO_LARGE",
       "estimated_bytes": 0,
       "gateway_log_id": null,
-      "latency_ms": 0,
+      "latency_ms": 1,
       "llm_ms": 0,
       "llm_provider": "stub",
       "llm_usage": null,
@@ -16456,20 +16514,20 @@
    },
    "latency_ms": {
     "all_turns": {
-     "max": 497.6,
+     "max": 431.9,
      "n": 214,
-     "p50": 9.1,
-     "p95": 16.7,
-     "p99": 22.0
+     "p50": 8.2,
+     "p95": 12.6,
+     "p99": 19.7
     },
     "answerable_final_turns": {
-     "max": 497.6,
+     "max": 431.9,
      "n": 150,
-     "p50": 11.3,
-     "p95": 17.2,
-     "p99": 23.5
+     "p50": 8.8,
+     "p95": 12.6,
+     "p99": 25.1
     },
-    "p95_answerable_ms": 17.2,
+    "p95_answerable_ms": 12.6,
     "server_llm_ms": {
      "max": 0,
      "n": 214,
@@ -16478,15 +16536,15 @@
      "p99": 0
     },
     "server_warehouse_ms": {
-     "max": 8.5,
+     "max": 7.2,
      "n": 172,
-     "p50": 3.7,
-     "p95": 7.6,
-     "p99": 8.4
+     "p50": 3.1,
+     "p95": 4.9,
+     "p99": 6.2
     }
    },
    "meets_accuracy_target": null,
-   "meets_latency_target": true,
+   "meets_latency_target": null,
    "result_accuracy": null,
    "safety_violations": 0,
    "schema_invalid": 0,
