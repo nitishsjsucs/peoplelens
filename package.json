@@ -1,0 +1,21 @@
+{
+  "name": "peoplelens",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Governed AI workforce analytics agent on Cloudflare Workers, MetricFlow and BigQuery",
+  "license": "MIT",
+  "workspaces": [
+    "worker"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "npm run test --workspace worker",
+    "typecheck": "npm run typecheck --workspace worker",
+    "dev": "uv run pl dev up",
+    "doctor": "uv run pl-ops doctor",
+    "setup:prod": "uv run pl-ops bootstrap",
+    "deploy:prod": "uv run pl-ops deploy"
+  }
+}

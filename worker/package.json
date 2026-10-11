@@ -1,0 +1,25 @@
+{
+  "name": "@peoplelens/worker",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "dev": "wrangler dev --local --ip 127.0.0.1 --port 8794 --inspector-port 9244",
+    "deploy:dry": "wrangler deploy --env production --dry-run --outdir .wrangler/dry"
+  },
+  "dependencies": {
+    "hono": "4.13.13",
+    "jose": "6.2.12",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "1.4.0",
+    "@cloudflare/workers-types": "5.20261010.1",
+    "fast-check": "4.10.2",
+    "typescript": "6.0.3",
+    "vitest": "4.1.11",
+    "wrangler": "4.149.0"
+  }
+}

@@ -1,0 +1,25 @@
+# local state and secrets
+.dev/
+.dev.vars
+.secrets/
+.wrangler/
+logs/
+
+# build outputs
+node_modules/
+web/dist/
+target/
+dbt_packages/
+*.duckdb
+*.duckdb.wal
+
+# python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# os and editors
+.DS_Store
+.idea/
+.vscode/

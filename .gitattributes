@@ -1,0 +1,4 @@
+# Python's csv module writes \r\n. Git must not normalize these files,
+# or `pl data generate --check` fails on a fresh checkout.
+*.csv -text
+SHA256SUMS -text

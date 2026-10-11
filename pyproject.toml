@@ -1,0 +1,40 @@
+[project]
+name = "peoplelens"
+version = "0.1.0"
+description = "Governed AI workforce analytics agent: data, dbt, MetricFlow catalog compiler, eval harness and ops tooling"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "dbt-core==1.12.5",
+  "dbt-duckdb==1.11.0",
+  "dbt-bigquery==1.12.1",
+  "dbt-metricflow==0.15.0",
+  "metricflow==0.213.0",
+  "duckdb==1.5.6",
+  "pyarrow==26.0.0",
+  "pyiceberg[sql-sqlite,pyarrow]==0.12.0",
+  "sqlglot==30.22.0",
+  "cryptography==50.0.2",
+  "pyjwt==2.15.1",
+  "pyyaml>=6.0",
+]
+
+[project.scripts]
+pl = "peoplelens.cli:main"
+pl-ops = "peoplelens.ops.cli:main"
+pl-eval = "peoplelens.eval.cli:main"
+
+[dependency-groups]
+dev = ["pytest==9.1.1"]
+
+[build-system]
+requires = ["uv_build>=0.12.17,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv]
+required-version = ">=0.12.17"
+
+[tool.pytest.ini_options]
+testpaths = ["tests/py"]
+addopts = "-ra"
