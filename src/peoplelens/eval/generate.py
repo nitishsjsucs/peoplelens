@@ -19,6 +19,7 @@ from peoplelens.policy import load
 SEED = 20231
 PER_METRIC = 25
 DEV_ITEMS = 60
+DEV_TEMPLATE_ITEMS = 57
 QUESTIONS_PATH = EVAL_DIR / "questions.jsonl"
 DEV_PATH = EVAL_DIR / "dev_questions.jsonl"
 ROLE_ORDER = ("people_analytics", "hr_business_partner", "talent_acquisition", "executive")
@@ -203,10 +204,18 @@ def generate() -> tuple[list[dict], list[dict]]:
     # dev set first, so its normalized texts are reserved and eval items can never repeat them
     hand = dev_raw.get("handwritten") or []
     dev_per_metric = {m: 0 for m in policy.metrics}
-    remaining = DEV_ITEMS - len(hand)
+    # The templated dev pass always draws DEV_TEMPLATE_ITEMS items so the shared random
+    # stream (and therefore the frozen eval set) does not depend on how many handwritten
+    # dev items exist; the extra templated items are dropped below.
+    remaining = DEV_TEMPLATE_ITEMS
     for i, m in enumerate(policy.metrics):
         dev_per_metric[m] = remaining // len(policy.metrics) + (1 if i < remaining % len(policy.metrics) else 0)
     dev_items = _generate_from_templates(dev_templates, dev_per_metric, rng, "DEV", seen)
+    keep = DEV_ITEMS - len(hand)
+    if keep < len(dev_items):
+        droppable = [i for i in reversed(range(len(dev_items))) if not dev_items[i].get("fewshot")]
+        drop = set(droppable[: len(dev_items) - keep])
+        dev_items = [item for i, item in enumerate(dev_items) if i not in drop]
     first_by_template: set[str] = set()
     for item in dev_items:
         item["slice"] = "dev"
@@ -216,16 +225,34 @@ def generate() -> tuple[list[dict], list[dict]]:
         item["fewshot"] = bool(item.pop("fewshot")) and is_first
     emails = _emails()
     for h in hand:
+        if "turns" in h:
+            for turn in h["turns"]:
+                seen.add(normalize_text(turn["text"]))
+            dev_items.append(
+                {
+                    "id": h["id"],
+                    "slice": "dev",
+                    "category": "two_turn",
+                    "role": h["role"],
+                    "subject": emails[h["role"]],
+                    "template_id": None,
+                    "turns": h["turns"],
+                    "gold_spec": h["gold_spec"],
+                    "fewshot": False,
+                }
+            )
+            continue
         seen.add(normalize_text(h["text"]))
+        action = h["expected_plan"]["action"]
         dev_items.append(
             {
                 "id": h["id"],
                 "slice": "dev",
-                "category": h["expected_plan"]["action"],
+                "category": action,
                 "role": h["role"],
                 "subject": emails[h["role"]],
                 "template_id": None,
-                "turns": [{"text": h["text"], "expect": {"type": "refusal" if h["expected_plan"]["action"] == "refuse" else "clarification"}}],
+                "turns": [{"text": h["text"], "expect": {"type": "refusal" if action == "refuse" else "clarification"}}],
                 "expected_plan": h["expected_plan"],
                 "fewshot": bool(h.get("fewshot")),
             }

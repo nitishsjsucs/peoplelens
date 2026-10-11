@@ -242,3 +242,53 @@ describe("server-side period defaults", () => {
     expect(r.intent?.timeRange).toEqual({ start: "2024-03-01", end: "2024-06-30" });
   });
 });
+
+describe("metric grounding and short replies", () => {
+  it("asks which measure when the question names none, offering the model's guess first", async () => {
+    const r = await plan({ ...base, question: "How is Engineering doing in 2024?", llm: new ScriptedLlm([planJson({ metric: "turnover_rate" })]) });
+    expect(r.output.action).toBe("clarify");
+    if (r.output.action === "clarify") {
+      expect(r.output.question).toBe("Which measure would you like for Engineering?");
+      expect(r.output.options[0]).toEqual({ id: "o1", label: "Turnover rate", patch: { metric: "turnover_rate" } });
+      expect(r.output.options.length).toBe(4);
+      expect(r.output.draft).toMatchObject({ start: "2024-01-01", end: "2024-12-31", filters: [{ dimension: "department", values: ["Engineering"] }] });
+    }
+    const named = await plan({ ...base, question: "Engineering headcount in 2024", llm: new ScriptedLlm([planJson({ metric: "headcount" })]) });
+    expect(named.output.action).toBe("query");
+  });
+
+  it("a short reply naming a metric keeps the previous scope", async () => {
+    const previous: QueryIntent = {
+      metric: "turnover_rate",
+      groupBy: [],
+      grain: "none",
+      timeRange: { start: "2024-01-01", end: "2024-12-31" },
+      filters: [{ dimension: "location", values: ["London"] }],
+    };
+    const r = await plan({ ...base, previous, question: "Headcount, please.", llm: new ScriptedLlm([planJson({ metric: "headcount" })]) });
+    expect(r.intent).toMatchObject({
+      metric: "headcount",
+      filters: [{ dimension: "location", values: ["London"] }],
+      timeRange: { start: "2024-01-01", end: "2024-12-31" },
+    });
+    const fresh = await plan({ ...base, previous, question: "Headcount in Austin last year", llm: new ScriptedLlm([planJson({ metric: "headcount" })]) });
+    expect(fresh.intent?.filters).toEqual([{ dimension: "location", values: ["Austin"] }]);
+  });
+});
+
+describe("ambiguous questions the model refused", () => {
+  it("become clarifications when they name approved values but no metric", async () => {
+    const r = await plan({ ...base, question: "Anything I should know about Bengaluru?", llm: new ScriptedLlm([planJson({ action: "refuse", refusal_reason: "DIMENSION_NOT_APPROVED" })]) });
+    expect(r.output.action).toBe("clarify");
+    const away = await plan({ ...base, question: "What is the capital of France?", llm: new ScriptedLlm([planJson({ action: "refuse", refusal_reason: "OUT_OF_DOMAIN" })]) });
+    expect(away.output).toEqual({ action: "refuse", reason: "OUT_OF_DOMAIN" });
+    const pii = await plan({ ...base, question: "Who is the newest hire in London?", llm: new ScriptedLlm([planJson({ action: "refuse", refusal_reason: "PII_REQUEST" })]) });
+    expect(pii.output).toEqual({ action: "refuse", reason: "PII_REQUEST" });
+  });
+
+  it("offer acceptance named without the exact phrase", async () => {
+    const { findMetricCues } = await import("../src/planner/values");
+    expect(findMetricCues("Acceptance of L2 offers since 2023")[0]).toBe("offer_acceptance_rate");
+    expect(findMetricCues("how many offers were accepted")[0]).toBe("offer_acceptance_rate");
+  });
+});

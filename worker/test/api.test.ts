@@ -143,7 +143,7 @@ describe("/api/ask", () => {
     ]);
     const h = harness(keys, { llm });
     const s = await h.session(A);
-    const r = (await h.ask(A, s, "everything, every month, by department and level")) as Json;
+    const r = (await h.ask(A, s, "headcount for everything, every month, by department and level")) as Json;
     expect(r.refusal.code).toBe("RESULT_TOO_LARGE");
     expect(h.warehouse.calls).toEqual([]);
   });

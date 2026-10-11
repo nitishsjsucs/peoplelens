@@ -37,6 +37,43 @@
   }
  },
  {
+  "id": "D-CL-02",
+  "role": "executive",
+  "question": "What's the story in Customer Success this year?",
+  "output": {
+   "action": "clarify",
+   "clarification_options": [
+    {
+     "label": "Headcount",
+     "metric": "headcount"
+    },
+    {
+     "label": "Turnover rate",
+     "metric": "turnover_rate"
+    },
+    {
+     "label": "Compensation summary",
+     "metric": "compensation_summary"
+    }
+   ],
+   "clarification_question": "Which measure for Customer Success: headcount, turnover or compensation?",
+   "end": "2025-12-31",
+   "filters": [
+    {
+     "dimension": "department",
+     "values": [
+      "Customer Success"
+     ]
+    }
+   ],
+   "grain": "none",
+   "group_by": [],
+   "metric": "",
+   "refusal_reason": "",
+   "start": "2025-01-01"
+  }
+ },
+ {
   "id": "D-RF-01",
   "role": "executive",
   "question": "Which employees in Sales have the lowest salaries?",
@@ -208,25 +245,6 @@
    "metric": "turnover_rate",
    "refusal_reason": "",
    "start": "2025-10-01"
-  }
- },
- {
-  "id": "DEV-turnover_rate-02",
-  "role": "hr_business_partner",
-  "question": "Leavers rate per location in 2023",
-  "output": {
-   "action": "query",
-   "clarification_options": [],
-   "clarification_question": "",
-   "end": "2023-12-31",
-   "filters": [],
-   "grain": "none",
-   "group_by": [
-    "location"
-   ],
-   "metric": "turnover_rate",
-   "refusal_reason": "",
-   "start": "2023-01-01"
   }
  }
 ]

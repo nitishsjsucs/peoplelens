@@ -10,7 +10,7 @@ import { buildMessages } from "./prompt";
 import { type DraftIntent, PLANNER_JSON_SCHEMA, type PlannerOutput, parsePlannerOutput } from "./schema";
 import { type TimeHint, grainHint, rangeFor, resolveTimePhrase } from "./timephrases";
 import { ground } from "./grounding";
-import { findMetricCues, findValueMentions, screenRequest } from "./values";
+import { findBreakdowns, findMetricCues, findValueMentions, screenRequest } from "./values";
 
 const FOLLOW_UP = /^\s*(and|what about|how about|now|same|instead|ok|okay|also|then|just|only)\b/i;
 
@@ -41,6 +41,31 @@ export interface PlanResult {
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
 const TIME_WORDS =
   /\b(20\d\d|fy\d\d|q[1-4]|h[12]|january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec|months?|quarters?|years?|weeks?|since|ago|past|previous|prior)\b/i;
+
+function escapeRe(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/** Does the question name a governed metric (cue words or a policy alias)? */
+export function namesMetric(question: string, policy: Policy = POLICY): boolean {
+  if (findMetricCues(question).length > 0) return true;
+  const t = question.toLowerCase();
+  return Object.values(policy.metrics).some((m) =>
+    m.aliases.some((a) => new RegExp(`(?<![a-z0-9])${escapeRe(a.toLowerCase())}(?![a-z0-9])`).test(t)),
+  );
+}
+
+/** "Headcount, please." after an answer or a clarification: a reply that only names a metric. */
+export function isShortMetricReply(question: string, policy: Policy = POLICY): boolean {
+  const words = question.toLowerCase().replace(/[^a-z0-9\s-]/g, " ").split(/\s+/).filter(Boolean);
+  if (words.length === 0 || words.length > 4) return false;
+  return (
+    namesMetric(question, policy) &&
+    findValueMentions(question, policy).length === 0 &&
+    findBreakdowns(question).length === 0 &&
+    resolveTimePhrase(question) === null
+  );
+}
 
 export const REPHRASE_QUESTION = "Could you rephrase? For example: \"headcount by department\" or \"turnover in 2024\".";
 
@@ -130,17 +155,61 @@ export async function plan(ctx: PlanContext): Promise<PlanResult> {
     result = { ...result, output: { action: "clarify", question: REPHRASE_QUESTION, options, draft: {} } };
     return result;
   }
+  // A refusal of an in-domain but ambiguous question (it names approved values but
+  // no metric, and the deterministic screen found nothing to refuse) becomes a
+  // clarification. Refusals for PII, writes, scope and metrics are always kept.
+  if (
+    output.action === "refuse" &&
+    (output.reason === "OUT_OF_DOMAIN" || output.reason === "DIMENSION_NOT_APPROVED") &&
+    !namesMetric(ctx.question, policy) &&
+    (values.length > 0 || findBreakdowns(ctx.question).length > 0)
+  ) {
+    output = {
+      action: "query",
+      intent: {
+        metric: previous?.metric ?? policy.roles[ctx.principal.role].metrics[0] ?? "headcount",
+        groupBy: [],
+        grain: "none",
+        start: "",
+        end: "",
+        filters: [],
+      },
+    };
+  }
   const followUp =
-    previous !== null && (findMetricCues(ctx.question).length === 0 || FOLLOW_UP.test(ctx.question));
+    previous !== null &&
+    (findMetricCues(ctx.question).length === 0 || FOLLOW_UP.test(ctx.question) || isShortMetricReply(ctx.question, policy));
   const groundCtx = { question: ctx.question, previous, followUp, pending: pendingDraft, policy };
+  if (output.action === "query" && !followUp && !pendingDraft && !namesMetric(ctx.question, policy)) {
+    // The metric is a slot too: a question that names no metric is ambiguous, so ask
+    // instead of guessing (the model's guess is offered first).
+    const draft = ground(output.intent, groundCtx);
+    const allowed = policy.roles[ctx.principal.role].metrics;
+    const order = [output.intent.metric, ...allowed].filter((m, i, a) => allowed.includes(m) && a.indexOf(m) === i);
+    const options = order.slice(0, 4).map((m, i) => ({ id: `o${i + 1}`, label: policy.metrics[m].label, patch: { metric: m } }));
+    const scope = draft.filters.flatMap((f) => f.values);
+    const base: Partial<DraftIntent> = { groupBy: draft.groupBy, grain: draft.grain, filters: draft.filters };
+    if (hint) {
+      base.start = hint.start;
+      base.end = hint.end;
+    }
+    const question = `Which measure would you like${scope.length > 0 && scope.length <= 3 ? ` for ${scope.join(", ")}` : ""}?`;
+    return { ...result, output: { action: "clarify", question, options, draft: base } };
+  }
   if (output.action === "query") {
     const draft = ground(output.intent, groundCtx);
     const pendingRange =
       pendingDraft?.start && pendingDraft.end && ISO.test(pendingDraft.start) && ISO.test(pendingDraft.end)
         ? { start: pendingDraft.start, end: pendingDraft.end }
         : null;
-    const sameKind = previous && policy.metrics[previous.metric].kind === policy.metrics[draft.metric].kind;
-    const fallback = pendingRange ?? (followUp && sameKind && previous ? previous.timeRange : null);
+    // A follow-up keeps the conversation's period, except that a point-in-time month
+    // (a stock metric's default) does not become a one-month period for a rate.
+    const pointMonth =
+      previous !== null &&
+      policy.metrics[previous.metric].kind === "stock" &&
+      policy.metrics[draft.metric].kind === "flow" &&
+      previous.timeRange.start.slice(0, 7) === previous.timeRange.end.slice(0, 7);
+    const fallback = pendingRange ?? (followUp && previous && !pointMonth ? previous.timeRange : null);
     const intent = resolveDraft(draft, hint, ctx.question, fallback, policy);
     return { ...result, output: { action: "query", intent: draft }, intent };
   }

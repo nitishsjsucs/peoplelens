@@ -133,6 +133,55 @@ handwritten:
       clarification_question: "Which measure for Austin: headcount, turnover or compensation?"
       clarification_options: [{label: "Headcount", metric: headcount}, {label: "Turnover rate", metric: turnover_rate}, {label: "Compensation summary", metric: compensation_summary}]
       refusal_reason: ""
+  - id: D-CL-02
+    role: executive
+    text: "What's the story in Customer Success this year?"
+    fewshot: true
+    expected_plan:
+      action: clarify
+      metric: ""
+      group_by: []
+      grain: none
+      start: "2025-01-01"
+      end: "2025-12-31"
+      filters: [{dimension: department, values: [Customer Success]}]
+      clarification_question: "Which measure for Customer Success: headcount, turnover or compensation?"
+      clarification_options: [{label: "Headcount", metric: headcount}, {label: "Turnover rate", metric: turnover_rate}, {label: "Compensation summary", metric: compensation_summary}]
+      refusal_reason: ""
+  - id: D-CL-03
+    role: people_analytics
+    text: "Anything I should know about Bengaluru?"
+    expected_plan: {action: clarify}
+  - id: D-CL-04
+    role: talent_acquisition
+    text: "How did the Marketing pipeline look in 2024?"
+    expected_plan: {action: clarify}
+  - id: D-CL-05
+    role: hr_business_partner
+    text: "Quick check on Sales, please."
+    expected_plan: {action: clarify}
+  - id: D-CL-06
+    role: executive
+    text: "Is New York okay?"
+    expected_plan: {action: clarify}
+  - id: D-TT-01
+    role: people_analytics
+    turns:
+      - {text: "Tell me about Finance in 2024.", expect: {type: clarification}}
+      - {text: "Just the headcount.", expect: {type: answer}}
+    gold_spec: {metric: headcount, group_by: [], grain: none, start: "2024-01-01", end: "2024-12-31", filters: {department: [Finance]}}
+  - id: D-TT-02
+    role: executive
+    turns:
+      - {text: "What's the picture for London this year?", expect: {type: clarification}}
+      - {text: "Turnover, please.", expect: {type: answer}}
+    gold_spec: {metric: turnover_rate, group_by: [], grain: none, start: "2025-01-01", end: "2025-12-31", filters: {location: [London]}}
+  - id: D-TT-03
+    role: talent_acquisition
+    turns:
+      - {text: "Engineering hiring in 2025?", expect: {type: clarification}}
+      - {text: "Time-to-fill numbers, thanks.", expect: {type: answer}}
+    gold_spec: {metric: time_to_fill_days, group_by: [], grain: none, start: "2025-01-01", end: "2025-12-31", filters: {department: [Engineering]}}
   - id: D-RF-01
     role: executive
     text: "Which employees in Sales have the lowest salaries?"

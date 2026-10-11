@@ -71,7 +71,7 @@ describe("eval and dev items agree with the deterministic resolvers", () => {
   const templated = items.filter((i) => i.template_id && i.gold_spec);
 
   it("covers the generated items", () => {
-    expect(templated.length).toBe(150 + 57);
+    expect(templated.length).toBe(150 + 49);
   });
 
   it("every templated question resolves to its gold period and grain", () => {

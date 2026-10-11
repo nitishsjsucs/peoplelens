@@ -223,7 +223,7 @@ def main(args) -> int:
         from peoplelens.eval.generate import DEV_PATH
         from peoplelens.eval.gold import all_specs, gold_for_spec
 
-        items = [i for i in load_items(DEV_PATH) if i.get("gold_spec")]
+        items = load_items(DEV_PATH)
         gold = {k: gold_for_spec(v) for k, v in all_specs(items).items()}
         if args.official or not args.out:
             print("--dev runs need --out outside eval/results and are never official", file=sys.stderr)

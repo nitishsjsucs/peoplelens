@@ -142,7 +142,7 @@ export function screenRequest(text: string): Screen | null {
 }
 
 const METRIC_CUES: [MetricId, RegExp][] = [
-  ["offer_acceptance_rate", /\b(offer acceptance|acceptance rate|offers? accepted|accept(ed)? (rate|offers?)|offer accept|offer (rate|conversion)|candidates? accept)/],
+  ["offer_acceptance_rate", /\b(offer acceptance|acceptance rate|offers? accepted|accept(ed)? (rate|offers?)|offer accept|offer (rate|conversion)|candidates? accept|accept\w*\b[^.?]{0,30}\boffers?\b|offers?\b[^.?]{0,30}\baccept)/],
   ["time_to_fill_days", /\b(time[- ]to[- ]fill|days to fill|time to hire|days to hire|fill (time|rate|speed)|how (long|fast|quickly)\b[^?]*\b(fill|hire)|how long (does it take|it takes) to (fill|hire))/],
   ["turnover_rate", /\b(turnover|attrition|churn|leavers?|separations?|quit rate|exits?|people leaving|left the company)\b/],
   ["compensation_summary", /\b(compensation|salary|salaries|pay|paid|base pay|earn|earnings|wages?)\b/],
