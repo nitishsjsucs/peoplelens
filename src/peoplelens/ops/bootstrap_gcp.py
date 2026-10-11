@@ -120,13 +120,17 @@ def phase_a_gcp(project: str, runner: Runner, plan: Plan) -> None:
         _check(runner.run(["uv", "run", "pl", "dbt", "--dialect", "bigquery", *args], env=env, mutates=True),
                f"dbt {' '.join(args)}")
 
-    # 6. keys, only if absent
+    # 6. keys, only if absent (gcloud writes them into .secrets/, which must exist, mode 0700)
     state = load_state()
+    if not runner.dry_run:
+        WORKER_KEY.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
     if not state.get("worker_key_deployed") and not WORKER_KEY.exists():
         plan.add("create a key for peoplelens-worker (uploaded by the deploy step, then deleted locally)")
         _run_after_propagation(runner, ["gcloud", "iam", "service-accounts", "keys", "create", str(WORKER_KEY),
                                         f"--iam-account={sa_email('peoplelens-worker', project)}", f"--project={project}"],
                                "worker key")
+        if WORKER_KEY.exists():
+            os.chmod(WORKER_KEY, 0o600)
     if not EVAL_KEY.exists():
         plan.add("create a key for peoplelens-eval (.secrets/peoplelens-eval.json)")
         _run_after_propagation(runner, ["gcloud", "iam", "service-accounts", "keys", "create", str(EVAL_KEY),

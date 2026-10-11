@@ -49,19 +49,23 @@ def _bootstrap(args) -> int:
             return 2
     runner = Runner(dry_run=args.dry_run)
     plan = Plan()
+    # A real run checks the Cloudflare token before touching Google Cloud, so a missing
+    # token stops it at once instead of after the warehouse steps (a dry run still
+    # prints the Google Cloud plan first).
+    api = _api() if not args.dry_run and ("a" in phases or "b" in phases or args.with_audit) else None
     try:
         if "a" in phases:
             print("Phase A: warehouse, gateway, first deploy (fails closed until phase B)")
             bootstrap_gcp.phase_a_gcp(project, runner, plan)
-            bootstrap_cloudflare.phase_a_cloudflare(_api(), project, runner, plan, args.workers_subdomain)
+            bootstrap_cloudflare.phase_a_cloudflare(api or _api(), project, runner, plan, args.workers_subdomain)
         if "b" in phases:
             print("Phase B: Access and identities")
-            bootstrap_access.phase_b(_api(), emails or {}, runner, plan, args.access_aud)
+            bootstrap_access.phase_b(api or _api(), emails or {}, runner, plan, args.access_aud)
         if args.with_audit:
             from peoplelens.ops import bootstrap_audit
 
             print("Audit trail: Queue, R2, Basin Catalog, Basin Pipelines stream, sink and pipeline")
-            bootstrap_audit.phase_audit(_api(), runner, plan)
+            bootstrap_audit.phase_audit(api or _api(), runner, plan)
         if "c" in phases:
             print("Phase C: governance (policy tags, masking)")
             try:

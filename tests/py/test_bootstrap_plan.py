@@ -283,3 +283,15 @@ def test_subdomain_must_exist_or_be_requested():
     with pytest.raises(bootstrap_cloudflare.BootstrapError, match="workers-subdomain"):
         bootstrap_cloudflare.ensure_subdomain(Api(), None, Plan(), False)
     assert bootstrap_cloudflare.ensure_subdomain(Api(), "lumen", Plan(), False) == "lumen"
+
+
+def test_a_real_bootstrap_checks_the_cloudflare_token_before_touching_google_cloud(tmp_path, monkeypatch):
+    from peoplelens.ops import cli
+
+    monkeypatch.setattr(checks, "CLOUDFLARE_ENV", tmp_path / "missing.env")
+    monkeypatch.setattr(checks, "STATE_PATH", tmp_path / "state.json")
+    ran = []
+    monkeypatch.setattr(checks.Runner, "run", lambda self, cmd, **kw: ran.append(cmd) or Result(0, ""))
+    with pytest.raises(SystemExit, match="cloudflare.env"):
+        cli.main(["bootstrap", "--gcp-project", "peoplelens-abc123", "--phase", "a"])
+    assert ran == []
