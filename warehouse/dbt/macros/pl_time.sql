@@ -41,3 +41,17 @@
 {% macro pl_type_double() -%}
   {%- if target.type == 'bigquery' -%}float64{%- else -%}double{%- endif -%}
 {%- endmacro %}
+
+{#
+  A random surrogate row key, drawn when the table is built. MetricFlow needs only a
+  unique entity key; a hash of (employee_id, month) would be reversible by anyone who
+  can read the semantic view (2,400 ids x 36 months is an 86,400-entry dictionary) and
+  would link each person's monthly rows, salary included, back to an employee id.
+#}
+{% macro pl_row_uuid() -%}
+  {%- if target.type == 'bigquery' -%}
+    generate_uuid()
+  {%- else -%}
+    cast(uuid() as varchar)
+  {%- endif -%}
+{%- endmacro %}

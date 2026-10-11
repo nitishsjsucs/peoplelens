@@ -88,7 +88,7 @@ final as (
 )
 
 select
-    {{ dbt.hash(dbt.concat(["employee_id", "'|'", dbt.safe_cast("month_start", dbt.type_string())])) }} as workforce_key,
+    {{ pl_row_uuid() }} as workforce_key,  -- random per build, never derived from employee_id
     employee_id,
     {{ pl_time('month_start') }} as month_start,
     department,
