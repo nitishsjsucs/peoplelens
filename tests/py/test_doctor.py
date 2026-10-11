@@ -230,13 +230,23 @@ def test_billing_names_why_it_is_off():
 def test_budget_alert_is_a_warning_only():
     number = Result(0, "123456789\n")
     budgets = [{"displayName": "other project", "budgetFilter": {"projects": ["projects/999"]}},
-               {"displayName": "shared $5", "budgetFilter": {"projects": ["projects/123456789"]}}]
-    c = doctor.budget_check(ScriptRunner({"gcloud billing budgets list": Result(0, json.dumps(budgets)),
-                                          "gcloud projects describe": number}), "p", "AAA")
-    assert c.status == OK and c.detail == "shared $5" and not c.required
-    c = doctor.budget_check(ScriptRunner({"gcloud billing budgets list": Result(0, json.dumps(budgets[:1])),
-                                          "gcloud projects describe": number}), "p", "AAA")
-    assert c.status == WARN and "Budgets and alerts" in c.fix
+               {"displayName": "shared $5", "budgetFilter": {"projects": ["projects/123456789"]}},
+               {"displayName": "jobs by label", "budgetFilter": {"projects": ["projects/123456789"], "labels": {"app": ["peoplelens"]}}},
+               {"displayName": "peoplelens-budget", "budgetFilter": {}}]
+
+    def check(bs):
+        return doctor.budget_check(ScriptRunner({"gcloud billing budgets list": Result(0, json.dumps(bs)),
+                                                 "gcloud projects describe": number}), "p", "AAA")
+
+    # The project is shared: a project-wide budget (another repo's, or nobody's) is not this repo's alert.
+    c = check(budgets[:2])
+    assert c.status == WARN and "only project-wide budgets (shared $5)" in c.detail and not c.required
+    assert "app = peoplelens" in c.fix and "peoplelens-budget" in c.fix
+    assert check(budgets[2:3]).status == OK and check(budgets[2:3]).detail == "jobs by label"
+    assert check(budgets[3:]).status == OK
+    assert check(budgets[:1]).detail == "none covers the project"
+    labelled_elsewhere = [{"displayName": "x", "budgetFilter": {"projects": ["projects/999"], "labels": {"app": ["peoplelens"]}}}]
+    assert check(labelled_elsewhere).status == WARN
     c = doctor.budget_check(ScriptRunner({"gcloud billing budgets list": Result(1, "", "API billingbudgets not enabled")}), "p", "AAA")
     assert c.status == WARN and "could not list budgets" in c.detail
 
@@ -442,3 +452,53 @@ def test_governance_is_required_once_phase_c_recorded_its_tags(tmp_path, monkeyp
     tagged = ScriptRunner({f"bq show --schema --format=json {t}": Result(0, json.dumps([{"name": col, "policyTags": {"names": ["x"]}} for col in cols]))
                            for t, cols in schemas.items()})
     assert by_name(doctor.governance_checks(tagged, "p"))["policy tags on the eight columns"].status == OK
+
+
+READ_ONLY_FORBIDDEN = {"create", "enable", "deploy", "link", "add-iam-policy-binding", "remove-iam-policy-binding",
+                       "set-iam-policy", "put", "delete", "rotate", "update", "register", "query", "cp", "rm", "mk", "insert"}
+
+
+def test_the_doctor_is_read_only_across_every_group(tmp_path, monkeypatch, cf_env):
+    """SPEC.md 17.7: the doctor only reads. Every CLI call it makes is recorded with its
+    `mutates` flag and every Cloudflare API request with its method, over all six groups,
+    with a bootstrap state that makes the deployed, audit and governance groups run."""
+    import functools
+
+    from peoplelens.ops.cloudflare_api import CloudflareApi, Response
+
+    monkeypatch.setattr(checks, "STATE_PATH", tmp_path / "state.json")
+    checks.save_state({"gcp_project": "p", "worker_url": "https://peoplelens.sub.workers.dev", "workers_subdomain": "sub",
+                       "deployed_commit": "c" * 40, "audit_enabled": True, "policy_tags": TAG_NAMES})
+    calls: list[tuple[list[str], bool]] = []
+
+    class RecordingRunner(Runner):
+        def available(self, tool):
+            return True
+
+        def run(self, cmd, *, cwd=None, env=None, input_text=None, mutates=False):
+            calls.append((list(cmd), mutates))
+            if any(x in cmd for x in ("get-iam-policy", "describe", "show")):
+                return Result(0, "{}", "")
+            return Result(0, "[]" if "--format=json" in cmd or "--json" in cmd else "", "")
+
+    methods: list[tuple[str, str]] = []
+
+    def transport(method, url, body, headers):
+        methods.append((method, url))
+        return Response(200, {"success": True, "result": [] if url.endswith(("s", "/policies")) else {}})
+
+    monkeypatch.setattr(doctor, "cloudflare_api_from_env", lambda: CloudflareApi("acc", "tok", transport=transport))
+    http_calls: list[str] = []
+
+    def http(url, headers=None):
+        http_calls.append(url)
+        return 200, {"ok": True, "build_commit": "c" * 40, "ai_budget": {"day": "d", "used": 0, "cap": 6000}}, ""
+
+    monkeypatch.setattr(doctor, "deployed_checks", functools.partial(doctor.deployed_checks, http=http))
+    doctor.run(["local", "cloudflare", "gcp", "deployed", "audit", "governance"], "p", False, True, runner=RecordingRunner())
+    assert calls, "the doctor ran no command"
+    assert [c for c, mutates in calls if mutates] == []
+    offending = [c for c, _ in calls if READ_ONLY_FORBIDDEN & set(c)]
+    assert offending == [], offending
+    assert methods and {m for m, _ in methods} == {"GET"}, methods
+    assert http_calls  # the deployed group was exercised

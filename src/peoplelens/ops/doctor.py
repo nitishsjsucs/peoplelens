@@ -223,7 +223,9 @@ def _account_id(name: str) -> str:
     return (name or "").rsplit("/", 1)[-1]
 
 
-BUDGET_FIX = "Console > Billing > Budgets and alerts > Create budget: scope the shared project, $5, alerts at 50, 90 and 100% (SPEC.md 17.5)"
+BUDGET_FIX = ("Console > Billing > Budgets and alerts > Create budget: name it peoplelens-budget, scope the shared project, "
+              "add the label filter app = peoplelens (every PeopleLens BigQuery job carries it), $5, alerts at 50, 90 and 100% (SPEC.md 17.5)")
+BUDGET_LABEL = ("app", "peoplelens")
 
 
 def billing_checks(runner: Runner, project: str) -> list[Check]:
@@ -269,12 +271,22 @@ def budget_check(runner: Runner, project: str, account: str) -> Check:
     if not isinstance(budgets, list):
         return Check(g, name, WARN, BUDGET_FIX, f"could not list budgets: {(res.stderr or res.stdout).strip()[:60]}", required=False)
     number = runner.run(["gcloud", "projects", "describe", project, "--format=value(projectNumber)"]).stdout.strip()
-    covering = []
+    # The project is shared with three other repos, so a budget on the whole project cannot
+    # tell PeopleLens spend apart: only a budget filtered to the label app=peoplelens, or one
+    # this repo named (peoplelens*), counts as this repo's alert.
+    ours, project_wide = [], []
     for b in budgets:
-        projects = ((b or {}).get("budgetFilter") or {}).get("projects") or []
-        if not projects or (number and f"projects/{number}" in projects):
-            covering.append((b or {}).get("displayName") or "unnamed")
-    return Check(g, name, OK if covering else WARN, BUDGET_FIX, ", ".join(covering)[:60], required=False)
+        flt = (b or {}).get("budgetFilter") or {}
+        projects = flt.get("projects") or []
+        if projects and not (number and f"projects/{number}" in projects):
+            continue
+        label = BUDGET_LABEL[1] in ((flt.get("labels") or {}).get(BUDGET_LABEL[0]) or [])
+        named = str((b or {}).get("displayName") or "").lower().startswith("peoplelens")
+        (ours if label or named else project_wide).append((b or {}).get("displayName") or "unnamed")
+    if ours:
+        return Check(g, name, OK, BUDGET_FIX, ", ".join(ours)[:60], required=False)
+    detail = f"only project-wide budgets ({', '.join(project_wide)})" if project_wide else "none covers the project"
+    return Check(g, name, WARN, BUDGET_FIX, detail[:80], required=False)
 
 
 def phase_a_ran() -> bool:
