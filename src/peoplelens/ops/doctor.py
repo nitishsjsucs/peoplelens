@@ -16,6 +16,7 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+from peoplelens.dev.client import USER_AGENT
 from peoplelens.ops.bootstrap_gcp import APIS, SERVICE_ACCOUNTS, sa_email
 from peoplelens.ops.checks import (
     CLOUDFLARE_ENV,
@@ -178,6 +179,7 @@ def gcp_checks(runner: Runner, project: str | None) -> list[Check]:
 
 def _http(url: str, headers: dict[str, str] | None = None) -> tuple[int, dict, str]:
     req = urllib.request.Request(url)
+    req.add_header("user-agent", USER_AGENT)
     for k, v in (headers or {}).items():
         req.add_header(k, v)
 

@@ -65,6 +65,11 @@ def test_project_roles_and_grants_are_read_only():
     datasets = bootstrap_gcp.render_sql("01_datasets.sql", "peoplelens-abc123")
     assert "CREATE SCHEMA IF NOT EXISTS `peoplelens-abc123`.peoplelens_semantic" in datasets
     assert "max_time_travel_hours = 48" in datasets
+    # Documented bq form: global flags, then `query`, then the SQL as the argument (never starting with "--").
+    cmd = bootstrap_gcp.bq_script("02_dataset_grants.sql", "peoplelens-abc123")
+    assert cmd[:4] == ["bq", "--project_id=peoplelens-abc123", "--location=US", "query"]
+    assert cmd[-1].startswith("GRANT `roles/bigquery.dataViewer`") and "--" not in cmd[-1].splitlines()[0][:2]
+    assert all(not line.lstrip().startswith("--") for line in bootstrap_gcp.bq_script("01_datasets.sql", "p1-abc")[-1].splitlines())
 
 
 def test_phase_a_gcp_describes_before_creating_and_skips_existing(secrets):
@@ -98,14 +103,49 @@ def test_deploy_uses_a_private_temporary_secrets_file(secrets):
 
     class R(FakeRunner):
         def run(self, cmd, **kw):
-            path = cmd[cmd.index("--secrets-file") + 1]
-            seen["mode"] = oct(os.stat(path).st_mode & 0o777)
-            seen["content"] = json.loads(open(path).read())
+            if "--secrets-file" in cmd:
+                path = cmd[cmd.index("--secrets-file") + 1]
+                seen["mode"] = oct(os.stat(path).st_mode & 0o777)
+                seen["content"] = json.loads(open(path).read())
             return super().run(cmd, **kw)
 
-    bootstrap_cloudflare.deploy(R(), Plan(), {"GCP_PROJECT_ID": "peoplelens-abc123"})
+    runner = R()
+    bootstrap_cloudflare.deploy(runner, Plan(), {"GCP_PROJECT_ID": "peoplelens-abc123"})
     assert seen == {"mode": "0o600", "content": {"GCP_PROJECT_ID": "peoplelens-abc123"}}
     assert not bootstrap_cloudflare.DEPLOY_SECRETS.exists()
+    # The UI (gitignored web/dist, the static-assets directory) is rebuilt before every deploy.
+    assert runner.log[0] == ["npm", "run", "build:web"]
+    assert runner.log[1][:5] == ["npx", "wrangler", "deploy", "--env", "production"]
+
+
+def test_deploy_stops_when_the_ui_build_fails(secrets):
+    runner = FakeRunner({"npm run build:web": Result(1, "", "vite: error")})
+    with pytest.raises(bootstrap_cloudflare.BootstrapError, match="build:web"):
+        bootstrap_cloudflare.deploy(runner, Plan())
+    assert not any(c[:3] == ["npx", "wrangler", "deploy"] for c in runner.log)
+
+
+def test_iam_grants_wait_for_new_service_accounts_to_propagate(secrets, monkeypatch):
+    monkeypatch.setattr(bootstrap_gcp, "RETRY_WAIT_S", 0.0)
+
+    class Flaky(FakeRunner):
+        failures = 2
+
+        def run(self, cmd, **kw):
+            if cmd[:3] == ["gcloud", "projects", "add-iam-policy-binding"] and self.failures:
+                self.log.append(cmd)
+                self.failures -= 1
+                return Result(1, "", "INVALID_ARGUMENT: Service account peoplelens-worker@p.iam.gserviceaccount.com does not exist.")
+            return super().run(cmd, **kw)
+
+    runner = Flaky({"gcloud iam service-accounts describe": Result(1, "", "NOT_FOUND")})
+    bootstrap_gcp.phase_a_gcp("peoplelens-abc123", runner, Plan())
+    binds = [c for c in runner.log if c[:3] == ["gcloud", "projects", "add-iam-policy-binding"]]
+    assert len(binds) == 3 + 2  # three bindings, two retried while the account propagated
+    other = FakeRunner({"gcloud projects add-iam-policy-binding": Result(1, "", "PERMISSION_DENIED: caller lacks resourcemanager.projects.setIamPolicy")})
+    with pytest.raises(bootstrap_gcp.BootstrapError, match="PERMISSION_DENIED"):
+        bootstrap_gcp.phase_a_gcp("peoplelens-abc123", other, Plan())
+    assert sum(c[:3] == ["gcloud", "projects", "add-iam-policy-binding"] for c in other.log) == 1  # not retried
 
 
 def test_wrangler_never_sees_the_api_token(monkeypatch):
@@ -125,6 +165,30 @@ def test_wrangler_never_sees_the_api_token(monkeypatch):
     assert "CLOUDFLARE_API_TOKEN" not in captured
     Runner().run(["gcloud", "version"])
     assert captured.get("CLOUDFLARE_API_TOKEN") == "secret-token"
+
+
+def test_runner_is_non_interactive_and_pins_the_wrangler_account(tmp_path, monkeypatch):
+    env_file = tmp_path / "cloudflare.env"
+    env_file.write_text("CLOUDFLARE_ACCOUNT_ID=acc-from-file\nCLOUDFLARE_API_TOKEN=tok\n")
+    monkeypatch.setattr(checks, "CLOUDFLARE_ENV", env_file)
+    monkeypatch.setenv("CLOUDFLARE_ACCOUNT_ID", "acc-from-shell")
+    calls = []
+
+    def fake_run(cmd, **kw):
+        calls.append(kw)
+
+        class P:
+            returncode, stdout, stderr = 0, "", ""
+
+        return P()
+
+    monkeypatch.setattr(checks.subprocess, "run", fake_run)
+    Runner().run(["npx", "wrangler", "deploy"])
+    assert calls[-1]["env"]["CLOUDFLARE_ACCOUNT_ID"] == "acc-from-file"  # same account as the API token
+    assert "CLOUDFLARE_API_TOKEN" not in calls[-1]["env"]
+    assert calls[-1]["stdin"] is checks.subprocess.DEVNULL  # a prompt cannot hang a captured run
+    Runner().run(["bq", "query"], input_text="SELECT 1")
+    assert calls[-1]["input"] == "SELECT 1" and calls[-1]["stdin"] is None
 
 
 class FakeApi:

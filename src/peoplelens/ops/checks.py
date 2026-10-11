@@ -44,7 +44,12 @@ class Result:
 
 
 class Runner:
-    """Runs CLIs. wrangler never sees CLOUDFLARE_API_TOKEN, so it keeps using its OAuth login."""
+    """Runs CLIs non-interactively (stdin is /dev/null unless input is given, so a CLI
+    prompt cannot hang a captured run). wrangler never sees CLOUDFLARE_API_TOKEN, so it
+    keeps using its OAuth login, but it is given the account id from
+    .secrets/cloudflare.env: with several accounts on one login a non-interactive
+    wrangler refuses to guess, and the deploy must land in the account the API token
+    manages (AI Gateway, Access)."""
 
     def __init__(self, dry_run: bool = False):
         self.dry_run = dry_run
@@ -62,9 +67,13 @@ class Runner:
         if cmd and (cmd[0] == "npx" or "wrangler" in cmd[:2]):
             full_env.pop("CLOUDFLARE_API_TOKEN", None)
             full_env.pop("CLOUDFLARE_ACCOUNT_ID", None)
+            account = read_env_file(CLOUDFLARE_ENV).get("CLOUDFLARE_ACCOUNT_ID")
+            if account:
+                full_env["CLOUDFLARE_ACCOUNT_ID"] = account
             full_env.setdefault("WRANGLER_SEND_METRICS", "false")
+        stdin = None if input_text is not None else subprocess.DEVNULL
         try:
-            proc = subprocess.run(cmd, cwd=str(cwd or REPO_ROOT), env=full_env, input=input_text,
+            proc = subprocess.run(cmd, cwd=str(cwd or REPO_ROOT), env=full_env, input=input_text, stdin=stdin,
                                   capture_output=True, text=True, check=False, timeout=900)
         except FileNotFoundError:
             return Result(127, "", f"{cmd[0]}: not found")

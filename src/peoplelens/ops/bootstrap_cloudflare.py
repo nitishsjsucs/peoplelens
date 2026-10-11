@@ -14,7 +14,7 @@ import os
 
 from peoplelens.ops.checks import DEPLOY_SECRETS, WORKER_KEY, Plan, Runner, load_state, save_state, write_private
 from peoplelens.ops.cloudflare_api import GATEWAY_ID, WORKER_NAME, CloudflareApi
-from peoplelens.paths import WORKER_DIR
+from peoplelens.paths import REPO_ROOT, WORKER_DIR
 
 
 class BootstrapError(RuntimeError):
@@ -49,8 +49,25 @@ def ensure_gateway(api: CloudflareApi, plan: Plan, dry_run: bool) -> None:
 
 
 def deploy(runner: Runner, plan: Plan, secrets: dict[str, str] | None = None) -> None:
-    """`wrangler deploy --env production`, with a temporary secrets file when secrets are given."""
-    cmd = ["npx", "wrangler", "deploy", "--env", "production"]
+    """`wrangler deploy --env production`, with a temporary secrets file when secrets are given.
+
+    The web UI is rebuilt first (web/dist is gitignored and is the Worker's static-assets
+    directory, so a fresh clone has none and an old build would ship a stale UI). Once
+    the audit trail is enabled (`--with-audit` recorded the stream id), every deploy
+    uses the generated config with the queue and stream bindings, so a later plain
+    deploy cannot silently drop them.
+    """
+    build = runner.run(["npm", "run", "build:web"], cwd=REPO_ROOT, mutates=True)
+    if not build.ok:
+        raise BootstrapError(f"building the web UI failed (npm run build:web): {(build.stderr or build.stdout).strip()[-400:]}")
+    cmd = ["npx", "wrangler", "deploy"]
+    stream_id = load_state().get("audit_stream_id")
+    if stream_id:
+        from peoplelens.ops.bootstrap_audit import write_generated_config
+
+        cmd += ["--config", write_generated_config(stream_id, dry_run=runner.dry_run)]
+        plan.add("audit trail enabled: deploying with the audit queue and stream bindings")
+    cmd += ["--env", "production"]
     if secrets:
         write_private(DEPLOY_SECRETS, json.dumps(secrets))
         cmd += ["--secrets-file", str(DEPLOY_SECRETS)]

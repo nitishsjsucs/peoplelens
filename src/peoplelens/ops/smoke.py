@@ -8,7 +8,9 @@
    suppressed, a refusal for an unapproved dimension, complement suppression for
    "headcount excluding Legal".
 5. AI Gateway: a returned gateway_log_id resolves to a log carrying our custom
-   metadata and no request or response body (metadata-only logging).
+   metadata, with no stored request or response payload and the question text
+   nowhere in the log (metadata-only logging). Logs are written asynchronously,
+   so the log is polled for up to a minute.
 6. --drills: masking demo and time-travel recovery drill (ops/drills.py).
 A JSON record is written to eval/results/<date>-prod-smoke.json.
 """
@@ -17,6 +19,7 @@ from __future__ import annotations
 
 import json
 import sys
+import time
 from datetime import date
 from pathlib import Path
 
@@ -50,16 +53,16 @@ def step_dry_run(client, project: str) -> dict:
 
 def step_parity(client, project: str) -> dict:
     policy = load()
-    problems, billed = [], 0
+    problems, processed = [], 0
     for i, entry in enumerate(sorted(_catalog()["entries"].values(), key=lambda e: e["key"])):
         ps = param_sets(policy, entry, i)[0]
         try:
             columns, rows, b = run_entry(client, entry, bound_values(policy, entry, ps), project)
-            billed += b or 0
+            processed += b or 0
             problems += compare(entry, columns, rows, ps, policy)
         except Exception as exc:  # noqa: BLE001
             problems.append(f"{entry['key']}: {str(exc)[:160]}")
-    return {"entries": 312, "problems": problems[:50], "problem_count": len(problems), "bytes_billed_total": billed, "ok": not problems}
+    return {"entries": 312, "problems": problems[:50], "problem_count": len(problems), "bytes_processed_total": processed, "ok": not problems}
 
 
 def step_cost_limit(client, project: str) -> dict:
@@ -77,16 +80,17 @@ def step_cost_limit(client, project: str) -> dict:
 def step_service_tokens(base_url: str) -> dict:
     policy = load()
     env = read_env_file(PROD_EVAL_ENV)
-    out = {"ok": True, "roles": {}, "gateway_log_ids": []}
+    out = {"ok": True, "roles": {}, "gateway_logs": []}
     for role, key in ROLE_KEYS.items():
         client = WorkerClient(base_url, {"CF-Access-Client-Id": env[f"{key}_CLIENT_ID"], "CF-Access-Client-Secret": env[f"{key}_CLIENT_SECRET"]})
         results = {}
         session = client.session()
         for metric in policy.roles[role]["metrics"]:
-            r = client.ask(session, f"What is the {policy.metrics[metric]['label'].lower()} in 2025?")
+            question = f"What is the {policy.metrics[metric]['label'].lower()} in 2025?"
+            r = client.ask(session, question)
             results[metric] = r.body.get("type")
             if r.body.get("meta", {}).get("gateway_log_id"):
-                out["gateway_log_ids"].append(r.body["meta"]["gateway_log_id"])
+                out["gateway_logs"].append((r.body["meta"]["gateway_log_id"], question))
         gender = client.ask(client.session(), "headcount by gender")
         results["unapproved_refused"] = (gender.body.get("refusal") or {}).get("code") == "DIMENSION_NOT_APPROVED"
         if role in ("people_analytics", "executive"):
@@ -105,12 +109,48 @@ def step_service_tokens(base_url: str) -> dict:
     return out
 
 
-def step_gateway(api: CloudflareApi, log_ids: list[str]) -> dict:
-    if not log_ids:
+ENVELOPE_KEYS = {"success", "errors", "messages", "result", "result_info"}
+EMPTY = (None, "", {}, [])
+
+
+def payload_state(status: int, body) -> str:
+    """'absent', 'present' or 'unknown' for GET .../logs/{id}/request or /response.
+
+    Those endpoints return the stored payload itself. A Workers AI request payload
+    ({"messages": ...}) has no "success" key, so it is never mistaken for an empty
+    API envelope; a Workers AI response payload is itself an envelope with a non-empty
+    result. Any status other than 2xx or 404 is reported as unknown (not as absent).
+    """
+    if status == 404:
+        return "absent"
+    if not 200 <= status < 300:
+        return "unknown"
+    if body in EMPTY:
+        return "absent"
+    if isinstance(body, dict) and "success" in body and set(body) <= ENVELOPE_KEYS:
+        return "absent" if body.get("result") in EMPTY else "present"
+    return "present"
+
+
+def step_gateway(api: CloudflareApi, logs: list[tuple[str, str]], attempts: int = 12, wait_s: float = 5.0,
+                 sleep=time.sleep) -> dict:
+    """Metadata-only logging, checked on a real gateway log: custom metadata present;
+    no request or response payload stored; the question text appears nowhere in the log."""
+    if not logs:
         return {"ok": False, "message": "no gateway_log_id returned by the Worker"}
-    log_id = log_ids[0]
+    log_id, question = logs[0]
+    method = "GET /ai-gateway/gateways/peoplelens/logs/{id} plus /request and /response"
     try:
-        log = api.gateway_log(log_id) or {}
+        log = None
+        for i in range(attempts):  # logs are written asynchronously
+            log = api.gateway_log(log_id)
+            if log:
+                break
+            if i < attempts - 1:
+                sleep(wait_s)
+        if not log:
+            return {"ok": False, "log_id": log_id, "method": method,
+                    "message": f"log {log_id} not found after {attempts} attempts; check AI > AI Gateway > peoplelens > Logs"}
         meta = log.get("metadata")
         if isinstance(meta, str):
             try:
@@ -118,16 +158,22 @@ def step_gateway(api: CloudflareApi, log_ids: list[str]) -> dict:
             except json.JSONDecodeError:
                 meta = {}
         has_meta = isinstance(meta, dict) and "request_id" in meta and "role" in meta
-        bodies = {}
+        heads = {f: log.get(f) not in EMPTY for f in ("request_head", "response_head")}
+        question_in_log = question.lower() in json.dumps(log).lower()
+        payloads = {}
         for part in ("request", "response"):
             res = api.gateway_log_part(log_id, part)
-            payload = (res or {}).get("result")
-            bodies[part] = payload not in (None, "", {}, [])
-        ok = has_meta and not any(bodies.values())
-        return {"ok": ok, "log_id": log_id, "custom_metadata": has_meta, "bodies_present": bodies,
-                "method": "GET /ai-gateway/gateways/peoplelens/logs/{id} plus /request and /response"}
+            payloads[part] = payload_state(res.status, res.body)
     except CloudflareError as exc:
-        return {"ok": False, "message": str(exc)[:200]}
+        return {"ok": False, "message": str(exc)[:200], "method": method}
+    unknown = [p for p, v in payloads.items() if v == "unknown"]
+    ok = has_meta and not any(heads.values()) and not question_in_log and all(v == "absent" for v in payloads.values())
+    out = {"ok": ok, "log_id": log_id, "custom_metadata": has_meta, "heads_present": heads,
+           "question_text_in_log": question_in_log, "payloads": payloads, "method": method}
+    if unknown:
+        out["message"] = (f"the API did not say whether the {', '.join(unknown)} payload is stored; "
+                          "open this log in the dashboard (AI > AI Gateway > peoplelens > Logs) and check")
+    return out
 
 
 def run(parity: bool = True, drills: bool = False) -> int:
@@ -137,6 +183,10 @@ def run(parity: bool = True, drills: bool = False) -> int:
         print("smoke needs bootstrap phases A and B (.secrets/bootstrap-state.json)", file=sys.stderr)
         return 2
     env = read_env_file(CLOUDFLARE_ENV)
+    tokens = read_env_file(PROD_EVAL_ENV)
+    if not env.get("CLOUDFLARE_API_TOKEN") or not all(tokens.get(f"{k}_CLIENT_SECRET") for k in ROLE_KEYS.values()):
+        print("smoke needs .secrets/cloudflare.env and the four service tokens in .secrets/prod_eval.env (bootstrap phase B)", file=sys.stderr)
+        return 2
     api = CloudflareApi(env["CLOUDFLARE_ACCOUNT_ID"], env["CLOUDFLARE_API_TOKEN"])
     client = bq_client(project)
     record: dict = {"date": date.today().isoformat(), "project_is_set": True, "worker_url": state["worker_url"]}
@@ -149,9 +199,9 @@ def run(parity: bool = True, drills: bool = False) -> int:
     print(f"3. BigQuery refuses a 1 MiB maximumBytesBilled job: {'ok' if record['cost_limit']['ok'] else 'FAILED'}")
     record["service_tokens"] = step_service_tokens(state["worker_url"])
     print(f"4. four roles via service tokens: {'ok' if record['service_tokens']['ok'] else 'FAILED'}")
-    record["gateway"] = step_gateway(api, record["service_tokens"].get("gateway_log_ids", []))
+    record["gateway"] = step_gateway(api, record["service_tokens"].get("gateway_logs", []))
     print(f"5. AI Gateway metadata-only log: {'ok' if record['gateway']['ok'] else 'FAILED'}")
-    record["service_tokens"].pop("gateway_log_ids", None)
+    record["service_tokens"].pop("gateway_logs", None)
     if drills:
         from peoplelens.ops.checks import Runner
         from peoplelens.ops.drills import DrillError, masking_demo, time_travel_drill
@@ -163,6 +213,12 @@ def run(parity: bool = True, drills: bool = False) -> int:
             except DrillError as exc:
                 record[name] = {"ok": False, "message": str(exc)}
             print(f"6. {name.replace('_', ' ')}: {'ok' if record[name]['ok'] else 'FAILED'}")
+    client.close()
+    for key in ("dry_run", "parity", "cost_limit", "service_tokens", "gateway", "masking_demo", "time_travel_drill"):
+        step = record.get(key)
+        if isinstance(step, dict) and not step.get("ok"):
+            detail = step.get("message") or step.get("errors") or step.get("problems") or step.get("roles") or step
+            print(f"   {key}: {str(detail)[:400]}")
     path = EVAL_DIR / "results" / f"{record['date']}-prod-smoke.json"
     Path(path).write_text(dumps(record))
     print(f"wrote {path}")

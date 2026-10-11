@@ -19,8 +19,8 @@ from __future__ import annotations
 import json
 import secrets as pysecrets
 
-from peoplelens.ops.bootstrap_cloudflare import BootstrapError
-from peoplelens.ops.checks import CLOUDFLARE_ENV, DEPLOY_SECRETS, Plan, Runner, load_state, read_env_file, save_state, write_private
+from peoplelens.ops.bootstrap_cloudflare import BootstrapError, deploy
+from peoplelens.ops.checks import CLOUDFLARE_ENV, Plan, Runner, load_state, read_env_file, save_state
 from peoplelens.ops.cloudflare_api import CloudflareApi
 from peoplelens.paths import REPO_ROOT, WORKER_DIR
 
@@ -56,6 +56,13 @@ def generated_config(stream_id: str) -> dict:
     }
     prod["pipelines"] = [{"binding": "AUDIT_STREAM", "stream": stream_id}]
     return cfg
+
+
+def write_generated_config(stream_id: str, dry_run: bool = False) -> str:
+    """Write worker/wrangler.audit.generated.jsonc (gitignored); returns its file name."""
+    if not dry_run:
+        GENERATED_CONFIG.write_text(json.dumps(generated_config(stream_id), indent=2) + "\n")
+    return GENERATED_CONFIG.name
 
 
 def phase_audit(api: CloudflareApi, runner: Runner, plan: Plan) -> None:
@@ -106,19 +113,16 @@ def phase_audit(api: CloudflareApi, runner: Runner, plan: Plan) -> None:
     if runner.dry_run:
         plan.add("write worker/wrangler.audit.generated.jsonc and deploy with AUDIT_HMAC_KEY")
         return
-    GENERATED_CONFIG.write_text(json.dumps(generated_config(stream_id), indent=2) + "\n")
+    # Recorded before the deploy: from now on every deploy (bootstrap or `make deploy`)
+    # uses the generated config, so the audit bindings cannot be dropped by a later deploy.
+    state.update({"audit_stream_id": stream_id})
+    save_state(state)
     # The HMAC key is created once; rotating it would break subject continuity in the audit table.
-    cmd = ["npx", "wrangler", "deploy", "--config", GENERATED_CONFIG.name, "--env", "production"]
-    if not state.get("audit_hmac_key_set"):
-        write_private(DEPLOY_SECRETS, json.dumps({"AUDIT_HMAC_KEY": pysecrets.token_urlsafe(32)}))
-        cmd += ["--secrets-file", str(DEPLOY_SECRETS)]
+    secrets = None if state.get("audit_hmac_key_set") else {"AUDIT_HMAC_KEY": pysecrets.token_urlsafe(32)}
     try:
-        res = runner.run(cmd, cwd=WORKER_DIR, mutates=True)
-    finally:
-        DEPLOY_SECRETS.unlink(missing_ok=True)
-    if not res.ok:
-        raise BootstrapError(f"audit deploy failed: {(res.stderr or res.stdout)[-400:]}")
-    state.update({"audit_stream_id": stream_id, "audit_hmac_key_set": True})
+        deploy(runner, plan, secrets)
+    except BootstrapError as exc:
+        raise BootstrapError(f"audit deploy failed: {exc}") from exc
+    state.update({"audit_hmac_key_set": True})
     save_state(state)
     plan.add("Worker redeployed with the audit queue, the stream binding and AUDIT_HMAC_KEY")
-

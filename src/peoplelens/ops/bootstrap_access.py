@@ -12,6 +12,7 @@ import json
 import urllib.error
 import urllib.request
 
+from peoplelens.dev.client import USER_AGENT
 from peoplelens.ops.bootstrap_cloudflare import BootstrapError, deploy
 from peoplelens.ops.checks import PROD_EVAL_ENV, Plan, Runner, load_state, read_env_file, save_state, write_env_file
 from peoplelens.ops.cloudflare_api import WORKER_NAME, CloudflareApi
@@ -79,7 +80,7 @@ def check_protected(url: str) -> str:
 
     opener = urllib.request.build_opener(NoRedirect)
     try:
-        resp = opener.open(urllib.request.Request(f"{url}/api/me"), timeout=15)
+        resp = opener.open(urllib.request.Request(f"{url}/api/me", headers={"user-agent": USER_AGENT}), timeout=15)
         return f"unexpected {resp.status}"
     except urllib.error.HTTPError as exc:
         location = exc.headers.get("location", "")

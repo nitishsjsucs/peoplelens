@@ -97,7 +97,9 @@ def test_audit_bootstrap_lists_before_creating(tmp_path, monkeypatch):
     env.write_text("CLOUDFLARE_ACCOUNT_ID=a\nCLOUDFLARE_API_TOKEN=t\nBASIN_CATALOG_TOKEN=c\n")
     monkeypatch.setattr(bootstrap_audit, "CLOUDFLARE_ENV", env)
     monkeypatch.setattr(bootstrap_audit, "GENERATED_CONFIG", tmp_path / "wrangler.audit.generated.jsonc")
-    monkeypatch.setattr(bootstrap_audit, "DEPLOY_SECRETS", tmp_path / "deploy-secrets.json")
+    from peoplelens.ops import bootstrap_cloudflare
+
+    monkeypatch.setattr(bootstrap_cloudflare, "DEPLOY_SECRETS", tmp_path / "deploy-secrets.json")
     monkeypatch.setattr(checks, "STATE_PATH", tmp_path / "state.json")
     monkeypatch.setattr(bootstrap_audit, "load_state", checks.load_state)
     monkeypatch.setattr(bootstrap_audit, "save_state", checks.save_state)
@@ -111,7 +113,16 @@ def test_audit_bootstrap_lists_before_creating(tmp_path, monkeypatch):
     assert prod["queues"]["producers"] == [{"binding": "AUDIT_QUEUE", "queue": "peoplelens-audit"}]
     deploy = runner.log[-1]
     assert deploy[:3] == ["npx", "wrangler", "deploy"] and "--secrets-file" in deploy
-    assert checks.load_state()["audit_hmac_key_set"] is True
+    assert deploy[deploy.index("--config") + 1] == "wrangler.audit.generated.jsonc"
+    assert ["npm", "run", "build:web"] in runner.log
+    assert not (tmp_path / "deploy-secrets.json").exists()
+    state = checks.load_state()
+    assert state["audit_hmac_key_set"] is True and state["audit_stream_id"] == "id-peoplelens_audit"
+    # A later plain deploy keeps the audit bindings and does not mint a new HMAC key.
+    later = ListRunner()
+    bootstrap_cloudflare.deploy(later, Plan())
+    assert later.log[-1][later.log[-1].index("--config") + 1] == "wrangler.audit.generated.jsonc"
+    assert "--secrets-file" not in later.log[-1]
     fresh = ListRunner()
     with pytest.raises(bootstrap_audit.BootstrapError):  # stream id cannot be read back from an empty listing
         bootstrap_audit.phase_audit(FakeApi(), fresh, Plan())

@@ -8,6 +8,8 @@ import urllib.error
 import urllib.request
 from dataclasses import dataclass
 
+USER_AGENT = "peoplelens-cli/0.1"
+
 
 @dataclass
 class Reply:
@@ -25,6 +27,8 @@ class WorkerClient:
     def _request(self, method: str, path: str, body: dict | None = None) -> Reply:
         data = json.dumps(body).encode() if body is not None else None
         req = urllib.request.Request(self.base_url + path, data=data, method=method)
+        # An explicit agent: Cloudflare's browser integrity check can refuse the default "Python-urllib".
+        req.add_header("user-agent", USER_AGENT)
         for k, v in self.headers.items():
             req.add_header(k, v)
         if data is not None:

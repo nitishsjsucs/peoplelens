@@ -84,3 +84,31 @@ def test_errors_raise_with_the_api_message():
     with pytest.raises(CloudflareError, match="Authentication error"):
         CloudflareApi("acc123", "tok", t).access_apps()
     assert CloudflareApi("acc123", "tok", FakeTransport({})).worker("peoplelens") is None
+
+
+def test_transport_keeps_non_json_bodies_instead_of_crashing():
+    import threading
+    from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+
+    from peoplelens.ops.cloudflare_api import urllib_transport
+
+    class Handler(BaseHTTPRequestHandler):
+        def do_GET(self):  # noqa: N802
+            body = b"data: not json" if self.path == "/text" else b'{"success": true, "result": {"a": 1}}'
+            self.send_response(200)
+            self.send_header("content-length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+
+        def log_message(self, *args):
+            pass
+
+    server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    try:
+        base = f"http://127.0.0.1:{server.server_address[1]}"
+        assert urllib_transport("GET", f"{base}/text", None, {}).body == {"_raw": "data: not json"}
+        assert urllib_transport("GET", f"{base}/json", None, {}).body["result"] == {"a": 1}
+    finally:
+        server.shutdown()
+        server.server_close()

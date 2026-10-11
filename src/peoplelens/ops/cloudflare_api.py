@@ -14,6 +14,8 @@ import urllib.request
 from dataclasses import dataclass
 from typing import Callable
 
+from peoplelens.dev.client import USER_AGENT
+
 API = "https://api.cloudflare.com/client/v4"
 GATEWAY_ID = "peoplelens"
 WORKER_NAME = "peoplelens"
@@ -50,6 +52,7 @@ Transport = Callable[[str, str, dict | None, dict[str, str]], Response]
 def urllib_transport(method: str, url: str, body: dict | None, headers: dict[str, str]) -> Response:
     data = json.dumps(body).encode() if body is not None else None
     req = urllib.request.Request(url, data=data, method=method)
+    req.add_header("user-agent", USER_AGENT)
     for k, v in headers.items():
         req.add_header(k, v)
     if data is not None:
@@ -57,7 +60,11 @@ def urllib_transport(method: str, url: str, body: dict | None, headers: dict[str
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:
             raw = resp.read()
-            return Response(resp.status, json.loads(raw) if raw else {})
+            try:
+                return Response(resp.status, json.loads(raw) if raw else {})
+            except json.JSONDecodeError:
+                # Some endpoints (AI Gateway log payloads) return the stored body as is.
+                return Response(resp.status, {"_raw": raw[:4000].decode(errors="replace")})
     except urllib.error.HTTPError as exc:
         raw = exc.read()
         try:
@@ -130,8 +137,11 @@ class CloudflareApi:
     def gateway_log(self, log_id: str, gateway_id: str = GATEWAY_ID) -> dict | None:
         return self.result("GET", f"/ai-gateway/gateways/{gateway_id}/logs/{log_id}", allow_404=True)
 
-    def gateway_log_part(self, log_id: str, part: str, gateway_id: str = GATEWAY_ID) -> dict | None:
-        return self.request("GET", f"/ai-gateway/gateways/{gateway_id}/logs/{log_id}/{part}", allow_404=True)
+    def gateway_log_part(self, log_id: str, part: str, gateway_id: str = GATEWAY_ID) -> Response:
+        """Raw response of GET .../logs/{id}/request or /response. These return the stored
+        payload itself (not the usual {success, result} envelope), so the caller decides."""
+        url = f"{API}/accounts/{self.account_id}/ai-gateway/gateways/{gateway_id}/logs/{log_id}/{part}"
+        return self.transport("GET", url, None, {"authorization": f"Bearer {self.token}"})
 
     # ------------------------------------------------------------ Workers AI
     def model_available(self, model: str) -> bool:
