@@ -132,3 +132,17 @@ describe("loopback-only test identity", () => {
     ).toBe(false);
   });
 });
+
+describe("build commit in /api/health (multi-day production eval)", () => {
+  it("reports the deployed commit, never a malformed value", async () => {
+    const { buildCommit } = await import("../src/env");
+    const sha = "5867b50a1b2c3d4e5f60718293a4b5c6d7e8f901";
+    expect(buildCommit({ BUILD_COMMIT: sha } as Env)).toBe(sha);
+    expect(buildCommit({ BUILD_COMMIT: `${sha.slice(0, 7)}-dirty` } as Env)).toBe("5867b50-dirty");
+    expect(buildCommit({ BUILD_COMMIT: "<script>" } as Env)).toBeNull();
+    expect(buildCommit({} as Env)).toBeNull();
+    const res = await app.fetch(new Request(PROD_URL), prodEnv({ BUILD_COMMIT: sha }));
+    expect(res.status).toBe(200);
+    expect(await res.json()).toMatchObject({ ok: true, build_commit: sha, planner_model: "@cf/meta/llama-3.3-70b-instruct-fp8-fast" });
+  });
+});

@@ -12,7 +12,7 @@ from __future__ import annotations
 import json
 import os
 
-from peoplelens.ops.checks import DEPLOY_SECRETS, WORKER_KEY, Plan, Runner, load_state, save_state, write_private
+from peoplelens.ops.checks import DEPLOY_SECRETS, WORKER_KEY, Plan, Runner, git_build_commit, load_state, save_state, write_private
 from peoplelens.ops.cloudflare_api import GATEWAY_ID, WORKER_NAME, CloudflareApi
 from peoplelens.paths import REPO_ROOT, WORKER_DIR
 
@@ -66,7 +66,10 @@ def deploy(runner: Runner, plan: Plan, secrets: dict[str, str] | None = None) ->
 
         cmd += ["--config", write_generated_config(dry_run=runner.dry_run)]
         plan.add("audit trail enabled: deploying with the audit queue and the R2 staging bucket")
-    cmd += ["--env", "production"]
+    commit = git_build_commit()
+    cmd += ["--env", "production", "--var", f"BUILD_COMMIT:{commit}"]
+    if commit.endswith("-dirty"):
+        plan.add("warning: the working tree is dirty, so BUILD_COMMIT ends in -dirty and an official production eval will refuse this build")
     if secrets:
         write_private(DEPLOY_SECRETS, json.dumps(secrets))
         cmd += ["--secrets-file", str(DEPLOY_SECRETS)]

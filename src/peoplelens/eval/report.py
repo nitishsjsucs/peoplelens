@@ -174,6 +174,16 @@ def markdown(result: dict) -> str:
         f"- Items: {s['items']} ({', '.join(f'{k} {v}' for k, v in sorted(s['slices'].items()))}); turns: {s['turns']}",
         f"- Duration: {run['duration_s']} s (pacing waits {run['pacing_wait_s']} s, never counted as latency)",
         f"- Machine load average (1, 5, 15 min) at start and end: {run.get('load_average_start')} / {run.get('load_average_end')}",
+        *(
+            [
+                f"- UTC days: {run['days']} ({run['utc_span'][0]} to {run['utc_span'][1]}); run {run.get('run_id')} on deployed build `{run.get('build_commit')}`",
+                "- Neurons by UTC day: " + ", ".join(f"{d} semantic {v['semantic']} / baseline {v['baseline']} ({v['items']} items)"
+                                                       for d, v in sorted(run["neurons_by_day"].items())),
+                f"- {run.get('latency_note')}",
+            ]
+            if run.get("days")
+            else []
+        ),
         "",
         "## Semantic path (the product)",
         "",

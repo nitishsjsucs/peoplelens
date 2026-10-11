@@ -138,9 +138,10 @@ def turn_passes(expect: dict, body: dict) -> bool:
     return True
 
 
-def run_semantic(items: list[dict], base_url: str, headers: dict[str, dict[str, str]], gold: dict, pacer: Pacer) -> list[dict]:
+def run_semantic(items: list[dict], base_url: str, headers: dict[str, dict[str, str]], gold: dict, pacer: Pacer,
+                 client_factory=WorkerClient) -> list[dict]:
     records = []
-    clients = {r: WorkerClient(base_url, h) for r, h in headers.items()}
+    clients = {r: client_factory(base_url, h) for r, h in headers.items()}
     for n, item in enumerate(interleave(items), start=1):
         role = item["role"]
         client = clients[role]
@@ -198,6 +199,7 @@ def run_baseline_items(items: list[dict], gold: dict, llm, executor, pacer: Pace
                 "exec_ms": round(res.exec_ms, 1),
                 "latency_ms": round(res.llm_ms + res.exec_ms, 1),
                 "violations": baseline_turn_violations(res.columns, res.rows, g) if not res.guard_error else [],
+                "usage": {k: res.usage[k] for k in ("prompt_tokens", "completion_tokens") if isinstance(res.usage.get(k), int)},
             }
             if g is not None and item["slice"] == "answerable" and not res.guard_error and not res.exec_error:
                 ok, detail = compare_baseline(res.columns, res.rows, g)
@@ -224,6 +226,8 @@ def load_average() -> list[float] | None:
 
 
 def main(args) -> int:
+    if args.target == "prod":
+        return main_prod(args)
     started = time.time()
     load_start = load_average()
     commit, dirty = git_state()
@@ -251,13 +255,9 @@ def main(args) -> int:
     base_url, headers = identities(args.target)
     # In production Access guards every path, /api/health included, so ask with a service token.
     health = WorkerClient(base_url, {} if args.target == "local" else next(iter(headers.values()))).health()
-    if args.target == "prod" and health.status != 200:
-        print(f"production Worker is not healthy behind Access: {health.status} {health.body}; run `make doctor`", file=sys.stderr)
+    if health.status != 200 or health.body.get("llm_provider") != args.llm:
+        print(f"local Worker is not up with LLM_PROVIDER={args.llm}: {health.status} {health.body}", file=sys.stderr)
         return 2
-    if args.target == "local":
-        if health.status != 200 or health.body.get("llm_provider") != args.llm:
-            print(f"local Worker is not up with LLM_PROVIDER={args.llm}: {health.status} {health.body}", file=sys.stderr)
-            return 2
     warehouse = health.body.get("warehouse") if isinstance(health.body, dict) else None
     limits = load().limits
     pacer = Pacer(per_minute=limits["eval_pacing_per_minute"])
@@ -266,17 +266,12 @@ def main(args) -> int:
     baseline = None
     baseline_info = None
     if args.llm != "stub" and not args.no_baseline:
-        if args.target == "local":
-            from peoplelens.dev import llm as local_llm
-            from peoplelens.eval.baseline import LocalExecutor
-            from peoplelens.eval.llm_client import OpenAiCompatSql
+        from peoplelens.dev import llm as local_llm
+        from peoplelens.eval.baseline import LocalExecutor
+        from peoplelens.eval.llm_client import OpenAiCompatSql
 
-            sql_llm = OpenAiCompatSql(local_llm.BASE_URL, local_llm.MODEL_NAME)
-            executor = LocalExecutor(DUCKDB_PATH)
-        else:
-            from peoplelens.ops.prod_eval import prod_baseline  # production executor (BigQuery, eval SA)
-
-            sql_llm, executor = prod_baseline()
+        sql_llm = OpenAiCompatSql(local_llm.BASE_URL, local_llm.MODEL_NAME)
+        executor = LocalExecutor(DUCKDB_PATH)
         try:
             baseline = run_baseline_items(items, gold, sql_llm, executor, Pacer(per_minute=10_000))
         finally:
@@ -339,3 +334,166 @@ def assert_safety(result: dict) -> int:
         print("eval-stub safety assertions passed", file=sys.stderr)
     return 1 if problems else 0
 
+
+def _prod_baseline():
+    from peoplelens.ops.prod_eval import prod_baseline  # production executor (BigQuery, eval SA) and Workers AI REST
+
+    return prod_baseline()
+
+
+def main_prod(args, *, client_factory=WorkerClient, baseline_factory=_prod_baseline, identities_fn=identities, git=git_state,
+              now=None, root=None, items=None, gold=None, results_dir=RESULTS_DIR) -> int:
+    """`make eval-prod`: resumable and budget-capped on the Workers Free plan (SPEC.md 12.6, 25.4 C).
+
+    Items run one at a time (semantic turns, then the baseline turns) and each finished
+    item is checkpointed. The run stops for the UTC day when the next item's worst case
+    no longer fits the day's budget, or when Workers AI's allowance runs out in the middle
+    of an item (that item's partial results are discarded). Every later day continues it
+    with --resume on the same commit and deployed build; the report is written when all
+    items are done.
+    """
+    from datetime import datetime, timezone
+
+    from peoplelens.eval import checkpoint as cp
+    from peoplelens.eval.llm_client import DailyAllocationError
+
+    clock = now or (lambda: datetime.now(timezone.utc))
+    root = root or cp.CHECKPOINT_ROOT
+    started = time.time()
+    commit, dirty = git()
+    if args.official and (dirty or args.limit):
+        print("an official run needs a clean working tree and no --limit", file=sys.stderr)
+        return 2
+    if args.neurons_today is not None and args.neurons_today < 0:
+        print("--neurons-today must be zero or more (it can only lower the day's budget)", file=sys.stderr)
+        return 2
+    items = items if items is not None else load_items(QUESTIONS_PATH)
+    gold = gold if gold is not None else load_gold(GOLD_PATH)
+    if args.limit:
+        items = items[: args.limit]
+    base_url, headers = identities_fn("prod")
+    # Access guards every path, /api/health included, so ask with a service token.
+    probe = client_factory(base_url, next(iter(headers.values())))
+    health = probe.health()
+    hb = health.body if isinstance(health.body, dict) else {}
+    if health.status != 200:
+        print(f"production Worker is not healthy behind Access: {health.status} {health.body}; run `make doctor`", file=sys.stderr)
+        return 2
+
+    if args.resume:
+        run = cp.RunDir.latest_unfinished(root)
+        if run is None:
+            print('no unfinished production eval to resume; start one with make eval-prod ARGS="--official"', file=sys.stderr)
+            return 2
+        problems = cp.resume_problems(run.plan(), commit, dirty, hb, bool(args.official))
+        if problems:
+            for p in problems:
+                print(f"cannot resume {run.plan()['run_id']}: {p}", file=sys.stderr)
+            return 2
+    else:
+        if hb.get("build_commit") != commit:
+            print(f"the deployed build is {hb.get('build_commit')}, not HEAD {commit}: run `make deploy` from a clean tree first",
+                  file=sys.stderr)
+            return 2
+        stamp = clock()
+        run = cp.RunDir.create(root, {
+            "commit": commit,
+            "build_commit": hb["build_commit"],
+            "model": hb.get("planner_model"),
+            "items": [i["id"] for i in items],
+            "baseline": not args.no_baseline,
+            "official": bool(args.official),
+            "limit": args.limit or None,
+            "started_at": stamp.isoformat(),
+            "started_day": cp.utc_day(stamp),
+            "sessions": [],
+        })
+    plan = run.plan()
+    by_id = {i["id"]: i for i in items}
+    ordered = [by_id[i] for i in plan["items"] if i in by_id]
+    with_baseline = bool(plan["baseline"])
+    day = cp.utc_day(clock())
+    pacer = Pacer(per_minute=load().limits["eval_pacing_per_minute"])
+    sql_llm = executor = None
+    if with_baseline:
+        sql_llm, executor = baseline_factory()
+    stop_reason = None
+    done_today = 0
+    try:
+        for item in ordered:
+            if item["id"] in run.done_ids():
+                continue
+            me = probe.me()
+            if me.status != 200:
+                stop_reason = f"/api/me answered HTTP {me.status}"
+                break
+            used = ((me.body or {}).get("ai_budget") or {}).get("used")
+            budget = cp.daily_budget(run.ledger().get(day, {}), used, args.neurons_today)
+            if not cp.fits(item, budget, with_baseline):
+                stop_reason = f"today's neuron budget is used (left: semantic {budget.semantic}, baseline {budget.baseline})"
+                break
+            sem = run_semantic([item], base_url, headers, gold, pacer, client_factory=client_factory)[0]
+            if any(t.get("code") == "AI_DAILY_LIMIT" for t in sem["turns"]):
+                stop_reason = f"the Worker answered AI_DAILY_LIMIT during {item['id']}; that item was discarded"
+                break
+            base = None
+            if with_baseline and item["slice"] in cp.BASELINE_SLICES:
+                try:
+                    base = run_baseline_items([item], gold, sql_llm, executor, Pacer(per_minute=10_000))[0]
+                except DailyAllocationError:
+                    stop_reason = f"Workers AI REST answered 3036 during {item['id']}; that item was discarded"
+                    break
+            run.record_item({
+                "id": item["id"],
+                "day": day,
+                "semantic": sem,
+                "baseline": base,
+                "neurons": {"semantic": cp.semantic_neurons(sem), "baseline": cp.baseline_neurons(base, plan["model"])},
+            })
+            done_today += 1
+    finally:
+        if executor is not None:
+            executor.close()
+    sessions = plan.get("sessions", []) + [{"day": day, "items": done_today, "duration_s": round(time.time() - started, 1),
+                                            "pacing_wait_s": round(pacer.waited_s, 1), "stopped": stop_reason}]
+    run.update_plan(sessions=sessions)
+    done = run.done_ids()
+    if len(done) < len(ordered):
+        print(f"{run.plan()['run_id']}: {len(done)} of {len(ordered)} items done ({done_today} today, {day} UTC); stopped: {stop_reason}. "
+              'Continue after 00:00 UTC with make eval-prod ARGS="--official --resume"', file=sys.stderr)
+        return 0
+
+    semantic, baseline_records, extra = cp.assemble(run, ordered)
+    model = plan["model"]
+    slug = MODEL_SLUG["workers_ai"] if model == cp.PLANNER_MODEL else str(model).rsplit("/", 1)[-1]
+    command = "uv run pl-eval " + " ".join(sys.argv[1:]) if sys.argv and sys.argv[0].endswith("pl-eval") else " ".join(sys.argv)
+    run_info = {
+        "date": plan["started_day"],
+        "command": command,
+        "target": "prod",
+        "git_commit": plan["commit"],
+        "dirty": dirty,
+        "official": bool(plan["official"]),
+        "warehouse": hb.get("warehouse"),
+        "llm_provider": "workers_ai",
+        "hardware": f"Cloudflare Workers and BigQuery (production); harness on {hardware()}",
+        "duration_s": round(sum(s["duration_s"] for s in sessions), 1),
+        "pacing_wait_s": round(sum(s["pacing_wait_s"] for s in sessions), 1),
+        "baseline": {"llm": "workers_ai", "model": model, "executor": "bigquery"} if with_baseline else None,
+        "limit": plan.get("limit"),
+        "load_average_start": None,
+        "load_average_end": None,
+        "sessions": sessions,
+        **extra,
+    }
+    result = report_mod.build(run_info, ordered, semantic, baseline_records)
+    stem = args.out or str(results_dir / f"{plan['started_day']}-prod-{slug}")
+    if plan.get("limit") and not args.out:
+        stem += f"-limit{plan['limit']}"
+    Path(stem).parent.mkdir(parents=True, exist_ok=True)
+    Path(stem + ".json").write_text(json.dumps(result, indent=1, sort_keys=True, default=str) + "\n", encoding="utf-8")
+    Path(stem + ".md").write_text(report_mod.markdown(result), encoding="utf-8")
+    run.update_plan(report=stem)
+    print(json.dumps(result["summary"], indent=1))
+    print(f"report: {os.path.relpath(stem, REPO_ROOT)}.json and .md ({extra['days']} UTC days)", file=sys.stderr)
+    return 0

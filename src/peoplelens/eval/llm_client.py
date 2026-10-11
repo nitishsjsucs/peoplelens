@@ -17,6 +17,25 @@ class LlmCallError(RuntimeError):
     pass
 
 
+class DailyAllocationError(LlmCallError):
+    """Workers AI error 3036: the account's daily free allocation of neurons is used up.
+    Not a baseline miss: the production eval discards the item and stops for the UTC day."""
+
+
+DAILY_ALLOCATION_CODE = 3036
+
+
+def is_daily_allocation(status: int, raw: bytes) -> bool:
+    try:
+        body = json.loads(raw or b"{}")
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        body = {}
+    errors = body.get("errors") if isinstance(body, dict) else None
+    codes = {e.get("code") for e in errors if isinstance(e, dict)} if isinstance(errors, list) else set()
+    text = raw.decode("utf-8", "replace") if raw else ""
+    return DAILY_ALLOCATION_CODE in codes or str(DAILY_ALLOCATION_CODE) in {str(c) for c in codes} or "daily free allocation" in text.lower()
+
+
 def _post(url: str, body: dict, headers: dict[str, str], timeout: float) -> dict:
     req = urllib.request.Request(url, data=json.dumps(body).encode(), method="POST")
     req.add_header("content-type", "application/json")
@@ -26,6 +45,9 @@ def _post(url: str, body: dict, headers: dict[str, str], timeout: float) -> dict
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             return json.loads(resp.read())
     except urllib.error.HTTPError as exc:
+        raw = exc.read()
+        if is_daily_allocation(exc.code, raw):
+            raise DailyAllocationError(f"HTTP {exc.code}: Workers AI daily free allocation used up (3036)") from exc
         raise LlmCallError(f"HTTP {exc.code}") from exc
     except (urllib.error.URLError, TimeoutError) as exc:
         raise LlmCallError(str(exc)) from exc

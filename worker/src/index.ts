@@ -5,7 +5,7 @@ import { RETRY_DELAY_S, type StagingStore, buildAuditEvent, emitAudit, r2Store, 
 import { ACCESS_HEADER, verifyAccessJwt } from "./auth/access";
 import { resolvePrincipal } from "./auth/principal";
 import type { CatalogFile } from "./catalog/catalog";
-import { type Config, type Env, loadConfig } from "./env";
+import { type Config, type Env, buildCommit, loadConfig } from "./env";
 import { OpenAiCompatClient } from "./llm/openaiCompat";
 import { StubPlanner } from "./llm/stub";
 import type { LlmClient } from "./llm/types";
@@ -108,7 +108,7 @@ export function createApp(deps: AppDeps) {
     const result = loadConfig(c.env, new URL(c.req.url));
     if (!result.ok) {
       return c.json(
-        { ok: false, environment: c.env.ENVIRONMENT ?? "local", missing: result.missing, problems: result.problems },
+        { ok: false, environment: c.env.ENVIRONMENT ?? "local", missing: result.missing, problems: result.problems, build_commit: buildCommit(c.env) },
         503,
       );
     }
@@ -117,7 +117,9 @@ export function createApp(deps: AppDeps) {
       environment: result.config.environment,
       warehouse: result.config.warehouse,
       llm_provider: result.config.llmProvider,
+      planner_model: result.config.plannerModel || null,
       catalog_entries: deps.catalog.header.entries,
+      build_commit: buildCommit(c.env),
     });
   });
 

@@ -22,6 +22,7 @@ import sqlglot
 import yaml
 from sqlglot import exp
 
+from peoplelens.eval.llm_client import DailyAllocationError
 from peoplelens.eval.templates import TEMPLATE_DIR
 from peoplelens.policy import load
 
@@ -209,7 +210,9 @@ def run_baseline(question: str, llm, executor) -> BaselineResult:
     out = BaselineResult()
     try:
         text, out.llm_ms, out.usage = llm.complete(build_messages(question, executor.dialect), SQL_SCHEMA)
-    except Exception as exc:  # noqa: BLE001 - any LLM failure is a baseline miss
+    except DailyAllocationError:
+        raise  # not a miss: the production eval discards the item and stops for the day
+    except Exception as exc:  # noqa: BLE001 - any other LLM failure is a baseline miss
         out.exec_error = f"llm: {type(exc).__name__}"
         return out
     out.sql = parse_sql_output(text)

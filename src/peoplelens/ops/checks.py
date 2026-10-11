@@ -82,6 +82,20 @@ class Runner:
         return Result(proc.returncode, proc.stdout, proc.stderr)
 
 
+def git_build_commit() -> str:
+    """`git rev-parse HEAD`, with "-dirty" appended when the working tree has changes.
+
+    Every deploy sends it as the BUILD_COMMIT var; /api/health reports it, so a
+    production eval spanning several UTC days can check the deployed build never changed."""
+    def git(*args: str) -> str:
+        return subprocess.run(["git", *args], cwd=REPO_ROOT, capture_output=True, text=True, check=False).stdout.strip()
+
+    head = git("rev-parse", "HEAD")
+    if len(head) != 40:
+        return "unknown"
+    return head + ("-dirty" if git("status", "--porcelain") else "")
+
+
 def read_env_file(path: Path) -> dict[str, str]:
     if not path.exists():
         return {}

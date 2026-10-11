@@ -53,6 +53,9 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--limit", type=int, default=0, help="run only the first N items (debugging; never official)")
     run.add_argument("--out", default="", help="report path stem (default eval/results/<date>-<target>-<model>)")
     run.add_argument("--dev", action="store_true", help="run the dev set instead (prompt iteration only; needs --out)")
+    run.add_argument("--resume", action="store_true", help="prod: continue the unfinished run (same commit and deployed build)")
+    run.add_argument("--neurons-today", type=float, default=None,
+                     help="prod: lower today's Workers AI budget (split 5:2 between the semantic path and the baseline); never raises it")
     run.set_defaults(func=_run)
     return parser
 

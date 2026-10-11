@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import json
 import os
+import re
+import subprocess
 
 import pytest
 
@@ -116,6 +118,26 @@ def test_deploy_uses_a_private_temporary_secrets_file(secrets):
     # The UI (gitignored web/dist, the static-assets directory) is rebuilt before every deploy.
     assert runner.log[0] == ["npm", "run", "build:web"]
     assert runner.log[1][:5] == ["npx", "wrangler", "deploy", "--env", "production"]
+    # Every deploy names its commit, which /api/health reports (multi-day production eval, M5).
+    deploy = runner.log[1]
+    assert re.fullmatch(r"BUILD_COMMIT:[0-9a-f]{40}(-dirty)?", deploy[deploy.index("--var") + 1])
+
+
+def test_build_commit_marks_a_dirty_tree(monkeypatch):
+    from peoplelens.ops import checks
+
+    calls = []
+
+    def fake_run(cmd, **kw):
+        calls.append(cmd)
+        out = "f" * 40 if cmd[1] == "rev-parse" else (" M README.md" if dirty else "")
+        return subprocess.CompletedProcess(cmd, 0, out, "")
+
+    monkeypatch.setattr(checks.subprocess, "run", fake_run)
+    dirty = False
+    assert checks.git_build_commit() == "f" * 40
+    dirty = True
+    assert checks.git_build_commit() == "f" * 40 + "-dirty"
 
 
 def test_deploy_stops_when_the_ui_build_fails(secrets):

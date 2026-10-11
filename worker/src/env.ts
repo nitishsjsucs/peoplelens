@@ -24,6 +24,9 @@ export interface Env {
   LLM_PROVIDER?: string;
   WAREHOUSE?: string;
   PLANNER_MODEL?: string;
+  /** Set by every deploy (`--var BUILD_COMMIT:<git rev-parse HEAD>`, "-dirty" appended for a
+   * dirty tree), so a multi-day production eval can check the build never changed. */
+  BUILD_COMMIT?: string;
   // local only (.dev.vars written by `pl dev up`)
   ACCESS_JWKS_JSON?: string;
   ACCESS_ISSUER?: string;
@@ -189,4 +192,11 @@ export function loadConfig(env: Env, requestUrl: URL): ConfigResult {
   if (present(env.GCP_SA_KEY_JSON)) config.gcpSaKeyJson = env.GCP_SA_KEY_JSON;
   if (present(env.AI_GATEWAY_ID)) config.aiGatewayId = env.AI_GATEWAY_ID;
   return { ok: true, config };
+}
+
+const BUILD_COMMIT_RE = /^[0-9a-f]{7,40}(-dirty)?$/;
+
+/** The deployed commit, or null when the var is absent or malformed (never echoed raw). */
+export function buildCommit(env: Env): string | null {
+  return typeof env.BUILD_COMMIT === "string" && BUILD_COMMIT_RE.test(env.BUILD_COMMIT) ? env.BUILD_COMMIT : null;
 }
