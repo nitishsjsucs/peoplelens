@@ -354,3 +354,34 @@ def test_audit_step_checks_each_step_4_request_exactly_once(tmp_path):
                    "already_in_table_second": 27, "missing": [], "repeated": []}
     missing = smoke.step_audit(ids + ["never-staged"], wait_s=0, sleep=lambda s: None, store=store, catalog=catalog)
     assert missing["ok"] is False and missing["missing"] == ["never-staged"]
+
+
+def test_the_smoke_record_never_carries_the_project_account_subdomain_or_an_email():
+    project, account = "shared-proj-4711", "0123456789abcdef0123456789abcdef"
+    record = {
+        "worker_url": "https://peoplelens.someone-personal.workers.dev",
+        "dry_run": {"ok": False, "errors": [f"headcount||none: 403 POST https://bigquery.googleapis.com/bigquery/v2/projects/{project}/queries"]},
+        "masking_demo": {"ok": False, "message": f"impersonating peoplelens-analyst@{project}.iam.gserviceaccount.com failed for owner@gmail.com"},
+        "gateway": {"ok": False, "message": f"GET /accounts/{account}/ai-gateway/gateways/peoplelens/logs failed"},
+        "nested": [{"n": 3, "s": f"{project}:{project}"}],
+    }
+    out = smoke.scrub(record, {project: "<shared-project-id>", account: "<account-id>",
+                               smoke._subdomain(record["worker_url"]): "<subdomain>"})
+    text = json.dumps(out)
+    for secret in (project, account, "someone-personal", "owner@gmail.com"):
+        assert secret not in text
+    assert out["worker_url"] == "https://peoplelens.<subdomain>.workers.dev"
+    assert "peoplelens-analyst@<shared-project-id>.iam.gserviceaccount.com" in out["masking_demo"]["message"]
+    assert "<email>" in out["masking_demo"]["message"] and out["nested"][0]["n"] == 3
+    assert smoke._subdomain("https://example.com") == ""
+
+
+def test_cost_limit_step_records_only_the_expected_refusal(monkeypatch):
+    def refuse(*a, **k):
+        raise RuntimeError("400 POST https://bigquery.googleapis.com/bigquery/v2/projects/shared-proj-4711/queries: "
+                           "Query exceeded limit for bytes billed: 1048576. 10485760 or higher required.")
+
+    monkeypatch.setattr(smoke, "run_entry", refuse)
+    assert smoke.step_cost_limit(None, "shared-proj-4711") == {"ok": True, "message": smoke.BYTES_BILLED_MESSAGE}
+    monkeypatch.setattr(smoke, "run_entry", lambda *a, **k: (_ for _ in ()).throw(RuntimeError("403 Access Denied")))
+    assert smoke.step_cost_limit(None, "p") == {"ok": False, "message": "403 Access Denied"}

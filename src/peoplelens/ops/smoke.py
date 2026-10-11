@@ -18,13 +18,17 @@
    step 4's request ids is in the table exactly once, also after a second commit.
 Before step 4 smoke reads /api/me and stops if fewer than 4,800 of this repo's daily
 Workers AI neurons are left (step 4 makes 23 planner calls, at most 4,268 neurons).
-A JSON record is written to eval/results/<date>-prod-smoke.json.
+A JSON record is written to eval/results/<date>-prod-smoke.json. It is meant to be
+committed to the public repo, so every string in it is scrubbed first: the Google Cloud
+project id, the Cloudflare account id and workers.dev subdomain become placeholders, and
+email addresses become <email> (SPEC.md 17: no account ids, project ids or personal emails).
 """
 
 from __future__ import annotations
 
 import json
 import os
+import re
 import signal
 import subprocess
 import sys
@@ -48,6 +52,24 @@ SMOKE_QUESTIONS = 27
 SMOKE_PLANNER_CALLS = 23
 SMOKE_MIN_NEURONS = 4800
 TAIL_CMD = ["npx", "wrangler", "tail", "peoplelens", "--env", "production", "--format", "json", "--status", "error"]
+
+
+EMAIL = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}")
+
+
+def scrub(value, replacements: dict[str, str]):
+    """Every string in `value` with each key of `replacements` replaced by its placeholder
+    (longest first), then any remaining email address replaced by <email>. Service-account
+    emails keep their name, with the project id already replaced."""
+    if isinstance(value, dict):
+        return {k: scrub(v, replacements) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [scrub(v, replacements) for v in value]
+    if not isinstance(value, str):
+        return value
+    for secret in sorted((s for s in replacements if s), key=len, reverse=True):
+        value = value.replace(secret, replacements[secret])
+    return EMAIL.sub("<email>", value)
 
 
 def _catalog() -> dict:
@@ -87,8 +109,11 @@ def step_cost_limit(client, project: str) -> dict:
         run_entry(client, entry, bound_values(policy, entry, param_sets(policy, entry, 0)[0]), project,
                   max_bytes=1048576, use_cache=False)
     except Exception as exc:  # noqa: BLE001
-        refused = BYTES_BILLED_MESSAGE in str(exc)
-        return {"ok": refused, "message": str(exc)[:200]}
+        # The client's message carries the request URL (and so the project id): keep only
+        # whether BigQuery gave the expected refusal, and the text only when it did not.
+        if BYTES_BILLED_MESSAGE in str(exc):
+            return {"ok": True, "message": BYTES_BILLED_MESSAGE}
+        return {"ok": False, "message": str(exc)[:200]}
     return {"ok": False, "message": "BigQuery ran the query despite maximumBytesBilled = 1 MiB"}
 
 
@@ -321,6 +346,12 @@ def step_gateway(api: CloudflareApi, logs: list[tuple[str, str]], attempts: int 
     return out
 
 
+def _subdomain(worker_url: str) -> str:
+    """`<subdomain>` of https://peoplelens.<subdomain>.workers.dev, or "" for another URL."""
+    m = re.match(r"https://[^.]+\.([^.]+)\.workers\.dev\b", worker_url or "")
+    return m.group(1) if m else ""
+
+
 def run(parity: bool = True, drills: bool = False, with_audit: bool = False) -> int:
     state = load_state()
     project = state.get("gcp_project")
@@ -381,6 +412,9 @@ def run(parity: bool = True, drills: bool = False, with_audit: bool = False) -> 
             detail = step.get("message") or step.get("errors") or step.get("problems") or step.get("roles") or step
             print(f"   {key}: {str(detail)[:400]}")
     path = EVAL_DIR / "results" / f"{record['date']}-prod-smoke.json"
+    subdomain = state.get("workers_subdomain") or _subdomain(state["worker_url"])
+    record = scrub(record, {project: "<shared-project-id>", env.get("CLOUDFLARE_ACCOUNT_ID", ""): "<account-id>",
+                            subdomain: "<subdomain>"})
     Path(path).write_text(dumps(record))
     print(f"wrote {path}")
     required = ["dry_run", "cost_limit", "neuron_preflight", "service_tokens", "gateway", "cpu"] + (["parity"] if parity else []) + (
