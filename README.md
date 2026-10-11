@@ -10,7 +10,7 @@ v1 is being built from scratch, commit by commit, following the plan in SPEC.md 
 
 | Area | Status |
 |---|---|
-| Seeded synthetic HR data with exact counts | planned |
+| Seeded synthetic HR data with exact counts | done: `pl data generate`, counts asserted by pytest |
 | dbt models on DuckDB (local) and BigQuery (production) | planned |
 | MetricFlow semantic layer, six governed metrics | planned |
 | Policy (four roles, five approved dimensions, limits) and compiled query catalog | planned |
@@ -95,7 +95,12 @@ Requirements: Node 24 or newer, npm, uv 0.12.17, GNU make (Xcode CLT ships GNU m
 make setup      # uv sync --frozen, npm ci
 ```
 
-Further local commands (`make data`, `make dbt`, `make catalog`, `make dev-up`, `make eval-stub`) are added as their commits land.
+```bash
+make data       # regenerate the seed CSVs (deterministic, seed 20231) and print exact counts
+uv run pl data generate --check   # byte-identical check against SHA256SUMS
+```
+
+Further local commands (`make dbt`, `make catalog`, `make dev-up`, `make eval-stub`) are added as their commits land.
 
 ## Production setup
 

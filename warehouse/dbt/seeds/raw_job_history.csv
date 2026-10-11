@@ -1,0 +1,2821 @@
+employee_id,effective_date,end_date,department,location,job_level,job_family,change_reason
+E00001,2008-01-03,,Customer Success,San Jose,L5,Support,hire
+E00002,2008-01-03,2023-08-24,Customer Success,San Jose,L2,Customer Success Management,hire
+E00003,2008-01-04,2024-10-24,Engineering,New York,L6,Software Engineering,hire
+E00004,2008-01-08,,Operations,New York,L3,IT Operations,hire
+E00005,2008-01-10,2023-08-31,Operations,San Jose,L1,IT Operations,hire
+E00005,2023-09-01,2024-02-01,Operations,San Jose,L2,IT Operations,promotion
+E00006,2008-01-13,,Customer Success,San Jose,L1,Support,hire
+E00007,2008-01-15,2025-01-31,Operations,Austin,L3,Business Operations,hire
+E00007,2025-02-01,2025-02-28,Marketing,Austin,L3,Product Marketing,transfer
+E00007,2025-03-01,,Marketing,Austin,L4,Product Marketing,promotion
+E00008,2008-01-16,2023-01-31,Engineering,New York,L4,Site Reliability,hire
+E00008,2023-02-01,,Engineering,New York,L5,Site Reliability,promotion
+E00009,2008-01-24,2025-03-09,Engineering,San Jose,L2,Data Engineering,hire
+E00010,2008-01-29,2024-05-31,Operations,New York,L4,IT Operations,hire
+E00010,2024-06-01,,Operations,New York,L5,IT Operations,promotion
+E00011,2008-02-05,2025-04-07,Sales,New York,L2,Account Executive,hire
+E00012,2008-02-10,2024-05-25,Engineering,Austin,L1,Software Engineering,hire
+E00013,2008-02-11,,Engineering,Bengaluru,L5,Data Engineering,hire
+E00014,2008-02-13,,Engineering,London,L3,Data Engineering,hire
+E00015,2008-02-14,,Engineering,Austin,L4,Site Reliability,hire
+E00016,2008-02-14,2024-04-14,Customer Success,San Jose,L2,Support,hire
+E00017,2008-02-17,2025-12-02,Sales,San Jose,L4,Account Executive,hire
+E00018,2008-02-23,,Engineering,Austin,L4,Data Engineering,hire
+E00019,2008-02-27,,Engineering,San Jose,L3,Software Engineering,hire
+E00020,2008-02-28,2024-02-29,Operations,Bengaluru,L4,IT Operations,hire
+E00020,2024-03-01,,Operations,Bengaluru,L5,IT Operations,promotion
+E00021,2008-03-02,,Engineering,New York,L2,Data Engineering,hire
+E00022,2008-03-02,2023-10-10,People,Austin,L3,People Partners,hire
+E00023,2008-03-06,,Customer Success,San Jose,L2,Support,hire
+E00024,2008-03-07,2024-08-31,Engineering,New York,L2,Data Engineering,hire
+E00024,2024-09-01,,Engineering,New York,L3,Data Engineering,promotion
+E00025,2008-03-12,2023-03-10,Engineering,London,L4,Site Reliability,hire
+E00026,2008-03-16,,Sales,New York,L3,Sales Development,hire
+E00027,2008-03-20,2024-10-25,Finance,San Jose,L5,Accounting,hire
+E00028,2008-03-23,2023-06-30,Engineering,New York,L2,Data Engineering,hire
+E00028,2023-07-01,2024-03-11,Engineering,New York,L3,Data Engineering,promotion
+E00029,2008-03-25,,People,New York,L2,Recruiting,hire
+E00030,2008-03-25,2025-07-11,Sales,Bengaluru,L6,Sales Development,hire
+E00031,2008-03-27,2025-09-15,Customer Success,Bengaluru,L1,Customer Success Management,hire
+E00032,2008-03-28,2024-12-22,Engineering,Austin,L2,Software Engineering,hire
+E00033,2008-04-08,,Engineering,New York,L4,Site Reliability,hire
+E00034,2008-04-13,,Engineering,New York,L5,Data Engineering,hire
+E00035,2008-04-23,2024-10-31,Operations,New York,L6,Business Operations,hire
+E00035,2024-11-01,,Engineering,New York,L6,Site Reliability,transfer
+E00036,2008-04-27,,People,New York,L3,People Partners,hire
+E00037,2008-04-28,,Sales,London,L3,Sales Development,hire
+E00038,2008-04-30,,Customer Success,New York,L2,Customer Success Management,hire
+E00039,2008-05-05,,Sales,New York,L2,Account Executive,hire
+E00040,2008-05-12,,Sales,London,L5,Sales Development,hire
+E00041,2008-05-24,,Sales,San Jose,L3,Account Executive,hire
+E00042,2008-05-30,2024-04-22,People,New York,L3,Recruiting,hire
+E00043,2008-06-01,,Engineering,San Jose,L1,Site Reliability,hire
+E00044,2008-06-02,,Sales,San Jose,L1,Sales Development,hire
+E00045,2008-06-07,,Finance,Austin,L3,Financial Planning,hire
+E00046,2008-06-08,2025-01-31,Finance,San Jose,L3,Accounting,hire
+E00046,2025-02-01,2025-03-25,Finance,San Jose,L4,Accounting,promotion
+E00047,2008-06-10,,Sales,London,L3,Sales Development,hire
+E00048,2008-06-18,,Marketing,Bengaluru,L2,Product Marketing,hire
+E00049,2008-06-22,2024-12-08,Customer Success,San Jose,L1,Customer Success Management,hire
+E00050,2008-06-27,,Sales,San Jose,L1,Sales Development,hire
+E00051,2008-06-29,,Engineering,New York,L1,Site Reliability,hire
+E00052,2008-06-29,,Sales,San Jose,L2,Account Executive,hire
+E00053,2008-06-30,2023-12-31,People,New York,L3,People Partners,hire
+E00053,2024-01-01,2025-10-08,Engineering,New York,L3,Data Engineering,transfer
+E00054,2008-07-01,2023-06-08,Engineering,San Jose,L5,Site Reliability,hire
+E00055,2008-07-02,2025-01-31,Customer Success,San Jose,L1,Customer Success Management,hire
+E00055,2025-02-01,,Customer Success,San Jose,L2,Customer Success Management,promotion
+E00056,2008-07-04,2023-01-31,Operations,London,L2,Business Operations,hire
+E00056,2023-02-01,,Operations,London,L3,Business Operations,promotion
+E00057,2008-07-05,2024-09-30,Marketing,San Jose,L3,Product Marketing,hire
+E00057,2024-10-01,,Customer Success,San Jose,L3,Customer Success Management,transfer
+E00058,2008-07-08,,Sales,San Jose,L1,Account Executive,hire
+E00059,2008-07-11,,Finance,San Jose,L2,Accounting,hire
+E00060,2008-07-15,2024-07-25,Engineering,Austin,L1,Software Engineering,hire
+E00061,2008-07-28,,Engineering,San Jose,L2,Data Engineering,hire
+E00062,2008-07-29,2024-12-13,Sales,San Jose,L2,Account Executive,hire
+E00063,2008-07-31,2023-11-30,Marketing,New York,L3,Product Marketing,hire
+E00063,2023-12-01,,Operations,New York,L3,Business Operations,transfer
+E00064,2008-08-03,2023-12-31,People,Austin,L5,Recruiting,hire
+E00064,2024-01-01,,People,Austin,L6,Recruiting,promotion
+E00065,2008-08-04,,Sales,San Jose,L6,Account Executive,hire
+E00066,2008-08-11,,Operations,San Jose,L2,Business Operations,hire
+E00067,2008-08-16,,People,Austin,L1,People Partners,hire
+E00068,2008-08-24,2022-12-31,Operations,San Jose,L3,Business Operations,hire
+E00068,2023-01-01,2023-02-26,Operations,San Jose,L4,Business Operations,promotion
+E00069,2008-09-02,,Sales,San Jose,L4,Sales Development,hire
+E00070,2008-09-05,2022-12-31,Engineering,San Jose,L2,Data Engineering,hire
+E00070,2023-01-01,,Engineering,San Jose,L3,Data Engineering,promotion
+E00071,2008-09-09,2024-05-01,Engineering,San Jose,L6,Site Reliability,hire
+E00072,2008-09-11,2024-11-16,Marketing,New York,L2,Demand Generation,hire
+E00073,2008-09-13,,Operations,Austin,L2,IT Operations,hire
+E00074,2008-09-17,,Customer Success,London,L2,Support,hire
+E00075,2008-09-20,,Engineering,Austin,L1,Site Reliability,hire
+E00076,2008-09-21,,People,New York,L2,People Partners,hire
+E00077,2008-09-28,,Engineering,San Jose,L3,Data Engineering,hire
+E00078,2008-10-03,,Sales,Bengaluru,L3,Sales Development,hire
+E00079,2008-10-06,2025-08-31,Operations,San Jose,L2,Business Operations,hire
+E00079,2025-09-01,,Operations,San Jose,L3,Business Operations,promotion
+E00080,2008-10-11,2025-03-11,Engineering,San Jose,L1,Data Engineering,hire
+E00081,2008-10-17,,Operations,San Jose,L2,IT Operations,hire
+E00082,2008-10-19,2025-01-08,Customer Success,Austin,L5,Customer Success Management,hire
+E00083,2008-10-20,2024-06-09,Sales,London,L4,Sales Development,hire
+E00084,2008-10-27,2024-10-04,Engineering,San Jose,L2,Software Engineering,hire
+E00085,2008-10-29,,Sales,San Jose,L4,Sales Development,hire
+E00086,2008-10-30,2024-11-23,Engineering,Austin,L4,Data Engineering,hire
+E00087,2008-11-03,,Finance,San Jose,L2,Accounting,hire
+E00088,2008-11-05,2024-11-30,Engineering,London,L5,Software Engineering,hire
+E00088,2024-12-01,,Engineering,London,L6,Software Engineering,promotion
+E00089,2008-11-05,,Sales,San Jose,L1,Sales Development,hire
+E00090,2008-11-10,,People,San Jose,L3,People Partners,hire
+E00091,2008-11-12,2023-11-30,Engineering,San Jose,L6,Software Engineering,hire
+E00091,2023-12-01,2024-02-23,Sales,San Jose,L6,Sales Development,transfer
+E00092,2008-11-18,,Engineering,San Jose,L2,Software Engineering,hire
+E00093,2008-11-29,2023-09-30,Sales,San Jose,L4,Account Executive,hire
+E00093,2023-10-01,,Customer Success,San Jose,L4,Support,transfer
+E00094,2008-12-04,2024-06-26,Engineering,San Jose,L5,Data Engineering,hire
+E00095,2008-12-10,2023-08-31,Marketing,New York,L6,Product Marketing,hire
+E00095,2023-09-01,,Engineering,New York,L6,Data Engineering,transfer
+E00096,2008-12-22,,Sales,London,L6,Account Executive,hire
+E00097,2008-12-24,,Marketing,San Jose,L1,Product Marketing,hire
+E00098,2008-12-27,,Marketing,London,L3,Demand Generation,hire
+E00099,2008-12-27,,People,San Jose,L2,People Partners,hire
+E00100,2008-12-27,,Legal,Bengaluru,L3,Legal Counsel,hire
+E00101,2008-12-27,2023-04-25,Marketing,London,L2,Demand Generation,hire
+E00102,2008-12-29,2025-08-31,Engineering,Austin,L1,Software Engineering,hire
+E00102,2025-09-01,,Engineering,Austin,L2,Software Engineering,promotion
+E00103,2008-12-30,2025-09-30,Operations,Bengaluru,L3,Business Operations,hire
+E00103,2025-10-01,,Engineering,Bengaluru,L3,Data Engineering,transfer
+E00104,2008-12-30,,People,Austin,L5,People Partners,hire
+E00105,2009-01-01,2024-05-25,Sales,San Jose,L1,Account Executive,hire
+E00106,2009-01-07,,Sales,San Jose,L2,Sales Development,hire
+E00107,2009-01-08,2023-05-06,Sales,London,L6,Account Executive,hire
+E00108,2009-01-09,,Engineering,Austin,L5,Site Reliability,hire
+E00109,2009-01-11,,Customer Success,Austin,L2,Support,hire
+E00110,2009-01-18,,Engineering,Austin,L2,Software Engineering,hire
+E00111,2009-01-26,2023-11-09,Operations,San Jose,L3,IT Operations,hire
+E00112,2009-01-30,,Engineering,London,L2,Data Engineering,hire
+E00113,2009-02-03,,Engineering,San Jose,L2,Site Reliability,hire
+E00114,2009-02-03,,Operations,San Jose,L2,Business Operations,hire
+E00115,2009-02-10,2024-05-11,Customer Success,San Jose,L5,Support,hire
+E00116,2009-02-13,2024-02-20,Customer Success,San Jose,L2,Customer Success Management,hire
+E00117,2009-02-18,2023-05-31,Engineering,London,L2,Software Engineering,hire
+E00117,2023-06-01,,Engineering,London,L3,Software Engineering,promotion
+E00118,2009-02-21,2023-04-20,Engineering,San Jose,L1,Data Engineering,hire
+E00119,2009-02-24,2025-03-19,Operations,San Jose,L4,IT Operations,hire
+E00120,2009-02-28,,Sales,Austin,L2,Account Executive,hire
+E00121,2009-03-03,2023-03-11,Sales,New York,L4,Sales Development,hire
+E00122,2009-03-09,2023-11-30,Sales,San Jose,L1,Account Executive,hire
+E00122,2023-12-01,2024-04-07,Engineering,San Jose,L1,Data Engineering,transfer
+E00123,2009-03-11,2025-11-30,Finance,New York,L3,Accounting,hire
+E00123,2025-12-01,,Finance,New York,L4,Accounting,promotion
+E00124,2009-03-11,2023-04-30,Engineering,Austin,L3,Data Engineering,hire
+E00125,2009-03-13,,Engineering,London,L3,Data Engineering,hire
+E00126,2009-03-17,,Operations,New York,L2,IT Operations,hire
+E00127,2009-03-18,,Customer Success,Austin,L5,Support,hire
+E00128,2009-03-23,2023-04-30,Marketing,New York,L1,Demand Generation,hire
+E00128,2023-05-01,,Marketing,New York,L2,Demand Generation,promotion
+E00129,2009-03-26,,Engineering,New York,L4,Software Engineering,hire
+E00130,2009-03-27,2024-02-23,People,New York,L4,Recruiting,hire
+E00131,2009-04-02,,Engineering,Bengaluru,L2,Software Engineering,hire
+E00132,2009-04-03,2023-02-13,People,San Jose,L5,People Partners,hire
+E00133,2009-04-04,2023-08-31,Legal,New York,L2,Legal Counsel,hire
+E00133,2023-09-01,2025-06-07,Legal,New York,L3,Legal Counsel,promotion
+E00134,2009-04-05,,Operations,San Jose,L3,Business Operations,hire
+E00135,2009-04-12,2025-01-31,Customer Success,San Jose,L2,Customer Success Management,hire
+E00136,2009-04-14,2024-09-13,Customer Success,Austin,L1,Customer Success Management,hire
+E00137,2009-04-16,,People,San Jose,L5,Recruiting,hire
+E00138,2009-04-17,,People,New York,L2,People Partners,hire
+E00139,2009-04-18,2024-06-29,Sales,Bengaluru,L4,Sales Development,hire
+E00140,2009-05-06,,Sales,San Jose,L2,Sales Development,hire
+E00141,2009-05-07,,Engineering,San Jose,L2,Software Engineering,hire
+E00142,2009-05-26,,Engineering,London,L2,Software Engineering,hire
+E00143,2009-06-04,,Engineering,San Jose,L5,Site Reliability,hire
+E00144,2009-06-05,,Customer Success,New York,L5,Customer Success Management,hire
+E00145,2009-06-07,,Engineering,London,L3,Site Reliability,hire
+E00146,2009-06-11,2024-01-31,Marketing,San Jose,L3,Product Marketing,hire
+E00146,2024-02-01,,Marketing,San Jose,L4,Product Marketing,promotion
+E00147,2009-06-11,2023-01-08,Sales,Austin,L2,Sales Development,hire
+E00148,2009-06-16,,Engineering,New York,L4,Software Engineering,hire
+E00149,2009-07-04,2023-12-31,Sales,New York,L1,Account Executive,hire
+E00149,2024-01-01,,Sales,New York,L2,Account Executive,promotion
+E00150,2009-07-05,2025-06-08,Engineering,New York,L1,Software Engineering,hire
+E00151,2009-07-06,,Finance,San Jose,L3,Accounting,hire
+E00152,2009-07-06,2024-06-18,Operations,San Jose,L1,IT Operations,hire
+E00153,2009-07-08,,Marketing,London,L2,Demand Generation,hire
+E00154,2009-07-17,,Engineering,San Jose,L2,Software Engineering,hire
+E00155,2009-07-20,,Engineering,San Jose,L2,Site Reliability,hire
+E00156,2009-07-29,2025-04-30,Customer Success,London,L4,Customer Success Management,hire
+E00156,2025-05-01,,Customer Success,London,L5,Customer Success Management,promotion
+E00157,2009-08-03,2025-02-09,Sales,New York,L5,Account Executive,hire
+E00158,2009-08-05,,Engineering,London,L4,Site Reliability,hire
+E00159,2009-08-07,,Sales,New York,L3,Sales Development,hire
+E00160,2009-08-10,2024-11-30,Operations,San Jose,L3,IT Operations,hire
+E00160,2024-12-01,,Operations,San Jose,L4,IT Operations,promotion
+E00161,2009-08-10,2024-07-13,Sales,San Jose,L2,Account Executive,hire
+E00162,2009-08-11,2023-05-31,Finance,Bengaluru,L1,Financial Planning,hire
+E00162,2023-06-01,2024-07-28,People,Bengaluru,L1,People Partners,transfer
+E00163,2009-08-12,2025-02-17,Engineering,London,L1,Data Engineering,hire
+E00164,2009-08-17,,Customer Success,Austin,L3,Support,hire
+E00165,2009-08-18,,Operations,Austin,L3,IT Operations,hire
+E00166,2009-08-19,2022-12-31,Engineering,London,L2,Data Engineering,hire
+E00166,2023-01-01,,Engineering,London,L3,Data Engineering,promotion
+E00167,2009-08-25,,Finance,San Jose,L4,Financial Planning,hire
+E00168,2009-09-02,2023-04-17,Customer Success,San Jose,L2,Customer Success Management,hire
+E00169,2009-09-05,,Operations,New York,L4,IT Operations,hire
+E00170,2009-09-06,2023-12-15,Engineering,San Jose,L3,Site Reliability,hire
+E00171,2009-09-07,2025-10-08,Sales,Austin,L3,Account Executive,hire
+E00172,2009-09-08,,Engineering,Austin,L3,Data Engineering,hire
+E00173,2009-09-14,,Engineering,San Jose,L1,Data Engineering,hire
+E00174,2009-09-14,2024-05-06,Sales,London,L3,Sales Development,hire
+E00175,2009-09-15,2023-05-20,Sales,New York,L4,Sales Development,hire
+E00176,2009-09-18,2025-05-23,Engineering,New York,L4,Site Reliability,hire
+E00177,2009-09-22,,Engineering,New York,L1,Data Engineering,hire
+E00178,2009-09-25,2025-12-18,Sales,San Jose,L5,Sales Development,hire
+E00179,2009-10-01,2023-01-31,Sales,London,L4,Sales Development,hire
+E00179,2023-02-01,,Sales,London,L5,Sales Development,promotion
+E00180,2009-10-14,,Engineering,San Jose,L1,Software Engineering,hire
+E00181,2009-10-20,2024-12-28,Sales,San Jose,L2,Account Executive,hire
+E00182,2009-11-04,2023-10-31,Operations,San Jose,L1,IT Operations,hire
+E00182,2023-11-01,2024-06-04,Operations,San Jose,L2,IT Operations,promotion
+E00183,2009-11-06,,Customer Success,Austin,L4,Support,hire
+E00184,2009-11-14,2023-07-25,Engineering,San Jose,L5,Site Reliability,hire
+E00185,2009-11-15,,Engineering,New York,L2,Software Engineering,hire
+E00186,2009-11-19,2023-05-31,Operations,New York,L2,IT Operations,hire
+E00186,2023-06-01,2023-08-31,Operations,New York,L3,IT Operations,promotion
+E00186,2023-09-01,2024-10-18,Engineering,New York,L3,Site Reliability,transfer
+E00187,2009-11-28,2023-01-31,People,London,L3,Recruiting,hire
+E00187,2023-02-01,,People,London,L4,Recruiting,promotion
+E00188,2009-11-30,2024-08-31,Customer Success,London,L5,Customer Success Management,hire
+E00188,2024-09-01,,Customer Success,London,L6,Customer Success Management,promotion
+E00189,2009-12-12,,Engineering,New York,L5,Software Engineering,hire
+E00190,2009-12-13,,Engineering,Austin,L5,Data Engineering,hire
+E00191,2009-12-13,2023-08-31,Operations,San Jose,L4,IT Operations,hire
+E00192,2009-12-16,,Engineering,London,L3,Software Engineering,hire
+E00193,2009-12-18,,Operations,San Jose,L2,IT Operations,hire
+E00194,2009-12-18,2023-10-25,Marketing,New York,L3,Demand Generation,hire
+E00195,2009-12-27,,Marketing,San Jose,L3,Product Marketing,hire
+E00196,2009-12-30,2024-12-31,Engineering,San Jose,L4,Data Engineering,hire
+E00196,2025-01-01,,Engineering,San Jose,L5,Data Engineering,promotion
+E00197,2010-01-05,,Sales,San Jose,L3,Sales Development,hire
+E00198,2010-01-07,,People,San Jose,L5,People Partners,hire
+E00199,2010-01-08,2025-08-31,Operations,London,L4,IT Operations,hire
+E00199,2025-09-01,,Customer Success,London,L4,Customer Success Management,transfer
+E00200,2010-01-10,2024-11-29,Engineering,San Jose,L1,Software Engineering,hire
+E00201,2010-01-12,,Marketing,Austin,L4,Demand Generation,hire
+E00202,2010-01-25,,Engineering,San Jose,L3,Site Reliability,hire
+E00203,2010-01-27,,Sales,San Jose,L2,Sales Development,hire
+E00204,2010-01-29,2024-12-21,Sales,New York,L1,Account Executive,hire
+E00205,2010-02-04,2023-06-30,Sales,London,L4,Sales Development,hire
+E00205,2023-07-01,2024-11-17,Sales,London,L5,Sales Development,promotion
+E00206,2010-02-10,,Sales,Austin,L2,Account Executive,hire
+E00207,2010-02-11,2024-09-30,Sales,San Jose,L1,Account Executive,hire
+E00207,2024-10-01,,Sales,San Jose,L2,Account Executive,promotion
+E00208,2010-02-11,,Customer Success,Austin,L1,Customer Success Management,hire
+E00209,2010-02-16,,Customer Success,Bengaluru,L2,Customer Success Management,hire
+E00210,2010-02-16,,Customer Success,San Jose,L5,Support,hire
+E00211,2010-02-18,,Engineering,Austin,L2,Site Reliability,hire
+E00212,2010-02-19,,Engineering,San Jose,L1,Data Engineering,hire
+E00213,2010-02-23,2025-09-30,Sales,New York,L1,Account Executive,hire
+E00213,2025-10-01,,Sales,New York,L2,Account Executive,promotion
+E00214,2010-02-25,,Finance,New York,L3,Financial Planning,hire
+E00215,2010-03-06,,Sales,London,L1,Sales Development,hire
+E00216,2010-03-06,,Sales,London,L2,Sales Development,hire
+E00217,2010-03-08,,Finance,San Jose,L3,Financial Planning,hire
+E00218,2010-03-12,,Engineering,London,L3,Data Engineering,hire
+E00219,2010-03-15,,Customer Success,Austin,L3,Customer Success Management,hire
+E00220,2010-03-16,2023-04-30,Engineering,London,L4,Data Engineering,hire
+E00220,2023-05-01,,Engineering,London,L5,Data Engineering,promotion
+E00221,2010-03-22,,Sales,London,L5,Account Executive,hire
+E00222,2010-03-23,,Customer Success,San Jose,L2,Customer Success Management,hire
+E00223,2010-03-24,,Marketing,Austin,L2,Demand Generation,hire
+E00224,2010-03-25,2025-04-30,Engineering,San Jose,L4,Data Engineering,hire
+E00224,2025-05-01,,Engineering,San Jose,L5,Data Engineering,promotion
+E00225,2010-03-28,,Finance,San Jose,L1,Accounting,hire
+E00226,2010-04-03,,Sales,New York,L1,Sales Development,hire
+E00227,2010-04-08,,Engineering,New York,L3,Data Engineering,hire
+E00228,2010-04-09,2025-04-26,Customer Success,New York,L3,Support,hire
+E00229,2010-04-12,,Engineering,San Jose,L2,Data Engineering,hire
+E00230,2010-04-14,,Operations,London,L2,IT Operations,hire
+E00231,2010-04-23,2025-08-31,Marketing,San Jose,L1,Product Marketing,hire
+E00231,2025-09-01,,Marketing,San Jose,L2,Product Marketing,promotion
+E00232,2010-04-24,2023-10-31,Engineering,San Jose,L3,Data Engineering,hire
+E00232,2023-11-01,2025-09-25,Engineering,San Jose,L4,Data Engineering,promotion
+E00233,2010-04-24,2025-02-27,Sales,San Jose,L3,Sales Development,hire
+E00234,2010-04-27,,Sales,New York,L2,Sales Development,hire
+E00235,2010-04-29,,Engineering,Austin,L1,Data Engineering,hire
+E00236,2010-04-30,,Operations,New York,L1,Business Operations,hire
+E00237,2010-05-03,2024-08-25,Operations,New York,L3,Business Operations,hire
+E00238,2010-05-08,,Marketing,New York,L3,Demand Generation,hire
+E00239,2010-05-09,,Operations,San Jose,L1,Business Operations,hire
+E00240,2010-05-10,,Engineering,Austin,L2,Site Reliability,hire
+E00241,2010-05-10,2023-08-12,Operations,New York,L2,IT Operations,hire
+E00242,2010-05-14,,Finance,New York,L1,Accounting,hire
+E00243,2010-05-16,2023-04-30,Engineering,Austin,L1,Site Reliability,hire
+E00243,2023-05-01,,Engineering,Austin,L2,Site Reliability,promotion
+E00244,2010-05-18,2025-02-28,Customer Success,London,L5,Support,hire
+E00244,2025-03-01,,Sales,London,L5,Account Executive,transfer
+E00245,2010-05-18,2024-02-29,Sales,Austin,L2,Account Executive,hire
+E00245,2024-03-01,2025-12-21,Sales,Austin,L3,Account Executive,promotion
+E00246,2010-05-19,,Sales,San Jose,L1,Account Executive,hire
+E00247,2010-06-09,,Engineering,San Jose,L1,Software Engineering,hire
+E00248,2010-06-09,,Legal,New York,L2,Legal Counsel,hire
+E00249,2010-06-21,,Customer Success,New York,L2,Customer Success Management,hire
+E00250,2010-06-24,2025-07-31,People,San Jose,L2,Recruiting,hire
+E00250,2025-08-01,,People,San Jose,L3,Recruiting,promotion
+E00251,2010-06-26,,Engineering,New York,L1,Site Reliability,hire
+E00252,2010-06-28,2023-02-18,Customer Success,Austin,L2,Customer Success Management,hire
+E00253,2010-07-10,,Sales,New York,L2,Account Executive,hire
+E00254,2010-07-12,,Sales,San Jose,L1,Sales Development,hire
+E00255,2010-07-17,,Sales,New York,L3,Account Executive,hire
+E00256,2010-07-19,,Engineering,New York,L2,Site Reliability,hire
+E00257,2010-07-23,2025-05-31,Engineering,San Jose,L3,Site Reliability,hire
+E00257,2025-06-01,,Engineering,San Jose,L4,Site Reliability,promotion
+E00258,2010-07-23,2025-12-05,Sales,San Jose,L1,Sales Development,hire
+E00259,2010-07-26,2023-04-30,Engineering,Austin,L2,Data Engineering,hire
+E00259,2023-05-01,2023-06-17,Engineering,Austin,L3,Data Engineering,promotion
+E00260,2010-07-28,,Engineering,San Jose,L2,Data Engineering,hire
+E00261,2010-07-29,,Finance,San Jose,L3,Accounting,hire
+E00262,2010-07-31,,Engineering,San Jose,L3,Data Engineering,hire
+E00263,2010-07-31,,Sales,New York,L1,Sales Development,hire
+E00264,2010-07-31,,Operations,Austin,L5,Business Operations,hire
+E00265,2010-08-01,,Engineering,London,L3,Data Engineering,hire
+E00266,2010-08-02,,Sales,San Jose,L3,Account Executive,hire
+E00267,2010-08-04,,Engineering,San Jose,L1,Site Reliability,hire
+E00268,2010-08-09,,Customer Success,New York,L2,Support,hire
+E00269,2010-08-16,2025-12-15,Sales,San Jose,L1,Sales Development,hire
+E00270,2010-08-22,,Sales,New York,L2,Sales Development,hire
+E00271,2010-08-23,,People,San Jose,L5,People Partners,hire
+E00272,2010-09-07,,People,New York,L4,Recruiting,hire
+E00273,2010-09-17,,Sales,San Jose,L2,Sales Development,hire
+E00274,2010-09-22,,Sales,New York,L1,Sales Development,hire
+E00275,2010-09-25,2023-07-31,Legal,New York,L1,Legal Counsel,hire
+E00275,2023-08-01,,Legal,New York,L2,Legal Counsel,promotion
+E00276,2010-09-27,,People,San Jose,L3,Recruiting,hire
+E00277,2010-10-03,,Sales,San Jose,L1,Account Executive,hire
+E00278,2010-10-07,2023-03-31,People,New York,L3,Recruiting,hire
+E00278,2023-04-01,,Engineering,New York,L3,Site Reliability,transfer
+E00279,2010-10-08,,Sales,San Jose,L1,Sales Development,hire
+E00280,2010-10-09,,Operations,Austin,L2,IT Operations,hire
+E00281,2010-10-10,2025-01-13,Finance,New York,L2,Accounting,hire
+E00282,2010-10-18,,Engineering,San Jose,L2,Site Reliability,hire
+E00283,2010-10-21,2025-11-26,Engineering,San Jose,L2,Data Engineering,hire
+E00284,2010-10-26,2024-06-13,Sales,San Jose,L6,Account Executive,hire
+E00285,2010-10-31,,Engineering,Austin,L3,Software Engineering,hire
+E00286,2010-10-31,2025-04-22,Finance,London,L2,Accounting,hire
+E00287,2010-11-04,2023-09-30,Customer Success,Austin,L2,Customer Success Management,hire
+E00287,2023-10-01,,Marketing,Austin,L2,Product Marketing,transfer
+E00288,2010-11-05,2025-12-21,Customer Success,San Jose,L1,Support,hire
+E00289,2010-11-11,2024-07-10,Operations,London,L2,Business Operations,hire
+E00290,2010-11-17,,Marketing,London,L5,Product Marketing,hire
+E00291,2010-11-20,2025-05-31,Marketing,San Jose,L1,Demand Generation,hire
+E00291,2025-06-01,,Engineering,San Jose,L1,Site Reliability,transfer
+E00292,2010-11-21,,Engineering,New York,L3,Site Reliability,hire
+E00293,2010-11-21,,Customer Success,London,L3,Support,hire
+E00294,2010-11-24,,Operations,Bengaluru,L1,IT Operations,hire
+E00295,2010-11-29,,Engineering,London,L3,Software Engineering,hire
+E00296,2010-12-15,,Operations,New York,L3,Business Operations,hire
+E00297,2010-12-19,2025-09-20,Engineering,Austin,L4,Software Engineering,hire
+E00298,2010-12-24,2025-01-22,Sales,London,L3,Sales Development,hire
+E00299,2010-12-26,2025-06-03,Engineering,New York,L6,Data Engineering,hire
+E00300,2010-12-30,,Sales,San Jose,L2,Account Executive,hire
+E00301,2010-12-31,2025-09-12,Customer Success,New York,L5,Support,hire
+E00302,2011-01-04,2025-11-28,Sales,New York,L3,Sales Development,hire
+E00303,2011-01-05,,Sales,San Jose,L1,Account Executive,hire
+E00304,2011-01-05,2023-03-31,People,San Jose,L1,Recruiting,hire
+E00304,2023-04-01,,Operations,San Jose,L1,Business Operations,transfer
+E00305,2011-01-08,2023-05-08,Engineering,San Jose,L1,Data Engineering,hire
+E00306,2011-01-13,,Engineering,Austin,L2,Site Reliability,hire
+E00307,2011-01-28,,Marketing,Bengaluru,L1,Product Marketing,hire
+E00308,2011-01-30,,Sales,Austin,L5,Sales Development,hire
+E00309,2011-02-06,,Engineering,London,L3,Data Engineering,hire
+E00310,2011-02-14,2025-01-31,Engineering,Austin,L3,Software Engineering,hire
+E00310,2025-02-01,,Engineering,Austin,L4,Software Engineering,promotion
+E00311,2011-02-16,2022-12-31,Engineering,Austin,L2,Software Engineering,hire
+E00311,2023-01-01,,Engineering,Austin,L3,Software Engineering,promotion
+E00312,2011-02-16,,Sales,New York,L1,Sales Development,hire
+E00313,2011-02-20,,Marketing,San Jose,L2,Demand Generation,hire
+E00314,2011-02-20,2024-05-01,Customer Success,New York,L4,Customer Success Management,hire
+E00315,2011-02-22,2022-12-31,Sales,San Jose,L3,Sales Development,hire
+E00315,2023-01-01,2023-11-23,Sales,San Jose,L4,Sales Development,promotion
+E00316,2011-03-01,2025-03-31,Finance,Bengaluru,L1,Financial Planning,hire
+E00316,2025-04-01,,People,Bengaluru,L1,People Partners,transfer
+E00317,2011-03-04,,Engineering,San Jose,L1,Data Engineering,hire
+E00318,2011-03-05,2025-11-30,Operations,San Jose,L2,IT Operations,hire
+E00318,2025-12-01,,Engineering,San Jose,L2,Data Engineering,transfer
+E00319,2011-03-11,2023-02-15,Engineering,San Jose,L2,Data Engineering,hire
+E00320,2011-03-11,2025-02-21,People,New York,L4,Recruiting,hire
+E00321,2011-03-15,,Finance,London,L2,Accounting,hire
+E00322,2011-03-21,,Operations,London,L6,Business Operations,hire
+E00323,2011-03-28,2023-03-23,Engineering,San Jose,L3,Software Engineering,hire
+E00324,2011-03-30,,Customer Success,San Jose,L3,Support,hire
+E00325,2011-04-01,,Sales,San Jose,L2,Sales Development,hire
+E00326,2011-04-04,,Engineering,San Jose,L2,Site Reliability,hire
+E00327,2011-04-04,2025-06-30,Finance,Austin,L3,Accounting,hire
+E00327,2025-07-01,,Finance,Austin,L4,Accounting,promotion
+E00328,2011-04-06,2023-02-11,Customer Success,London,L2,Support,hire
+E00329,2011-04-19,,Finance,New York,L3,Accounting,hire
+E00330,2011-05-04,,Engineering,New York,L4,Data Engineering,hire
+E00331,2011-05-06,2025-10-08,Engineering,Austin,L4,Data Engineering,hire
+E00332,2011-05-13,2023-05-14,Operations,Bengaluru,L2,IT Operations,hire
+E00333,2011-05-14,,Engineering,London,L2,Data Engineering,hire
+E00334,2011-05-24,2025-03-11,Engineering,New York,L3,Site Reliability,hire
+E00335,2011-05-29,,Sales,New York,L2,Sales Development,hire
+E00336,2011-05-31,,Customer Success,Austin,L1,Customer Success Management,hire
+E00337,2011-06-05,2023-02-27,Marketing,New York,L3,Product Marketing,hire
+E00338,2011-06-15,,Customer Success,San Jose,L2,Customer Success Management,hire
+E00339,2011-06-17,,People,San Jose,L5,People Partners,hire
+E00340,2011-06-18,2024-02-25,Marketing,Bengaluru,L1,Product Marketing,hire
+E00341,2011-06-21,,Engineering,San Jose,L1,Data Engineering,hire
+E00342,2011-06-22,,Engineering,Bengaluru,L2,Software Engineering,hire
+E00343,2011-07-07,2025-01-14,Customer Success,San Jose,L2,Customer Success Management,hire
+E00344,2011-07-17,,People,Austin,L1,Recruiting,hire
+E00345,2011-07-19,,Operations,Austin,L3,IT Operations,hire
+E00346,2011-07-20,,Marketing,Austin,L1,Demand Generation,hire
+E00347,2011-07-21,,Marketing,San Jose,L2,Demand Generation,hire
+E00348,2011-07-23,,Customer Success,London,L2,Support,hire
+E00349,2011-07-26,2023-10-31,People,San Jose,L2,People Partners,hire
+E00349,2023-11-01,,Finance,San Jose,L2,Accounting,transfer
+E00350,2011-07-26,2024-04-12,People,San Jose,L1,Recruiting,hire
+E00351,2011-07-29,,Sales,San Jose,L4,Account Executive,hire
+E00352,2011-08-05,2023-12-28,Engineering,London,L2,Site Reliability,hire
+E00353,2011-08-06,,Engineering,San Jose,L1,Data Engineering,hire
+E00354,2011-08-07,,Sales,San Jose,L1,Sales Development,hire
+E00355,2011-08-08,,Engineering,Austin,L1,Site Reliability,hire
+E00356,2011-08-08,2024-09-30,Operations,London,L6,Business Operations,hire
+E00356,2024-10-01,2025-10-06,Finance,London,L6,Financial Planning,transfer
+E00357,2011-08-15,2025-04-02,Operations,Bengaluru,L2,Business Operations,hire
+E00358,2011-08-16,2025-06-30,People,New York,L2,People Partners,hire
+E00358,2025-07-01,,People,New York,L3,People Partners,promotion
+E00359,2011-08-16,2025-12-09,Sales,San Jose,L3,Account Executive,hire
+E00360,2011-08-18,2024-10-12,Sales,San Jose,L4,Account Executive,hire
+E00361,2011-08-20,2025-05-05,Sales,London,L2,Account Executive,hire
+E00362,2011-08-22,,Legal,Bengaluru,L3,Legal Counsel,hire
+E00363,2011-08-24,,Customer Success,San Jose,L1,Customer Success Management,hire
+E00364,2011-08-28,,Engineering,San Jose,L3,Data Engineering,hire
+E00365,2011-09-09,2024-07-24,Engineering,Austin,L2,Software Engineering,hire
+E00366,2011-09-09,2023-07-16,Sales,Bengaluru,L2,Sales Development,hire
+E00367,2011-09-10,2024-07-31,Marketing,Bengaluru,L3,Product Marketing,hire
+E00367,2024-08-01,,Marketing,Bengaluru,L4,Product Marketing,promotion
+E00368,2011-09-21,2024-01-31,Marketing,New York,L2,Demand Generation,hire
+E00368,2024-02-01,2024-10-23,People,New York,L2,People Partners,transfer
+E00369,2011-10-06,2023-10-31,Sales,San Jose,L4,Sales Development,hire
+E00370,2011-10-06,2024-10-06,People,San Jose,L1,People Partners,hire
+E00371,2011-10-08,,Engineering,London,L5,Site Reliability,hire
+E00372,2011-10-13,,Sales,San Jose,L4,Sales Development,hire
+E00373,2011-10-19,2024-10-08,Customer Success,New York,L2,Support,hire
+E00374,2011-10-27,,Engineering,San Jose,L3,Data Engineering,hire
+E00375,2011-11-02,,Customer Success,San Jose,L1,Customer Success Management,hire
+E00376,2011-11-04,,Engineering,Austin,L2,Site Reliability,hire
+E00377,2011-11-12,2024-02-14,Legal,New York,L5,Legal Counsel,hire
+E00378,2011-11-13,,Marketing,San Jose,L3,Demand Generation,hire
+E00379,2011-11-16,,Engineering,San Jose,L3,Data Engineering,hire
+E00380,2011-11-17,2025-01-31,People,San Jose,L2,People Partners,hire
+E00380,2025-02-01,2025-11-30,Engineering,San Jose,L2,Software Engineering,transfer
+E00380,2025-12-01,,Engineering,San Jose,L3,Software Engineering,promotion
+E00381,2011-11-18,,Engineering,London,L4,Data Engineering,hire
+E00382,2011-11-22,,Operations,Bengaluru,L1,Business Operations,hire
+E00383,2011-12-07,,People,San Jose,L2,Recruiting,hire
+E00384,2011-12-09,2025-04-30,Customer Success,Austin,L3,Customer Success Management,hire
+E00384,2025-05-01,,Customer Success,Austin,L4,Customer Success Management,promotion
+E00385,2011-12-10,2023-07-31,Sales,London,L1,Sales Development,hire
+E00385,2023-08-01,,Customer Success,London,L1,Support,transfer
+E00386,2011-12-18,2025-10-31,Finance,New York,L3,Financial Planning,hire
+E00386,2025-11-01,,Engineering,New York,L3,Data Engineering,transfer
+E00387,2011-12-25,2023-07-10,Engineering,San Jose,L2,Software Engineering,hire
+E00388,2011-12-30,,Marketing,Bengaluru,L2,Demand Generation,hire
+E00389,2012-01-02,2023-01-08,Marketing,Bengaluru,L4,Product Marketing,hire
+E00390,2012-01-03,,People,Austin,L2,Recruiting,hire
+E00391,2012-01-07,2024-12-09,Finance,San Jose,L3,Accounting,hire
+E00392,2012-01-10,2023-06-04,Finance,New York,L2,Accounting,hire
+E00393,2012-01-12,,Engineering,San Jose,L3,Site Reliability,hire
+E00394,2012-01-12,2023-01-31,Sales,Austin,L2,Sales Development,hire
+E00394,2023-02-01,,Sales,Austin,L3,Sales Development,promotion
+E00395,2012-01-30,,Customer Success,New York,L5,Support,hire
+E00396,2012-01-31,,Customer Success,London,L2,Customer Success Management,hire
+E00397,2012-01-31,,Customer Success,San Jose,L5,Customer Success Management,hire
+E00398,2012-02-10,,People,London,L3,Recruiting,hire
+E00399,2012-02-10,2023-10-14,Operations,Austin,L3,IT Operations,hire
+E00400,2012-02-11,2025-09-30,Engineering,San Jose,L2,Data Engineering,hire
+E00400,2025-10-01,,Engineering,San Jose,L3,Data Engineering,promotion
+E00401,2012-02-15,,Sales,New York,L1,Account Executive,hire
+E00402,2012-02-18,,Engineering,Austin,L2,Data Engineering,hire
+E00403,2012-02-20,2024-10-31,Operations,New York,L3,Business Operations,hire
+E00403,2024-11-01,,Customer Success,New York,L3,Support,transfer
+E00404,2012-02-24,2025-10-03,Engineering,Austin,L3,Data Engineering,hire
+E00405,2012-02-28,,Marketing,New York,L1,Demand Generation,hire
+E00406,2012-03-03,2024-11-10,Customer Success,Bengaluru,L1,Support,hire
+E00407,2012-03-08,2023-07-31,Customer Success,San Jose,L2,Customer Success Management,hire
+E00407,2023-08-01,2025-01-26,Customer Success,San Jose,L3,Customer Success Management,promotion
+E00408,2012-03-11,,Engineering,San Jose,L4,Data Engineering,hire
+E00409,2012-03-11,,Engineering,Austin,L4,Software Engineering,hire
+E00410,2012-03-21,,Operations,Austin,L2,Business Operations,hire
+E00411,2012-03-30,,Finance,San Jose,L2,Accounting,hire
+E00412,2012-03-30,2025-10-21,Engineering,New York,L4,Data Engineering,hire
+E00413,2012-03-31,2025-04-09,Engineering,New York,L6,Data Engineering,hire
+E00414,2012-04-01,2025-02-28,Operations,Austin,L1,Business Operations,hire
+E00414,2025-03-01,2025-04-17,Operations,Austin,L2,Business Operations,promotion
+E00415,2012-04-10,2023-11-30,Engineering,London,L3,Site Reliability,hire
+E00415,2023-12-01,,Engineering,London,L4,Site Reliability,promotion
+E00416,2012-04-14,2023-11-21,Engineering,New York,L2,Software Engineering,hire
+E00417,2012-04-20,,Engineering,San Jose,L2,Site Reliability,hire
+E00418,2012-04-20,2023-03-24,Operations,San Jose,L3,Business Operations,hire
+E00419,2012-04-30,,Sales,Austin,L3,Account Executive,hire
+E00420,2012-05-01,,Engineering,London,L2,Data Engineering,hire
+E00421,2012-05-01,2023-03-24,Sales,New York,L2,Sales Development,hire
+E00422,2012-05-04,,Operations,Austin,L3,Business Operations,hire
+E00423,2012-05-05,2024-10-31,Sales,New York,L1,Sales Development,hire
+E00423,2024-11-01,,Sales,New York,L2,Sales Development,promotion
+E00424,2012-05-13,2024-07-20,Engineering,Bengaluru,L1,Software Engineering,hire
+E00425,2012-05-14,,Engineering,San Jose,L2,Data Engineering,hire
+E00426,2012-05-16,,Sales,San Jose,L2,Account Executive,hire
+E00427,2012-05-19,,Operations,San Jose,L3,IT Operations,hire
+E00428,2012-05-20,2024-10-13,Customer Success,London,L4,Customer Success Management,hire
+E00429,2012-05-26,2023-09-30,Customer Success,San Jose,L1,Support,hire
+E00429,2023-10-01,,Engineering,San Jose,L1,Site Reliability,transfer
+E00430,2012-05-30,,Sales,London,L2,Account Executive,hire
+E00431,2012-05-30,,Customer Success,Austin,L1,Support,hire
+E00432,2012-05-31,2025-03-03,Marketing,London,L3,Demand Generation,hire
+E00433,2012-06-11,2023-12-31,Marketing,Bengaluru,L1,Demand Generation,hire
+E00433,2024-01-01,2025-11-22,Customer Success,Bengaluru,L1,Support,transfer
+E00434,2012-06-14,2024-02-23,Engineering,Bengaluru,L3,Data Engineering,hire
+E00435,2012-06-17,,Sales,San Jose,L4,Account Executive,hire
+E00436,2012-06-21,,Engineering,New York,L1,Software Engineering,hire
+E00437,2012-06-21,,Operations,New York,L3,Business Operations,hire
+E00438,2012-06-25,,Engineering,New York,L3,Data Engineering,hire
+E00439,2012-06-30,,Finance,New York,L3,Financial Planning,hire
+E00440,2012-07-03,2023-09-17,Engineering,New York,L2,Site Reliability,hire
+E00441,2012-07-05,,Operations,San Jose,L1,Business Operations,hire
+E00442,2012-07-06,2024-07-18,Sales,Austin,L5,Sales Development,hire
+E00443,2012-07-07,,Marketing,New York,L1,Demand Generation,hire
+E00444,2012-07-10,,Operations,San Jose,L1,Business Operations,hire
+E00445,2012-07-11,2024-01-08,Engineering,San Jose,L4,Site Reliability,hire
+E00446,2012-07-21,2025-10-07,Marketing,New York,L1,Product Marketing,hire
+E00447,2012-07-23,2023-07-31,Sales,London,L1,Account Executive,hire
+E00447,2023-08-01,,Sales,London,L2,Account Executive,promotion
+E00448,2012-07-23,,Finance,Austin,L3,Financial Planning,hire
+E00449,2012-07-24,,Engineering,London,L3,Data Engineering,hire
+E00450,2012-07-28,,Engineering,New York,L4,Site Reliability,hire
+E00451,2012-07-29,,Sales,San Jose,L2,Account Executive,hire
+E00452,2012-07-30,2023-03-30,Operations,San Jose,L5,IT Operations,hire
+E00453,2012-07-31,2025-04-30,People,San Jose,L4,People Partners,hire
+E00453,2025-05-01,,Customer Success,San Jose,L4,Support,transfer
+E00454,2012-08-13,,Marketing,San Jose,L2,Demand Generation,hire
+E00455,2012-08-13,2024-08-16,Engineering,Bengaluru,L1,Data Engineering,hire
+E00456,2012-08-22,,Engineering,San Jose,L1,Software Engineering,hire
+E00457,2012-08-24,,Finance,Bengaluru,L4,Accounting,hire
+E00458,2012-09-01,,Marketing,San Jose,L3,Product Marketing,hire
+E00459,2012-09-22,2024-12-04,Operations,San Jose,L2,Business Operations,hire
+E00460,2012-09-29,,Finance,New York,L2,Financial Planning,hire
+E00461,2012-10-01,,Customer Success,San Jose,L1,Support,hire
+E00462,2012-10-04,,Engineering,San Jose,L3,Site Reliability,hire
+E00463,2012-10-04,2025-08-31,People,San Jose,L6,People Partners,hire
+E00463,2025-09-01,,Sales,San Jose,L6,Account Executive,transfer
+E00464,2012-10-07,,Engineering,Austin,L2,Software Engineering,hire
+E00465,2012-10-11,,Engineering,Bengaluru,L5,Data Engineering,hire
+E00466,2012-10-13,2023-12-21,Customer Success,San Jose,L2,Support,hire
+E00467,2012-10-19,,Marketing,San Jose,L3,Product Marketing,hire
+E00468,2012-10-20,,Engineering,New York,L2,Data Engineering,hire
+E00469,2012-10-25,2025-03-05,Engineering,San Jose,L1,Data Engineering,hire
+E00470,2012-11-01,2023-06-08,Engineering,San Jose,L2,Site Reliability,hire
+E00471,2012-11-07,,Sales,San Jose,L2,Account Executive,hire
+E00472,2012-11-13,2024-01-31,Operations,Austin,L3,Business Operations,hire
+E00472,2024-02-01,,Operations,Austin,L4,Business Operations,promotion
+E00473,2012-11-14,,Sales,New York,L1,Account Executive,hire
+E00474,2012-11-19,2024-06-30,Sales,London,L2,Sales Development,hire
+E00474,2024-07-01,2025-01-29,Sales,London,L3,Sales Development,promotion
+E00475,2012-11-21,,Engineering,London,L6,Software Engineering,hire
+E00476,2012-11-21,2023-01-30,Customer Success,London,L3,Support,hire
+E00477,2012-11-22,,Engineering,San Jose,L1,Software Engineering,hire
+E00478,2012-11-27,,Customer Success,San Jose,L1,Customer Success Management,hire
+E00479,2012-11-29,2024-09-15,Marketing,New York,L4,Demand Generation,hire
+E00480,2012-12-03,,Engineering,New York,L1,Data Engineering,hire
+E00481,2012-12-07,,Operations,Austin,L2,Business Operations,hire
+E00482,2012-12-08,,Customer Success,New York,L2,Support,hire
+E00483,2012-12-12,,Engineering,San Jose,L1,Data Engineering,hire
+E00484,2012-12-16,2023-06-10,Engineering,San Jose,L5,Site Reliability,hire
+E00485,2012-12-20,2023-12-10,Operations,San Jose,L1,Business Operations,hire
+E00486,2013-01-04,,Operations,New York,L1,Business Operations,hire
+E00487,2013-01-04,2023-02-28,Customer Success,New York,L1,Support,hire
+E00487,2023-03-01,2023-07-19,Customer Success,New York,L2,Support,promotion
+E00488,2013-01-05,,Sales,New York,L2,Account Executive,hire
+E00489,2013-01-13,,Engineering,San Jose,L3,Data Engineering,hire
+E00490,2013-01-15,2024-07-12,Engineering,New York,L3,Data Engineering,hire
+E00491,2013-01-25,,Engineering,New York,L2,Software Engineering,hire
+E00492,2013-01-26,,Operations,San Jose,L1,Business Operations,hire
+E00493,2013-01-26,2025-09-05,Marketing,Bengaluru,L5,Demand Generation,hire
+E00494,2013-02-02,,Sales,London,L1,Sales Development,hire
+E00495,2013-02-07,2024-04-30,Customer Success,Bengaluru,L1,Customer Success Management,hire
+E00495,2024-05-01,,Customer Success,Bengaluru,L2,Customer Success Management,promotion
+E00496,2013-02-10,,Engineering,San Jose,L2,Site Reliability,hire
+E00497,2013-02-15,,Sales,New York,L4,Sales Development,hire
+E00498,2013-02-18,2024-09-20,Engineering,Austin,L3,Site Reliability,hire
+E00499,2013-02-20,,Marketing,New York,L4,Product Marketing,hire
+E00500,2013-02-22,2023-01-31,Engineering,San Jose,L2,Data Engineering,hire
+E00500,2023-02-01,2023-03-05,Engineering,San Jose,L3,Data Engineering,promotion
+E00501,2013-02-26,2024-07-31,Operations,San Jose,L2,IT Operations,hire
+E00501,2024-08-01,,Sales,San Jose,L2,Account Executive,transfer
+E00502,2013-03-02,2024-08-31,Customer Success,San Jose,L3,Customer Success Management,hire
+E00502,2024-09-01,,Customer Success,San Jose,L4,Customer Success Management,promotion
+E00503,2013-03-04,,Customer Success,New York,L4,Support,hire
+E00504,2013-03-08,2023-11-13,Engineering,San Jose,L3,Software Engineering,hire
+E00505,2013-03-13,2024-12-26,Operations,San Jose,L5,Business Operations,hire
+E00506,2013-03-28,,Sales,New York,L2,Sales Development,hire
+E00507,2013-03-28,,Marketing,London,L1,Demand Generation,hire
+E00508,2013-03-29,2025-10-10,Sales,San Jose,L2,Account Executive,hire
+E00509,2013-04-08,2025-10-31,Operations,Austin,L3,Business Operations,hire
+E00509,2025-11-01,,Operations,Austin,L4,Business Operations,promotion
+E00510,2013-04-10,2025-10-20,Marketing,San Jose,L1,Product Marketing,hire
+E00511,2013-04-12,,Engineering,Austin,L2,Software Engineering,hire
+E00512,2013-04-12,,People,London,L3,Recruiting,hire
+E00513,2013-04-13,,Customer Success,New York,L3,Support,hire
+E00514,2013-04-20,,Engineering,San Jose,L2,Site Reliability,hire
+E00515,2013-04-21,2023-08-31,Customer Success,London,L2,Support,hire
+E00515,2023-09-01,,Marketing,London,L2,Demand Generation,transfer
+E00516,2013-04-22,,Customer Success,Bengaluru,L1,Customer Success Management,hire
+E00517,2013-04-23,,Engineering,Austin,L1,Software Engineering,hire
+E00518,2013-04-26,,Engineering,Austin,L3,Data Engineering,hire
+E00519,2013-05-04,2023-12-05,Customer Success,New York,L2,Support,hire
+E00520,2013-05-07,,Customer Success,New York,L1,Support,hire
+E00521,2013-05-12,2025-07-02,Sales,Austin,L4,Sales Development,hire
+E00522,2013-05-14,,Sales,Austin,L1,Account Executive,hire
+E00523,2013-05-16,2022-12-31,Customer Success,Austin,L2,Support,hire
+E00523,2023-01-01,,Customer Success,Austin,L3,Support,promotion
+E00524,2013-05-22,,Engineering,Austin,L4,Data Engineering,hire
+E00525,2013-05-22,,Customer Success,San Jose,L2,Customer Success Management,hire
+E00526,2013-05-22,2024-03-31,Marketing,San Jose,L2,Demand Generation,hire
+E00526,2024-04-01,,People,San Jose,L2,People Partners,transfer
+E00527,2013-05-22,2025-11-27,Sales,San Jose,L4,Account Executive,hire
+E00528,2013-05-24,2023-01-27,Engineering,London,L3,Data Engineering,hire
+E00529,2013-05-26,,Engineering,London,L3,Site Reliability,hire
+E00530,2013-05-28,2023-07-15,Sales,New York,L3,Sales Development,hire
+E00531,2013-05-29,2023-11-30,Customer Success,Austin,L3,Customer Success Management,hire
+E00531,2023-12-01,,Engineering,Austin,L3,Software Engineering,transfer
+E00532,2013-06-01,,Engineering,San Jose,L3,Site Reliability,hire
+E00533,2013-06-10,,Sales,New York,L4,Account Executive,hire
+E00534,2013-06-11,,Finance,San Jose,L4,Financial Planning,hire
+E00535,2013-06-11,2025-05-16,Finance,San Jose,L3,Accounting,hire
+E00536,2013-06-24,2024-10-28,Engineering,New York,L2,Data Engineering,hire
+E00537,2013-06-26,2023-01-31,Sales,London,L2,Sales Development,hire
+E00537,2023-02-01,,Sales,London,L3,Sales Development,promotion
+E00538,2013-07-05,2023-05-30,People,New York,L1,Recruiting,hire
+E00539,2013-07-07,2023-04-30,Customer Success,Austin,L2,Support,hire
+E00539,2023-05-01,,Customer Success,Austin,L3,Support,promotion
+E00540,2013-07-10,2025-07-04,Customer Success,San Jose,L3,Support,hire
+E00541,2013-07-11,2024-02-29,Operations,San Jose,L2,IT Operations,hire
+E00541,2024-03-01,,Operations,San Jose,L3,IT Operations,promotion
+E00542,2013-07-19,,Marketing,London,L4,Demand Generation,hire
+E00543,2013-07-22,,Engineering,New York,L3,Site Reliability,hire
+E00544,2013-07-30,2024-03-06,Customer Success,San Jose,L2,Customer Success Management,hire
+E00545,2013-07-31,2023-05-26,Engineering,Austin,L5,Site Reliability,hire
+E00546,2013-08-04,,Sales,Austin,L3,Sales Development,hire
+E00547,2013-08-11,,Customer Success,New York,L1,Customer Success Management,hire
+E00548,2013-08-15,,Sales,San Jose,L1,Sales Development,hire
+E00549,2013-08-15,,Marketing,Austin,L3,Demand Generation,hire
+E00550,2013-08-22,2025-04-05,Sales,San Jose,L2,Account Executive,hire
+E00551,2013-09-02,2023-11-30,Sales,New York,L4,Account Executive,hire
+E00551,2023-12-01,2024-12-03,Marketing,New York,L4,Demand Generation,transfer
+E00552,2013-09-03,,Customer Success,San Jose,L1,Support,hire
+E00553,2013-09-04,2023-10-31,Engineering,San Jose,L4,Software Engineering,hire
+E00553,2023-11-01,,Engineering,San Jose,L5,Software Engineering,promotion
+E00554,2013-09-08,2025-05-13,Engineering,Austin,L3,Data Engineering,hire
+E00555,2013-09-12,2024-02-26,Engineering,New York,L2,Site Reliability,hire
+E00556,2013-09-18,,Customer Success,San Jose,L4,Support,hire
+E00557,2013-09-20,,Engineering,New York,L5,Data Engineering,hire
+E00558,2013-09-22,2023-02-23,Marketing,San Jose,L1,Product Marketing,hire
+E00559,2013-10-03,,Finance,London,L1,Financial Planning,hire
+E00560,2013-10-03,2024-05-27,Engineering,San Jose,L4,Data Engineering,hire
+E00561,2013-10-04,2023-04-30,Customer Success,San Jose,L2,Customer Success Management,hire
+E00561,2023-05-01,2024-04-08,Customer Success,San Jose,L3,Customer Success Management,promotion
+E00562,2013-10-08,,Engineering,San Jose,L2,Software Engineering,hire
+E00563,2013-10-08,,Sales,London,L5,Account Executive,hire
+E00564,2013-10-09,2025-06-05,Engineering,San Jose,L2,Data Engineering,hire
+E00565,2013-10-12,,Engineering,San Jose,L2,Software Engineering,hire
+E00566,2013-10-12,2025-10-31,People,San Jose,L1,People Partners,hire
+E00566,2025-11-01,,Operations,San Jose,L1,IT Operations,transfer
+E00567,2013-10-12,2024-09-20,Engineering,San Jose,L5,Data Engineering,hire
+E00568,2013-10-12,2025-05-08,Engineering,New York,L3,Software Engineering,hire
+E00569,2013-10-13,,Finance,Austin,L2,Financial Planning,hire
+E00570,2013-10-14,,Engineering,San Jose,L4,Site Reliability,hire
+E00571,2013-10-15,2023-04-26,Operations,Austin,L2,Business Operations,hire
+E00572,2013-10-27,,Finance,New York,L5,Accounting,hire
+E00573,2013-11-03,2023-01-02,Customer Success,Austin,L3,Customer Success Management,hire
+E00574,2013-11-06,,Sales,New York,L4,Account Executive,hire
+E00575,2013-11-08,2025-09-08,Sales,New York,L4,Sales Development,hire
+E00576,2013-11-11,,Customer Success,San Jose,L3,Customer Success Management,hire
+E00577,2013-11-13,,Engineering,Austin,L2,Data Engineering,hire
+E00578,2013-11-13,,Engineering,San Jose,L3,Software Engineering,hire
+E00579,2013-11-18,,Customer Success,San Jose,L2,Customer Success Management,hire
+E00580,2013-11-18,,People,New York,L1,People Partners,hire
+E00581,2013-11-19,2024-02-15,Customer Success,New York,L2,Customer Success Management,hire
+E00582,2013-11-20,,Customer Success,New York,L2,Customer Success Management,hire
+E00583,2013-11-20,2025-09-30,Marketing,New York,L4,Product Marketing,hire
+E00583,2025-10-01,,Marketing,New York,L5,Product Marketing,promotion
+E00584,2013-11-25,,Engineering,Austin,L3,Software Engineering,hire
+E00585,2013-12-03,2023-03-31,Operations,San Jose,L1,IT Operations,hire
+E00585,2023-04-01,,Customer Success,San Jose,L1,Customer Success Management,transfer
+E00586,2013-12-06,,Sales,San Jose,L4,Sales Development,hire
+E00587,2013-12-08,,Operations,Austin,L2,IT Operations,hire
+E00588,2013-12-10,2025-10-31,Engineering,Bengaluru,L2,Site Reliability,hire
+E00588,2025-11-01,,Engineering,Bengaluru,L3,Site Reliability,promotion
+E00589,2013-12-10,2025-06-21,People,London,L2,People Partners,hire
+E00590,2013-12-11,2025-11-26,Engineering,San Jose,L4,Site Reliability,hire
+E00591,2013-12-14,,Engineering,San Jose,L4,Software Engineering,hire
+E00592,2013-12-27,,Engineering,San Jose,L1,Data Engineering,hire
+E00593,2014-01-04,,Customer Success,Austin,L2,Support,hire
+E00594,2014-01-06,2025-07-31,Engineering,San Jose,L1,Software Engineering,hire
+E00594,2025-08-01,,Engineering,San Jose,L2,Software Engineering,promotion
+E00595,2014-01-06,,Operations,New York,L5,Business Operations,hire
+E00596,2014-01-11,2023-02-16,Engineering,Bengaluru,L1,Data Engineering,hire
+E00597,2014-01-11,2024-04-13,Sales,San Jose,L2,Account Executive,hire
+E00598,2014-01-16,2025-04-06,Engineering,New York,L3,Software Engineering,hire
+E00599,2014-01-19,2023-12-29,Sales,Austin,L3,Sales Development,hire
+E00600,2014-01-28,2023-01-24,Sales,Austin,L4,Sales Development,hire
+E00601,2014-02-06,2023-04-15,Marketing,San Jose,L2,Demand Generation,hire
+E00602,2014-02-12,,Sales,San Jose,L1,Sales Development,hire
+E00603,2014-02-14,,Engineering,London,L3,Site Reliability,hire
+E00604,2014-02-14,2022-12-31,Sales,London,L1,Sales Development,hire
+E00604,2023-01-01,2023-02-01,Sales,London,L2,Sales Development,promotion
+E00605,2014-02-19,2025-04-04,Customer Success,London,L2,Support,hire
+E00606,2014-02-23,2023-01-31,Sales,Austin,L1,Account Executive,hire
+E00606,2023-02-01,,Sales,Austin,L2,Account Executive,promotion
+E00607,2014-02-26,,Customer Success,New York,L4,Support,hire
+E00608,2014-02-26,2025-07-16,Sales,New York,L2,Sales Development,hire
+E00609,2014-02-28,,Customer Success,San Jose,L2,Support,hire
+E00610,2014-03-03,,Sales,Bengaluru,L1,Sales Development,hire
+E00611,2014-03-07,2023-01-31,Engineering,New York,L2,Data Engineering,hire
+E00611,2023-02-01,,Engineering,New York,L3,Data Engineering,promotion
+E00612,2014-03-07,2023-02-05,Sales,New York,L4,Account Executive,hire
+E00613,2014-03-10,,Finance,San Jose,L4,Financial Planning,hire
+E00614,2014-03-11,,Marketing,San Jose,L3,Demand Generation,hire
+E00615,2014-03-12,2022-12-31,Sales,Austin,L3,Sales Development,hire
+E00615,2023-01-01,2025-08-30,Sales,Austin,L4,Sales Development,promotion
+E00616,2014-03-12,2023-02-28,Sales,San Jose,L1,Sales Development,hire
+E00616,2023-03-01,2023-04-21,Sales,San Jose,L2,Sales Development,promotion
+E00617,2014-03-13,,Marketing,San Jose,L1,Demand Generation,hire
+E00618,2014-03-16,,Engineering,London,L1,Data Engineering,hire
+E00619,2014-03-16,,Engineering,Austin,L1,Software Engineering,hire
+E00620,2014-03-19,,Engineering,San Jose,L2,Data Engineering,hire
+E00621,2014-03-19,2024-09-30,Sales,London,L2,Sales Development,hire
+E00621,2024-10-01,,Sales,London,L3,Sales Development,promotion
+E00622,2014-03-19,2024-05-31,Sales,San Jose,L2,Account Executive,hire
+E00622,2024-06-01,2025-08-12,Sales,San Jose,L3,Account Executive,promotion
+E00623,2014-03-24,,Engineering,San Jose,L3,Software Engineering,hire
+E00624,2014-04-03,2023-01-08,Legal,San Jose,L1,Legal Counsel,hire
+E00625,2014-04-16,,Operations,Austin,L6,Business Operations,hire
+E00626,2014-05-02,,Sales,San Jose,L1,Sales Development,hire
+E00627,2014-05-02,,Marketing,New York,L4,Product Marketing,hire
+E00628,2014-05-02,,Marketing,Austin,L2,Product Marketing,hire
+E00629,2014-05-06,2023-12-31,Finance,Austin,L3,Accounting,hire
+E00629,2024-01-01,,Engineering,Austin,L3,Software Engineering,transfer
+E00630,2014-05-23,2023-12-24,Sales,Bengaluru,L2,Sales Development,hire
+E00631,2014-05-31,,Engineering,San Jose,L2,Site Reliability,hire
+E00632,2014-06-03,2024-08-31,Sales,Bengaluru,L1,Sales Development,hire
+E00632,2024-09-01,,Sales,Bengaluru,L2,Sales Development,promotion
+E00633,2014-06-06,2023-09-30,Customer Success,New York,L5,Support,hire
+E00633,2023-10-01,,Customer Success,New York,L6,Support,promotion
+E00634,2014-06-10,2023-06-30,Customer Success,London,L2,Support,hire
+E00634,2023-07-01,,Customer Success,London,L3,Support,promotion
+E00635,2014-07-17,,Engineering,San Jose,L5,Site Reliability,hire
+E00636,2014-07-28,,Engineering,London,L4,Software Engineering,hire
+E00637,2014-08-02,2025-09-16,Sales,London,L4,Sales Development,hire
+E00638,2014-08-03,2024-08-31,Engineering,New York,L3,Site Reliability,hire
+E00638,2024-09-01,,Engineering,New York,L4,Site Reliability,promotion
+E00639,2014-08-03,2023-01-31,Marketing,New York,L2,Demand Generation,hire
+E00639,2023-02-01,2023-06-04,Marketing,New York,L3,Demand Generation,promotion
+E00640,2014-08-09,,Engineering,New York,L3,Site Reliability,hire
+E00641,2014-08-10,2025-02-16,Operations,San Jose,L1,IT Operations,hire
+E00642,2014-08-21,2023-02-28,Marketing,Austin,L3,Demand Generation,hire
+E00642,2023-03-01,2023-05-16,Marketing,Austin,L4,Demand Generation,promotion
+E00643,2014-09-01,2024-08-05,Engineering,London,L2,Site Reliability,hire
+E00644,2014-09-06,,Engineering,New York,L3,Data Engineering,hire
+E00645,2014-09-09,,Sales,Bengaluru,L4,Sales Development,hire
+E00646,2014-09-19,,Customer Success,San Jose,L2,Customer Success Management,hire
+E00647,2014-09-19,,Customer Success,Bengaluru,L2,Customer Success Management,hire
+E00648,2014-09-28,,Customer Success,New York,L4,Support,hire
+E00649,2014-09-28,2023-06-30,People,San Jose,L3,Recruiting,hire
+E00649,2023-07-01,2023-12-23,Finance,San Jose,L3,Accounting,transfer
+E00650,2014-10-02,2024-09-03,Sales,Bengaluru,L4,Account Executive,hire
+E00651,2014-10-04,,Customer Success,New York,L2,Customer Success Management,hire
+E00652,2014-10-04,2024-09-28,Engineering,San Jose,L2,Data Engineering,hire
+E00653,2014-10-12,,Sales,San Jose,L4,Sales Development,hire
+E00654,2014-10-18,,Finance,Austin,L6,Accounting,hire
+E00655,2014-10-19,,Sales,Austin,L4,Sales Development,hire
+E00656,2014-10-21,,Engineering,San Jose,L5,Software Engineering,hire
+E00657,2014-10-23,,Engineering,Austin,L3,Site Reliability,hire
+E00658,2014-10-23,,Customer Success,London,L3,Support,hire
+E00659,2014-10-24,,Customer Success,New York,L6,Customer Success Management,hire
+E00660,2014-10-24,,Operations,New York,L3,Business Operations,hire
+E00661,2014-10-24,2024-06-03,People,Bengaluru,L3,Recruiting,hire
+E00662,2014-10-26,2025-08-31,Engineering,San Jose,L1,Data Engineering,hire
+E00662,2025-09-01,,Engineering,San Jose,L2,Data Engineering,promotion
+E00663,2014-10-27,2023-05-31,Marketing,San Jose,L3,Product Marketing,hire
+E00663,2023-06-01,2024-11-27,Sales,San Jose,L3,Account Executive,transfer
+E00664,2014-11-07,2024-04-21,Marketing,Austin,L2,Demand Generation,hire
+E00665,2014-11-15,2023-08-31,Customer Success,San Jose,L4,Support,hire
+E00665,2023-09-01,2025-04-01,Engineering,San Jose,L4,Site Reliability,transfer
+E00666,2014-11-16,2024-07-10,Marketing,San Jose,L2,Demand Generation,hire
+E00667,2014-11-20,2024-01-13,Customer Success,New York,L4,Support,hire
+E00668,2014-11-24,,Engineering,San Jose,L2,Data Engineering,hire
+E00669,2014-11-25,2023-02-28,Finance,Austin,L1,Accounting,hire
+E00669,2023-03-01,2023-09-30,Marketing,Austin,L1,Product Marketing,transfer
+E00669,2023-10-01,,Marketing,Austin,L2,Product Marketing,promotion
+E00670,2014-11-29,,Customer Success,London,L3,Customer Success Management,hire
+E00671,2014-12-07,,Finance,New York,L2,Financial Planning,hire
+E00672,2014-12-08,,Customer Success,Austin,L3,Support,hire
+E00673,2014-12-12,2023-11-11,Engineering,San Jose,L1,Software Engineering,hire
+E00674,2014-12-14,2024-06-09,Engineering,San Jose,L4,Site Reliability,hire
+E00675,2015-01-03,2025-04-30,Operations,New York,L3,Business Operations,hire
+E00675,2025-05-01,,People,New York,L3,People Partners,transfer
+E00676,2015-01-03,2023-09-30,Finance,Bengaluru,L2,Financial Planning,hire
+E00676,2023-10-01,2024-07-03,Finance,Bengaluru,L3,Financial Planning,promotion
+E00677,2015-01-05,,Sales,San Jose,L1,Account Executive,hire
+E00678,2015-01-06,2024-06-05,Operations,New York,L3,Business Operations,hire
+E00679,2015-01-12,,Sales,San Jose,L3,Account Executive,hire
+E00680,2015-01-14,,Sales,San Jose,L3,Account Executive,hire
+E00681,2015-01-14,2025-09-22,Engineering,London,L3,Software Engineering,hire
+E00682,2015-01-15,,Engineering,San Jose,L2,Software Engineering,hire
+E00683,2015-01-16,2025-11-27,Engineering,Austin,L4,Site Reliability,hire
+E00684,2015-01-16,2024-02-27,Finance,London,L2,Accounting,hire
+E00685,2015-01-20,2024-05-31,Finance,San Jose,L1,Accounting,hire
+E00685,2024-06-01,2024-11-08,Engineering,San Jose,L1,Data Engineering,transfer
+E00686,2015-01-21,2025-10-31,Marketing,Bengaluru,L4,Demand Generation,hire
+E00686,2025-11-01,,Marketing,Bengaluru,L5,Demand Generation,promotion
+E00687,2015-01-21,2025-09-28,People,San Jose,L2,Recruiting,hire
+E00688,2015-01-26,2025-12-15,Sales,San Jose,L4,Account Executive,hire
+E00689,2015-01-28,,Sales,Austin,L3,Account Executive,hire
+E00690,2015-02-05,,Operations,London,L5,Business Operations,hire
+E00691,2015-02-06,2023-03-04,Sales,San Jose,L4,Sales Development,hire
+E00692,2015-02-08,,Marketing,Bengaluru,L1,Product Marketing,hire
+E00693,2015-02-08,2023-04-25,Engineering,London,L4,Site Reliability,hire
+E00694,2015-02-09,,Marketing,London,L2,Product Marketing,hire
+E00695,2015-02-14,,People,New York,L2,Recruiting,hire
+E00696,2015-02-22,,Legal,New York,L1,Legal Counsel,hire
+E00697,2015-02-25,2023-05-31,Marketing,San Jose,L3,Demand Generation,hire
+E00697,2023-06-01,,Operations,San Jose,L3,IT Operations,transfer
+E00698,2015-02-28,,Engineering,New York,L3,Data Engineering,hire
+E00699,2015-03-02,,Sales,New York,L3,Account Executive,hire
+E00700,2015-03-02,2023-03-06,Operations,Bengaluru,L2,Business Operations,hire
+E00701,2015-03-05,2024-09-05,Engineering,New York,L2,Software Engineering,hire
+E00702,2015-03-12,,Engineering,Austin,L1,Software Engineering,hire
+E00703,2015-03-16,,Engineering,Austin,L4,Software Engineering,hire
+E00704,2015-03-21,,Engineering,Austin,L3,Data Engineering,hire
+E00705,2015-03-29,2024-06-13,Sales,San Jose,L1,Sales Development,hire
+E00706,2015-03-31,,Operations,Bengaluru,L2,Business Operations,hire
+E00707,2015-04-02,,Engineering,London,L2,Site Reliability,hire
+E00708,2015-04-04,,Engineering,San Jose,L3,Data Engineering,hire
+E00709,2015-04-04,2023-04-04,Sales,Bengaluru,L1,Account Executive,hire
+E00710,2015-04-04,2023-06-30,Finance,San Jose,L2,Financial Planning,hire
+E00710,2023-07-01,2024-08-22,Finance,San Jose,L3,Financial Planning,promotion
+E00711,2015-04-15,,Customer Success,New York,L1,Customer Success Management,hire
+E00712,2015-04-19,2024-09-06,Customer Success,San Jose,L1,Support,hire
+E00713,2015-04-21,2024-02-29,Operations,London,L1,Business Operations,hire
+E00713,2024-03-01,,Operations,London,L2,Business Operations,promotion
+E00714,2015-04-26,,Engineering,San Jose,L4,Site Reliability,hire
+E00715,2015-04-29,2023-05-30,Engineering,London,L3,Software Engineering,hire
+E00716,2015-04-30,,Sales,San Jose,L3,Sales Development,hire
+E00717,2015-05-03,,People,Austin,L4,Recruiting,hire
+E00718,2015-05-09,,Engineering,New York,L5,Site Reliability,hire
+E00719,2015-05-13,,Customer Success,New York,L3,Support,hire
+E00720,2015-05-13,,Marketing,London,L2,Product Marketing,hire
+E00721,2015-05-14,2025-04-30,Engineering,London,L2,Software Engineering,hire
+E00721,2025-05-01,,Engineering,London,L3,Software Engineering,promotion
+E00722,2015-05-15,,Sales,San Jose,L2,Account Executive,hire
+E00723,2015-05-22,2024-05-31,Engineering,Austin,L1,Data Engineering,hire
+E00723,2024-06-01,,Engineering,Austin,L2,Data Engineering,promotion
+E00724,2015-05-29,,Engineering,San Jose,L4,Software Engineering,hire
+E00725,2015-05-31,2024-09-30,Customer Success,San Jose,L1,Support,hire
+E00725,2024-10-01,,Customer Success,San Jose,L2,Support,promotion
+E00726,2015-06-02,,Marketing,San Jose,L3,Demand Generation,hire
+E00727,2015-06-07,,People,Bengaluru,L1,Recruiting,hire
+E00728,2015-06-16,,Marketing,New York,L4,Product Marketing,hire
+E00729,2015-06-17,2024-11-24,Engineering,San Jose,L3,Data Engineering,hire
+E00730,2015-06-26,2024-08-31,People,London,L2,Recruiting,hire
+E00730,2024-09-01,,People,London,L3,Recruiting,promotion
+E00731,2015-07-08,,People,San Jose,L2,Recruiting,hire
+E00732,2015-07-09,2025-12-03,Engineering,Austin,L3,Site Reliability,hire
+E00733,2015-07-10,,Engineering,New York,L3,Data Engineering,hire
+E00734,2015-07-15,,Customer Success,London,L1,Customer Success Management,hire
+E00735,2015-07-23,,Engineering,London,L3,Data Engineering,hire
+E00736,2015-08-05,2025-02-28,Finance,Austin,L4,Financial Planning,hire
+E00736,2025-03-01,,Finance,Austin,L5,Financial Planning,promotion
+E00737,2015-08-08,2023-04-30,Finance,New York,L1,Accounting,hire
+E00737,2023-05-01,,Operations,New York,L1,Business Operations,transfer
+E00738,2015-08-09,2024-01-31,Customer Success,Bengaluru,L3,Customer Success Management,hire
+E00738,2024-02-01,2025-08-26,Customer Success,Bengaluru,L4,Customer Success Management,promotion
+E00739,2015-08-11,,Marketing,Bengaluru,L2,Demand Generation,hire
+E00740,2015-08-12,2024-01-31,Engineering,San Jose,L2,Software Engineering,hire
+E00740,2024-02-01,2025-07-31,Engineering,San Jose,L3,Software Engineering,promotion
+E00741,2015-08-16,,Customer Success,San Jose,L2,Customer Success Management,hire
+E00742,2015-08-17,,Engineering,London,L2,Software Engineering,hire
+E00743,2015-08-20,2024-01-31,People,Austin,L4,People Partners,hire
+E00743,2024-02-01,,People,Austin,L5,People Partners,promotion
+E00744,2015-08-21,,Engineering,Austin,L5,Software Engineering,hire
+E00745,2015-09-08,2024-05-31,Engineering,San Jose,L2,Data Engineering,hire
+E00745,2024-06-01,,Engineering,San Jose,L3,Data Engineering,promotion
+E00746,2015-09-12,,Sales,San Jose,L2,Sales Development,hire
+E00747,2015-09-13,,Sales,Bengaluru,L3,Sales Development,hire
+E00748,2015-09-14,2023-12-22,Finance,New York,L2,Accounting,hire
+E00749,2015-09-16,,Sales,London,L4,Account Executive,hire
+E00750,2015-09-17,2024-11-15,Customer Success,San Jose,L2,Customer Success Management,hire
+E00751,2015-09-17,2025-03-31,Operations,Austin,L4,Business Operations,hire
+E00752,2015-09-18,,Sales,San Jose,L3,Sales Development,hire
+E00753,2015-09-18,,Customer Success,Bengaluru,L1,Customer Success Management,hire
+E00754,2015-09-20,2023-03-08,Customer Success,New York,L4,Support,hire
+E00755,2015-09-23,2023-07-30,Sales,New York,L1,Sales Development,hire
+E00756,2015-09-28,,Engineering,San Jose,L1,Software Engineering,hire
+E00757,2015-10-01,,Sales,New York,L3,Sales Development,hire
+E00758,2015-10-01,2025-01-22,Engineering,San Jose,L2,Data Engineering,hire
+E00759,2015-10-02,,Finance,London,L5,Financial Planning,hire
+E00760,2015-10-03,2025-05-25,Customer Success,San Jose,L1,Customer Success Management,hire
+E00761,2015-10-05,2025-01-11,Finance,Austin,L5,Financial Planning,hire
+E00762,2015-10-06,,Engineering,San Jose,L2,Data Engineering,hire
+E00763,2015-10-06,2023-06-30,Sales,San Jose,L3,Sales Development,hire
+E00763,2023-07-01,,Sales,San Jose,L4,Sales Development,promotion
+E00764,2015-10-06,,Marketing,Austin,L4,Demand Generation,hire
+E00765,2015-10-06,,People,San Jose,L2,People Partners,hire
+E00766,2015-10-08,,Sales,San Jose,L2,Sales Development,hire
+E00767,2015-10-11,,Sales,San Jose,L1,Account Executive,hire
+E00768,2015-10-14,2023-07-22,Customer Success,New York,L4,Support,hire
+E00769,2015-10-19,2024-01-31,Engineering,San Jose,L3,Data Engineering,hire
+E00769,2024-02-01,,Engineering,San Jose,L4,Data Engineering,promotion
+E00770,2015-10-19,2025-03-16,Marketing,London,L1,Demand Generation,hire
+E00771,2015-10-22,2023-04-15,Operations,San Jose,L2,IT Operations,hire
+E00772,2015-10-26,,Customer Success,San Jose,L2,Support,hire
+E00773,2015-10-26,2023-04-30,Finance,New York,L2,Accounting,hire
+E00773,2023-05-01,2023-11-05,Sales,New York,L2,Sales Development,transfer
+E00774,2015-10-31,2023-02-28,Sales,San Jose,L2,Account Executive,hire
+E00774,2023-03-01,,Sales,San Jose,L3,Account Executive,promotion
+E00775,2015-11-06,,Engineering,London,L1,Site Reliability,hire
+E00776,2015-11-06,2023-04-30,Engineering,San Jose,L3,Site Reliability,hire
+E00776,2023-05-01,,Engineering,San Jose,L4,Site Reliability,promotion
+E00777,2015-11-06,,Engineering,San Jose,L2,Data Engineering,hire
+E00778,2015-11-06,2023-08-31,Sales,San Jose,L3,Sales Development,hire
+E00778,2023-09-01,,Sales,San Jose,L4,Sales Development,promotion
+E00779,2015-11-09,2024-10-30,Engineering,San Jose,L2,Site Reliability,hire
+E00780,2015-11-11,,Customer Success,San Jose,L2,Customer Success Management,hire
+E00781,2015-11-12,2022-12-31,Engineering,New York,L1,Site Reliability,hire
+E00781,2023-01-01,2023-02-22,Engineering,New York,L2,Site Reliability,promotion
+E00782,2015-11-22,2023-12-30,Operations,Austin,L2,Business Operations,hire
+E00783,2015-11-24,,Sales,New York,L4,Sales Development,hire
+E00784,2015-12-06,,Engineering,San Jose,L1,Software Engineering,hire
+E00785,2015-12-07,2025-04-14,Finance,San Jose,L1,Financial Planning,hire
+E00786,2015-12-15,2024-06-30,Customer Success,Austin,L1,Customer Success Management,hire
+E00786,2024-07-01,,Engineering,Austin,L1,Software Engineering,transfer
+E00787,2015-12-15,,Operations,Austin,L2,IT Operations,hire
+E00788,2015-12-20,2025-12-12,Customer Success,London,L2,Support,hire
+E00789,2016-01-03,,Sales,New York,L4,Account Executive,hire
+E00790,2016-01-04,,Engineering,New York,L3,Data Engineering,hire
+E00791,2016-01-11,,Sales,San Jose,L1,Account Executive,hire
+E00792,2016-01-14,2024-10-17,Operations,San Jose,L1,Business Operations,hire
+E00793,2016-01-15,,Engineering,San Jose,L1,Software Engineering,hire
+E00794,2016-01-24,,Engineering,New York,L4,Software Engineering,hire
+E00795,2016-01-24,,Customer Success,San Jose,L3,Support,hire
+E00796,2016-01-31,2024-09-20,Engineering,San Jose,L6,Data Engineering,hire
+E00797,2016-01-31,2024-07-14,Sales,San Jose,L5,Account Executive,hire
+E00798,2016-02-01,,Engineering,New York,L4,Site Reliability,hire
+E00799,2016-02-04,2025-01-10,Engineering,San Jose,L4,Data Engineering,hire
+E00800,2016-02-05,,Sales,San Jose,L4,Sales Development,hire
+E00801,2016-02-06,,Customer Success,San Jose,L2,Support,hire
+E00802,2016-02-07,,Customer Success,San Jose,L4,Customer Success Management,hire
+E00803,2016-02-07,2024-03-15,Sales,San Jose,L3,Account Executive,hire
+E00804,2016-02-08,,Engineering,New York,L3,Data Engineering,hire
+E00805,2016-02-09,,Engineering,San Jose,L3,Software Engineering,hire
+E00806,2016-02-09,2024-04-30,Customer Success,New York,L5,Customer Success Management,hire
+E00806,2024-05-01,,Customer Success,New York,L6,Customer Success Management,promotion
+E00807,2016-02-10,,Marketing,San Jose,L3,Demand Generation,hire
+E00808,2016-02-11,,Sales,San Jose,L2,Sales Development,hire
+E00809,2016-02-13,,Engineering,San Jose,L2,Data Engineering,hire
+E00810,2016-02-14,,Engineering,San Jose,L4,Software Engineering,hire
+E00811,2016-02-14,,Sales,Austin,L2,Account Executive,hire
+E00812,2016-02-20,,People,London,L4,Recruiting,hire
+E00813,2016-02-24,,Marketing,San Jose,L3,Product Marketing,hire
+E00814,2016-02-24,,Finance,San Jose,L1,Accounting,hire
+E00815,2016-03-05,,Engineering,London,L2,Data Engineering,hire
+E00816,2016-03-07,,Customer Success,Bengaluru,L3,Support,hire
+E00817,2016-03-10,2024-07-07,Sales,Austin,L5,Sales Development,hire
+E00818,2016-03-12,2023-01-31,Marketing,Austin,L3,Demand Generation,hire
+E00818,2023-02-01,2023-09-19,Marketing,Austin,L4,Demand Generation,promotion
+E00819,2016-03-16,,Operations,London,L2,IT Operations,hire
+E00820,2016-03-19,2023-12-01,Sales,London,L2,Account Executive,hire
+E00821,2016-03-20,2023-09-30,Engineering,Bengaluru,L4,Data Engineering,hire
+E00821,2023-10-01,,Engineering,Bengaluru,L5,Data Engineering,promotion
+E00822,2016-03-25,2025-04-26,Engineering,London,L2,Data Engineering,hire
+E00823,2016-03-25,2023-11-11,Sales,San Jose,L1,Account Executive,hire
+E00824,2016-03-25,2023-03-25,Operations,New York,L2,IT Operations,hire
+E00825,2016-03-26,,Operations,Austin,L3,Business Operations,hire
+E00826,2016-03-28,,Engineering,San Jose,L1,Data Engineering,hire
+E00827,2016-04-02,,Customer Success,New York,L3,Support,hire
+E00828,2016-04-03,,Engineering,New York,L3,Software Engineering,hire
+E00829,2016-04-03,,Engineering,New York,L2,Data Engineering,hire
+E00830,2016-04-04,,Engineering,Austin,L6,Site Reliability,hire
+E00831,2016-04-07,2025-06-22,Engineering,San Jose,L2,Site Reliability,hire
+E00832,2016-04-15,,Finance,San Jose,L2,Accounting,hire
+E00833,2016-04-19,,Engineering,Austin,L1,Data Engineering,hire
+E00834,2016-04-22,,Legal,San Jose,L1,Legal Counsel,hire
+E00835,2016-04-28,2023-09-30,Sales,Austin,L1,Account Executive,hire
+E00835,2023-10-01,,Sales,Austin,L2,Account Executive,promotion
+E00836,2016-05-01,,People,Austin,L3,People Partners,hire
+E00837,2016-05-01,2024-01-09,Sales,Austin,L2,Sales Development,hire
+E00838,2016-05-03,,Customer Success,London,L6,Customer Success Management,hire
+E00839,2016-05-04,,Customer Success,New York,L5,Support,hire
+E00840,2016-05-07,,Customer Success,San Jose,L3,Customer Success Management,hire
+E00841,2016-05-08,,People,San Jose,L5,People Partners,hire
+E00842,2016-05-10,2023-08-10,Engineering,New York,L1,Software Engineering,hire
+E00843,2016-05-11,,Engineering,San Jose,L3,Software Engineering,hire
+E00844,2016-05-13,,Marketing,Austin,L3,Product Marketing,hire
+E00845,2016-05-18,,Customer Success,New York,L2,Customer Success Management,hire
+E00846,2016-05-19,,Customer Success,London,L2,Support,hire
+E00847,2016-05-24,2024-02-29,Marketing,London,L5,Demand Generation,hire
+E00847,2024-03-01,2025-06-23,Marketing,London,L6,Demand Generation,promotion
+E00848,2016-05-30,,Sales,Austin,L4,Account Executive,hire
+E00849,2016-05-30,,Customer Success,Austin,L3,Support,hire
+E00850,2016-05-31,2024-08-21,Engineering,New York,L4,Software Engineering,hire
+E00851,2016-06-02,,Operations,San Jose,L3,IT Operations,hire
+E00852,2016-06-02,2023-05-24,Sales,San Jose,L1,Sales Development,hire
+E00853,2016-06-06,,Engineering,Bengaluru,L3,Software Engineering,hire
+E00854,2016-06-07,2024-12-23,Customer Success,San Jose,L1,Customer Success Management,hire
+E00855,2016-06-10,,Engineering,New York,L3,Data Engineering,hire
+E00856,2016-06-15,2022-12-31,Operations,London,L1,Business Operations,hire
+E00856,2023-01-01,,Operations,London,L2,Business Operations,promotion
+E00857,2016-06-15,2023-06-24,Finance,Bengaluru,L3,Financial Planning,hire
+E00858,2016-06-19,,Finance,Austin,L4,Financial Planning,hire
+E00859,2016-06-23,,Engineering,San Jose,L1,Site Reliability,hire
+E00860,2016-06-23,,Marketing,San Jose,L4,Demand Generation,hire
+E00861,2016-06-25,2025-08-31,Customer Success,San Jose,L1,Customer Success Management,hire
+E00861,2025-09-01,,Customer Success,San Jose,L2,Customer Success Management,promotion
+E00862,2016-06-27,,Engineering,New York,L2,Software Engineering,hire
+E00863,2016-06-28,,Engineering,New York,L3,Software Engineering,hire
+E00864,2016-07-04,2025-08-26,Customer Success,San Jose,L1,Support,hire
+E00865,2016-07-06,,Engineering,San Jose,L2,Site Reliability,hire
+E00866,2016-07-09,,Customer Success,New York,L1,Support,hire
+E00867,2016-07-10,,Marketing,New York,L1,Demand Generation,hire
+E00868,2016-07-13,,Engineering,New York,L2,Data Engineering,hire
+E00869,2016-07-25,,Operations,New York,L2,Business Operations,hire
+E00870,2016-07-26,2023-02-28,People,New York,L1,People Partners,hire
+E00870,2023-03-01,2023-07-25,People,New York,L2,People Partners,promotion
+E00871,2016-08-01,2024-05-30,Engineering,Bengaluru,L1,Data Engineering,hire
+E00872,2016-08-04,2024-02-29,Engineering,San Jose,L2,Site Reliability,hire
+E00872,2024-03-01,,Engineering,San Jose,L3,Site Reliability,promotion
+E00873,2016-08-05,,Engineering,San Jose,L1,Site Reliability,hire
+E00874,2016-08-06,,Engineering,Bengaluru,L2,Data Engineering,hire
+E00875,2016-08-07,,Operations,Bengaluru,L2,Business Operations,hire
+E00876,2016-08-11,,Sales,San Jose,L1,Sales Development,hire
+E00877,2016-08-15,2023-04-30,Engineering,San Jose,L3,Site Reliability,hire
+E00877,2023-05-01,2024-07-16,Customer Success,San Jose,L3,Support,transfer
+E00878,2016-08-19,2025-01-18,Engineering,San Jose,L2,Software Engineering,hire
+E00879,2016-08-20,2024-01-09,Operations,San Jose,L1,Business Operations,hire
+E00880,2016-08-22,,Engineering,San Jose,L5,Site Reliability,hire
+E00881,2016-08-26,,Operations,Bengaluru,L3,IT Operations,hire
+E00882,2016-09-04,,Customer Success,New York,L3,Customer Success Management,hire
+E00883,2016-09-06,,Finance,New York,L1,Accounting,hire
+E00884,2016-09-10,2023-06-30,Customer Success,Austin,L1,Support,hire
+E00884,2023-07-01,2023-10-15,Sales,Austin,L1,Sales Development,transfer
+E00885,2016-09-19,,Sales,New York,L3,Sales Development,hire
+E00886,2016-09-19,,Customer Success,London,L4,Support,hire
+E00887,2016-09-20,,Engineering,San Jose,L6,Software Engineering,hire
+E00888,2016-09-23,2023-05-15,Marketing,San Jose,L2,Demand Generation,hire
+E00889,2016-10-02,2023-10-31,Customer Success,New York,L2,Customer Success Management,hire
+E00889,2023-11-01,,Customer Success,New York,L3,Customer Success Management,promotion
+E00890,2016-10-09,,Sales,San Jose,L3,Account Executive,hire
+E00891,2016-10-10,2023-05-31,Customer Success,San Jose,L2,Customer Success Management,hire
+E00891,2023-06-01,2025-09-30,Sales,San Jose,L2,Account Executive,transfer
+E00892,2016-10-13,,Engineering,San Jose,L4,Software Engineering,hire
+E00893,2016-10-14,,Engineering,Austin,L2,Data Engineering,hire
+E00894,2016-10-14,,Engineering,Austin,L3,Software Engineering,hire
+E00895,2016-10-22,,Customer Success,New York,L1,Support,hire
+E00896,2016-10-22,2025-02-03,Marketing,Bengaluru,L3,Demand Generation,hire
+E00897,2016-10-30,2025-08-31,Customer Success,San Jose,L3,Support,hire
+E00897,2025-09-01,,Customer Success,San Jose,L4,Support,promotion
+E00898,2016-11-12,,Sales,London,L2,Sales Development,hire
+E00899,2016-11-14,,Sales,New York,L2,Account Executive,hire
+E00900,2016-11-16,2023-11-17,Engineering,New York,L2,Site Reliability,hire
+E00901,2016-11-22,2024-06-12,Engineering,San Jose,L1,Site Reliability,hire
+E00902,2016-11-23,2023-07-26,Engineering,San Jose,L5,Data Engineering,hire
+E00903,2016-11-26,,Engineering,San Jose,L1,Data Engineering,hire
+E00904,2016-11-26,,Engineering,San Jose,L3,Site Reliability,hire
+E00905,2016-11-26,2023-02-28,Engineering,London,L1,Site Reliability,hire
+E00905,2023-03-01,2023-05-29,Engineering,London,L2,Site Reliability,promotion
+E00906,2016-12-01,,Finance,San Jose,L3,Accounting,hire
+E00907,2016-12-07,,Customer Success,New York,L2,Support,hire
+E00908,2016-12-08,,Sales,New York,L3,Sales Development,hire
+E00909,2016-12-08,,Customer Success,New York,L3,Support,hire
+E00910,2016-12-09,2024-01-31,Engineering,San Jose,L1,Data Engineering,hire
+E00910,2024-02-01,,Engineering,San Jose,L2,Data Engineering,promotion
+E00911,2016-12-12,,Marketing,New York,L5,Product Marketing,hire
+E00912,2016-12-15,,Sales,New York,L2,Account Executive,hire
+E00913,2016-12-16,2024-05-15,Engineering,Austin,L3,Software Engineering,hire
+E00914,2016-12-17,,Sales,San Jose,L4,Sales Development,hire
+E00915,2016-12-18,,Customer Success,San Jose,L1,Customer Success Management,hire
+E00916,2016-12-23,,People,San Jose,L2,Recruiting,hire
+E00917,2016-12-24,2024-07-31,Engineering,San Jose,L5,Data Engineering,hire
+E00917,2024-08-01,,Engineering,San Jose,L6,Data Engineering,promotion
+E00918,2016-12-30,2023-05-31,Sales,New York,L2,Account Executive,hire
+E00918,2023-06-01,,Sales,New York,L3,Account Executive,promotion
+E00919,2017-01-05,2023-02-28,Engineering,New York,L2,Site Reliability,hire
+E00919,2023-03-01,,Engineering,New York,L3,Site Reliability,promotion
+E00920,2017-01-07,,Engineering,New York,L3,Software Engineering,hire
+E00921,2017-01-10,,Engineering,San Jose,L2,Software Engineering,hire
+E00922,2017-01-17,2023-10-14,Finance,San Jose,L2,Financial Planning,hire
+E00923,2017-01-18,,People,San Jose,L1,Recruiting,hire
+E00924,2017-01-22,,Engineering,San Jose,L3,Software Engineering,hire
+E00925,2017-01-22,2023-09-30,Marketing,London,L1,Demand Generation,hire
+E00925,2023-10-01,2024-04-04,Marketing,London,L2,Demand Generation,promotion
+E00926,2017-01-28,,Engineering,San Jose,L4,Site Reliability,hire
+E00927,2017-02-07,2024-01-02,Engineering,Austin,L5,Site Reliability,hire
+E00928,2017-02-08,2023-04-30,Marketing,Bengaluru,L4,Product Marketing,hire
+E00928,2023-05-01,,Finance,Bengaluru,L4,Accounting,transfer
+E00929,2017-02-17,,Engineering,Austin,L2,Software Engineering,hire
+E00930,2017-02-17,2025-10-03,Marketing,New York,L2,Product Marketing,hire
+E00931,2017-03-01,2025-12-11,Sales,Austin,L2,Sales Development,hire
+E00932,2017-03-03,,Sales,San Jose,L3,Account Executive,hire
+E00933,2017-03-05,,Engineering,San Jose,L2,Software Engineering,hire
+E00934,2017-03-06,,Customer Success,New York,L4,Support,hire
+E00935,2017-03-07,,Marketing,Austin,L2,Product Marketing,hire
+E00936,2017-03-12,,People,New York,L1,People Partners,hire
+E00937,2017-03-12,2023-07-14,Engineering,London,L4,Site Reliability,hire
+E00938,2017-03-13,,Finance,Bengaluru,L2,Financial Planning,hire
+E00939,2017-03-17,2023-05-12,Engineering,San Jose,L1,Site Reliability,hire
+E00940,2017-03-24,2023-01-31,Finance,San Jose,L2,Financial Planning,hire
+E00940,2023-02-01,2025-03-11,Finance,San Jose,L3,Financial Planning,promotion
+E00941,2017-04-09,,Engineering,San Jose,L2,Software Engineering,hire
+E00942,2017-04-09,,Sales,Austin,L2,Sales Development,hire
+E00943,2017-04-16,2024-06-01,Sales,San Jose,L5,Account Executive,hire
+E00944,2017-04-22,,Operations,New York,L2,IT Operations,hire
+E00945,2017-04-26,2025-09-30,Operations,San Jose,L1,Business Operations,hire
+E00945,2025-10-01,2025-11-17,Operations,San Jose,L2,Business Operations,promotion
+E00946,2017-04-29,,Operations,New York,L5,IT Operations,hire
+E00947,2017-05-01,,Engineering,New York,L4,Software Engineering,hire
+E00948,2017-05-01,,Operations,San Jose,L3,IT Operations,hire
+E00949,2017-05-02,,Engineering,New York,L5,Site Reliability,hire
+E00950,2017-05-06,2024-11-30,Sales,New York,L1,Account Executive,hire
+E00950,2024-12-01,,Sales,New York,L2,Account Executive,promotion
+E00951,2017-05-17,,Engineering,London,L4,Site Reliability,hire
+E00952,2017-05-20,,Sales,San Jose,L2,Sales Development,hire
+E00953,2017-05-24,,Engineering,San Jose,L4,Data Engineering,hire
+E00954,2017-05-26,2024-11-30,Engineering,Austin,L3,Software Engineering,hire
+E00954,2024-12-01,2025-02-09,People,Austin,L3,Recruiting,transfer
+E00955,2017-05-29,2024-09-27,Customer Success,Austin,L1,Support,hire
+E00956,2017-05-30,2025-10-29,Marketing,Austin,L1,Demand Generation,hire
+E00957,2017-06-20,2023-02-28,Engineering,San Jose,L3,Site Reliability,hire
+E00957,2023-03-01,2023-07-29,Engineering,San Jose,L4,Site Reliability,promotion
+E00958,2017-06-22,,Sales,New York,L2,Account Executive,hire
+E00959,2017-06-29,,Sales,San Jose,L3,Account Executive,hire
+E00960,2017-06-30,,Engineering,Bengaluru,L3,Site Reliability,hire
+E00961,2017-06-30,2025-11-30,People,San Jose,L2,People Partners,hire
+E00961,2025-12-01,,People,San Jose,L3,People Partners,promotion
+E00962,2017-07-01,,Operations,San Jose,L2,Business Operations,hire
+E00963,2017-07-04,,Finance,San Jose,L1,Financial Planning,hire
+E00964,2017-07-05,,Engineering,Austin,L1,Software Engineering,hire
+E00965,2017-07-14,2023-02-22,People,London,L2,People Partners,hire
+E00966,2017-07-16,2025-12-16,Customer Success,Austin,L4,Support,hire
+E00967,2017-07-20,,Engineering,San Jose,L4,Data Engineering,hire
+E00968,2017-07-21,2023-06-25,Customer Success,New York,L2,Customer Success Management,hire
+E00969,2017-07-28,,Customer Success,New York,L1,Support,hire
+E00970,2017-08-04,,Engineering,San Jose,L3,Data Engineering,hire
+E00971,2017-08-09,2024-04-22,Marketing,New York,L2,Demand Generation,hire
+E00972,2017-08-10,2024-07-31,Engineering,San Jose,L3,Data Engineering,hire
+E00972,2024-08-01,,Engineering,San Jose,L4,Data Engineering,promotion
+E00973,2017-08-13,2023-05-19,Finance,Austin,L1,Accounting,hire
+E00974,2017-08-22,2023-11-23,Finance,San Jose,L2,Accounting,hire
+E00975,2017-08-22,2025-04-17,People,Austin,L2,Recruiting,hire
+E00976,2017-08-28,,Engineering,San Jose,L4,Site Reliability,hire
+E00977,2017-09-08,,Engineering,San Jose,L3,Software Engineering,hire
+E00978,2017-09-08,2023-04-22,Engineering,Austin,L2,Software Engineering,hire
+E00979,2017-09-09,2024-04-15,Engineering,Austin,L4,Site Reliability,hire
+E00980,2017-09-10,,Engineering,Austin,L2,Software Engineering,hire
+E00981,2017-09-27,2023-01-23,Engineering,Austin,L3,Software Engineering,hire
+E00982,2017-10-03,,Finance,San Jose,L1,Financial Planning,hire
+E00983,2017-10-08,2023-10-01,Engineering,San Jose,L1,Software Engineering,hire
+E00984,2017-10-12,,Operations,Austin,L3,IT Operations,hire
+E00985,2017-10-14,2023-11-03,People,New York,L3,People Partners,hire
+E00986,2017-10-15,,Customer Success,New York,L3,Support,hire
+E00987,2017-10-15,,Finance,Bengaluru,L2,Accounting,hire
+E00988,2017-10-18,2023-08-31,Finance,Austin,L1,Financial Planning,hire
+E00988,2023-09-01,,Sales,Austin,L1,Sales Development,transfer
+E00989,2017-10-19,,Engineering,San Jose,L1,Site Reliability,hire
+E00990,2017-10-21,2025-01-05,Finance,Bengaluru,L3,Accounting,hire
+E00991,2017-10-29,2024-07-31,Finance,Austin,L3,Financial Planning,hire
+E00991,2024-08-01,,Finance,Austin,L4,Financial Planning,promotion
+E00992,2017-10-31,2024-01-31,Engineering,San Jose,L1,Software Engineering,hire
+E00992,2024-02-01,,Engineering,San Jose,L2,Software Engineering,promotion
+E00993,2017-11-06,2023-03-29,Engineering,San Jose,L2,Site Reliability,hire
+E00994,2017-11-22,,Customer Success,New York,L2,Customer Success Management,hire
+E00995,2017-11-25,2024-05-31,Marketing,Austin,L1,Product Marketing,hire
+E00995,2024-06-01,2024-07-13,Marketing,Austin,L2,Product Marketing,promotion
+E00996,2017-11-26,2024-02-29,Sales,New York,L4,Account Executive,hire
+E00996,2024-03-01,,Sales,New York,L5,Account Executive,promotion
+E00997,2017-11-27,2024-09-17,Engineering,London,L4,Data Engineering,hire
+E00998,2017-11-28,,Sales,San Jose,L5,Sales Development,hire
+E00999,2017-12-06,2024-10-09,Customer Success,New York,L2,Customer Success Management,hire
+E01000,2017-12-07,,Customer Success,New York,L1,Support,hire
+E01001,2017-12-19,,Sales,Bengaluru,L2,Account Executive,hire
+E01002,2017-12-25,,Sales,San Jose,L2,Sales Development,hire
+E01003,2018-01-06,2024-01-17,Engineering,New York,L2,Software Engineering,hire
+E01004,2018-01-08,2023-03-05,Sales,Austin,L1,Sales Development,hire
+E01005,2018-01-10,,Engineering,San Jose,L3,Data Engineering,hire
+E01006,2018-01-19,2025-02-28,Engineering,Austin,L3,Data Engineering,hire
+E01006,2025-03-01,,Engineering,Austin,L4,Data Engineering,promotion
+E01007,2018-01-19,,Engineering,Austin,L2,Data Engineering,hire
+E01008,2018-01-24,,Customer Success,San Jose,L1,Support,hire
+E01009,2018-01-25,,Sales,London,L6,Account Executive,hire
+E01010,2018-01-28,,Sales,Bengaluru,L3,Account Executive,hire
+E01011,2018-01-29,,Sales,San Jose,L1,Sales Development,hire
+E01012,2018-01-30,,Engineering,San Jose,L1,Site Reliability,hire
+E01013,2018-02-04,2024-05-31,Finance,London,L4,Accounting,hire
+E01013,2024-06-01,,Finance,London,L5,Accounting,promotion
+E01014,2018-02-08,2023-11-22,Sales,Austin,L3,Sales Development,hire
+E01015,2018-02-12,2025-09-18,Finance,Austin,L1,Financial Planning,hire
+E01016,2018-02-18,2023-04-30,Sales,New York,L2,Sales Development,hire
+E01016,2023-05-01,2024-03-15,Sales,New York,L3,Sales Development,promotion
+E01017,2018-02-24,2023-10-27,Marketing,New York,L4,Product Marketing,hire
+E01018,2018-02-26,,Sales,San Jose,L2,Sales Development,hire
+E01019,2018-02-26,2025-10-15,Engineering,San Jose,L2,Software Engineering,hire
+E01020,2018-02-28,2023-11-30,Operations,San Jose,L2,Business Operations,hire
+E01020,2023-12-01,,Operations,San Jose,L3,Business Operations,promotion
+E01021,2018-03-05,,Engineering,Austin,L1,Site Reliability,hire
+E01022,2018-03-11,,Sales,San Jose,L1,Sales Development,hire
+E01023,2018-03-15,2024-04-16,Sales,London,L3,Account Executive,hire
+E01024,2018-03-16,2023-08-31,Engineering,San Jose,L1,Software Engineering,hire
+E01024,2023-09-01,,Engineering,San Jose,L2,Software Engineering,promotion
+E01025,2018-03-17,2025-11-30,People,Austin,L3,People Partners,hire
+E01025,2025-12-01,,People,Austin,L4,People Partners,promotion
+E01026,2018-03-23,,People,Austin,L3,Recruiting,hire
+E01027,2018-03-24,2025-12-28,Engineering,London,L3,Data Engineering,hire
+E01028,2018-03-29,2025-01-31,Engineering,Austin,L3,Software Engineering,hire
+E01028,2025-02-01,,Engineering,Austin,L4,Software Engineering,promotion
+E01029,2018-03-30,,Sales,Austin,L1,Sales Development,hire
+E01030,2018-04-02,,Engineering,San Jose,L3,Software Engineering,hire
+E01031,2018-04-03,,Engineering,San Jose,L2,Data Engineering,hire
+E01032,2018-04-03,,Marketing,New York,L3,Demand Generation,hire
+E01033,2018-04-08,2023-10-08,Operations,San Jose,L3,IT Operations,hire
+E01034,2018-04-09,,Finance,Austin,L4,Financial Planning,hire
+E01035,2018-04-11,,Sales,New York,L2,Account Executive,hire
+E01036,2018-04-16,,Engineering,San Jose,L2,Data Engineering,hire
+E01037,2018-04-18,,Engineering,London,L2,Software Engineering,hire
+E01038,2018-04-18,,Sales,San Jose,L5,Sales Development,hire
+E01039,2018-04-20,2023-11-30,Engineering,New York,L2,Site Reliability,hire
+E01039,2023-12-01,2024-10-10,Engineering,New York,L3,Site Reliability,promotion
+E01040,2018-04-22,,Customer Success,San Jose,L4,Customer Success Management,hire
+E01041,2018-04-26,,Operations,San Jose,L2,Business Operations,hire
+E01042,2018-05-12,,Sales,San Jose,L2,Account Executive,hire
+E01043,2018-05-16,,Marketing,San Jose,L2,Demand Generation,hire
+E01044,2018-05-17,,Engineering,New York,L3,Software Engineering,hire
+E01045,2018-05-20,2023-09-30,Sales,New York,L1,Account Executive,hire
+E01045,2023-10-01,,Sales,New York,L2,Account Executive,promotion
+E01046,2018-05-23,2023-03-07,Sales,San Jose,L4,Sales Development,hire
+E01047,2018-05-25,2024-07-24,Customer Success,San Jose,L3,Customer Success Management,hire
+E01048,2018-05-26,,Customer Success,San Jose,L2,Customer Success Management,hire
+E01049,2018-05-29,2023-05-31,Engineering,San Jose,L3,Site Reliability,hire
+E01049,2023-06-01,,Sales,San Jose,L3,Account Executive,transfer
+E01050,2018-05-31,,Engineering,San Jose,L3,Site Reliability,hire
+E01051,2018-06-09,2023-01-31,Engineering,San Jose,L3,Site Reliability,hire
+E01051,2023-02-01,,Engineering,San Jose,L4,Site Reliability,promotion
+E01052,2018-06-13,2023-06-30,Finance,New York,L3,Financial Planning,hire
+E01052,2023-07-01,2023-10-19,Finance,New York,L4,Financial Planning,promotion
+E01053,2018-06-21,,Sales,Austin,L1,Sales Development,hire
+E01054,2018-06-24,,Sales,San Jose,L2,Sales Development,hire
+E01055,2018-07-01,2024-10-31,Engineering,San Jose,L3,Software Engineering,hire
+E01055,2024-11-01,,Engineering,San Jose,L4,Software Engineering,promotion
+E01056,2018-07-01,2025-07-20,Customer Success,New York,L1,Support,hire
+E01057,2018-07-04,,Engineering,San Jose,L5,Site Reliability,hire
+E01058,2018-07-07,2025-10-22,Engineering,New York,L5,Site Reliability,hire
+E01059,2018-07-13,2025-01-31,Customer Success,New York,L2,Customer Success Management,hire
+E01059,2025-02-01,,Sales,New York,L2,Sales Development,transfer
+E01060,2018-07-13,,Finance,San Jose,L1,Accounting,hire
+E01061,2018-07-26,2023-10-20,Customer Success,New York,L1,Customer Success Management,hire
+E01062,2018-07-28,,Engineering,San Jose,L3,Site Reliability,hire
+E01063,2018-08-02,,Customer Success,Austin,L2,Support,hire
+E01064,2018-08-02,,Operations,San Jose,L1,Business Operations,hire
+E01065,2018-08-10,2024-10-22,Sales,San Jose,L3,Sales Development,hire
+E01066,2018-08-11,2025-06-10,Engineering,Austin,L1,Data Engineering,hire
+E01067,2018-08-12,2025-07-21,People,London,L4,Recruiting,hire
+E01068,2018-08-17,,Engineering,Bengaluru,L2,Site Reliability,hire
+E01069,2018-08-24,,Marketing,Bengaluru,L2,Demand Generation,hire
+E01070,2018-08-27,2025-02-10,Engineering,New York,L2,Software Engineering,hire
+E01071,2018-08-29,2023-03-13,Finance,Austin,L1,Financial Planning,hire
+E01072,2018-09-09,,Engineering,Austin,L4,Site Reliability,hire
+E01073,2018-09-14,2025-11-30,Engineering,San Jose,L2,Site Reliability,hire
+E01073,2025-12-01,,Engineering,San Jose,L3,Site Reliability,promotion
+E01074,2018-09-29,2023-07-31,Operations,Bengaluru,L6,Business Operations,hire
+E01074,2023-08-01,2024-04-19,Engineering,Bengaluru,L6,Site Reliability,transfer
+E01075,2018-10-08,2023-10-24,Engineering,San Jose,L3,Site Reliability,hire
+E01076,2018-10-09,,Sales,London,L4,Sales Development,hire
+E01077,2018-10-10,,Engineering,Austin,L2,Data Engineering,hire
+E01078,2018-10-14,,Sales,London,L4,Account Executive,hire
+E01079,2018-10-15,2025-01-31,Engineering,San Jose,L3,Data Engineering,hire
+E01079,2025-02-01,,Engineering,San Jose,L4,Data Engineering,promotion
+E01080,2018-10-20,2024-01-31,Marketing,New York,L2,Product Marketing,hire
+E01080,2024-02-01,,Marketing,New York,L3,Product Marketing,promotion
+E01081,2018-10-20,2025-06-30,Finance,San Jose,L1,Accounting,hire
+E01081,2025-07-01,,Finance,San Jose,L2,Accounting,promotion
+E01082,2018-10-22,,Engineering,San Jose,L1,Site Reliability,hire
+E01083,2018-10-22,,Engineering,San Jose,L2,Software Engineering,hire
+E01084,2018-10-23,2023-05-16,Customer Success,London,L1,Customer Success Management,hire
+E01085,2018-10-30,2025-09-04,Engineering,New York,L3,Data Engineering,hire
+E01086,2018-10-31,,Customer Success,New York,L2,Support,hire
+E01087,2018-11-01,2024-05-15,Engineering,London,L5,Data Engineering,hire
+E01088,2018-11-05,2024-02-29,Engineering,Bengaluru,L4,Data Engineering,hire
+E01088,2024-03-01,2024-04-02,Engineering,Bengaluru,L5,Data Engineering,promotion
+E01089,2018-11-06,,Customer Success,New York,L2,Customer Success Management,hire
+E01090,2018-11-07,2025-11-30,Engineering,Bengaluru,L3,Site Reliability,hire
+E01090,2025-12-01,,Engineering,Bengaluru,L4,Site Reliability,promotion
+E01091,2018-11-09,,Sales,New York,L4,Sales Development,hire
+E01092,2018-11-13,2023-09-03,Engineering,Austin,L5,Site Reliability,hire
+E01093,2018-11-14,,Engineering,San Jose,L5,Data Engineering,hire
+E01094,2018-11-17,2024-04-30,Engineering,San Jose,L3,Software Engineering,hire
+E01094,2024-05-01,,Engineering,San Jose,L4,Software Engineering,promotion
+E01095,2018-11-21,2025-07-31,Finance,New York,L2,Financial Planning,hire
+E01095,2025-08-01,,Finance,New York,L3,Financial Planning,promotion
+E01096,2018-11-23,2023-02-28,Sales,New York,L1,Sales Development,hire
+E01096,2023-03-01,2025-10-08,Customer Success,New York,L1,Support,transfer
+E01097,2018-11-26,2023-08-05,Customer Success,New York,L3,Support,hire
+E01098,2018-11-27,2023-10-05,Engineering,London,L2,Data Engineering,hire
+E01099,2018-12-05,,Sales,New York,L4,Sales Development,hire
+E01100,2018-12-09,,Marketing,San Jose,L3,Product Marketing,hire
+E01101,2018-12-10,,Engineering,San Jose,L2,Software Engineering,hire
+E01102,2018-12-23,2025-05-27,Engineering,London,L3,Software Engineering,hire
+E01103,2018-12-27,,Operations,Austin,L1,IT Operations,hire
+E01104,2018-12-28,,Customer Success,London,L2,Support,hire
+E01105,2019-01-04,2022-12-31,Engineering,San Jose,L5,Software Engineering,hire
+E01105,2023-01-01,,Engineering,San Jose,L6,Software Engineering,promotion
+E01106,2019-01-06,,Engineering,Bengaluru,L3,Software Engineering,hire
+E01107,2019-01-06,2024-01-26,Engineering,Austin,L3,Software Engineering,hire
+E01108,2019-01-09,2024-05-31,Engineering,New York,L1,Site Reliability,hire
+E01108,2024-06-01,,Engineering,New York,L2,Site Reliability,promotion
+E01109,2019-01-09,,Sales,London,L3,Account Executive,hire
+E01110,2019-01-12,2023-05-31,Operations,New York,L2,Business Operations,hire
+E01110,2023-06-01,,Operations,New York,L3,Business Operations,promotion
+E01111,2019-01-18,2025-08-03,Finance,San Jose,L3,Financial Planning,hire
+E01112,2019-01-19,2025-08-14,Engineering,San Jose,L3,Site Reliability,hire
+E01113,2019-01-20,2024-08-18,Marketing,San Jose,L1,Demand Generation,hire
+E01114,2019-01-23,2024-09-25,Sales,San Jose,L4,Account Executive,hire
+E01115,2019-01-26,2023-05-27,Customer Success,San Jose,L4,Customer Success Management,hire
+E01116,2019-01-28,,Engineering,London,L2,Software Engineering,hire
+E01117,2019-02-01,2023-05-30,Customer Success,San Jose,L1,Customer Success Management,hire
+E01118,2019-02-02,,Legal,New York,L1,Legal Counsel,hire
+E01119,2019-02-03,,Marketing,San Jose,L2,Demand Generation,hire
+E01120,2019-02-04,2023-05-31,Sales,New York,L1,Account Executive,hire
+E01120,2023-06-01,2023-12-06,Sales,New York,L2,Account Executive,promotion
+E01121,2019-02-04,2023-03-10,Marketing,San Jose,L2,Product Marketing,hire
+E01122,2019-02-12,,Engineering,New York,L2,Software Engineering,hire
+E01123,2019-02-12,2025-10-24,Engineering,San Jose,L3,Data Engineering,hire
+E01124,2019-02-14,,Customer Success,San Jose,L2,Customer Success Management,hire
+E01125,2019-02-15,,Engineering,London,L4,Site Reliability,hire
+E01126,2019-02-26,2025-10-31,Sales,New York,L3,Sales Development,hire
+E01126,2025-11-01,,Sales,New York,L4,Sales Development,promotion
+E01127,2019-02-26,2025-06-20,Sales,San Jose,L5,Account Executive,hire
+E01128,2019-02-26,2025-10-10,Customer Success,Austin,L4,Customer Success Management,hire
+E01129,2019-03-02,,Engineering,Austin,L1,Data Engineering,hire
+E01130,2019-03-12,,Customer Success,Austin,L1,Customer Success Management,hire
+E01131,2019-03-14,,People,New York,L1,People Partners,hire
+E01132,2019-03-16,2025-11-30,Customer Success,San Jose,L4,Customer Success Management,hire
+E01132,2025-12-01,,Customer Success,San Jose,L5,Customer Success Management,promotion
+E01133,2019-03-20,,Engineering,Austin,L5,Software Engineering,hire
+E01134,2019-03-21,2024-07-30,Operations,San Jose,L3,IT Operations,hire
+E01135,2019-03-24,,Engineering,San Jose,L3,Site Reliability,hire
+E01136,2019-03-24,,Customer Success,San Jose,L2,Support,hire
+E01137,2019-03-24,2024-07-06,Engineering,Austin,L1,Software Engineering,hire
+E01138,2019-03-25,,Sales,Austin,L2,Account Executive,hire
+E01139,2019-04-03,,Sales,New York,L3,Sales Development,hire
+E01140,2019-04-10,2023-08-19,Sales,New York,L4,Account Executive,hire
+E01141,2019-04-20,2024-07-31,People,San Jose,L2,Recruiting,hire
+E01141,2024-08-01,,Sales,San Jose,L2,Sales Development,transfer
+E01142,2019-04-24,,Operations,San Jose,L1,IT Operations,hire
+E01143,2019-04-28,,Sales,New York,L4,Account Executive,hire
+E01144,2019-05-09,2024-08-19,People,San Jose,L3,Recruiting,hire
+E01145,2019-05-12,2022-12-31,Customer Success,London,L2,Support,hire
+E01145,2023-01-01,,Customer Success,London,L3,Support,promotion
+E01146,2019-05-14,2023-01-28,Engineering,San Jose,L2,Site Reliability,hire
+E01147,2019-05-16,2023-10-12,Engineering,New York,L2,Software Engineering,hire
+E01148,2019-05-18,,Marketing,New York,L3,Demand Generation,hire
+E01149,2019-05-25,,Engineering,San Jose,L1,Software Engineering,hire
+E01150,2019-05-26,2023-01-31,Finance,Bengaluru,L1,Financial Planning,hire
+E01150,2023-02-01,2023-09-11,Sales,Bengaluru,L1,Account Executive,transfer
+E01151,2019-06-06,2024-01-31,Sales,London,L1,Sales Development,hire
+E01151,2024-02-01,,Operations,London,L1,Business Operations,transfer
+E01152,2019-06-09,2025-08-20,Engineering,London,L3,Data Engineering,hire
+E01153,2019-06-14,2024-03-22,People,Austin,L5,People Partners,hire
+E01154,2019-06-17,,Engineering,Austin,L3,Software Engineering,hire
+E01155,2019-06-21,,People,Austin,L5,Recruiting,hire
+E01156,2019-06-24,2023-04-05,Marketing,Austin,L2,Product Marketing,hire
+E01157,2019-07-04,,Operations,London,L1,Business Operations,hire
+E01158,2019-07-20,,Engineering,San Jose,L2,Data Engineering,hire
+E01159,2019-07-21,,Operations,San Jose,L6,IT Operations,hire
+E01160,2019-07-21,2023-10-06,Customer Success,San Jose,L2,Customer Success Management,hire
+E01161,2019-07-22,2025-08-31,Marketing,San Jose,L1,Demand Generation,hire
+E01161,2025-09-01,,Marketing,San Jose,L2,Demand Generation,promotion
+E01162,2019-07-26,2023-08-21,Sales,San Jose,L4,Sales Development,hire
+E01163,2019-07-30,,Engineering,San Jose,L3,Software Engineering,hire
+E01164,2019-08-02,2023-09-17,Sales,London,L2,Sales Development,hire
+E01165,2019-08-03,,Engineering,San Jose,L1,Site Reliability,hire
+E01166,2019-08-05,2024-10-17,Engineering,New York,L5,Software Engineering,hire
+E01167,2019-08-11,2025-06-21,Operations,San Jose,L2,IT Operations,hire
+E01168,2019-08-14,,People,New York,L3,People Partners,hire
+E01169,2019-08-16,,Engineering,Austin,L1,Software Engineering,hire
+E01170,2019-08-17,2025-01-31,Engineering,San Jose,L3,Software Engineering,hire
+E01170,2025-02-01,2025-07-04,Engineering,San Jose,L4,Software Engineering,promotion
+E01171,2019-08-24,2024-04-04,Sales,New York,L6,Account Executive,hire
+E01172,2019-08-27,2025-04-21,Sales,San Jose,L2,Sales Development,hire
+E01173,2019-08-30,,Customer Success,Austin,L3,Support,hire
+E01174,2019-09-16,2024-04-18,Operations,London,L1,Business Operations,hire
+E01175,2019-09-17,2023-01-01,Engineering,New York,L1,Site Reliability,hire
+E01176,2019-09-22,,Sales,San Jose,L1,Account Executive,hire
+E01177,2019-09-23,,People,San Jose,L3,Recruiting,hire
+E01178,2019-09-26,,Operations,New York,L6,Business Operations,hire
+E01179,2019-09-29,,Sales,London,L1,Sales Development,hire
+E01180,2019-10-07,2023-11-04,Operations,Austin,L2,IT Operations,hire
+E01181,2019-10-12,2023-04-30,Sales,San Jose,L3,Sales Development,hire
+E01181,2023-05-01,,Sales,San Jose,L4,Sales Development,promotion
+E01182,2019-10-20,,Customer Success,New York,L2,Support,hire
+E01183,2019-10-23,,Engineering,Bengaluru,L2,Site Reliability,hire
+E01184,2019-10-26,2025-02-13,Operations,San Jose,L3,IT Operations,hire
+E01185,2019-10-27,2023-08-31,Operations,San Jose,L3,IT Operations,hire
+E01185,2023-09-01,,Operations,San Jose,L4,IT Operations,promotion
+E01186,2019-10-29,2023-07-31,Operations,Bengaluru,L1,IT Operations,hire
+E01186,2023-08-01,,Operations,Bengaluru,L2,IT Operations,promotion
+E01187,2019-10-30,,Sales,San Jose,L4,Sales Development,hire
+E01188,2019-10-30,2023-04-08,Customer Success,San Jose,L4,Support,hire
+E01189,2019-10-31,,Operations,London,L2,Business Operations,hire
+E01190,2019-11-02,2024-03-28,Engineering,San Jose,L3,Site Reliability,hire
+E01191,2019-11-04,,Sales,New York,L1,Sales Development,hire
+E01192,2019-11-06,,Finance,London,L3,Financial Planning,hire
+E01193,2019-11-07,2025-08-27,Engineering,New York,L3,Site Reliability,hire
+E01194,2019-11-09,,Engineering,San Jose,L2,Data Engineering,hire
+E01195,2019-11-12,2023-01-31,Engineering,New York,L2,Software Engineering,hire
+E01195,2023-02-01,2023-07-23,Engineering,New York,L3,Software Engineering,promotion
+E01196,2019-11-12,2024-07-25,Sales,San Jose,L3,Sales Development,hire
+E01197,2019-11-13,,Engineering,New York,L4,Site Reliability,hire
+E01198,2019-11-20,2024-04-30,People,New York,L1,Recruiting,hire
+E01198,2024-05-01,2025-06-08,People,New York,L2,Recruiting,promotion
+E01199,2019-11-21,,Customer Success,San Jose,L2,Support,hire
+E01200,2019-11-21,,Marketing,San Jose,L3,Demand Generation,hire
+E01201,2019-11-26,,Marketing,San Jose,L3,Demand Generation,hire
+E01202,2019-11-30,2024-12-09,Customer Success,London,L5,Customer Success Management,hire
+E01203,2019-12-01,2025-04-16,Sales,San Jose,L5,Sales Development,hire
+E01204,2019-12-02,,Engineering,Bengaluru,L3,Data Engineering,hire
+E01205,2019-12-08,,Sales,San Jose,L2,Account Executive,hire
+E01206,2019-12-08,2025-05-06,Engineering,San Jose,L4,Site Reliability,hire
+E01207,2019-12-13,,Marketing,New York,L3,Demand Generation,hire
+E01208,2019-12-13,2023-12-11,People,Austin,L1,People Partners,hire
+E01209,2019-12-14,2022-12-31,Finance,London,L1,Financial Planning,hire
+E01209,2023-01-01,2023-03-05,Finance,London,L2,Financial Planning,promotion
+E01210,2019-12-16,2024-05-10,Engineering,New York,L3,Software Engineering,hire
+E01211,2020-01-13,2023-05-04,Sales,New York,L3,Account Executive,hire
+E01212,2020-01-16,2023-02-28,Engineering,San Jose,L1,Data Engineering,hire
+E01212,2023-03-01,2024-06-26,Engineering,San Jose,L2,Data Engineering,promotion
+E01213,2020-01-23,,Sales,New York,L1,Sales Development,hire
+E01214,2020-01-24,2025-01-23,Engineering,New York,L1,Site Reliability,hire
+E01215,2020-02-03,2023-10-05,Customer Success,London,L1,Support,hire
+E01216,2020-02-05,2023-09-30,Engineering,San Jose,L1,Software Engineering,hire
+E01216,2023-10-01,,Engineering,San Jose,L2,Software Engineering,promotion
+E01217,2020-02-07,,Engineering,Bengaluru,L1,Site Reliability,hire
+E01218,2020-02-12,2023-04-09,Engineering,San Jose,L5,Software Engineering,hire
+E01219,2020-02-15,,Engineering,San Jose,L3,Software Engineering,hire
+E01220,2020-02-15,,Engineering,San Jose,L2,Site Reliability,hire
+E01221,2020-02-23,,Finance,London,L2,Accounting,hire
+E01222,2020-03-02,,Operations,New York,L2,Business Operations,hire
+E01223,2020-03-21,2023-05-31,Customer Success,Austin,L2,Support,hire
+E01223,2023-06-01,2023-08-19,Customer Success,Austin,L3,Support,promotion
+E01224,2020-03-22,2023-12-04,Engineering,San Jose,L3,Data Engineering,hire
+E01225,2020-03-26,,Operations,San Jose,L1,Business Operations,hire
+E01226,2020-03-31,2025-07-31,Marketing,San Jose,L1,Demand Generation,hire
+E01226,2025-08-01,,Marketing,San Jose,L2,Demand Generation,promotion
+E01227,2020-03-31,,People,Austin,L3,Recruiting,hire
+E01228,2020-04-01,2023-05-31,Customer Success,New York,L2,Customer Success Management,hire
+E01228,2023-06-01,2023-07-27,Marketing,New York,L2,Product Marketing,transfer
+E01229,2020-04-12,,Operations,New York,L1,Business Operations,hire
+E01230,2020-04-14,2023-05-31,Finance,Bengaluru,L2,Accounting,hire
+E01230,2023-06-01,2024-04-30,Finance,Bengaluru,L3,Accounting,promotion
+E01231,2020-04-16,,Engineering,San Jose,L3,Site Reliability,hire
+E01232,2020-04-17,,Operations,New York,L5,IT Operations,hire
+E01233,2020-04-19,,Finance,Austin,L4,Financial Planning,hire
+E01234,2020-04-20,2023-02-28,People,London,L3,Recruiting,hire
+E01234,2023-03-01,2024-07-21,Engineering,London,L3,Software Engineering,transfer
+E01235,2020-04-25,2023-01-31,Sales,New York,L3,Account Executive,hire
+E01235,2023-02-01,2023-08-18,Sales,New York,L4,Account Executive,promotion
+E01236,2020-04-27,2024-04-10,Sales,San Jose,L4,Sales Development,hire
+E01237,2020-05-03,2023-07-31,People,Austin,L3,Recruiting,hire
+E01237,2023-08-01,,Operations,Austin,L3,IT Operations,transfer
+E01238,2020-05-05,,Finance,New York,L2,Accounting,hire
+E01239,2020-05-06,,Operations,San Jose,L3,Business Operations,hire
+E01240,2020-05-10,,Engineering,London,L2,Site Reliability,hire
+E01241,2020-05-10,,Sales,Austin,L3,Account Executive,hire
+E01242,2020-05-16,2024-04-30,Customer Success,London,L2,Support,hire
+E01242,2024-05-01,,Sales,London,L2,Sales Development,transfer
+E01243,2020-05-22,,Marketing,San Jose,L3,Demand Generation,hire
+E01244,2020-05-25,,Sales,New York,L3,Sales Development,hire
+E01245,2020-05-27,,Engineering,San Jose,L3,Data Engineering,hire
+E01246,2020-05-28,2025-05-31,Engineering,New York,L3,Data Engineering,hire
+E01246,2025-06-01,,Engineering,New York,L4,Data Engineering,promotion
+E01247,2020-06-03,,Operations,San Jose,L5,IT Operations,hire
+E01248,2020-06-07,2024-02-25,Engineering,New York,L2,Site Reliability,hire
+E01249,2020-06-15,,Engineering,New York,L2,Data Engineering,hire
+E01250,2020-06-18,2024-08-31,Sales,Bengaluru,L3,Sales Development,hire
+E01250,2024-09-01,,Engineering,Bengaluru,L3,Software Engineering,transfer
+E01251,2020-06-19,2023-02-28,Operations,San Jose,L2,Business Operations,hire
+E01251,2023-03-01,,Operations,San Jose,L3,Business Operations,promotion
+E01252,2020-06-20,2025-03-20,Sales,New York,L2,Account Executive,hire
+E01253,2020-06-21,,Marketing,San Jose,L1,Product Marketing,hire
+E01254,2020-07-01,2023-09-30,Operations,Austin,L3,IT Operations,hire
+E01254,2023-10-01,2024-08-21,Finance,Austin,L3,Accounting,transfer
+E01255,2020-07-02,2024-07-31,Engineering,London,L1,Data Engineering,hire
+E01255,2024-08-01,,Engineering,London,L2,Data Engineering,promotion
+E01256,2020-07-02,2024-03-31,Operations,Bengaluru,L1,IT Operations,hire
+E01256,2024-04-01,,Engineering,Bengaluru,L1,Site Reliability,transfer
+E01257,2020-07-06,2023-09-30,Operations,Austin,L3,Business Operations,hire
+E01257,2023-10-01,,Customer Success,Austin,L3,Support,transfer
+E01258,2020-07-07,,Marketing,Austin,L2,Demand Generation,hire
+E01259,2020-07-08,2024-07-08,Customer Success,Austin,L3,Support,hire
+E01260,2020-07-11,,Operations,Austin,L6,IT Operations,hire
+E01261,2020-07-12,2024-05-31,Finance,New York,L2,Financial Planning,hire
+E01261,2024-06-01,2025-06-30,Marketing,New York,L2,Product Marketing,transfer
+E01261,2025-07-01,2025-09-02,Marketing,New York,L3,Product Marketing,promotion
+E01262,2020-07-13,2023-09-17,Engineering,New York,L3,Data Engineering,hire
+E01263,2020-07-15,,Operations,New York,L2,IT Operations,hire
+E01264,2020-07-17,2024-07-31,Finance,London,L2,Accounting,hire
+E01264,2024-08-01,,Finance,London,L3,Accounting,promotion
+E01265,2020-07-22,2025-11-06,Engineering,San Jose,L5,Software Engineering,hire
+E01266,2020-07-25,,Finance,San Jose,L1,Financial Planning,hire
+E01267,2020-08-01,,Finance,San Jose,L1,Financial Planning,hire
+E01268,2020-08-04,2022-12-31,People,New York,L2,People Partners,hire
+E01268,2023-01-01,,Engineering,New York,L2,Data Engineering,transfer
+E01269,2020-08-07,,Sales,San Jose,L1,Sales Development,hire
+E01270,2020-08-11,,Engineering,San Jose,L2,Site Reliability,hire
+E01271,2020-08-12,2024-10-31,Finance,San Jose,L2,Accounting,hire
+E01271,2024-11-01,,Finance,San Jose,L3,Accounting,promotion
+E01272,2020-08-13,,Engineering,Austin,L3,Software Engineering,hire
+E01273,2020-08-17,2023-02-17,Operations,San Jose,L6,IT Operations,hire
+E01274,2020-08-19,,Customer Success,San Jose,L3,Support,hire
+E01275,2020-08-24,,Engineering,Austin,L3,Data Engineering,hire
+E01276,2020-09-02,,Customer Success,San Jose,L1,Support,hire
+E01277,2020-09-05,2024-02-29,Sales,London,L3,Sales Development,hire
+E01277,2024-03-01,,Sales,London,L4,Sales Development,promotion
+E01278,2020-09-14,,Operations,London,L3,Business Operations,hire
+E01279,2020-09-21,,Engineering,New York,L5,Software Engineering,hire
+E01280,2020-09-21,,Sales,San Jose,L3,Sales Development,hire
+E01281,2020-09-29,,Customer Success,London,L3,Support,hire
+E01282,2020-10-02,2024-05-31,Engineering,San Jose,L3,Software Engineering,hire
+E01282,2024-06-01,2024-08-27,Engineering,San Jose,L4,Software Engineering,promotion
+E01283,2020-10-04,2024-11-30,Engineering,San Jose,L1,Data Engineering,hire
+E01283,2024-12-01,2025-12-18,Engineering,San Jose,L2,Data Engineering,promotion
+E01284,2020-10-05,2023-02-28,People,New York,L2,Recruiting,hire
+E01284,2023-03-01,,People,New York,L3,Recruiting,promotion
+E01285,2020-10-09,2024-10-31,Finance,Austin,L5,Accounting,hire
+E01285,2024-11-01,,Engineering,Austin,L5,Site Reliability,transfer
+E01286,2020-10-11,2024-09-30,People,Austin,L1,Recruiting,hire
+E01286,2024-10-01,,People,Austin,L2,Recruiting,promotion
+E01287,2020-10-18,2025-10-16,Engineering,Bengaluru,L1,Software Engineering,hire
+E01288,2020-11-02,,Finance,London,L1,Accounting,hire
+E01289,2020-11-05,2023-04-18,Finance,San Jose,L3,Financial Planning,hire
+E01290,2020-11-06,2023-10-23,Finance,New York,L2,Financial Planning,hire
+E01291,2020-11-15,,Engineering,Austin,L5,Site Reliability,hire
+E01292,2020-11-16,2024-10-02,Engineering,San Jose,L2,Site Reliability,hire
+E01293,2020-11-18,2025-05-01,Engineering,Bengaluru,L1,Software Engineering,hire
+E01294,2020-11-19,,Operations,San Jose,L3,IT Operations,hire
+E01295,2020-11-30,2025-09-13,Engineering,New York,L2,Site Reliability,hire
+E01296,2020-12-10,2023-07-31,Sales,New York,L1,Sales Development,hire
+E01296,2023-08-01,,Sales,New York,L2,Sales Development,promotion
+E01297,2020-12-10,2024-07-12,Engineering,Austin,L1,Software Engineering,hire
+E01298,2020-12-12,,Engineering,San Jose,L6,Software Engineering,hire
+E01299,2020-12-17,2023-12-31,Engineering,San Jose,L4,Site Reliability,hire
+E01299,2024-01-01,2025-09-30,Engineering,San Jose,L5,Site Reliability,promotion
+E01300,2020-12-17,2023-09-30,Customer Success,San Jose,L2,Customer Success Management,hire
+E01300,2023-10-01,2024-01-27,Customer Success,San Jose,L3,Customer Success Management,promotion
+E01301,2020-12-20,2025-10-31,People,New York,L2,Recruiting,hire
+E01301,2025-11-01,,Sales,New York,L2,Sales Development,transfer
+E01302,2020-12-20,,Sales,San Jose,L2,Account Executive,hire
+E01303,2020-12-23,2024-08-31,Customer Success,San Jose,L1,Customer Success Management,hire
+E01303,2024-09-01,,Customer Success,San Jose,L2,Customer Success Management,promotion
+E01304,2020-12-27,2023-01-31,Customer Success,San Jose,L3,Customer Success Management,hire
+E01304,2023-02-01,2024-01-11,Engineering,San Jose,L3,Data Engineering,transfer
+E01305,2021-01-09,2023-07-19,Engineering,New York,L3,Site Reliability,hire
+E01306,2021-01-26,,Engineering,San Jose,L3,Data Engineering,hire
+E01307,2021-01-31,2025-04-30,Engineering,London,L3,Software Engineering,hire
+E01307,2025-05-01,,Engineering,London,L4,Software Engineering,promotion
+E01308,2021-02-06,2025-09-16,Finance,Austin,L1,Financial Planning,hire
+E01309,2021-02-10,,Sales,Austin,L1,Sales Development,hire
+E01310,2021-02-13,2025-10-31,Engineering,San Jose,L1,Site Reliability,hire
+E01310,2025-11-01,,Engineering,San Jose,L2,Site Reliability,promotion
+E01311,2021-02-14,2024-06-30,Sales,Austin,L3,Sales Development,hire
+E01311,2024-07-01,2024-08-23,Sales,Austin,L4,Sales Development,promotion
+E01312,2021-02-16,,Sales,San Jose,L2,Sales Development,hire
+E01313,2021-02-16,2024-05-08,Operations,San Jose,L2,Business Operations,hire
+E01314,2021-02-19,2024-12-07,Engineering,Bengaluru,L5,Data Engineering,hire
+E01315,2021-02-21,,Engineering,Austin,L1,Software Engineering,hire
+E01316,2021-02-23,2023-07-08,Finance,San Jose,L3,Financial Planning,hire
+E01317,2021-02-24,,Engineering,San Jose,L3,Software Engineering,hire
+E01318,2021-02-27,,Finance,New York,L2,Accounting,hire
+E01319,2021-03-03,2024-07-07,Operations,New York,L3,IT Operations,hire
+E01320,2021-03-04,2023-06-24,Engineering,San Jose,L3,Software Engineering,hire
+E01321,2021-03-05,,Engineering,San Jose,L4,Software Engineering,hire
+E01322,2021-03-09,,Finance,San Jose,L1,Financial Planning,hire
+E01323,2021-03-11,,Sales,San Jose,L1,Sales Development,hire
+E01324,2021-03-14,,Engineering,San Jose,L4,Site Reliability,hire
+E01325,2021-03-20,2023-05-29,Customer Success,San Jose,L3,Customer Success Management,hire
+E01326,2021-03-26,,Engineering,New York,L2,Site Reliability,hire
+E01327,2021-03-28,,Sales,Austin,L4,Account Executive,hire
+E01328,2021-03-28,,Sales,New York,L1,Account Executive,hire
+E01329,2021-04-01,2023-07-31,Sales,San Jose,L4,Account Executive,hire
+E01329,2023-08-01,,Sales,San Jose,L5,Account Executive,promotion
+E01330,2021-04-04,2025-09-23,Customer Success,London,L6,Support,hire
+E01331,2021-04-07,,Marketing,New York,L3,Demand Generation,hire
+E01332,2021-04-14,,Engineering,Austin,L3,Data Engineering,hire
+E01333,2021-04-27,,Marketing,London,L2,Demand Generation,hire
+E01334,2021-05-08,,Sales,Austin,L3,Account Executive,hire
+E01335,2021-05-12,2023-04-12,Customer Success,New York,L2,Customer Success Management,hire
+E01336,2021-05-14,,Sales,London,L4,Account Executive,hire
+E01337,2021-05-15,2023-03-12,Engineering,San Jose,L3,Site Reliability,hire
+E01338,2021-05-26,,Marketing,San Jose,L3,Demand Generation,hire
+E01339,2021-06-04,2023-05-27,Engineering,New York,L3,Software Engineering,hire
+E01340,2021-06-08,,Marketing,London,L4,Product Marketing,hire
+E01341,2021-06-09,,Finance,Austin,L6,Financial Planning,hire
+E01342,2021-06-09,2023-07-10,Marketing,San Jose,L2,Product Marketing,hire
+E01343,2021-06-19,2024-06-11,Engineering,San Jose,L2,Data Engineering,hire
+E01344,2021-06-23,2024-04-03,Engineering,San Jose,L3,Software Engineering,hire
+E01345,2021-06-25,,Finance,Bengaluru,L4,Accounting,hire
+E01346,2021-07-03,2024-08-31,Engineering,San Jose,L2,Data Engineering,hire
+E01346,2024-09-01,,Sales,San Jose,L2,Sales Development,transfer
+E01347,2021-07-10,,Operations,San Jose,L1,IT Operations,hire
+E01348,2021-07-11,,Operations,San Jose,L3,IT Operations,hire
+E01349,2021-07-22,2023-10-10,Engineering,San Jose,L3,Site Reliability,hire
+E01350,2021-07-26,,Sales,San Jose,L4,Account Executive,hire
+E01351,2021-07-26,,Finance,New York,L3,Accounting,hire
+E01352,2021-07-29,,Engineering,London,L3,Site Reliability,hire
+E01353,2021-08-02,2025-10-23,Operations,London,L4,Business Operations,hire
+E01354,2021-08-17,,Customer Success,San Jose,L3,Support,hire
+E01355,2021-08-22,,Sales,San Jose,L3,Sales Development,hire
+E01356,2021-08-24,,Engineering,Bengaluru,L1,Software Engineering,hire
+E01357,2021-08-24,,Sales,Austin,L1,Sales Development,hire
+E01358,2021-08-25,2023-07-10,People,San Jose,L2,People Partners,hire
+E01359,2021-09-01,,People,San Jose,L3,Recruiting,hire
+E01360,2021-09-02,,Customer Success,London,L2,Support,hire
+E01361,2021-09-04,2024-06-02,Finance,London,L3,Accounting,hire
+E01362,2021-09-06,2025-10-31,Sales,New York,L1,Sales Development,hire
+E01362,2025-11-01,,Sales,New York,L2,Sales Development,promotion
+E01363,2021-09-06,2025-10-15,Operations,New York,L3,IT Operations,hire
+E01364,2021-09-09,,Sales,London,L4,Account Executive,hire
+E01365,2021-09-12,2023-01-31,Operations,New York,L2,Business Operations,hire
+E01365,2023-02-01,2024-12-31,Customer Success,New York,L2,Support,transfer
+E01365,2025-01-01,,Customer Success,New York,L3,Support,promotion
+E01366,2021-09-13,,Engineering,San Jose,L2,Data Engineering,hire
+E01367,2021-09-15,,Engineering,New York,L4,Data Engineering,hire
+E01368,2021-09-18,2023-05-31,Customer Success,San Jose,L1,Customer Success Management,hire
+E01368,2023-06-01,2023-10-21,Customer Success,San Jose,L2,Customer Success Management,promotion
+E01369,2021-09-21,,Customer Success,Austin,L4,Customer Success Management,hire
+E01370,2021-09-24,,Engineering,New York,L4,Software Engineering,hire
+E01371,2021-10-06,,Engineering,London,L2,Data Engineering,hire
+E01372,2021-10-10,2025-03-18,Engineering,Austin,L2,Site Reliability,hire
+E01373,2021-10-15,2025-11-17,Customer Success,New York,L4,Support,hire
+E01374,2021-10-17,2025-11-20,Engineering,Austin,L6,Data Engineering,hire
+E01375,2021-10-20,2024-06-21,Engineering,San Jose,L1,Data Engineering,hire
+E01376,2021-10-22,,Engineering,Austin,L2,Data Engineering,hire
+E01377,2021-10-25,2023-02-16,Marketing,San Jose,L2,Demand Generation,hire
+E01378,2021-10-30,,Customer Success,London,L1,Customer Success Management,hire
+E01379,2021-10-30,2024-06-30,Operations,Bengaluru,L3,Business Operations,hire
+E01379,2024-07-01,2024-12-02,Finance,Bengaluru,L3,Accounting,transfer
+E01380,2021-11-05,,Operations,San Jose,L4,IT Operations,hire
+E01381,2021-11-10,2023-10-15,Marketing,Austin,L2,Product Marketing,hire
+E01382,2021-11-11,,Engineering,Austin,L2,Data Engineering,hire
+E01383,2021-11-19,2025-09-19,Finance,Austin,L4,Accounting,hire
+E01384,2021-11-22,2023-12-31,Engineering,New York,L3,Data Engineering,hire
+E01384,2024-01-01,,Engineering,New York,L4,Data Engineering,promotion
+E01385,2021-11-27,2023-02-10,Customer Success,Bengaluru,L2,Customer Success Management,hire
+E01386,2021-11-29,2023-02-25,Engineering,London,L3,Software Engineering,hire
+E01387,2021-12-07,2025-04-26,Engineering,London,L3,Site Reliability,hire
+E01388,2021-12-14,,Customer Success,Bengaluru,L3,Customer Success Management,hire
+E01389,2021-12-19,,Engineering,New York,L3,Site Reliability,hire
+E01390,2021-12-23,,Engineering,London,L3,Data Engineering,hire
+E01391,2021-12-24,2024-07-31,Customer Success,New York,L1,Customer Success Management,hire
+E01392,2021-12-31,2024-09-30,People,Austin,L2,People Partners,hire
+E01392,2024-10-01,,People,Austin,L3,People Partners,promotion
+E01393,2022-01-01,,Marketing,New York,L3,Product Marketing,hire
+E01394,2022-01-02,,Engineering,London,L3,Software Engineering,hire
+E01395,2022-01-03,,Customer Success,San Jose,L2,Support,hire
+E01396,2022-01-07,,Sales,San Jose,L5,Sales Development,hire
+E01397,2022-01-07,2023-09-13,Sales,Austin,L4,Account Executive,hire
+E01398,2022-01-12,,Operations,New York,L3,Business Operations,hire
+E01399,2022-01-14,,Engineering,San Jose,L3,Software Engineering,hire
+E01400,2022-01-15,2023-02-28,Engineering,San Jose,L4,Site Reliability,hire
+E01400,2023-03-01,2025-09-05,Engineering,San Jose,L5,Site Reliability,promotion
+E01401,2022-02-01,,Engineering,San Jose,L2,Software Engineering,hire
+E01402,2022-02-01,2024-12-31,Operations,Bengaluru,L1,Business Operations,hire
+E01402,2025-01-01,,Operations,Bengaluru,L2,Business Operations,promotion
+E01403,2022-02-02,2023-12-09,Sales,Austin,L1,Account Executive,hire
+E01404,2022-02-09,,Sales,London,L1,Account Executive,hire
+E01405,2022-02-10,,Engineering,London,L4,Software Engineering,hire
+E01406,2022-02-18,2024-03-09,Sales,San Jose,L1,Account Executive,hire
+E01407,2022-02-19,,Customer Success,London,L5,Support,hire
+E01408,2022-02-23,2022-12-31,Customer Success,Austin,L3,Support,hire
+E01408,2023-01-01,2023-02-12,Customer Success,Austin,L4,Support,promotion
+E01409,2022-02-25,,Marketing,San Jose,L4,Product Marketing,hire
+E01410,2022-02-28,2024-01-25,Engineering,San Jose,L3,Data Engineering,hire
+E01411,2022-03-12,,Engineering,Austin,L1,Data Engineering,hire
+E01412,2022-03-14,2024-12-11,Engineering,Austin,L3,Software Engineering,hire
+E01413,2022-03-18,,Engineering,London,L3,Data Engineering,hire
+E01414,2022-03-22,,Customer Success,San Jose,L2,Customer Success Management,hire
+E01415,2022-03-23,,Marketing,San Jose,L2,Demand Generation,hire
+E01416,2022-03-24,,Engineering,Austin,L2,Data Engineering,hire
+E01417,2022-03-24,2024-12-14,Engineering,New York,L3,Software Engineering,hire
+E01418,2022-03-26,,Customer Success,London,L2,Customer Success Management,hire
+E01419,2022-03-31,,Customer Success,Austin,L2,Support,hire
+E01420,2022-04-03,,Engineering,London,L3,Software Engineering,hire
+E01421,2022-04-03,,Operations,San Jose,L5,IT Operations,hire
+E01422,2022-04-08,,Finance,Austin,L3,Financial Planning,hire
+E01423,2022-04-14,,Engineering,San Jose,L6,Software Engineering,hire
+E01424,2022-04-15,,Customer Success,San Jose,L3,Customer Success Management,hire
+E01425,2022-04-15,,Customer Success,Bengaluru,L2,Customer Success Management,hire
+E01426,2022-04-15,2024-12-11,Operations,New York,L3,IT Operations,hire
+E01427,2022-04-17,2025-03-10,Engineering,London,L1,Software Engineering,hire
+E01428,2022-04-20,,Sales,San Jose,L4,Account Executive,hire
+E01429,2022-04-20,,Operations,London,L4,IT Operations,hire
+E01430,2022-04-23,,Finance,Austin,L2,Financial Planning,hire
+E01431,2022-05-04,,Sales,Austin,L3,Account Executive,hire
+E01432,2022-05-05,,Customer Success,Austin,L3,Customer Success Management,hire
+E01433,2022-05-10,,Engineering,London,L3,Site Reliability,hire
+E01434,2022-05-17,,Engineering,San Jose,L5,Software Engineering,hire
+E01435,2022-05-18,2024-02-29,Operations,London,L3,Business Operations,hire
+E01435,2024-03-01,2024-09-22,People,London,L3,Recruiting,transfer
+E01436,2022-05-22,,Engineering,San Jose,L1,Site Reliability,hire
+E01437,2022-05-22,2024-12-31,Operations,San Jose,L3,Business Operations,hire
+E01437,2025-01-01,,Engineering,San Jose,L3,Software Engineering,transfer
+E01438,2022-05-26,2023-06-02,Engineering,San Jose,L3,Site Reliability,hire
+E01439,2022-05-27,,Operations,Austin,L2,IT Operations,hire
+E01440,2022-05-27,2024-02-04,Sales,Austin,L1,Sales Development,hire
+E01441,2022-05-28,,Sales,Austin,L1,Account Executive,hire
+E01442,2022-05-30,,Sales,London,L5,Sales Development,hire
+E01443,2022-06-07,2023-10-31,Operations,Bengaluru,L3,Business Operations,hire
+E01443,2023-11-01,2024-08-27,Sales,Bengaluru,L3,Account Executive,transfer
+E01444,2022-06-13,,Sales,New York,L1,Account Executive,hire
+E01445,2022-06-13,2025-04-29,People,San Jose,L2,People Partners,hire
+E01446,2022-06-15,,Finance,Austin,L2,Accounting,hire
+E01447,2022-06-15,2025-07-02,Operations,San Jose,L2,IT Operations,hire
+E01448,2022-06-18,,Engineering,San Jose,L3,Data Engineering,hire
+E01449,2022-06-18,,Engineering,London,L3,Data Engineering,hire
+E01450,2022-06-20,,Engineering,San Jose,L6,Site Reliability,hire
+E01451,2022-06-25,,Engineering,New York,L1,Site Reliability,hire
+E01452,2022-06-25,2023-04-19,Operations,Bengaluru,L4,IT Operations,hire
+E01453,2022-06-26,,Sales,Austin,L5,Account Executive,hire
+E01454,2022-06-30,2024-01-31,Sales,San Jose,L2,Account Executive,hire
+E01454,2024-02-01,2024-03-24,Sales,San Jose,L3,Account Executive,promotion
+E01455,2022-07-02,,Engineering,Bengaluru,L3,Software Engineering,hire
+E01456,2022-07-04,2025-04-26,Finance,San Jose,L5,Accounting,hire
+E01457,2022-07-05,2023-02-15,Sales,Bengaluru,L1,Sales Development,hire
+E01458,2022-07-06,,Sales,San Jose,L3,Sales Development,hire
+E01459,2022-07-08,2025-06-28,Engineering,Austin,L4,Site Reliability,hire
+E01460,2022-07-14,2024-01-04,Customer Success,Austin,L3,Support,hire
+E01461,2022-07-23,,Engineering,San Jose,L5,Data Engineering,hire
+E01462,2022-07-24,,Marketing,Bengaluru,L1,Product Marketing,hire
+E01463,2022-07-24,2023-12-12,Engineering,London,L2,Site Reliability,hire
+E01464,2022-07-27,,Engineering,London,L2,Software Engineering,hire
+E01465,2022-07-29,,People,London,L3,People Partners,hire
+E01466,2022-07-30,2024-07-25,Engineering,Austin,L2,Site Reliability,hire
+E01467,2022-08-03,,Marketing,Austin,L4,Product Marketing,hire
+E01468,2022-08-03,2023-05-30,People,Bengaluru,L1,Recruiting,hire
+E01469,2022-08-10,,Engineering,New York,L5,Site Reliability,hire
+E01470,2022-08-20,,Engineering,Austin,L1,Data Engineering,hire
+E01471,2022-08-23,,Engineering,Austin,L2,Site Reliability,hire
+E01472,2022-08-26,,Engineering,Austin,L2,Software Engineering,hire
+E01473,2022-08-27,2024-08-31,Engineering,Austin,L5,Software Engineering,hire
+E01473,2024-09-01,,Engineering,Austin,L6,Software Engineering,promotion
+E01474,2022-08-28,,Sales,Austin,L3,Account Executive,hire
+E01475,2022-08-28,,Marketing,San Jose,L3,Demand Generation,hire
+E01476,2022-08-31,,Engineering,New York,L3,Site Reliability,hire
+E01477,2022-09-07,,Finance,San Jose,L3,Financial Planning,hire
+E01478,2022-09-08,2024-04-05,Finance,London,L3,Financial Planning,hire
+E01479,2022-09-16,,Sales,Bengaluru,L6,Sales Development,hire
+E01480,2022-09-20,2024-05-11,Sales,New York,L2,Sales Development,hire
+E01481,2022-09-24,2025-08-31,Customer Success,Austin,L1,Support,hire
+E01481,2025-09-01,,Engineering,Austin,L1,Data Engineering,transfer
+E01482,2022-10-06,,Engineering,London,L4,Data Engineering,hire
+E01483,2022-10-14,2025-03-26,Engineering,San Jose,L4,Data Engineering,hire
+E01484,2022-11-05,,Engineering,San Jose,L3,Software Engineering,hire
+E01485,2022-11-10,2025-10-31,Operations,New York,L2,Business Operations,hire
+E01485,2025-11-01,,Finance,New York,L2,Accounting,transfer
+E01486,2022-11-13,,Engineering,San Jose,L3,Data Engineering,hire
+E01487,2022-11-13,,Customer Success,London,L4,Support,hire
+E01488,2022-11-17,,Engineering,New York,L3,Site Reliability,hire
+E01489,2022-11-22,,Engineering,Austin,L3,Software Engineering,hire
+E01490,2022-11-28,,People,San Jose,L2,Recruiting,hire
+E01491,2022-11-29,,Engineering,Austin,L2,Data Engineering,hire
+E01492,2022-12-01,,Marketing,San Jose,L1,Demand Generation,hire
+E01493,2022-12-04,2024-07-12,Engineering,San Jose,L1,Software Engineering,hire
+E01494,2022-12-07,,Operations,San Jose,L2,Business Operations,hire
+E01495,2022-12-08,2025-04-23,Engineering,New York,L2,Data Engineering,hire
+E01496,2022-12-12,,Engineering,New York,L3,Software Engineering,hire
+E01497,2022-12-12,2023-12-01,Sales,San Jose,L4,Account Executive,hire
+E01498,2022-12-21,,Engineering,San Jose,L1,Site Reliability,hire
+E01499,2022-12-21,,Engineering,Austin,L1,Site Reliability,hire
+E01500,2022-12-26,,Sales,Austin,L2,Sales Development,hire
+E01501,2023-01-01,2024-05-31,Finance,New York,L1,Accounting,hire
+E01501,2024-06-01,,Customer Success,New York,L1,Support,transfer
+E01502,2023-01-02,,Marketing,London,L3,Product Marketing,hire
+E01503,2023-01-02,2024-05-31,People,Austin,L1,People Partners,hire
+E01503,2024-06-01,2024-12-30,People,Austin,L2,People Partners,promotion
+E01504,2023-01-03,,Operations,Austin,L5,Business Operations,hire
+E01505,2023-01-04,,Sales,New York,L3,Account Executive,hire
+E01506,2023-01-05,,Engineering,San Jose,L5,Site Reliability,hire
+E01507,2023-01-05,2025-02-28,Sales,London,L2,Sales Development,hire
+E01507,2025-03-01,,Sales,London,L3,Sales Development,promotion
+E01508,2023-01-05,,Operations,San Jose,L2,IT Operations,hire
+E01509,2023-01-07,,Sales,San Jose,L6,Account Executive,hire
+E01510,2023-01-08,,Engineering,San Jose,L2,Software Engineering,hire
+E01511,2023-01-08,,Finance,San Jose,L3,Financial Planning,hire
+E01512,2023-01-09,2023-04-29,Sales,San Jose,L2,Sales Development,hire
+E01513,2023-01-10,2024-04-30,Engineering,San Jose,L2,Software Engineering,hire
+E01513,2024-05-01,,Engineering,San Jose,L3,Software Engineering,promotion
+E01514,2023-01-10,,Sales,San Jose,L4,Account Executive,hire
+E01515,2023-01-11,,Engineering,San Jose,L4,Site Reliability,hire
+E01516,2023-01-12,,Sales,San Jose,L1,Account Executive,hire
+E01517,2023-01-12,,Operations,San Jose,L2,Business Operations,hire
+E01518,2023-01-13,2023-03-27,Sales,San Jose,L1,Sales Development,hire
+E01519,2023-01-16,,Engineering,New York,L1,Data Engineering,hire
+E01520,2023-01-16,,Operations,San Jose,L2,IT Operations,hire
+E01521,2023-01-18,2024-01-31,Operations,San Jose,L5,Business Operations,hire
+E01521,2024-02-01,,Engineering,San Jose,L5,Site Reliability,transfer
+E01522,2023-01-18,,Sales,New York,L2,Sales Development,hire
+E01523,2023-01-21,,Engineering,San Jose,L4,Software Engineering,hire
+E01524,2023-01-22,2024-07-31,Engineering,New York,L1,Site Reliability,hire
+E01524,2024-08-01,,Engineering,New York,L2,Site Reliability,promotion
+E01525,2023-01-23,,Engineering,New York,L3,Site Reliability,hire
+E01526,2023-01-24,,People,Austin,L3,People Partners,hire
+E01527,2023-01-29,,Engineering,New York,L2,Site Reliability,hire
+E01528,2023-02-02,,Finance,Bengaluru,L2,Accounting,hire
+E01529,2023-02-05,2023-12-31,Engineering,Austin,L2,Data Engineering,hire
+E01529,2024-01-01,,Engineering,Austin,L3,Data Engineering,promotion
+E01530,2023-02-07,,Engineering,New York,L2,Software Engineering,hire
+E01531,2023-02-09,2024-04-30,Finance,New York,L4,Financial Planning,hire
+E01531,2024-05-01,,Finance,New York,L5,Financial Planning,promotion
+E01532,2023-02-11,2025-01-31,Marketing,San Jose,L3,Demand Generation,hire
+E01532,2025-02-01,,Marketing,San Jose,L4,Demand Generation,promotion
+E01533,2023-02-12,,Engineering,Austin,L3,Site Reliability,hire
+E01534,2023-02-13,2023-08-31,Customer Success,San Jose,L1,Customer Success Management,hire
+E01534,2023-09-01,2024-01-13,Customer Success,San Jose,L2,Customer Success Management,promotion
+E01535,2023-02-15,,Customer Success,San Jose,L1,Customer Success Management,hire
+E01536,2023-02-17,,Sales,San Jose,L6,Account Executive,hire
+E01537,2023-02-19,,Operations,San Jose,L3,Business Operations,hire
+E01538,2023-02-21,,Engineering,New York,L3,Data Engineering,hire
+E01539,2023-02-22,2025-06-30,Engineering,New York,L3,Data Engineering,hire
+E01539,2025-07-01,,Engineering,New York,L4,Data Engineering,promotion
+E01540,2023-02-22,,Engineering,San Jose,L1,Software Engineering,hire
+E01541,2023-02-22,,Marketing,New York,L1,Demand Generation,hire
+E01542,2023-02-23,,Engineering,New York,L4,Site Reliability,hire
+E01543,2023-02-24,,Finance,San Jose,L4,Financial Planning,hire
+E01544,2023-02-26,2023-05-23,Finance,San Jose,L4,Accounting,hire
+E01545,2023-02-27,,Customer Success,San Jose,L3,Support,hire
+E01546,2023-02-28,,People,San Jose,L1,People Partners,hire
+E01547,2023-03-02,,Engineering,New York,L3,Data Engineering,hire
+E01548,2023-03-02,,People,San Jose,L4,Recruiting,hire
+E01549,2023-03-03,,Engineering,New York,L4,Software Engineering,hire
+E01550,2023-03-03,2024-11-17,Engineering,Bengaluru,L6,Software Engineering,hire
+E01551,2023-03-06,,Marketing,Austin,L4,Demand Generation,hire
+E01552,2023-03-10,2025-06-30,Customer Success,San Jose,L2,Support,hire
+E01552,2025-07-01,,Sales,San Jose,L2,Sales Development,transfer
+E01553,2023-03-10,2024-01-31,Operations,Austin,L1,Business Operations,hire
+E01553,2024-02-01,,Operations,Austin,L2,Business Operations,promotion
+E01554,2023-03-10,2025-09-30,Sales,Austin,L3,Account Executive,hire
+E01555,2023-03-11,,Engineering,New York,L3,Data Engineering,hire
+E01556,2023-03-12,,Sales,San Jose,L1,Account Executive,hire
+E01557,2023-03-12,,Finance,New York,L4,Financial Planning,hire
+E01558,2023-03-14,,Sales,Austin,L1,Sales Development,hire
+E01559,2023-03-17,,Sales,New York,L1,Sales Development,hire
+E01560,2023-03-18,,Finance,San Jose,L5,Accounting,hire
+E01561,2023-03-19,,Engineering,New York,L3,Software Engineering,hire
+E01562,2023-03-19,,Sales,New York,L2,Sales Development,hire
+E01563,2023-03-20,,Engineering,Austin,L3,Data Engineering,hire
+E01564,2023-03-20,,Customer Success,Bengaluru,L4,Customer Success Management,hire
+E01565,2023-03-21,2024-01-31,Engineering,Bengaluru,L1,Software Engineering,hire
+E01565,2024-02-01,2025-11-30,Sales,Bengaluru,L1,Account Executive,transfer
+E01565,2025-12-01,,Sales,Bengaluru,L2,Account Executive,promotion
+E01566,2023-03-21,,Marketing,New York,L3,Demand Generation,hire
+E01567,2023-03-23,,Engineering,London,L6,Site Reliability,hire
+E01568,2023-03-23,,Finance,New York,L2,Financial Planning,hire
+E01569,2023-03-24,,Engineering,London,L1,Site Reliability,hire
+E01570,2023-03-24,2024-07-31,Customer Success,San Jose,L2,Support,hire
+E01570,2024-08-01,2025-01-17,Sales,San Jose,L2,Sales Development,transfer
+E01571,2023-03-26,,Sales,San Jose,L1,Account Executive,hire
+E01572,2023-03-27,,Operations,San Jose,L5,IT Operations,hire
+E01573,2023-03-29,2024-04-30,Engineering,San Jose,L1,Data Engineering,hire
+E01573,2024-05-01,2025-11-14,Engineering,San Jose,L2,Data Engineering,promotion
+E01574,2023-03-31,,Sales,London,L2,Sales Development,hire
+E01575,2023-04-02,,Engineering,London,L3,Software Engineering,hire
+E01576,2023-04-05,,Engineering,San Jose,L2,Software Engineering,hire
+E01577,2023-04-07,,Sales,Bengaluru,L2,Sales Development,hire
+E01578,2023-04-07,2024-11-14,Sales,San Jose,L1,Sales Development,hire
+E01579,2023-04-08,,Sales,Bengaluru,L4,Sales Development,hire
+E01580,2023-04-08,,Sales,London,L2,Account Executive,hire
+E01581,2023-04-08,,Operations,San Jose,L4,Business Operations,hire
+E01582,2023-04-08,2024-05-10,Engineering,San Jose,L5,Data Engineering,hire
+E01583,2023-04-09,,Engineering,Bengaluru,L4,Data Engineering,hire
+E01584,2023-04-11,,Sales,San Jose,L5,Account Executive,hire
+E01585,2023-04-14,2024-04-30,Sales,San Jose,L4,Account Executive,hire
+E01585,2024-05-01,,Sales,San Jose,L5,Account Executive,promotion
+E01586,2023-04-14,,Customer Success,San Jose,L4,Support,hire
+E01587,2023-04-15,,Finance,New York,L4,Financial Planning,hire
+E01588,2023-04-17,,Sales,San Jose,L4,Sales Development,hire
+E01589,2023-04-18,,Engineering,London,L4,Data Engineering,hire
+E01590,2023-04-23,2024-02-29,Engineering,San Jose,L2,Data Engineering,hire
+E01590,2024-03-01,,Engineering,San Jose,L3,Data Engineering,promotion
+E01591,2023-04-25,,People,San Jose,L5,People Partners,hire
+E01592,2023-04-27,2025-10-25,People,London,L3,Recruiting,hire
+E01593,2023-04-30,,Finance,New York,L4,Financial Planning,hire
+E01594,2023-05-01,2023-10-31,Customer Success,San Jose,L1,Customer Success Management,hire
+E01594,2023-11-01,2023-11-30,Customer Success,San Jose,L2,Customer Success Management,promotion
+E01594,2023-12-01,2024-06-18,Engineering,San Jose,L2,Site Reliability,transfer
+E01595,2023-05-04,,Engineering,New York,L2,Site Reliability,hire
+E01596,2023-05-04,2024-03-02,Customer Success,Bengaluru,L3,Customer Success Management,hire
+E01597,2023-05-05,2025-11-30,Marketing,San Jose,L2,Product Marketing,hire
+E01597,2025-12-01,,Marketing,San Jose,L3,Product Marketing,promotion
+E01598,2023-05-06,,Engineering,Bengaluru,L2,Software Engineering,hire
+E01599,2023-05-07,,Marketing,London,L3,Demand Generation,hire
+E01600,2023-05-10,,Finance,London,L2,Financial Planning,hire
+E01601,2023-05-12,,Sales,London,L1,Sales Development,hire
+E01602,2023-05-12,,Finance,London,L4,Financial Planning,hire
+E01603,2023-05-14,,Operations,New York,L2,IT Operations,hire
+E01604,2023-05-14,2025-11-22,Engineering,New York,L2,Data Engineering,hire
+E01605,2023-05-16,,Sales,San Jose,L4,Sales Development,hire
+E01606,2023-05-16,2025-09-30,Marketing,Austin,L4,Product Marketing,hire
+E01606,2025-10-01,,Customer Success,Austin,L4,Customer Success Management,transfer
+E01607,2023-05-17,2023-12-31,Sales,New York,L2,Sales Development,hire
+E01607,2024-01-01,,Sales,New York,L3,Sales Development,promotion
+E01608,2023-05-17,,Sales,Austin,L4,Sales Development,hire
+E01609,2023-05-17,2024-05-31,Marketing,San Jose,L1,Demand Generation,hire
+E01609,2024-06-01,,Marketing,San Jose,L2,Demand Generation,promotion
+E01610,2023-05-19,2024-04-30,Marketing,Austin,L3,Demand Generation,hire
+E01610,2024-05-01,,Marketing,Austin,L4,Demand Generation,promotion
+E01611,2023-05-20,,Engineering,Austin,L2,Software Engineering,hire
+E01612,2023-05-20,2024-07-31,Operations,Austin,L1,IT Operations,hire
+E01612,2024-08-01,,Operations,Austin,L2,IT Operations,promotion
+E01613,2023-05-23,,Operations,New York,L3,Business Operations,hire
+E01614,2023-05-26,,Customer Success,San Jose,L1,Customer Success Management,hire
+E01615,2023-05-26,2024-03-02,Customer Success,San Jose,L2,Customer Success Management,hire
+E01616,2023-05-26,2024-10-16,Finance,San Jose,L3,Accounting,hire
+E01617,2023-05-27,,Customer Success,London,L3,Customer Success Management,hire
+E01618,2023-05-27,,Marketing,San Jose,L3,Demand Generation,hire
+E01619,2023-05-27,,People,New York,L3,People Partners,hire
+E01620,2023-05-28,,Engineering,Austin,L3,Data Engineering,hire
+E01621,2023-05-28,,Engineering,San Jose,L3,Site Reliability,hire
+E01622,2023-05-29,2024-04-30,Engineering,Austin,L1,Data Engineering,hire
+E01622,2024-05-01,,Engineering,Austin,L2,Data Engineering,promotion
+E01623,2023-05-31,,Engineering,San Jose,L5,Data Engineering,hire
+E01624,2023-06-01,,Engineering,London,L2,Software Engineering,hire
+E01625,2023-06-04,2025-10-22,Engineering,Austin,L1,Software Engineering,hire
+E01626,2023-06-05,,Sales,New York,L1,Sales Development,hire
+E01627,2023-06-09,2025-01-31,Finance,Austin,L2,Financial Planning,hire
+E01627,2025-02-01,,Sales,Austin,L2,Account Executive,transfer
+E01628,2023-06-09,2025-08-28,Engineering,Austin,L3,Site Reliability,hire
+E01629,2023-06-09,2023-12-28,Operations,New York,L2,IT Operations,hire
+E01630,2023-06-10,,Sales,Bengaluru,L6,Account Executive,hire
+E01631,2023-06-10,2024-12-31,Sales,New York,L4,Sales Development,hire
+E01631,2025-01-01,,Sales,New York,L5,Sales Development,promotion
+E01632,2023-06-16,,Engineering,San Jose,L6,Software Engineering,hire
+E01633,2023-06-16,,Sales,San Jose,L2,Sales Development,hire
+E01634,2023-06-17,,Customer Success,New York,L6,Support,hire
+E01635,2023-06-17,,Marketing,Austin,L4,Product Marketing,hire
+E01636,2023-06-18,2024-02-16,Engineering,San Jose,L3,Site Reliability,hire
+E01637,2023-06-19,,Sales,San Jose,L1,Sales Development,hire
+E01638,2023-06-19,,Marketing,New York,L1,Product Marketing,hire
+E01639,2023-06-21,2025-04-30,Customer Success,Bengaluru,L4,Customer Success Management,hire
+E01639,2025-05-01,,Customer Success,Bengaluru,L5,Customer Success Management,promotion
+E01640,2023-06-21,2023-09-13,Sales,Austin,L2,Account Executive,hire
+E01641,2023-06-23,2025-08-31,Engineering,New York,L5,Site Reliability,hire
+E01641,2025-09-01,,Sales,New York,L5,Account Executive,transfer
+E01642,2023-06-24,,Engineering,San Jose,L6,Software Engineering,hire
+E01643,2023-06-24,,People,London,L1,People Partners,hire
+E01644,2023-06-25,,People,London,L3,Recruiting,hire
+E01645,2023-06-27,2024-02-28,Sales,London,L2,Sales Development,hire
+E01646,2023-06-29,2024-07-31,Customer Success,New York,L1,Support,hire
+E01646,2024-08-01,,Customer Success,New York,L2,Support,promotion
+E01647,2023-06-29,2023-12-31,Finance,London,L3,Financial Planning,hire
+E01647,2024-01-01,2024-09-14,Customer Success,London,L3,Customer Success Management,transfer
+E01648,2023-07-01,,Engineering,London,L5,Software Engineering,hire
+E01649,2023-07-01,,Sales,London,L1,Sales Development,hire
+E01650,2023-07-02,,Sales,San Jose,L2,Sales Development,hire
+E01651,2023-07-03,2025-05-31,People,Bengaluru,L1,People Partners,hire
+E01651,2025-06-01,,People,Bengaluru,L2,People Partners,promotion
+E01652,2023-07-04,,Sales,San Jose,L2,Sales Development,hire
+E01653,2023-07-07,,Engineering,San Jose,L2,Site Reliability,hire
+E01654,2023-07-07,2025-10-31,People,New York,L3,People Partners,hire
+E01654,2025-11-01,,Sales,New York,L3,Sales Development,transfer
+E01655,2023-07-07,2024-05-31,Operations,Bengaluru,L6,Business Operations,hire
+E01655,2024-06-01,,Marketing,Bengaluru,L6,Demand Generation,transfer
+E01656,2023-07-07,2025-07-12,Engineering,New York,L3,Site Reliability,hire
+E01657,2023-07-07,2023-12-26,Customer Success,New York,L3,Support,hire
+E01658,2023-07-08,,Sales,Austin,L5,Account Executive,hire
+E01659,2023-07-09,,Engineering,San Jose,L2,Software Engineering,hire
+E01660,2023-07-09,2023-11-12,Customer Success,San Jose,L4,Support,hire
+E01661,2023-07-12,2025-02-07,Engineering,San Jose,L2,Site Reliability,hire
+E01662,2023-07-14,,People,San Jose,L5,People Partners,hire
+E01663,2023-07-16,,Engineering,San Jose,L3,Software Engineering,hire
+E01664,2023-07-18,,Operations,New York,L2,IT Operations,hire
+E01665,2023-07-20,,Sales,New York,L2,Sales Development,hire
+E01666,2023-07-21,,Customer Success,Bengaluru,L2,Customer Success Management,hire
+E01667,2023-07-26,,Engineering,New York,L2,Data Engineering,hire
+E01668,2023-07-27,,People,San Jose,L1,Recruiting,hire
+E01669,2023-07-28,,Engineering,New York,L3,Data Engineering,hire
+E01670,2023-07-29,,Engineering,New York,L3,Data Engineering,hire
+E01671,2023-07-30,2024-04-30,Engineering,New York,L2,Software Engineering,hire
+E01671,2024-05-01,,Engineering,New York,L3,Software Engineering,promotion
+E01672,2023-07-30,2023-12-26,Engineering,London,L4,Site Reliability,hire
+E01673,2023-08-01,,Marketing,San Jose,L5,Demand Generation,hire
+E01674,2023-08-02,,Sales,Bengaluru,L2,Sales Development,hire
+E01675,2023-08-02,,Customer Success,New York,L1,Customer Success Management,hire
+E01676,2023-08-04,,Sales,San Jose,L1,Account Executive,hire
+E01677,2023-08-05,,Engineering,New York,L1,Site Reliability,hire
+E01678,2023-08-05,,Operations,Austin,L2,IT Operations,hire
+E01679,2023-08-05,2023-11-15,Engineering,Austin,L2,Site Reliability,hire
+E01680,2023-08-06,2023-09-18,Engineering,San Jose,L1,Data Engineering,hire
+E01681,2023-08-07,2024-04-03,Engineering,New York,L3,Software Engineering,hire
+E01682,2023-08-07,2023-11-23,Sales,New York,L5,Sales Development,hire
+E01683,2023-08-08,,Customer Success,San Jose,L5,Support,hire
+E01684,2023-08-08,2023-10-18,Marketing,San Jose,L3,Demand Generation,hire
+E01685,2023-08-10,2025-06-27,Sales,New York,L2,Account Executive,hire
+E01686,2023-08-11,2024-01-25,Engineering,Austin,L1,Site Reliability,hire
+E01687,2023-08-12,,Sales,San Jose,L2,Sales Development,hire
+E01688,2023-08-13,,Sales,Austin,L3,Sales Development,hire
+E01689,2023-08-16,2023-11-04,Marketing,New York,L2,Demand Generation,hire
+E01690,2023-08-17,2025-07-16,Sales,New York,L4,Account Executive,hire
+E01691,2023-08-19,2025-01-31,Engineering,San Jose,L1,Data Engineering,hire
+E01691,2025-02-01,,Engineering,San Jose,L2,Data Engineering,promotion
+E01692,2023-08-19,,Sales,New York,L2,Sales Development,hire
+E01693,2023-08-20,,Engineering,New York,L2,Data Engineering,hire
+E01694,2023-08-20,,Finance,San Jose,L3,Accounting,hire
+E01695,2023-08-21,,Operations,New York,L3,IT Operations,hire
+E01696,2023-08-21,2024-12-20,Operations,San Jose,L2,IT Operations,hire
+E01697,2023-08-22,,Sales,San Jose,L1,Sales Development,hire
+E01698,2023-08-24,,Engineering,New York,L2,Site Reliability,hire
+E01699,2023-08-26,2023-10-19,Sales,Austin,L3,Account Executive,hire
+E01700,2023-08-27,,Sales,San Jose,L2,Sales Development,hire
+E01701,2023-09-04,2025-05-17,Engineering,San Jose,L1,Data Engineering,hire
+E01702,2023-09-07,2025-06-30,Customer Success,San Jose,L2,Support,hire
+E01702,2025-07-01,,Customer Success,San Jose,L3,Support,promotion
+E01703,2023-09-11,2025-01-31,People,Austin,L1,Recruiting,hire
+E01703,2025-02-01,,Engineering,Austin,L1,Software Engineering,transfer
+E01704,2023-09-13,,People,New York,L1,Recruiting,hire
+E01705,2023-09-17,,Engineering,San Jose,L2,Software Engineering,hire
+E01706,2023-09-18,,Sales,New York,L6,Sales Development,hire
+E01707,2023-09-21,2024-07-31,Engineering,London,L1,Software Engineering,hire
+E01707,2024-08-01,,Engineering,London,L2,Software Engineering,promotion
+E01708,2023-09-22,2024-07-30,People,San Jose,L3,Recruiting,hire
+E01709,2023-09-24,2025-10-31,Sales,New York,L3,Sales Development,hire
+E01709,2025-11-01,,Engineering,New York,L3,Data Engineering,transfer
+E01710,2023-09-25,,Engineering,San Jose,L1,Software Engineering,hire
+E01711,2023-09-25,,Marketing,Austin,L2,Demand Generation,hire
+E01712,2023-09-27,,Engineering,San Jose,L3,Data Engineering,hire
+E01713,2023-09-28,,Marketing,London,L1,Product Marketing,hire
+E01714,2023-09-28,2023-11-23,Finance,Austin,L3,Financial Planning,hire
+E01715,2023-09-30,2024-12-31,Engineering,San Jose,L1,Software Engineering,hire
+E01715,2025-01-01,,Engineering,San Jose,L2,Software Engineering,promotion
+E01716,2023-10-01,,Engineering,London,L4,Data Engineering,hire
+E01717,2023-10-01,,Finance,San Jose,L1,Accounting,hire
+E01718,2023-10-02,,Customer Success,London,L4,Support,hire
+E01719,2023-10-03,2024-06-15,Engineering,San Jose,L2,Site Reliability,hire
+E01720,2023-10-05,,Engineering,San Jose,L2,Site Reliability,hire
+E01721,2023-10-07,,Engineering,San Jose,L4,Site Reliability,hire
+E01722,2023-10-10,,Finance,New York,L3,Financial Planning,hire
+E01723,2023-10-11,,Customer Success,Austin,L3,Customer Success Management,hire
+E01724,2023-10-11,,Customer Success,Austin,L4,Customer Success Management,hire
+E01725,2023-10-13,2024-11-30,Sales,Bengaluru,L1,Account Executive,hire
+E01725,2024-12-01,,Sales,Bengaluru,L2,Account Executive,promotion
+E01726,2023-10-14,2025-11-30,Marketing,San Jose,L2,Demand Generation,hire
+E01726,2025-12-01,,Marketing,San Jose,L3,Demand Generation,promotion
+E01727,2023-10-18,,Engineering,New York,L1,Site Reliability,hire
+E01728,2023-10-18,,Sales,Austin,L3,Account Executive,hire
+E01729,2023-10-19,,Engineering,San Jose,L4,Data Engineering,hire
+E01730,2023-10-23,,Sales,San Jose,L4,Sales Development,hire
+E01731,2023-10-26,2025-05-03,Operations,San Jose,L3,IT Operations,hire
+E01732,2023-10-28,,Marketing,San Jose,L4,Demand Generation,hire
+E01733,2023-10-28,,Operations,Bengaluru,L4,IT Operations,hire
+E01734,2023-10-30,,Customer Success,San Jose,L3,Support,hire
+E01735,2023-11-02,,Engineering,New York,L3,Software Engineering,hire
+E01736,2023-11-02,2025-08-31,Sales,San Jose,L5,Sales Development,hire
+E01736,2025-09-01,,Sales,San Jose,L6,Sales Development,promotion
+E01737,2023-11-02,,People,London,L2,People Partners,hire
+E01738,2023-11-05,2025-08-31,Sales,New York,L2,Sales Development,hire
+E01738,2025-09-01,,Sales,New York,L3,Sales Development,promotion
+E01739,2023-11-08,,Sales,Bengaluru,L4,Sales Development,hire
+E01740,2023-11-08,,Marketing,Austin,L2,Product Marketing,hire
+E01741,2023-11-11,,Engineering,London,L3,Site Reliability,hire
+E01742,2023-11-12,,Sales,New York,L3,Sales Development,hire
+E01743,2023-11-13,2024-09-30,Sales,San Jose,L2,Account Executive,hire
+E01743,2024-10-01,,Customer Success,San Jose,L2,Support,transfer
+E01744,2023-11-13,,Marketing,Austin,L1,Demand Generation,hire
+E01745,2023-11-16,,Engineering,London,L1,Site Reliability,hire
+E01746,2023-11-19,,Operations,San Jose,L4,IT Operations,hire
+E01747,2023-11-20,2025-06-30,Finance,San Jose,L1,Financial Planning,hire
+E01747,2025-07-01,,Finance,San Jose,L2,Financial Planning,promotion
+E01748,2023-11-25,,Engineering,San Jose,L4,Site Reliability,hire
+E01749,2023-11-30,,Customer Success,San Jose,L2,Customer Success Management,hire
+E01750,2023-12-01,,Sales,New York,L4,Sales Development,hire
+E01751,2023-12-01,,Operations,Austin,L4,IT Operations,hire
+E01752,2023-12-02,,Sales,San Jose,L1,Account Executive,hire
+E01753,2023-12-05,,Engineering,San Jose,L1,Data Engineering,hire
+E01754,2023-12-07,,Engineering,London,L2,Site Reliability,hire
+E01755,2023-12-08,2025-04-30,Operations,London,L1,IT Operations,hire
+E01755,2025-05-01,,People,London,L1,People Partners,transfer
+E01756,2023-12-09,2024-07-31,Sales,New York,L2,Sales Development,hire
+E01756,2024-08-01,,Sales,New York,L3,Sales Development,promotion
+E01757,2023-12-10,,Engineering,London,L3,Site Reliability,hire
+E01758,2023-12-10,,Customer Success,Bengaluru,L3,Customer Success Management,hire
+E01759,2023-12-12,2025-01-31,Marketing,New York,L2,Demand Generation,hire
+E01759,2025-02-01,,Sales,New York,L2,Account Executive,transfer
+E01760,2023-12-14,2024-12-26,Engineering,Bengaluru,L2,Data Engineering,hire
+E01761,2023-12-15,,Sales,San Jose,L6,Sales Development,hire
+E01762,2023-12-16,,Engineering,New York,L4,Software Engineering,hire
+E01763,2023-12-16,,Marketing,San Jose,L3,Demand Generation,hire
+E01764,2023-12-16,,Finance,Bengaluru,L4,Financial Planning,hire
+E01765,2023-12-17,,People,San Jose,L1,Recruiting,hire
+E01766,2023-12-19,2024-09-30,Engineering,New York,L2,Software Engineering,hire
+E01766,2024-10-01,,Engineering,New York,L3,Software Engineering,promotion
+E01767,2023-12-19,,People,Bengaluru,L2,People Partners,hire
+E01768,2023-12-21,,Sales,Bengaluru,L3,Sales Development,hire
+E01769,2023-12-21,2025-07-11,Operations,San Jose,L3,Business Operations,hire
+E01770,2023-12-24,,Engineering,Austin,L3,Site Reliability,hire
+E01771,2023-12-25,,Engineering,San Jose,L1,Data Engineering,hire
+E01772,2023-12-25,2025-05-31,Engineering,London,L1,Data Engineering,hire
+E01772,2025-06-01,,Engineering,London,L2,Data Engineering,promotion
+E01773,2023-12-26,,Engineering,San Jose,L1,Data Engineering,hire
+E01774,2023-12-26,,Sales,New York,L4,Sales Development,hire
+E01775,2023-12-28,2024-08-31,Operations,New York,L1,Business Operations,hire
+E01775,2024-09-01,2025-07-24,Operations,New York,L2,Business Operations,promotion
+E01776,2023-12-29,,Engineering,London,L2,Site Reliability,hire
+E01777,2023-12-29,2024-08-08,Marketing,New York,L5,Product Marketing,hire
+E01778,2023-12-30,2024-08-15,Engineering,New York,L2,Software Engineering,hire
+E01779,2023-12-31,,Engineering,New York,L3,Data Engineering,hire
+E01780,2023-12-31,,Customer Success,San Jose,L1,Support,hire
+E01781,2024-01-01,,Customer Success,San Jose,L3,Customer Success Management,hire
+E01782,2024-01-01,2024-08-31,Operations,San Jose,L2,Business Operations,hire
+E01782,2024-09-01,,Operations,San Jose,L3,Business Operations,promotion
+E01783,2024-01-05,,Sales,San Jose,L3,Sales Development,hire
+E01784,2024-01-06,2024-12-03,Engineering,London,L3,Site Reliability,hire
+E01785,2024-01-07,,Finance,Austin,L2,Accounting,hire
+E01786,2024-01-08,,Marketing,San Jose,L5,Product Marketing,hire
+E01787,2024-01-08,2025-12-10,Engineering,New York,L3,Data Engineering,hire
+E01788,2024-01-09,,Engineering,San Jose,L3,Site Reliability,hire
+E01789,2024-01-12,2025-02-28,Customer Success,New York,L1,Support,hire
+E01789,2025-03-01,2025-04-30,Engineering,New York,L1,Data Engineering,transfer
+E01789,2025-05-01,,Engineering,New York,L2,Data Engineering,promotion
+E01790,2024-01-14,,Engineering,New York,L2,Site Reliability,hire
+E01791,2024-01-14,,Engineering,London,L4,Data Engineering,hire
+E01792,2024-01-14,,Sales,New York,L1,Sales Development,hire
+E01793,2024-01-15,2024-09-30,Engineering,San Jose,L2,Software Engineering,hire
+E01793,2024-10-01,,Engineering,San Jose,L3,Software Engineering,promotion
+E01794,2024-01-16,2025-02-28,Operations,London,L2,Business Operations,hire
+E01794,2025-03-01,,Operations,London,L3,Business Operations,promotion
+E01795,2024-01-16,2024-02-24,Engineering,New York,L2,Data Engineering,hire
+E01796,2024-01-19,,Sales,San Jose,L1,Account Executive,hire
+E01797,2024-01-20,,Marketing,New York,L3,Product Marketing,hire
+E01798,2024-01-21,,Engineering,New York,L1,Software Engineering,hire
+E01799,2024-01-21,,Engineering,San Jose,L1,Data Engineering,hire
+E01800,2024-01-21,,Engineering,San Jose,L4,Software Engineering,hire
+E01801,2024-01-24,2024-11-30,Finance,New York,L1,Financial Planning,hire
+E01801,2024-12-01,,Finance,New York,L2,Financial Planning,promotion
+E01802,2024-01-25,,Engineering,Austin,L2,Data Engineering,hire
+E01803,2024-01-27,,Engineering,San Jose,L4,Data Engineering,hire
+E01804,2024-01-28,2024-06-14,Engineering,Bengaluru,L2,Site Reliability,hire
+E01805,2024-01-29,,Operations,New York,L1,IT Operations,hire
+E01806,2024-02-02,2025-09-30,Operations,San Jose,L1,IT Operations,hire
+E01806,2025-10-01,,Operations,San Jose,L2,IT Operations,promotion
+E01807,2024-02-04,,Finance,San Jose,L4,Accounting,hire
+E01808,2024-02-05,,Engineering,New York,L4,Site Reliability,hire
+E01809,2024-02-06,,Engineering,Austin,L1,Site Reliability,hire
+E01810,2024-02-07,2025-12-26,Engineering,Austin,L1,Site Reliability,hire
+E01811,2024-02-09,,Engineering,San Jose,L3,Site Reliability,hire
+E01812,2024-02-10,,Marketing,San Jose,L3,Demand Generation,hire
+E01813,2024-02-10,,Finance,New York,L2,Financial Planning,hire
+E01814,2024-02-11,,Customer Success,San Jose,L3,Support,hire
+E01815,2024-02-13,,Sales,San Jose,L3,Account Executive,hire
+E01816,2024-02-14,,Customer Success,Austin,L3,Customer Success Management,hire
+E01817,2024-02-14,,Operations,Bengaluru,L2,Business Operations,hire
+E01818,2024-02-15,2024-03-22,Customer Success,Austin,L3,Customer Success Management,hire
+E01819,2024-02-17,,People,New York,L3,Recruiting,hire
+E01820,2024-02-18,,Sales,San Jose,L2,Sales Development,hire
+E01821,2024-02-18,,Customer Success,Austin,L3,Customer Success Management,hire
+E01822,2024-02-19,,Engineering,Bengaluru,L3,Data Engineering,hire
+E01823,2024-02-20,,Operations,New York,L1,IT Operations,hire
+E01824,2024-02-21,,Engineering,Bengaluru,L3,Data Engineering,hire
+E01825,2024-02-21,,Engineering,San Jose,L4,Site Reliability,hire
+E01826,2024-02-22,,Engineering,New York,L2,Data Engineering,hire
+E01827,2024-02-23,,Engineering,San Jose,L2,Site Reliability,hire
+E01828,2024-02-24,2025-04-08,Engineering,San Jose,L4,Site Reliability,hire
+E01829,2024-02-24,2025-06-26,Marketing,Bengaluru,L2,Product Marketing,hire
+E01830,2024-02-26,2025-06-02,Customer Success,San Jose,L5,Support,hire
+E01831,2024-02-28,2025-02-28,Sales,Austin,L1,Sales Development,hire
+E01831,2025-03-01,,Sales,Austin,L2,Sales Development,promotion
+E01832,2024-02-29,,Customer Success,Austin,L1,Support,hire
+E01833,2024-02-29,,Customer Success,London,L4,Customer Success Management,hire
+E01834,2024-02-29,2025-10-31,Operations,New York,L1,IT Operations,hire
+E01834,2025-11-01,,Operations,New York,L2,IT Operations,promotion
+E01835,2024-03-02,,Engineering,New York,L3,Data Engineering,hire
+E01836,2024-03-02,2024-11-30,Engineering,San Jose,L1,Data Engineering,hire
+E01836,2024-12-01,,Engineering,San Jose,L2,Data Engineering,promotion
+E01837,2024-03-05,,Engineering,New York,L1,Site Reliability,hire
+E01838,2024-03-05,,Engineering,London,L1,Data Engineering,hire
+E01839,2024-03-08,,Customer Success,Austin,L4,Support,hire
+E01840,2024-03-08,,Customer Success,London,L2,Customer Success Management,hire
+E01841,2024-03-09,,Engineering,New York,L3,Software Engineering,hire
+E01842,2024-03-10,2025-02-28,Marketing,San Jose,L5,Demand Generation,hire
+E01842,2025-03-01,,Marketing,San Jose,L6,Demand Generation,promotion
+E01843,2024-03-11,,Customer Success,San Jose,L2,Support,hire
+E01844,2024-03-11,,People,Bengaluru,L5,People Partners,hire
+E01845,2024-03-13,,Operations,San Jose,L3,IT Operations,hire
+E01846,2024-03-14,,Operations,London,L4,IT Operations,hire
+E01847,2024-03-15,,Customer Success,Austin,L2,Customer Success Management,hire
+E01848,2024-03-17,,Engineering,New York,L2,Data Engineering,hire
+E01849,2024-03-22,,Sales,Austin,L4,Account Executive,hire
+E01850,2024-03-22,,Customer Success,San Jose,L2,Support,hire
+E01851,2024-03-27,,Engineering,Austin,L4,Data Engineering,hire
+E01852,2024-03-27,2025-06-30,Operations,San Jose,L2,Business Operations,hire
+E01852,2025-07-01,2025-09-30,Operations,San Jose,L3,Business Operations,promotion
+E01852,2025-10-01,,Engineering,San Jose,L3,Data Engineering,transfer
+E01853,2024-03-27,,Sales,London,L4,Account Executive,hire
+E01854,2024-03-30,,Engineering,San Jose,L2,Data Engineering,hire
+E01855,2024-04-01,,Engineering,Austin,L1,Software Engineering,hire
+E01856,2024-04-01,,Sales,San Jose,L1,Account Executive,hire
+E01857,2024-04-02,,Finance,New York,L3,Financial Planning,hire
+E01858,2024-04-03,,Engineering,New York,L2,Software Engineering,hire
+E01859,2024-04-03,,Customer Success,Bengaluru,L4,Customer Success Management,hire
+E01860,2024-04-04,,Customer Success,London,L2,Customer Success Management,hire
+E01861,2024-04-05,2025-08-31,Marketing,San Jose,L3,Product Marketing,hire
+E01861,2025-09-01,,Customer Success,San Jose,L3,Support,transfer
+E01862,2024-04-07,,People,San Jose,L2,Recruiting,hire
+E01863,2024-04-11,,Engineering,New York,L4,Site Reliability,hire
+E01864,2024-04-11,,Sales,New York,L2,Sales Development,hire
+E01865,2024-04-11,2024-12-31,Engineering,San Jose,L1,Data Engineering,hire
+E01865,2025-01-01,2025-07-31,Engineering,San Jose,L2,Data Engineering,promotion
+E01865,2025-08-01,,Sales,San Jose,L2,Sales Development,transfer
+E01866,2024-04-13,2025-09-30,Customer Success,San Jose,L3,Customer Success Management,hire
+E01866,2025-10-01,,Customer Success,San Jose,L4,Customer Success Management,promotion
+E01867,2024-04-16,,Engineering,San Jose,L3,Data Engineering,hire
+E01868,2024-04-16,,Operations,Austin,L4,Business Operations,hire
+E01869,2024-04-17,,Engineering,San Jose,L2,Site Reliability,hire
+E01870,2024-04-17,,Operations,Bengaluru,L2,IT Operations,hire
+E01871,2024-04-17,2024-05-17,Sales,New York,L2,Account Executive,hire
+E01872,2024-04-18,,Finance,Bengaluru,L4,Accounting,hire
+E01873,2024-04-21,,Sales,New York,L4,Account Executive,hire
+E01874,2024-04-22,2024-12-04,Operations,San Jose,L3,Business Operations,hire
+E01875,2024-04-23,,Engineering,London,L3,Data Engineering,hire
+E01876,2024-04-24,,Engineering,New York,L3,Software Engineering,hire
+E01877,2024-04-25,,Customer Success,San Jose,L2,Customer Success Management,hire
+E01878,2024-04-27,,Engineering,San Jose,L3,Data Engineering,hire
+E01879,2024-04-27,2025-06-30,Customer Success,New York,L2,Support,hire
+E01879,2025-07-01,,Customer Success,New York,L3,Support,promotion
+E01880,2024-04-29,,Engineering,Bengaluru,L4,Data Engineering,hire
+E01881,2024-04-29,2025-12-03,Engineering,San Jose,L2,Software Engineering,hire
+E01882,2024-05-02,,Customer Success,New York,L3,Support,hire
+E01883,2024-05-03,,Marketing,New York,L1,Demand Generation,hire
+E01884,2024-05-03,2025-02-16,Marketing,New York,L1,Product Marketing,hire
+E01885,2024-05-06,,Engineering,Bengaluru,L1,Site Reliability,hire
+E01886,2024-05-08,2025-10-31,Operations,Austin,L4,Business Operations,hire
+E01886,2025-11-01,,Operations,Austin,L5,Business Operations,promotion
+E01887,2024-05-09,,Engineering,San Jose,L2,Data Engineering,hire
+E01888,2024-05-09,,Sales,San Jose,L2,Account Executive,hire
+E01889,2024-05-12,,Engineering,New York,L2,Data Engineering,hire
+E01890,2024-05-12,,Sales,Austin,L3,Sales Development,hire
+E01891,2024-05-13,,Engineering,San Jose,L4,Data Engineering,hire
+E01892,2024-05-14,,Engineering,Bengaluru,L1,Data Engineering,hire
+E01893,2024-05-14,,Marketing,New York,L2,Product Marketing,hire
+E01894,2024-05-14,,People,San Jose,L1,People Partners,hire
+E01895,2024-05-16,,Customer Success,Bengaluru,L2,Support,hire
+E01896,2024-05-20,,Sales,New York,L3,Account Executive,hire
+E01897,2024-05-21,,Engineering,San Jose,L5,Site Reliability,hire
+E01898,2024-05-21,,Finance,Austin,L2,Accounting,hire
+E01899,2024-05-22,,Customer Success,San Jose,L1,Support,hire
+E01900,2024-05-23,2025-04-30,Customer Success,London,L3,Support,hire
+E01900,2025-05-01,,Customer Success,London,L4,Support,promotion
+E01901,2024-05-23,,Operations,Bengaluru,L3,Business Operations,hire
+E01902,2024-05-24,,Sales,Austin,L4,Sales Development,hire
+E01903,2024-05-24,,Customer Success,New York,L2,Customer Success Management,hire
+E01904,2024-05-24,,Finance,New York,L5,Financial Planning,hire
+E01905,2024-05-25,,Engineering,Bengaluru,L4,Software Engineering,hire
+E01906,2024-05-25,2024-08-10,Engineering,Austin,L3,Software Engineering,hire
+E01907,2024-05-26,,Engineering,San Jose,L4,Software Engineering,hire
+E01908,2024-05-28,,Engineering,San Jose,L3,Software Engineering,hire
+E01909,2024-05-30,,Marketing,San Jose,L2,Demand Generation,hire
+E01910,2024-05-31,,Engineering,Austin,L4,Software Engineering,hire
+E01911,2024-05-31,2024-12-31,Customer Success,Austin,L2,Customer Success Management,hire
+E01911,2025-01-01,,Customer Success,Austin,L3,Customer Success Management,promotion
+E01912,2024-06-01,,Customer Success,San Jose,L3,Support,hire
+E01913,2024-06-03,,Sales,Austin,L5,Account Executive,hire
+E01914,2024-06-03,2025-07-09,Marketing,New York,L2,Product Marketing,hire
+E01915,2024-06-04,,Sales,London,L2,Sales Development,hire
+E01916,2024-06-05,,Engineering,New York,L2,Site Reliability,hire
+E01917,2024-06-05,,People,San Jose,L1,People Partners,hire
+E01918,2024-06-06,,Engineering,Bengaluru,L1,Data Engineering,hire
+E01919,2024-06-07,,Customer Success,San Jose,L5,Support,hire
+E01920,2024-06-10,2024-12-14,Sales,London,L1,Account Executive,hire
+E01921,2024-06-13,,Engineering,Bengaluru,L2,Software Engineering,hire
+E01922,2024-06-13,,Engineering,London,L6,Data Engineering,hire
+E01923,2024-06-16,2024-09-29,Customer Success,London,L3,Customer Success Management,hire
+E01924,2024-06-17,,Marketing,New York,L5,Demand Generation,hire
+E01925,2024-06-18,2024-12-02,Sales,New York,L5,Sales Development,hire
+E01926,2024-06-19,,Customer Success,San Jose,L2,Support,hire
+E01927,2024-06-20,,Engineering,London,L2,Data Engineering,hire
+E01928,2024-06-21,,Engineering,San Jose,L3,Site Reliability,hire
+E01929,2024-06-22,2024-08-29,Sales,Austin,L4,Sales Development,hire
+E01930,2024-06-23,,Sales,Austin,L1,Sales Development,hire
+E01931,2024-06-25,,Customer Success,New York,L3,Customer Success Management,hire
+E01932,2024-06-25,,People,New York,L4,People Partners,hire
+E01933,2024-06-28,2025-08-25,Engineering,San Jose,L4,Software Engineering,hire
+E01934,2024-06-30,2025-07-31,Sales,New York,L1,Sales Development,hire
+E01934,2025-08-01,,Sales,New York,L2,Sales Development,promotion
+E01935,2024-07-02,,Sales,Austin,L3,Sales Development,hire
+E01936,2024-07-03,2025-01-31,Marketing,New York,L3,Demand Generation,hire
+E01936,2025-02-01,2025-03-03,Marketing,New York,L4,Demand Generation,promotion
+E01937,2024-07-06,,Engineering,San Jose,L3,Site Reliability,hire
+E01938,2024-07-06,2025-07-29,Engineering,London,L2,Software Engineering,hire
+E01939,2024-07-07,2025-10-31,Customer Success,Bengaluru,L2,Support,hire
+E01939,2025-11-01,,Engineering,Bengaluru,L2,Site Reliability,transfer
+E01940,2024-07-07,2025-10-03,Marketing,New York,L2,Product Marketing,hire
+E01941,2024-07-09,,Engineering,San Jose,L2,Software Engineering,hire
+E01942,2024-07-10,2025-11-30,Sales,Bengaluru,L3,Account Executive,hire
+E01942,2025-12-01,,Sales,Bengaluru,L4,Account Executive,promotion
+E01943,2024-07-10,,Sales,New York,L3,Account Executive,hire
+E01944,2024-07-10,,Finance,New York,L4,Financial Planning,hire
+E01945,2024-07-10,,People,Austin,L4,People Partners,hire
+E01946,2024-07-10,,Operations,Austin,L3,Business Operations,hire
+E01947,2024-07-10,2025-06-28,Marketing,London,L2,Product Marketing,hire
+E01948,2024-07-10,2024-08-11,Marketing,San Jose,L1,Demand Generation,hire
+E01949,2024-07-11,2024-12-12,Sales,San Jose,L3,Sales Development,hire
+E01950,2024-07-12,2025-05-04,Engineering,Bengaluru,L1,Site Reliability,hire
+E01951,2024-07-14,,Engineering,San Jose,L2,Site Reliability,hire
+E01952,2024-07-14,,Marketing,New York,L1,Demand Generation,hire
+E01953,2024-07-15,,Sales,San Jose,L3,Sales Development,hire
+E01954,2024-07-15,,Sales,New York,L3,Account Executive,hire
+E01955,2024-07-16,2025-09-20,Sales,San Jose,L2,Sales Development,hire
+E01956,2024-07-21,2024-09-15,Sales,London,L3,Account Executive,hire
+E01957,2024-07-22,,Sales,San Jose,L2,Account Executive,hire
+E01958,2024-07-23,,Engineering,New York,L2,Site Reliability,hire
+E01959,2024-07-23,,Engineering,San Jose,L2,Software Engineering,hire
+E01960,2024-07-23,,Marketing,New York,L4,Product Marketing,hire
+E01961,2024-07-26,2025-05-31,Marketing,New York,L1,Demand Generation,hire
+E01961,2025-06-01,,Marketing,New York,L2,Demand Generation,promotion
+E01962,2024-07-26,,Marketing,Austin,L2,Demand Generation,hire
+E01963,2024-07-30,,Sales,San Jose,L2,Account Executive,hire
+E01964,2024-07-30,,Customer Success,San Jose,L3,Customer Success Management,hire
+E01965,2024-07-31,2025-08-31,Engineering,Bengaluru,L1,Data Engineering,hire
+E01965,2025-09-01,,Customer Success,Bengaluru,L1,Support,transfer
+E01966,2024-08-07,2025-10-31,Engineering,San Jose,L2,Software Engineering,hire
+E01966,2025-11-01,,Engineering,San Jose,L3,Software Engineering,promotion
+E01967,2024-08-07,,Sales,New York,L4,Account Executive,hire
+E01968,2024-08-08,,Customer Success,San Jose,L4,Customer Success Management,hire
+E01969,2024-08-09,,Engineering,New York,L2,Software Engineering,hire
+E01970,2024-08-09,,Sales,Austin,L4,Account Executive,hire
+E01971,2024-08-09,,Marketing,Bengaluru,L4,Product Marketing,hire
+E01972,2024-08-10,2025-10-31,Sales,New York,L2,Sales Development,hire
+E01972,2025-11-01,,Sales,New York,L3,Sales Development,promotion
+E01973,2024-08-11,,Customer Success,San Jose,L1,Support,hire
+E01974,2024-08-13,2025-05-31,Customer Success,Bengaluru,L4,Customer Success Management,hire
+E01974,2025-06-01,,Customer Success,Bengaluru,L5,Customer Success Management,promotion
+E01975,2024-08-13,2024-09-25,Engineering,San Jose,L4,Software Engineering,hire
+E01976,2024-08-14,2024-11-23,Sales,Austin,L5,Sales Development,hire
+E01977,2024-08-16,,Operations,Bengaluru,L4,Business Operations,hire
+E01978,2024-08-19,,Engineering,New York,L3,Site Reliability,hire
+E01979,2024-08-19,2024-12-27,Engineering,Bengaluru,L2,Data Engineering,hire
+E01980,2024-08-20,,Operations,San Jose,L3,IT Operations,hire
+E01981,2024-08-22,2025-03-31,Customer Success,London,L2,Support,hire
+E01981,2025-04-01,2025-05-14,Marketing,London,L2,Demand Generation,transfer
+E01982,2024-08-23,,Marketing,New York,L2,Product Marketing,hire
+E01983,2024-08-24,,Engineering,San Jose,L5,Site Reliability,hire
+E01984,2024-08-25,,Sales,San Jose,L4,Sales Development,hire
+E01985,2024-08-25,,Finance,San Jose,L6,Accounting,hire
+E01986,2024-08-26,,Finance,Austin,L1,Financial Planning,hire
+E01987,2024-08-27,,Engineering,Austin,L6,Software Engineering,hire
+E01988,2024-08-27,2025-03-31,People,San Jose,L2,Recruiting,hire
+E01988,2025-04-01,,Customer Success,San Jose,L2,Customer Success Management,transfer
+E01989,2024-08-28,,Sales,Austin,L6,Sales Development,hire
+E01990,2024-08-28,2025-11-09,Engineering,New York,L3,Data Engineering,hire
+E01991,2024-08-28,2025-07-16,Marketing,London,L5,Product Marketing,hire
+E01992,2024-08-29,,Marketing,New York,L2,Product Marketing,hire
+E01993,2024-08-29,2025-01-17,Operations,San Jose,L4,Business Operations,hire
+E01994,2024-08-29,2024-11-08,Operations,San Jose,L3,IT Operations,hire
+E01995,2024-08-30,2025-05-31,Marketing,London,L1,Demand Generation,hire
+E01995,2025-06-01,,Marketing,London,L2,Demand Generation,promotion
+E01996,2024-09-02,,Sales,San Jose,L4,Sales Development,hire
+E01997,2024-09-05,,Operations,London,L2,IT Operations,hire
+E01998,2024-09-11,,Engineering,San Jose,L4,Site Reliability,hire
+E01999,2024-09-11,,Marketing,Bengaluru,L1,Product Marketing,hire
+E02000,2024-09-12,,Engineering,Austin,L5,Software Engineering,hire
+E02001,2024-09-12,,Engineering,San Jose,L4,Software Engineering,hire
+E02002,2024-09-14,,Customer Success,New York,L3,Customer Success Management,hire
+E02003,2024-09-15,2025-05-31,Marketing,New York,L1,Demand Generation,hire
+E02003,2025-06-01,,Marketing,New York,L2,Demand Generation,promotion
+E02004,2024-09-15,,Marketing,San Jose,L4,Product Marketing,hire
+E02005,2024-09-15,2024-10-15,Engineering,New York,L4,Site Reliability,hire
+E02006,2024-09-19,,Sales,San Jose,L2,Account Executive,hire
+E02007,2024-09-20,,Finance,New York,L2,Accounting,hire
+E02008,2024-09-22,,Engineering,Austin,L2,Software Engineering,hire
+E02009,2024-09-22,2025-06-30,Sales,New York,L3,Sales Development,hire
+E02009,2025-07-01,,Sales,New York,L4,Sales Development,promotion
+E02010,2024-09-27,,Engineering,San Jose,L3,Site Reliability,hire
+E02011,2024-09-28,,Engineering,San Jose,L2,Data Engineering,hire
+E02012,2024-09-30,2024-12-29,Marketing,San Jose,L5,Demand Generation,hire
+E02013,2024-10-01,2025-09-30,Marketing,New York,L4,Product Marketing,hire
+E02013,2025-10-01,,Marketing,New York,L5,Product Marketing,promotion
+E02014,2024-10-02,,Customer Success,San Jose,L4,Customer Success Management,hire
+E02015,2024-10-03,2025-04-26,Sales,New York,L3,Account Executive,hire
+E02016,2024-10-04,2025-10-31,Customer Success,New York,L2,Customer Success Management,hire
+E02016,2025-11-01,,Customer Success,New York,L3,Customer Success Management,promotion
+E02017,2024-10-04,2025-06-08,Engineering,Bengaluru,L1,Data Engineering,hire
+E02018,2024-10-05,,Engineering,San Jose,L4,Data Engineering,hire
+E02019,2024-10-05,2025-05-31,People,London,L3,People Partners,hire
+E02019,2025-06-01,2025-07-31,Customer Success,London,L3,Support,transfer
+E02019,2025-08-01,,Customer Success,London,L4,Support,promotion
+E02020,2024-10-06,,Engineering,London,L4,Software Engineering,hire
+E02021,2024-10-09,,Engineering,San Jose,L2,Site Reliability,hire
+E02022,2024-10-10,2025-09-20,Engineering,Austin,L3,Data Engineering,hire
+E02023,2024-10-14,,Sales,London,L2,Sales Development,hire
+E02024,2024-10-14,2025-04-30,Operations,New York,L1,IT Operations,hire
+E02024,2025-05-01,,Operations,New York,L2,IT Operations,promotion
+E02025,2024-10-16,,Sales,Austin,L4,Sales Development,hire
+E02026,2024-10-16,,Customer Success,Bengaluru,L3,Customer Success Management,hire
+E02027,2024-10-16,,Marketing,San Jose,L1,Demand Generation,hire
+E02028,2024-10-19,,Finance,Austin,L2,Financial Planning,hire
+E02029,2024-10-20,,Sales,Bengaluru,L3,Account Executive,hire
+E02030,2024-10-20,,Sales,Austin,L3,Account Executive,hire
+E02031,2024-10-21,2025-03-14,Sales,Austin,L4,Sales Development,hire
+E02032,2024-10-22,,Sales,San Jose,L3,Account Executive,hire
+E02033,2024-10-23,,Sales,London,L3,Account Executive,hire
+E02034,2024-10-24,2025-08-31,Engineering,New York,L1,Software Engineering,hire
+E02034,2025-09-01,,Engineering,New York,L2,Software Engineering,promotion
+E02035,2024-10-24,,Sales,Austin,L2,Sales Development,hire
+E02036,2024-10-31,,Finance,New York,L2,Financial Planning,hire
+E02037,2024-11-01,,Sales,New York,L2,Account Executive,hire
+E02038,2024-11-01,,Sales,Austin,L3,Sales Development,hire
+E02039,2024-11-02,,Operations,Bengaluru,L4,IT Operations,hire
+E02040,2024-11-03,2025-10-31,Marketing,Austin,L3,Demand Generation,hire
+E02040,2025-11-01,,Customer Success,Austin,L3,Support,transfer
+E02041,2024-11-03,2025-11-30,Customer Success,San Jose,L2,Support,hire
+E02041,2025-12-01,,Customer Success,San Jose,L3,Support,promotion
+E02042,2024-11-04,2025-05-31,Finance,San Jose,L2,Accounting,hire
+E02042,2025-06-01,,Engineering,San Jose,L2,Site Reliability,transfer
+E02043,2024-11-04,,Marketing,Bengaluru,L1,Demand Generation,hire
+E02044,2024-11-06,,Engineering,Austin,L3,Data Engineering,hire
+E02045,2024-11-07,2025-11-30,People,San Jose,L2,Recruiting,hire
+E02045,2025-12-01,,Engineering,San Jose,L2,Site Reliability,transfer
+E02046,2024-11-07,2025-10-31,Customer Success,New York,L5,Customer Success Management,hire
+E02046,2025-11-01,,Engineering,New York,L5,Data Engineering,transfer
+E02047,2024-11-08,,Sales,San Jose,L4,Sales Development,hire
+E02048,2024-11-10,,Engineering,San Jose,L2,Site Reliability,hire
+E02049,2024-11-10,2025-11-30,Finance,London,L1,Accounting,hire
+E02049,2025-12-01,,Finance,London,L2,Accounting,promotion
+E02050,2024-11-12,2025-09-30,Sales,San Jose,L3,Sales Development,hire
+E02050,2025-10-01,,Sales,San Jose,L4,Sales Development,promotion
+E02051,2024-11-14,,Operations,Austin,L1,IT Operations,hire
+E02052,2024-11-21,,People,Austin,L2,People Partners,hire
+E02053,2024-11-24,,Sales,Austin,L3,Account Executive,hire
+E02054,2024-11-25,2025-09-30,Customer Success,San Jose,L2,Customer Success Management,hire
+E02054,2025-10-01,,Customer Success,San Jose,L3,Customer Success Management,promotion
+E02055,2024-11-25,,Customer Success,San Jose,L4,Customer Success Management,hire
+E02056,2024-11-30,,Sales,New York,L3,Account Executive,hire
+E02057,2024-12-01,,Customer Success,Bengaluru,L2,Support,hire
+E02058,2024-12-02,,Engineering,Austin,L3,Site Reliability,hire
+E02059,2024-12-02,,Engineering,San Jose,L3,Software Engineering,hire
+E02060,2024-12-03,,Customer Success,San Jose,L2,Customer Success Management,hire
+E02061,2024-12-04,,Sales,San Jose,L4,Account Executive,hire
+E02062,2024-12-05,,Engineering,New York,L4,Software Engineering,hire
+E02063,2024-12-06,,Sales,London,L3,Sales Development,hire
+E02064,2024-12-08,,Marketing,Bengaluru,L4,Demand Generation,hire
+E02065,2024-12-09,2025-08-31,Engineering,San Jose,L2,Software Engineering,hire
+E02065,2025-09-01,2025-10-03,Engineering,San Jose,L3,Software Engineering,promotion
+E02066,2024-12-10,,Engineering,Austin,L1,Software Engineering,hire
+E02067,2024-12-12,,People,Austin,L2,People Partners,hire
+E02068,2024-12-13,,Engineering,San Jose,L3,Software Engineering,hire
+E02069,2024-12-13,,Engineering,Bengaluru,L2,Software Engineering,hire
+E02070,2024-12-17,,Marketing,Austin,L2,Demand Generation,hire
+E02071,2024-12-17,,Marketing,San Jose,L4,Product Marketing,hire
+E02072,2024-12-18,,Marketing,San Jose,L2,Demand Generation,hire
+E02073,2024-12-20,,Marketing,San Jose,L4,Product Marketing,hire
+E02074,2024-12-21,,Finance,Austin,L1,Financial Planning,hire
+E02075,2024-12-24,,Customer Success,New York,L1,Support,hire
+E02076,2024-12-24,,Operations,San Jose,L3,IT Operations,hire
+E02077,2024-12-29,,Sales,San Jose,L3,Sales Development,hire
+E02078,2024-12-29,2025-02-11,Operations,New York,L2,IT Operations,hire
+E02079,2024-12-31,,Engineering,Austin,L4,Data Engineering,hire
+E02080,2024-12-31,,Engineering,San Jose,L5,Site Reliability,hire
+E02081,2025-01-02,,Customer Success,San Jose,L2,Customer Success Management,hire
+E02082,2025-01-02,,Customer Success,San Jose,L3,Customer Success Management,hire
+E02083,2025-01-03,2025-08-31,Marketing,San Jose,L4,Product Marketing,hire
+E02083,2025-09-01,,Marketing,San Jose,L5,Product Marketing,promotion
+E02084,2025-01-03,,Finance,New York,L5,Financial Planning,hire
+E02085,2025-01-04,2025-07-31,Customer Success,New York,L3,Customer Success Management,hire
+E02085,2025-08-01,,Customer Success,New York,L4,Customer Success Management,promotion
+E02086,2025-01-07,,Engineering,Austin,L2,Software Engineering,hire
+E02087,2025-01-08,2025-04-18,Marketing,London,L3,Demand Generation,hire
+E02088,2025-01-11,,Engineering,Austin,L3,Site Reliability,hire
+E02089,2025-01-11,2025-07-20,Customer Success,San Jose,L1,Support,hire
+E02090,2025-01-12,,Marketing,New York,L3,Demand Generation,hire
+E02091,2025-01-12,2025-12-22,Operations,San Jose,L5,IT Operations,hire
+E02092,2025-01-14,,Marketing,Bengaluru,L2,Product Marketing,hire
+E02093,2025-01-17,,Finance,New York,L3,Financial Planning,hire
+E02094,2025-01-18,,Customer Success,San Jose,L4,Customer Success Management,hire
+E02095,2025-01-19,2025-08-31,Engineering,New York,L1,Site Reliability,hire
+E02095,2025-09-01,,Sales,New York,L1,Sales Development,transfer
+E02096,2025-01-19,2025-10-31,Sales,San Jose,L2,Sales Development,hire
+E02096,2025-11-01,,Sales,San Jose,L3,Sales Development,promotion
+E02097,2025-01-19,2025-04-27,Marketing,New York,L3,Demand Generation,hire
+E02098,2025-01-20,2025-11-30,People,Austin,L2,Recruiting,hire
+E02098,2025-12-01,,People,Austin,L3,Recruiting,promotion
+E02099,2025-01-25,,Engineering,Austin,L2,Data Engineering,hire
+E02100,2025-01-26,,Operations,New York,L2,IT Operations,hire
+E02101,2025-01-27,2025-11-30,Sales,Bengaluru,L3,Account Executive,hire
+E02101,2025-12-01,,Sales,Bengaluru,L4,Account Executive,promotion
+E02102,2025-01-29,,Marketing,New York,L4,Product Marketing,hire
+E02103,2025-02-02,,Sales,Bengaluru,L4,Account Executive,hire
+E02104,2025-02-04,,Finance,London,L3,Accounting,hire
+E02105,2025-02-04,,Operations,San Jose,L1,Business Operations,hire
+E02106,2025-02-04,,Operations,London,L1,Business Operations,hire
+E02107,2025-02-06,2025-05-30,Operations,New York,L3,Business Operations,hire
+E02108,2025-02-08,2025-09-30,Sales,San Jose,L2,Sales Development,hire
+E02108,2025-10-01,2025-10-31,Sales,San Jose,L3,Sales Development,promotion
+E02108,2025-11-01,,Operations,San Jose,L3,IT Operations,transfer
+E02109,2025-02-09,,Engineering,San Jose,L4,Site Reliability,hire
+E02110,2025-02-09,,Customer Success,Austin,L5,Customer Success Management,hire
+E02111,2025-02-09,2025-08-31,Operations,San Jose,L1,IT Operations,hire
+E02111,2025-09-01,2025-11-30,Operations,San Jose,L2,IT Operations,promotion
+E02111,2025-12-01,,Customer Success,San Jose,L2,Support,transfer
+E02112,2025-02-09,,Marketing,New York,L1,Demand Generation,hire
+E02113,2025-02-10,,Engineering,San Jose,L3,Data Engineering,hire
+E02114,2025-02-11,,Customer Success,Austin,L4,Support,hire
+E02115,2025-02-15,,Customer Success,San Jose,L3,Support,hire
+E02116,2025-02-15,,Customer Success,Austin,L6,Customer Success Management,hire
+E02117,2025-02-17,2025-07-11,Customer Success,San Jose,L3,Support,hire
+E02118,2025-02-18,,Operations,San Jose,L4,IT Operations,hire
+E02119,2025-02-19,,Marketing,New York,L3,Product Marketing,hire
+E02120,2025-02-19,,Marketing,San Jose,L4,Product Marketing,hire
+E02121,2025-02-20,,Engineering,London,L1,Software Engineering,hire
+E02122,2025-02-22,,Sales,San Jose,L1,Account Executive,hire
+E02123,2025-02-22,,Sales,New York,L3,Account Executive,hire
+E02124,2025-02-22,,Finance,London,L2,Financial Planning,hire
+E02125,2025-02-22,2025-08-31,People,New York,L3,People Partners,hire
+E02125,2025-09-01,,Finance,New York,L3,Accounting,transfer
+E02126,2025-02-24,,Engineering,San Jose,L3,Site Reliability,hire
+E02127,2025-02-24,2025-11-25,Sales,San Jose,L4,Account Executive,hire
+E02128,2025-02-26,,Sales,San Jose,L3,Account Executive,hire
+E02129,2025-03-05,,Operations,London,L2,Business Operations,hire
+E02130,2025-03-06,,Sales,San Jose,L2,Sales Development,hire
+E02131,2025-03-06,,Finance,New York,L3,Accounting,hire
+E02132,2025-03-08,,Sales,San Jose,L3,Sales Development,hire
+E02133,2025-03-08,,Operations,New York,L4,IT Operations,hire
+E02134,2025-03-10,2025-11-30,Engineering,Bengaluru,L1,Site Reliability,hire
+E02134,2025-12-01,,Engineering,Bengaluru,L2,Site Reliability,promotion
+E02135,2025-03-10,2025-09-30,Customer Success,New York,L3,Customer Success Management,hire
+E02135,2025-10-01,,Customer Success,New York,L4,Customer Success Management,promotion
+E02136,2025-03-10,,Customer Success,New York,L5,Customer Success Management,hire
+E02137,2025-03-11,,Engineering,San Jose,L2,Software Engineering,hire
+E02138,2025-03-11,2025-10-28,Operations,Bengaluru,L4,IT Operations,hire
+E02139,2025-03-13,,Sales,San Jose,L2,Sales Development,hire
+E02140,2025-03-13,2025-09-30,Finance,New York,L3,Accounting,hire
+E02140,2025-10-01,,Finance,New York,L4,Accounting,promotion
+E02141,2025-03-13,2025-08-11,Sales,San Jose,L3,Account Executive,hire
+E02142,2025-03-14,,Engineering,San Jose,L1,Data Engineering,hire
+E02143,2025-03-14,,Customer Success,New York,L1,Support,hire
+E02144,2025-03-14,,Marketing,San Jose,L1,Product Marketing,hire
+E02145,2025-03-15,,Customer Success,San Jose,L4,Support,hire
+E02146,2025-03-17,2025-10-31,Sales,New York,L1,Account Executive,hire
+E02146,2025-11-01,2025-12-03,Sales,New York,L2,Account Executive,promotion
+E02147,2025-03-21,,Engineering,Austin,L5,Site Reliability,hire
+E02148,2025-03-21,,Engineering,San Jose,L3,Site Reliability,hire
+E02149,2025-03-24,,Engineering,San Jose,L1,Data Engineering,hire
+E02150,2025-03-25,,Customer Success,New York,L2,Support,hire
+E02151,2025-03-25,,Finance,San Jose,L1,Financial Planning,hire
+E02152,2025-03-26,,Engineering,San Jose,L2,Site Reliability,hire
+E02153,2025-03-27,,Engineering,San Jose,L2,Site Reliability,hire
+E02154,2025-03-27,,Customer Success,San Jose,L5,Support,hire
+E02155,2025-03-27,,Operations,Austin,L2,IT Operations,hire
+E02156,2025-03-28,,Engineering,San Jose,L3,Data Engineering,hire
+E02157,2025-03-28,2025-11-30,Sales,Bengaluru,L1,Sales Development,hire
+E02157,2025-12-01,,Sales,Bengaluru,L2,Sales Development,promotion
+E02158,2025-03-30,,Engineering,New York,L5,Site Reliability,hire
+E02159,2025-03-31,2025-09-30,Customer Success,San Jose,L1,Support,hire
+E02159,2025-10-01,2025-10-31,Customer Success,San Jose,L2,Support,promotion
+E02159,2025-11-01,,Engineering,San Jose,L2,Software Engineering,transfer
+E02160,2025-04-05,,Operations,Austin,L3,IT Operations,hire
+E02161,2025-04-08,,Customer Success,San Jose,L2,Customer Success Management,hire
+E02162,2025-04-10,,Engineering,San Jose,L3,Data Engineering,hire
+E02163,2025-04-10,,Engineering,Austin,L4,Software Engineering,hire
+E02164,2025-04-11,,Engineering,New York,L3,Software Engineering,hire
+E02165,2025-04-11,,Operations,San Jose,L2,Business Operations,hire
+E02166,2025-04-12,2025-11-30,Finance,San Jose,L1,Accounting,hire
+E02166,2025-12-01,,Engineering,San Jose,L1,Data Engineering,transfer
+E02167,2025-04-12,,Customer Success,San Jose,L1,Support,hire
+E02168,2025-04-12,,People,New York,L3,People Partners,hire
+E02169,2025-04-13,,Sales,Austin,L1,Account Executive,hire
+E02170,2025-04-14,,Finance,London,L3,Accounting,hire
+E02171,2025-04-15,,Engineering,Bengaluru,L3,Site Reliability,hire
+E02172,2025-04-15,,Sales,San Jose,L1,Account Executive,hire
+E02173,2025-04-16,2025-11-30,Sales,San Jose,L3,Sales Development,hire
+E02173,2025-12-01,,Sales,San Jose,L4,Sales Development,promotion
+E02174,2025-04-18,,Marketing,London,L2,Product Marketing,hire
+E02175,2025-04-18,,Operations,San Jose,L3,Business Operations,hire
+E02176,2025-04-19,,Operations,London,L1,Business Operations,hire
+E02177,2025-04-20,,People,San Jose,L4,People Partners,hire
+E02178,2025-04-20,2025-10-27,Finance,New York,L4,Accounting,hire
+E02179,2025-04-21,,Sales,San Jose,L2,Account Executive,hire
+E02180,2025-04-21,2025-10-10,Finance,Austin,L2,Financial Planning,hire
+E02181,2025-04-23,,Engineering,San Jose,L3,Site Reliability,hire
+E02182,2025-04-25,,Finance,Bengaluru,L2,Accounting,hire
+E02183,2025-04-26,,Engineering,San Jose,L5,Site Reliability,hire
+E02184,2025-04-26,2025-11-30,Engineering,London,L3,Site Reliability,hire
+E02184,2025-12-01,,Engineering,London,L4,Site Reliability,promotion
+E02185,2025-04-26,,Customer Success,San Jose,L3,Customer Success Management,hire
+E02186,2025-04-26,,Marketing,San Jose,L4,Product Marketing,hire
+E02187,2025-04-27,,Customer Success,Austin,L2,Support,hire
+E02188,2025-04-27,2025-11-30,Operations,Bengaluru,L2,Business Operations,hire
+E02188,2025-12-01,,Customer Success,Bengaluru,L2,Support,transfer
+E02189,2025-04-27,,People,London,L3,Recruiting,hire
+E02190,2025-05-01,,Engineering,San Jose,L1,Data Engineering,hire
+E02191,2025-05-03,,Sales,San Jose,L1,Account Executive,hire
+E02192,2025-05-07,2025-10-30,Engineering,Austin,L2,Site Reliability,hire
+E02193,2025-05-10,2025-11-30,Marketing,New York,L1,Product Marketing,hire
+E02193,2025-12-01,,Marketing,New York,L2,Product Marketing,promotion
+E02194,2025-05-11,,Engineering,New York,L1,Software Engineering,hire
+E02195,2025-05-11,,Sales,San Jose,L1,Account Executive,hire
+E02196,2025-05-11,,Finance,San Jose,L3,Financial Planning,hire
+E02197,2025-05-12,,Marketing,Bengaluru,L5,Product Marketing,hire
+E02198,2025-05-12,,Finance,San Jose,L4,Financial Planning,hire
+E02199,2025-05-13,,Operations,Bengaluru,L1,IT Operations,hire
+E02200,2025-05-14,2025-11-30,Sales,San Jose,L1,Account Executive,hire
+E02200,2025-12-01,,Sales,San Jose,L2,Account Executive,promotion
+E02201,2025-05-19,,Customer Success,Bengaluru,L5,Support,hire
+E02202,2025-05-20,,Sales,San Jose,L2,Account Executive,hire
+E02203,2025-05-22,,Engineering,Austin,L5,Site Reliability,hire
+E02204,2025-05-23,,Engineering,Austin,L5,Site Reliability,hire
+E02205,2025-05-25,,Engineering,San Jose,L2,Data Engineering,hire
+E02206,2025-05-26,,Sales,San Jose,L3,Account Executive,hire
+E02207,2025-05-27,2025-09-04,Customer Success,New York,L3,Customer Success Management,hire
+E02208,2025-05-30,2025-11-30,Engineering,Austin,L3,Data Engineering,hire
+E02208,2025-12-01,,Engineering,Austin,L4,Data Engineering,promotion
+E02209,2025-05-30,,Sales,San Jose,L2,Account Executive,hire
+E02210,2025-05-30,2025-07-17,Customer Success,Austin,L1,Customer Success Management,hire
+E02211,2025-05-31,,Engineering,San Jose,L3,Data Engineering,hire
+E02212,2025-06-01,,Engineering,San Jose,L3,Data Engineering,hire
+E02213,2025-06-01,,Sales,New York,L1,Account Executive,hire
+E02214,2025-06-02,,Finance,San Jose,L2,Financial Planning,hire
+E02215,2025-06-02,,People,New York,L2,Recruiting,hire
+E02216,2025-06-04,,Customer Success,London,L6,Customer Success Management,hire
+E02217,2025-06-07,,Engineering,San Jose,L1,Data Engineering,hire
+E02218,2025-06-08,,Engineering,San Jose,L3,Data Engineering,hire
+E02219,2025-06-08,,Engineering,London,L1,Software Engineering,hire
+E02220,2025-06-08,2025-07-25,Sales,Austin,L2,Account Executive,hire
+E02221,2025-06-10,,Engineering,Austin,L1,Software Engineering,hire
+E02222,2025-06-10,,Engineering,New York,L1,Software Engineering,hire
+E02223,2025-06-10,,Engineering,London,L1,Site Reliability,hire
+E02224,2025-06-11,,Engineering,Austin,L3,Data Engineering,hire
+E02225,2025-06-14,,Sales,San Jose,L2,Account Executive,hire
+E02226,2025-06-16,,Engineering,New York,L4,Data Engineering,hire
+E02227,2025-06-17,,Engineering,Bengaluru,L3,Site Reliability,hire
+E02228,2025-06-17,,Sales,Bengaluru,L1,Account Executive,hire
+E02229,2025-06-20,,Engineering,San Jose,L3,Site Reliability,hire
+E02230,2025-06-21,,Sales,San Jose,L1,Sales Development,hire
+E02231,2025-06-21,,Customer Success,New York,L2,Customer Success Management,hire
+E02232,2025-06-25,,Sales,San Jose,L5,Sales Development,hire
+E02233,2025-06-26,,Engineering,San Jose,L5,Software Engineering,hire
+E02234,2025-06-28,,Finance,New York,L3,Accounting,hire
+E02235,2025-06-29,,Marketing,New York,L3,Demand Generation,hire
+E02236,2025-07-01,,Engineering,Austin,L3,Data Engineering,hire
+E02237,2025-07-04,,Engineering,San Jose,L5,Data Engineering,hire
+E02238,2025-07-04,,Engineering,San Jose,L1,Data Engineering,hire
+E02239,2025-07-04,,Marketing,Austin,L3,Demand Generation,hire
+E02240,2025-07-05,,Sales,San Jose,L5,Sales Development,hire
+E02241,2025-07-06,,Engineering,New York,L3,Software Engineering,hire
+E02242,2025-07-07,,Customer Success,Bengaluru,L1,Customer Success Management,hire
+E02243,2025-07-08,,Sales,San Jose,L3,Account Executive,hire
+E02244,2025-07-09,,Engineering,New York,L3,Data Engineering,hire
+E02245,2025-07-09,,People,San Jose,L2,Recruiting,hire
+E02246,2025-07-12,,Sales,San Jose,L3,Account Executive,hire
+E02247,2025-07-12,,Customer Success,San Jose,L2,Customer Success Management,hire
+E02248,2025-07-13,2025-10-23,Engineering,London,L4,Site Reliability,hire
+E02249,2025-07-15,,Engineering,New York,L2,Software Engineering,hire
+E02250,2025-07-16,,Operations,New York,L1,IT Operations,hire
+E02251,2025-07-16,2025-08-24,Sales,San Jose,L4,Account Executive,hire
+E02252,2025-07-18,,Sales,New York,L1,Account Executive,hire
+E02253,2025-07-18,,Sales,San Jose,L1,Account Executive,hire
+E02254,2025-07-19,,People,San Jose,L3,Recruiting,hire
+E02255,2025-07-22,,Sales,London,L1,Account Executive,hire
+E02256,2025-07-23,,Customer Success,San Jose,L2,Support,hire
+E02257,2025-07-25,,Engineering,New York,L4,Software Engineering,hire
+E02258,2025-07-26,,Operations,San Jose,L3,Business Operations,hire
+E02259,2025-07-26,,Operations,San Jose,L3,IT Operations,hire
+E02260,2025-07-29,,Operations,San Jose,L2,Business Operations,hire
+E02261,2025-07-31,,Sales,San Jose,L1,Sales Development,hire
+E02262,2025-07-31,,People,Austin,L5,People Partners,hire
+E02263,2025-08-03,,Engineering,New York,L4,Data Engineering,hire
+E02264,2025-08-03,,Sales,San Jose,L3,Sales Development,hire
+E02265,2025-08-04,,Engineering,San Jose,L1,Site Reliability,hire
+E02266,2025-08-04,,Marketing,New York,L3,Demand Generation,hire
+E02267,2025-08-05,,Operations,London,L4,Business Operations,hire
+E02268,2025-08-07,,Engineering,San Jose,L2,Site Reliability,hire
+E02269,2025-08-07,,Sales,New York,L4,Sales Development,hire
+E02270,2025-08-08,,Marketing,London,L2,Product Marketing,hire
+E02271,2025-08-10,,Engineering,Austin,L2,Software Engineering,hire
+E02272,2025-08-10,,Customer Success,Austin,L4,Customer Success Management,hire
+E02273,2025-08-12,,Finance,New York,L5,Accounting,hire
+E02274,2025-08-13,,Engineering,San Jose,L3,Data Engineering,hire
+E02275,2025-08-14,,Engineering,San Jose,L4,Software Engineering,hire
+E02276,2025-08-16,,Engineering,London,L3,Site Reliability,hire
+E02277,2025-08-16,,Sales,San Jose,L3,Account Executive,hire
+E02278,2025-08-17,,Customer Success,London,L4,Customer Success Management,hire
+E02279,2025-08-18,,Engineering,London,L4,Data Engineering,hire
+E02280,2025-08-20,2025-10-31,Sales,New York,L2,Sales Development,hire
+E02281,2025-08-21,,Engineering,London,L1,Software Engineering,hire
+E02282,2025-08-24,,Engineering,Bengaluru,L5,Site Reliability,hire
+E02283,2025-08-24,,Engineering,London,L2,Data Engineering,hire
+E02284,2025-08-25,2025-10-16,Operations,San Jose,L1,IT Operations,hire
+E02285,2025-08-26,,Sales,Bengaluru,L5,Sales Development,hire
+E02286,2025-08-26,2025-11-17,Sales,San Jose,L4,Account Executive,hire
+E02287,2025-08-27,,Sales,San Jose,L3,Account Executive,hire
+E02288,2025-08-27,,Operations,London,L3,IT Operations,hire
+E02289,2025-08-28,,Customer Success,San Jose,L2,Customer Success Management,hire
+E02290,2025-08-28,,Marketing,Bengaluru,L2,Product Marketing,hire
+E02291,2025-09-03,,Engineering,Austin,L5,Site Reliability,hire
+E02292,2025-09-03,,Customer Success,New York,L4,Support,hire
+E02293,2025-09-04,,Sales,London,L3,Account Executive,hire
+E02294,2025-09-04,,Customer Success,New York,L3,Customer Success Management,hire
+E02295,2025-09-04,,Finance,New York,L1,Accounting,hire
+E02296,2025-09-04,2025-12-10,Customer Success,New York,L4,Support,hire
+E02297,2025-09-06,,Engineering,San Jose,L2,Software Engineering,hire
+E02298,2025-09-06,,Engineering,London,L4,Software Engineering,hire
+E02299,2025-09-06,,Sales,New York,L2,Account Executive,hire
+E02300,2025-09-07,,Finance,San Jose,L4,Accounting,hire
+E02301,2025-09-07,2025-12-11,People,London,L3,Recruiting,hire
+E02302,2025-09-08,,Sales,San Jose,L2,Sales Development,hire
+E02303,2025-09-09,,Engineering,New York,L5,Data Engineering,hire
+E02304,2025-09-10,,Sales,Austin,L2,Account Executive,hire
+E02305,2025-09-10,,Customer Success,New York,L1,Customer Success Management,hire
+E02306,2025-09-10,2025-12-16,Customer Success,San Jose,L3,Customer Success Management,hire
+E02307,2025-09-11,,Sales,Austin,L3,Account Executive,hire
+E02308,2025-09-13,,Engineering,Austin,L1,Data Engineering,hire
+E02309,2025-09-13,,Operations,New York,L2,IT Operations,hire
+E02310,2025-09-14,,Sales,Austin,L4,Account Executive,hire
+E02311,2025-09-14,,Marketing,San Jose,L3,Product Marketing,hire
+E02312,2025-09-15,,Marketing,San Jose,L4,Product Marketing,hire
+E02313,2025-09-15,,Finance,London,L3,Accounting,hire
+E02314,2025-09-15,,Operations,San Jose,L3,Business Operations,hire
+E02315,2025-09-16,,Sales,San Jose,L5,Account Executive,hire
+E02316,2025-09-16,,Operations,New York,L4,IT Operations,hire
+E02317,2025-09-18,,Sales,Austin,L4,Sales Development,hire
+E02318,2025-09-20,,Sales,San Jose,L2,Account Executive,hire
+E02319,2025-09-23,,Engineering,London,L4,Data Engineering,hire
+E02320,2025-09-23,,Sales,Bengaluru,L2,Sales Development,hire
+E02321,2025-09-26,,Sales,New York,L2,Account Executive,hire
+E02322,2025-09-26,,Marketing,New York,L1,Demand Generation,hire
+E02323,2025-09-27,,Engineering,Austin,L2,Site Reliability,hire
+E02324,2025-09-30,,Sales,Bengaluru,L1,Account Executive,hire
+E02325,2025-09-30,2025-12-28,Sales,London,L1,Sales Development,hire
+E02326,2025-10-02,,Customer Success,San Jose,L4,Customer Success Management,hire
+E02327,2025-10-03,,Engineering,San Jose,L1,Site Reliability,hire
+E02328,2025-10-03,,Finance,San Jose,L2,Accounting,hire
+E02329,2025-10-07,,Sales,San Jose,L5,Sales Development,hire
+E02330,2025-10-07,,Marketing,San Jose,L3,Demand Generation,hire
+E02331,2025-10-09,,Engineering,London,L4,Data Engineering,hire
+E02332,2025-10-09,,Sales,Austin,L2,Sales Development,hire
+E02333,2025-10-10,,Sales,Bengaluru,L1,Sales Development,hire
+E02334,2025-10-10,,Sales,San Jose,L2,Account Executive,hire
+E02335,2025-10-11,,Engineering,New York,L2,Software Engineering,hire
+E02336,2025-10-11,,Engineering,San Jose,L5,Site Reliability,hire
+E02337,2025-10-11,,People,New York,L4,People Partners,hire
+E02338,2025-10-13,,Sales,San Jose,L3,Account Executive,hire
+E02339,2025-10-14,,Engineering,Bengaluru,L3,Data Engineering,hire
+E02340,2025-10-17,,Customer Success,Austin,L2,Support,hire
+E02341,2025-10-21,,Operations,Austin,L2,Business Operations,hire
+E02342,2025-10-22,,Customer Success,New York,L2,Support,hire
+E02343,2025-10-23,,Engineering,Austin,L2,Data Engineering,hire
+E02344,2025-10-24,,Engineering,San Jose,L2,Software Engineering,hire
+E02345,2025-10-24,,Customer Success,New York,L2,Support,hire
+E02346,2025-10-25,,Engineering,New York,L3,Data Engineering,hire
+E02347,2025-10-27,,Customer Success,New York,L2,Customer Success Management,hire
+E02348,2025-10-28,,Engineering,London,L3,Data Engineering,hire
+E02349,2025-10-31,,Customer Success,San Jose,L3,Customer Success Management,hire
+E02350,2025-11-04,,People,Bengaluru,L1,Recruiting,hire
+E02351,2025-11-05,,Marketing,Bengaluru,L4,Product Marketing,hire
+E02352,2025-11-06,,Marketing,San Jose,L1,Product Marketing,hire
+E02353,2025-11-08,,Engineering,New York,L1,Site Reliability,hire
+E02354,2025-11-08,,Sales,Austin,L5,Account Executive,hire
+E02355,2025-11-08,,Sales,Austin,L4,Sales Development,hire
+E02356,2025-11-09,,Engineering,San Jose,L5,Data Engineering,hire
+E02357,2025-11-09,,Sales,London,L3,Account Executive,hire
+E02358,2025-11-10,,Engineering,New York,L4,Site Reliability,hire
+E02359,2025-11-11,,Engineering,San Jose,L5,Site Reliability,hire
+E02360,2025-11-13,,Engineering,New York,L3,Data Engineering,hire
+E02361,2025-11-13,,Marketing,Bengaluru,L2,Demand Generation,hire
+E02362,2025-11-16,,Sales,London,L3,Sales Development,hire
+E02363,2025-11-17,,Engineering,London,L6,Site Reliability,hire
+E02364,2025-11-19,,Sales,New York,L2,Sales Development,hire
+E02365,2025-11-21,,Sales,New York,L2,Sales Development,hire
+E02366,2025-11-21,,Operations,London,L2,Business Operations,hire
+E02367,2025-11-22,,Sales,San Jose,L2,Sales Development,hire
+E02368,2025-11-23,,Sales,New York,L4,Account Executive,hire
+E02369,2025-11-27,,Sales,San Jose,L4,Account Executive,hire
+E02370,2025-11-27,,Customer Success,New York,L2,Support,hire
+E02371,2025-11-27,,Operations,New York,L2,Business Operations,hire
+E02372,2025-11-28,,Sales,Bengaluru,L3,Account Executive,hire
+E02373,2025-11-28,,Finance,San Jose,L2,Financial Planning,hire
+E02374,2025-11-29,,Sales,Austin,L3,Sales Development,hire
+E02375,2025-11-29,,Customer Success,Austin,L3,Support,hire
+E02376,2025-11-29,,Customer Success,San Jose,L2,Customer Success Management,hire
+E02377,2025-11-30,,Engineering,Austin,L4,Data Engineering,hire
+E02378,2025-12-02,,Finance,San Jose,L2,Financial Planning,hire
+E02379,2025-12-04,,Engineering,San Jose,L2,Site Reliability,hire
+E02380,2025-12-04,,Sales,New York,L2,Sales Development,hire
+E02381,2025-12-05,,Legal,Austin,L3,Legal Counsel,hire
+E02382,2025-12-06,,Finance,New York,L2,Financial Planning,hire
+E02383,2025-12-08,,Engineering,San Jose,L4,Software Engineering,hire
+E02384,2025-12-09,,Operations,San Jose,L3,Business Operations,hire
+E02385,2025-12-10,,Sales,Bengaluru,L1,Account Executive,hire
+E02386,2025-12-12,,Engineering,Austin,L2,Software Engineering,hire
+E02387,2025-12-15,,Customer Success,New York,L2,Support,hire
+E02388,2025-12-16,,Sales,Bengaluru,L4,Account Executive,hire
+E02389,2025-12-18,,Engineering,Austin,L4,Data Engineering,hire
+E02390,2025-12-18,,Finance,New York,L3,Financial Planning,hire
+E02391,2025-12-18,,Operations,New York,L3,Business Operations,hire
+E02392,2025-12-19,,Sales,Bengaluru,L5,Account Executive,hire
+E02393,2025-12-20,,People,San Jose,L6,Recruiting,hire
+E02394,2025-12-22,,Engineering,New York,L5,Site Reliability,hire
+E02395,2025-12-26,,Finance,Bengaluru,L2,Financial Planning,hire
+E02396,2025-12-26,,People,Austin,L2,People Partners,hire
+E02397,2025-12-29,,Engineering,San Jose,L4,Data Engineering,hire
+E02398,2025-12-29,,Engineering,San Jose,L3,Software Engineering,hire
+E02399,2025-12-29,,Operations,San Jose,L3,Business Operations,hire
+E02400,2025-12-30,,Sales,San Jose,L3,Sales Development,hire

@@ -1,0 +1,1051 @@
+requisition_id,department,location,job_level,opened_date,status,filled_date,closed_date
+R00001,Sales,San Jose,L6,2022-09-16,filled,2023-01-07,2023-01-07
+R00002,Finance,New York,L3,2022-09-29,cancelled,,2023-01-17
+R00003,Engineering,San Jose,L5,2022-10-03,filled,2023-01-05,2023-01-05
+R00004,Operations,San Jose,L5,2022-10-06,filled,2023-01-18,2023-01-18
+R00005,Engineering,London,L3,2022-10-12,cancelled,,2023-01-18
+R00006,Engineering,San Jose,L4,2022-10-17,filled,2023-01-11,2023-01-11
+R00007,Engineering,San Jose,L4,2022-10-21,filled,2023-01-21,2023-01-21
+R00008,Operations,Austin,L5,2022-10-27,filled,2023-01-03,2023-01-03
+R00009,Sales,London,L2,2022-10-27,filled,2023-01-05,2023-01-05
+R00010,Marketing,London,L3,2022-11-01,filled,2023-01-02,2023-01-02
+R00011,Sales,San Jose,L4,2022-11-04,filled,2023-01-10,2023-01-10
+R00012,People,Austin,L1,2022-11-05,filled,2023-01-02,2023-01-02
+R00013,Sales,New York,L3,2022-11-06,filled,2023-01-04,2023-01-04
+R00014,Operations,San Jose,L2,2022-11-06,filled,2023-01-12,2023-01-12
+R00015,Engineering,San Jose,L2,2022-11-07,filled,2023-01-08,2023-01-08
+R00016,Operations,San Jose,L2,2022-11-12,filled,2023-01-16,2023-01-16
+R00017,Finance,New York,L4,2022-11-12,filled,2023-02-09,2023-02-09
+R00018,Operations,San Jose,L2,2022-11-13,filled,2023-01-05,2023-01-05
+R00019,Engineering,New York,L3,2022-11-15,filled,2023-01-23,2023-01-23
+R00020,Engineering,San Jose,L2,2022-11-17,filled,2023-01-10,2023-01-10
+R00021,Finance,New York,L1,2022-11-18,filled,2023-01-01,2023-01-01
+R00022,Engineering,Bengaluru,L6,2022-11-19,filled,2023-03-03,2023-03-03
+R00023,Marketing,San Jose,L3,2022-11-22,cancelled,,2023-01-18
+R00024,Finance,San Jose,L3,2022-11-23,filled,2023-01-08,2023-01-08
+R00025,Engineering,New York,L1,2022-11-23,filled,2023-01-22,2023-01-22
+R00026,Sales,San Jose,L2,2022-11-26,filled,2023-01-09,2023-01-09
+R00027,Finance,San Jose,L4,2022-11-28,filled,2023-02-26,2023-02-26
+R00028,Engineering,Austin,L2,2022-11-29,filled,2023-02-05,2023-02-05
+R00029,Sales,San Jose,L6,2022-11-29,filled,2023-02-17,2023-02-17
+R00030,Sales,San Jose,L1,2022-11-30,filled,2023-01-13,2023-01-13
+R00031,Marketing,San Jose,L3,2022-11-30,filled,2023-02-11,2023-02-11
+R00032,Sales,New York,L2,2022-12-02,filled,2023-01-18,2023-01-18
+R00033,Engineering,New York,L3,2022-12-04,filled,2023-02-22,2023-02-22
+R00034,Finance,Bengaluru,L2,2022-12-05,filled,2023-02-02,2023-02-02
+R00035,Engineering,New York,L2,2022-12-05,filled,2023-02-07,2023-02-07
+R00036,Sales,San Jose,L1,2022-12-07,filled,2023-01-12,2023-01-12
+R00037,Engineering,New York,L1,2022-12-07,filled,2023-01-16,2023-01-16
+R00038,People,Austin,L3,2022-12-08,filled,2023-01-24,2023-01-24
+R00039,People,San Jose,L4,2022-12-10,filled,2023-03-02,2023-03-02
+R00040,Engineering,New York,L4,2022-12-11,filled,2023-02-23,2023-02-23
+R00041,Operations,San Jose,L5,2022-12-12,filled,2023-03-27,2023-03-27
+R00042,Engineering,New York,L3,2022-12-14,filled,2023-03-02,2023-03-02
+R00043,Engineering,New York,L2,2022-12-16,filled,2023-01-29,2023-01-29
+R00044,Engineering,Austin,L3,2022-12-16,filled,2023-02-12,2023-02-12
+R00045,Customer Success,San Jose,L1,2022-12-19,filled,2023-02-15,2023-02-15
+R00046,Sales,Austin,L3,2022-12-20,filled,2023-03-10,2023-03-10
+R00047,Finance,San Jose,L5,2022-12-21,filled,2023-03-18,2023-03-18
+R00048,Engineering,New York,L3,2022-12-24,filled,2023-03-11,2023-03-11
+R00049,Operations,San Jose,L3,2022-12-26,filled,2023-02-19,2023-02-19
+R00050,Finance,San Jose,L4,2022-12-26,filled,2023-02-24,2023-02-24
+R00051,Engineering,Austin,L5,2022-12-26,cancelled,,2023-03-31
+R00052,Customer Success,San Jose,L1,2022-12-30,filled,2023-02-13,2023-02-13
+R00053,Engineering,New York,L3,2022-12-30,filled,2023-02-21,2023-02-21
+R00054,Customer Success,San Jose,L2,2022-12-31,filled,2023-03-10,2023-03-10
+R00055,Engineering,New York,L3,2023-01-01,filled,2023-03-19,2023-03-19
+R00056,Engineering,London,L6,2023-01-03,filled,2023-03-23,2023-03-23
+R00057,Customer Success,Bengaluru,L4,2023-01-05,filled,2023-03-20,2023-03-20
+R00058,Customer Success,San Jose,L3,2023-01-06,filled,2023-02-27,2023-02-27
+R00059,Engineering,New York,L4,2023-01-06,filled,2023-03-03,2023-03-03
+R00060,Marketing,Austin,L4,2023-01-07,filled,2023-03-06,2023-03-06
+R00061,Operations,San Jose,L1,2023-01-09,cancelled,,2023-02-21
+R00062,Engineering,Austin,L3,2023-01-10,filled,2023-03-20,2023-03-20
+R00063,Marketing,New York,L3,2023-01-10,filled,2023-03-21,2023-03-21
+R00064,Finance,New York,L4,2023-01-13,filled,2023-04-15,2023-04-15
+R00065,Marketing,New York,L1,2023-01-15,filled,2023-02-22,2023-02-22
+R00066,Engineering,London,L4,2023-01-15,filled,2023-04-18,2023-04-18
+R00067,Finance,New York,L4,2023-01-16,filled,2023-03-12,2023-03-12
+R00068,Sales,Austin,L1,2023-01-16,filled,2023-03-14,2023-03-14
+R00069,Engineering,San Jose,L1,2023-01-18,filled,2023-02-22,2023-02-22
+R00070,People,San Jose,L5,2023-01-19,filled,2023-04-25,2023-04-25
+R00071,People,San Jose,L1,2023-01-20,filled,2023-02-28,2023-02-28
+R00072,Sales,San Jose,L4,2023-01-20,filled,2023-04-14,2023-04-14
+R00073,Engineering,Austin,L3,2023-01-20,cancelled,,2023-05-10
+R00074,Engineering,New York,L3,2023-01-21,cancelled,,2023-02-19
+R00075,Sales,Bengaluru,L4,2023-01-22,filled,2023-04-08,2023-04-08
+R00076,Operations,San Jose,L4,2023-01-23,filled,2023-04-08,2023-04-08
+R00077,Customer Success,San Jose,L2,2023-01-26,filled,2023-03-24,2023-03-24
+R00078,Sales,San Jose,L4,2023-01-26,filled,2023-04-17,2023-04-17
+R00079,Engineering,San Jose,L5,2023-01-27,filled,2023-04-08,2023-04-08
+R00080,Operations,Austin,L1,2023-01-29,filled,2023-03-10,2023-03-10
+R00081,Engineering,San Jose,L2,2023-01-29,filled,2023-04-05,2023-04-05
+R00082,Sales,San Jose,L5,2023-01-29,filled,2023-04-11,2023-04-11
+R00083,Sales,New York,L2,2023-01-30,filled,2023-03-19,2023-03-19
+R00084,Sales,London,L2,2023-01-30,filled,2023-03-31,2023-03-31
+R00085,Engineering,London,L3,2023-01-30,filled,2023-04-02,2023-04-02
+R00086,Engineering,Bengaluru,L1,2023-01-31,filled,2023-03-21,2023-03-21
+R00087,Sales,San Jose,L1,2023-02-02,filled,2023-03-12,2023-03-12
+R00088,Sales,New York,L1,2023-02-05,filled,2023-03-17,2023-03-17
+R00089,Engineering,San Jose,L1,2023-02-06,filled,2023-03-29,2023-03-29
+R00090,Sales,San Jose,L1,2023-02-09,filled,2023-03-26,2023-03-26
+R00091,Engineering,Bengaluru,L4,2023-02-09,filled,2023-04-09,2023-04-09
+R00092,Finance,New York,L2,2023-02-11,filled,2023-03-23,2023-03-23
+R00093,Engineering,London,L1,2023-02-11,filled,2023-03-24,2023-03-24
+R00094,Sales,London,L2,2023-02-11,filled,2023-04-08,2023-04-08
+R00095,Engineering,San Jose,L2,2023-02-12,filled,2023-04-23,2023-04-23
+R00096,Marketing,Austin,L4,2023-02-12,filled,2023-05-16,2023-05-16
+R00097,Sales,Bengaluru,L2,2023-02-15,filled,2023-04-07,2023-04-07
+R00098,People,London,L3,2023-02-15,filled,2023-04-27,2023-04-27
+R00099,Customer Success,Bengaluru,L3,2023-02-16,filled,2023-05-04,2023-05-04
+R00100,Sales,San Jose,L1,2023-02-18,filled,2023-04-07,2023-04-07
+R00101,Customer Success,San Jose,L4,2023-02-18,filled,2023-04-14,2023-04-14
+R00102,Finance,New York,L4,2023-02-18,filled,2023-04-30,2023-04-30
+R00103,Finance,London,L4,2023-02-18,filled,2023-05-12,2023-05-12
+R00104,Operations,San Jose,L3,2023-02-24,cancelled,,2023-04-10
+R00105,Engineering,San Jose,L5,2023-02-25,filled,2023-05-31,2023-05-31
+R00106,Engineering,Bengaluru,L2,2023-02-26,filled,2023-05-06,2023-05-06
+R00107,Sales,Bengaluru,L6,2023-02-27,filled,2023-06-10,2023-06-10
+R00108,Marketing,San Jose,L2,2023-02-28,filled,2023-05-05,2023-05-05
+R00109,Finance,London,L2,2023-03-02,filled,2023-05-10,2023-05-10
+R00110,Sales,San Jose,L4,2023-03-02,filled,2023-05-16,2023-05-16
+R00111,Finance,New York,L1,2023-03-03,cancelled,,2023-05-08
+R00112,Marketing,London,L3,2023-03-04,filled,2023-05-07,2023-05-07
+R00113,Engineering,New York,L2,2023-03-05,filled,2023-05-04,2023-05-04
+R00114,Marketing,Austin,L3,2023-03-07,filled,2023-05-19,2023-05-19
+R00115,Engineering,San Jose,L6,2023-03-08,filled,2023-06-16,2023-06-16
+R00116,Sales,New York,L2,2023-03-11,filled,2023-05-17,2023-05-17
+R00117,Customer Success,New York,L6,2023-03-12,filled,2023-06-17,2023-06-17
+R00118,Engineering,London,L4,2023-03-12,cancelled,,2023-05-23
+R00119,Sales,London,L1,2023-03-13,filled,2023-05-12,2023-05-12
+R00120,Engineering,San Jose,L3,2023-03-14,filled,2023-05-28,2023-05-28
+R00121,Engineering,San Jose,L6,2023-03-14,filled,2023-06-24,2023-06-24
+R00122,Operations,New York,L3,2023-03-15,filled,2023-05-23,2023-05-23
+R00123,Customer Success,London,L3,2023-03-20,filled,2023-05-27,2023-05-27
+R00124,Engineering,New York,L5,2023-03-21,filled,2023-06-23,2023-06-23
+R00125,Sales,Austin,L4,2023-03-23,filled,2023-05-17,2023-05-17
+R00126,Operations,Austin,L1,2023-03-23,filled,2023-05-20,2023-05-20
+R00127,Customer Success,San Jose,L1,2023-03-25,filled,2023-05-01,2023-05-01
+R00128,Finance,San Jose,L3,2023-03-25,filled,2023-05-26,2023-05-26
+R00129,Engineering,New York,L2,2023-03-27,filled,2023-05-14,2023-05-14
+R00130,Customer Success,San Jose,L2,2023-03-27,filled,2023-05-26,2023-05-26
+R00131,Engineering,London,L2,2023-03-27,filled,2023-06-01,2023-06-01
+R00132,Marketing,San Jose,L1,2023-03-28,filled,2023-05-17,2023-05-17
+R00133,Engineering,Austin,L2,2023-03-28,filled,2023-05-20,2023-05-20
+R00134,Operations,New York,L2,2023-04-01,filled,2023-05-14,2023-05-14
+R00135,Marketing,San Jose,L3,2023-04-01,filled,2023-05-27,2023-05-27
+R00136,Marketing,Austin,L4,2023-04-01,filled,2023-06-17,2023-06-17
+R00137,Engineering,Austin,L3,2023-04-02,filled,2023-05-28,2023-05-28
+R00138,Engineering,San Jose,L3,2023-04-02,filled,2023-06-18,2023-06-18
+R00139,Operations,New York,L2,2023-04-05,filled,2023-06-09,2023-06-09
+R00140,People,San Jose,L5,2023-04-06,filled,2023-07-14,2023-07-14
+R00141,Finance,Austin,L2,2023-04-08,filled,2023-06-09,2023-06-09
+R00142,Operations,Bengaluru,L6,2023-04-08,filled,2023-07-07,2023-07-07
+R00143,Sales,New York,L4,2023-04-10,filled,2023-06-10,2023-06-10
+R00144,People,New York,L3,2023-04-11,filled,2023-05-27,2023-05-27
+R00145,Sales,San Jose,L1,2023-04-11,cancelled,,2023-07-29
+R00146,Sales,Austin,L5,2023-04-13,filled,2023-07-08,2023-07-08
+R00147,Engineering,London,L5,2023-04-16,filled,2023-07-01,2023-07-01
+R00148,Customer Success,San Jose,L1,2023-04-17,filled,2023-05-26,2023-05-26
+R00149,Engineering,Austin,L3,2023-04-17,filled,2023-06-09,2023-06-09
+R00150,Sales,San Jose,L2,2023-04-17,cancelled,,2023-06-12
+R00151,Sales,San Jose,L2,2023-04-18,filled,2023-06-16,2023-06-16
+R00152,Finance,London,L3,2023-04-18,filled,2023-06-29,2023-06-29
+R00153,Engineering,Austin,L1,2023-04-19,filled,2023-06-04,2023-06-04
+R00154,Sales,New York,L1,2023-04-19,filled,2023-06-05,2023-06-05
+R00155,People,London,L3,2023-04-19,filled,2023-06-25,2023-06-25
+R00156,Customer Success,Austin,L5,2023-04-19,cancelled,,2023-07-06
+R00157,Engineering,Austin,L1,2023-04-20,filled,2023-05-29,2023-05-29
+R00158,Sales,Austin,L2,2023-04-21,filled,2023-06-21,2023-06-21
+R00159,People,New York,L3,2023-04-24,filled,2023-07-07,2023-07-07
+R00160,Marketing,New York,L1,2023-04-25,filled,2023-06-19,2023-06-19
+R00161,Customer Success,Bengaluru,L4,2023-04-25,filled,2023-06-21,2023-06-21
+R00162,Marketing,San Jose,L5,2023-04-25,filled,2023-08-01,2023-08-01
+R00163,Engineering,San Jose,L3,2023-04-27,filled,2023-07-16,2023-07-16
+R00164,People,Austin,L2,2023-04-30,cancelled,,2023-05-24
+R00165,Engineering,London,L4,2023-05-02,cancelled,,2023-08-28
+R00166,Customer Success,New York,L3,2023-05-06,filled,2023-07-07,2023-07-07
+R00167,Sales,San Jose,L2,2023-05-07,filled,2023-07-02,2023-07-02
+R00168,Sales,New York,L5,2023-05-07,filled,2023-08-07,2023-08-07
+R00169,Customer Success,New York,L3,2023-05-07,cancelled,,2023-06-01
+R00170,Sales,San Jose,L2,2023-05-09,filled,2023-07-04,2023-07-04
+R00171,Engineering,New York,L3,2023-05-09,filled,2023-07-28,2023-07-28
+R00172,People,London,L1,2023-05-10,filled,2023-06-24,2023-06-24
+R00173,Customer Success,San Jose,L4,2023-05-11,filled,2023-07-09,2023-07-09
+R00174,Customer Success,Bengaluru,L2,2023-05-12,filled,2023-07-21,2023-07-21
+R00175,Marketing,San Jose,L4,2023-05-12,cancelled,,2023-06-29
+R00176,Sales,New York,L2,2023-05-13,filled,2023-07-20,2023-07-20
+R00177,Sales,San Jose,L1,2023-05-14,filled,2023-06-19,2023-06-19
+R00178,Sales,London,L1,2023-05-14,filled,2023-07-01,2023-07-01
+R00179,Engineering,San Jose,L2,2023-05-14,filled,2023-07-07,2023-07-07
+R00180,Engineering,New York,L3,2023-05-15,filled,2023-07-07,2023-07-07
+R00181,People,Bengaluru,L1,2023-05-17,filled,2023-07-03,2023-07-03
+R00182,Sales,London,L2,2023-05-18,filled,2023-06-27,2023-06-27
+R00183,Sales,New York,L4,2023-05-18,filled,2023-08-17,2023-08-17
+R00184,Engineering,London,L4,2023-05-19,filled,2023-07-30,2023-07-30
+R00185,Operations,New York,L2,2023-05-20,filled,2023-07-18,2023-07-18
+R00186,Engineering,Austin,L2,2023-05-21,cancelled,,2023-08-21
+R00187,Engineering,New York,L2,2023-05-23,filled,2023-07-26,2023-07-26
+R00188,Marketing,Bengaluru,L4,2023-05-23,cancelled,,2023-09-17
+R00189,Customer Success,New York,L1,2023-05-24,filled,2023-06-29,2023-06-29
+R00190,Engineering,San Jose,L2,2023-05-24,filled,2023-07-12,2023-07-12
+R00191,Engineering,New York,L3,2023-05-24,filled,2023-07-29,2023-07-29
+R00192,Sales,Bengaluru,L2,2023-05-25,filled,2023-08-02,2023-08-02
+R00193,Engineering,New York,L2,2023-05-26,filled,2023-07-30,2023-07-30
+R00194,Engineering,Austin,L2,2023-05-28,filled,2023-08-05,2023-08-05
+R00195,Engineering,San Jose,L2,2023-05-29,filled,2023-07-09,2023-07-09
+R00196,Customer Success,San Jose,L5,2023-05-29,filled,2023-08-08,2023-08-08
+R00197,Sales,San Jose,L2,2023-06-06,filled,2023-08-12,2023-08-12
+R00198,People,San Jose,L1,2023-06-08,filled,2023-07-27,2023-07-27
+R00199,Marketing,New York,L2,2023-06-08,filled,2023-08-16,2023-08-16
+R00200,Customer Success,New York,L1,2023-06-09,filled,2023-08-02,2023-08-02
+R00201,Engineering,New York,L3,2023-06-09,filled,2023-08-07,2023-08-07
+R00202,Operations,Austin,L2,2023-06-10,filled,2023-08-05,2023-08-05
+R00203,Sales,New York,L2,2023-06-10,filled,2023-08-19,2023-08-19
+R00204,Marketing,San Jose,L3,2023-06-12,filled,2023-08-08,2023-08-08
+R00205,Sales,New York,L6,2023-06-14,filled,2023-09-18,2023-09-18
+R00206,Engineering,New York,L3,2023-06-17,cancelled,,2023-07-15
+R00207,Sales,San Jose,L1,2023-06-18,filled,2023-08-04,2023-08-04
+R00208,Sales,Austin,L3,2023-06-19,filled,2023-08-26,2023-08-26
+R00209,Engineering,San Jose,L3,2023-06-20,cancelled,,2023-07-31
+R00210,Engineering,San Jose,L1,2023-06-21,filled,2023-08-06,2023-08-06
+R00211,Sales,New York,L2,2023-06-21,filled,2023-08-10,2023-08-10
+R00212,Operations,New York,L3,2023-06-23,filled,2023-08-21,2023-08-21
+R00213,Engineering,Austin,L1,2023-06-24,filled,2023-08-11,2023-08-11
+R00214,Engineering,San Jose,L1,2023-06-24,filled,2023-08-19,2023-08-19
+R00215,Sales,Austin,L3,2023-06-25,filled,2023-08-13,2023-08-13
+R00216,Engineering,New York,L1,2023-06-29,filled,2023-08-05,2023-08-05
+R00217,Finance,San Jose,L3,2023-07-01,filled,2023-08-20,2023-08-20
+R00218,Sales,San Jose,L2,2023-07-02,filled,2023-08-27,2023-08-27
+R00219,Customer Success,San Jose,L3,2023-07-04,cancelled,,2023-08-17
+R00220,Engineering,New York,L2,2023-07-06,filled,2023-08-24,2023-08-24
+R00221,Sales,San Jose,L1,2023-07-07,filled,2023-08-22,2023-08-22
+R00222,Operations,San Jose,L2,2023-07-08,filled,2023-08-21,2023-08-21
+R00223,Engineering,New York,L2,2023-07-09,filled,2023-08-20,2023-08-20
+R00224,Customer Success,San Jose,L2,2023-07-10,filled,2023-09-07,2023-09-07
+R00225,People,San Jose,L3,2023-07-10,filled,2023-09-22,2023-09-22
+R00226,Engineering,London,L4,2023-07-10,filled,2023-10-01,2023-10-01
+R00227,Customer Success,London,L4,2023-07-11,filled,2023-10-02,2023-10-02
+R00228,Engineering,San Jose,L1,2023-07-13,filled,2023-09-04,2023-09-04
+R00229,Customer Success,Austin,L4,2023-07-18,filled,2023-10-11,2023-10-11
+R00230,Sales,San Jose,L5,2023-07-18,filled,2023-11-02,2023-11-02
+R00231,Engineering,San Jose,L3,2023-07-19,filled,2023-09-27,2023-09-27
+R00232,Marketing,Austin,L2,2023-07-22,filled,2023-09-25,2023-09-25
+R00233,People,New York,L1,2023-07-23,filled,2023-09-13,2023-09-13
+R00234,Customer Success,Austin,L3,2023-07-24,filled,2023-10-11,2023-10-11
+R00235,Sales,New York,L3,2023-07-25,filled,2023-09-24,2023-09-24
+R00236,Engineering,San Jose,L4,2023-07-26,filled,2023-10-19,2023-10-19
+R00237,Engineering,Austin,L2,2023-07-26,cancelled,,2023-10-05
+R00238,Finance,Austin,L3,2023-07-28,filled,2023-09-28,2023-09-28
+R00239,Engineering,San Jose,L2,2023-07-28,cancelled,,2023-09-11
+R00240,Engineering,London,L1,2023-07-29,filled,2023-09-21,2023-09-21
+R00241,Sales,Austin,L3,2023-08-01,filled,2023-10-18,2023-10-18
+R00242,People,Austin,L1,2023-08-05,filled,2023-09-11,2023-09-11
+R00243,Sales,Bengaluru,L4,2023-08-06,filled,2023-11-08,2023-11-08
+R00244,Engineering,San Jose,L2,2023-08-08,filled,2023-09-17,2023-09-17
+R00245,Engineering,San Jose,L1,2023-08-08,filled,2023-09-25,2023-09-25
+R00246,Engineering,San Jose,L4,2023-08-12,filled,2023-10-07,2023-10-07
+R00247,Engineering,San Jose,L1,2023-08-13,filled,2023-09-30,2023-09-30
+R00248,Operations,San Jose,L3,2023-08-13,cancelled,,2023-09-02
+R00249,Marketing,San Jose,L2,2023-08-15,filled,2023-10-14,2023-10-14
+R00250,Engineering,New York,L3,2023-08-16,filled,2023-11-02,2023-11-02
+R00251,Customer Success,Austin,L3,2023-08-17,cancelled,,2023-10-20
+R00252,Sales,Austin,L3,2023-08-17,cancelled,,2023-10-07
+R00253,Engineering,San Jose,L2,2023-08-18,filled,2023-10-05,2023-10-05
+R00254,Sales,San Jose,L4,2023-08-18,filled,2023-10-23,2023-10-23
+R00255,Customer Success,San Jose,L3,2023-08-18,filled,2023-10-30,2023-10-30
+R00256,Finance,San Jose,L1,2023-08-19,filled,2023-10-01,2023-10-01
+R00257,Engineering,San Jose,L2,2023-08-20,filled,2023-10-03,2023-10-03
+R00258,Marketing,San Jose,L4,2023-08-21,filled,2023-10-28,2023-10-28
+R00259,Finance,New York,L3,2023-08-22,filled,2023-10-10,2023-10-10
+R00260,Operations,Bengaluru,L4,2023-08-22,filled,2023-10-28,2023-10-28
+R00261,Engineering,San Jose,L4,2023-08-22,filled,2023-11-25,2023-11-25
+R00262,Marketing,London,L1,2023-08-24,filled,2023-09-28,2023-09-28
+R00263,Operations,Austin,L4,2023-08-26,cancelled,,2023-11-10
+R00264,People,London,L2,2023-08-28,filled,2023-11-02,2023-11-02
+R00265,Sales,New York,L2,2023-09-01,filled,2023-11-05,2023-11-05
+R00266,Operations,San Jose,L3,2023-09-03,filled,2023-10-26,2023-10-26
+R00267,Sales,Bengaluru,L1,2023-09-04,filled,2023-10-13,2023-10-13
+R00268,Sales,New York,L3,2023-09-06,filled,2023-11-12,2023-11-12
+R00269,Engineering,London,L3,2023-09-08,filled,2023-11-11,2023-11-11
+R00270,Sales,San Jose,L6,2023-09-09,filled,2023-12-15,2023-12-15
+R00271,Sales,San Jose,L4,2023-09-09,cancelled,,2023-10-08
+R00272,Engineering,New York,L1,2023-09-12,filled,2023-10-18,2023-10-18
+R00273,Marketing,Austin,L1,2023-09-15,filled,2023-11-13,2023-11-13
+R00274,Sales,San Jose,L2,2023-09-18,filled,2023-11-13,2023-11-13
+R00275,Operations,San Jose,L4,2023-09-18,filled,2023-11-19,2023-11-19
+R00276,Finance,San Jose,L1,2023-09-21,filled,2023-11-20,2023-11-20
+R00277,Engineering,London,L1,2023-09-22,filled,2023-11-16,2023-11-16
+R00278,Sales,New York,L4,2023-09-22,filled,2023-12-01,2023-12-01
+R00279,Marketing,Austin,L2,2023-09-24,filled,2023-11-08,2023-11-08
+R00280,Engineering,London,L2,2023-09-28,filled,2023-12-07,2023-12-07
+R00281,Customer Success,San Jose,L2,2023-09-30,filled,2023-11-30,2023-11-30
+R00282,Operations,Austin,L4,2023-10-02,filled,2023-12-01,2023-12-01
+R00283,Engineering,London,L3,2023-10-02,filled,2023-12-10,2023-12-10
+R00284,Sales,San Jose,L1,2023-10-06,filled,2023-12-02,2023-12-02
+R00285,Engineering,New York,L4,2023-10-07,filled,2023-12-16,2023-12-16
+R00286,Operations,San Jose,L3,2023-10-08,filled,2023-12-21,2023-12-21
+R00287,Marketing,San Jose,L5,2023-10-10,filled,2024-01-08,2024-01-08
+R00288,Finance,Bengaluru,L4,2023-10-13,filled,2023-12-16,2023-12-16
+R00289,Engineering,Austin,L3,2023-10-13,filled,2023-12-24,2023-12-24
+R00290,Sales,New York,L2,2023-10-14,filled,2023-12-09,2023-12-09
+R00291,Sales,New York,L2,2023-10-15,cancelled,,2023-12-31
+R00292,Sales,New York,L4,2023-10-18,filled,2023-12-26,2023-12-26
+R00293,Marketing,New York,L5,2023-10-18,filled,2023-12-29,2023-12-29
+R00294,Customer Success,Bengaluru,L3,2023-10-20,filled,2023-12-10,2023-12-10
+R00295,Engineering,New York,L3,2023-10-20,filled,2023-12-31,2023-12-31
+R00296,Marketing,New York,L2,2023-10-22,filled,2023-12-12,2023-12-12
+R00297,Engineering,New York,L2,2023-10-22,filled,2023-12-19,2023-12-19
+R00298,Engineering,London,L3,2023-10-22,filled,2024-01-06,2024-01-06
+R00299,Marketing,San Jose,L3,2023-10-25,filled,2023-12-16,2023-12-16
+R00300,Engineering,London,L2,2023-10-25,filled,2023-12-29,2023-12-29
+R00301,Engineering,San Jose,L1,2023-10-27,filled,2023-12-05,2023-12-05
+R00302,People,Bengaluru,L2,2023-10-27,filled,2023-12-19,2023-12-19
+R00303,Sales,Bengaluru,L3,2023-10-27,filled,2023-12-21,2023-12-21
+R00304,People,San Jose,L1,2023-10-29,filled,2023-12-17,2023-12-17
+R00305,Operations,New York,L1,2023-10-29,filled,2023-12-28,2023-12-28
+R00306,Engineering,London,L4,2023-10-29,filled,2024-01-14,2024-01-14
+R00307,Operations,London,L1,2023-10-31,filled,2023-12-08,2023-12-08
+R00308,Engineering,Bengaluru,L2,2023-11-02,filled,2023-12-14,2023-12-14
+R00309,Sales,San Jose,L3,2023-11-02,filled,2024-01-05,2024-01-05
+R00310,Engineering,New York,L2,2023-11-03,filled,2023-12-30,2023-12-30
+R00311,Engineering,San Jose,L1,2023-11-04,filled,2023-12-25,2023-12-25
+R00312,Engineering,San Jose,L3,2023-11-04,filled,2024-01-09,2024-01-09
+R00313,Finance,Austin,L2,2023-11-06,filled,2024-01-07,2024-01-07
+R00314,Engineering,New York,L3,2023-11-06,filled,2024-01-08,2024-01-08
+R00315,Marketing,New York,L3,2023-11-06,filled,2024-01-20,2024-01-20
+R00316,Finance,San Jose,L4,2023-11-06,filled,2024-02-04,2024-02-04
+R00317,Engineering,London,L1,2023-11-07,filled,2023-12-25,2023-12-25
+R00318,Engineering,San Jose,L4,2023-11-09,filled,2024-01-21,2024-01-21
+R00319,Customer Success,San Jose,L1,2023-11-11,filled,2023-12-31,2023-12-31
+R00320,Customer Success,San Jose,L3,2023-11-12,filled,2024-01-01,2024-01-01
+R00321,Engineering,San Jose,L2,2023-11-13,filled,2024-01-15,2024-01-15
+R00322,Engineering,New York,L4,2023-11-13,filled,2024-02-05,2024-02-05
+R00323,Operations,San Jose,L2,2023-11-15,filled,2024-01-01,2024-01-01
+R00324,Engineering,San Jose,L4,2023-11-16,filled,2024-01-27,2024-01-27
+R00325,Engineering,San Jose,L1,2023-11-17,filled,2023-12-26,2023-12-26
+R00326,Sales,New York,L1,2023-11-19,filled,2024-01-14,2024-01-14
+R00327,Engineering,New York,L2,2023-11-20,filled,2024-01-16,2024-01-16
+R00328,Finance,San Jose,L1,2023-11-21,cancelled,,2024-02-17
+R00329,Marketing,San Jose,L5,2023-11-22,filled,2024-03-10,2024-03-10
+R00330,Engineering,Austin,L2,2023-11-23,filled,2024-01-25,2024-01-25
+R00331,Customer Success,San Jose,L5,2023-11-25,filled,2024-02-26,2024-02-26
+R00332,Engineering,New York,L2,2023-11-26,filled,2024-01-14,2024-01-14
+R00333,Engineering,Bengaluru,L2,2023-11-27,filled,2024-01-28,2024-01-28
+R00334,Customer Success,New York,L1,2023-11-28,filled,2024-01-12,2024-01-12
+R00335,Customer Success,San Jose,L3,2023-11-29,filled,2024-02-11,2024-02-11
+R00336,Operations,London,L2,2023-11-30,filled,2024-01-16,2024-01-16
+R00337,Customer Success,Austin,L3,2023-11-30,filled,2024-02-14,2024-02-14
+R00338,Finance,New York,L1,2023-12-01,filled,2024-01-24,2024-01-24
+R00339,Sales,San Jose,L1,2023-12-05,filled,2024-01-19,2024-01-19
+R00340,Operations,New York,L1,2023-12-06,filled,2024-01-29,2024-01-29
+R00341,Sales,San Jose,L4,2023-12-06,cancelled,,2024-02-19
+R00342,Customer Success,London,L4,2023-12-08,filled,2024-02-29,2024-02-29
+R00343,Finance,San Jose,L2,2023-12-08,cancelled,,2024-03-09
+R00344,Engineering,San Jose,L4,2023-12-09,filled,2024-02-21,2024-02-21
+R00345,People,Bengaluru,L5,2023-12-09,filled,2024-03-11,2024-03-11
+R00346,Sales,San Jose,L2,2023-12-10,filled,2024-02-18,2024-02-18
+R00347,Customer Success,Austin,L4,2023-12-10,filled,2024-03-08,2024-03-08
+R00348,Operations,London,L4,2023-12-10,filled,2024-03-14,2024-03-14
+R00349,Engineering,New York,L1,2023-12-13,filled,2024-01-21,2024-01-21
+R00350,Engineering,San Jose,L1,2023-12-13,filled,2024-01-21,2024-01-21
+R00351,Engineering,San Jose,L3,2023-12-14,filled,2024-02-09,2024-02-09
+R00352,Sales,San Jose,L3,2023-12-14,filled,2024-02-13,2024-02-13
+R00353,Engineering,San Jose,L4,2023-12-14,filled,2024-02-24,2024-02-24
+R00354,Finance,New York,L2,2023-12-15,filled,2024-02-10,2024-02-10
+R00355,Customer Success,Austin,L3,2023-12-16,filled,2024-02-15,2024-02-15
+R00356,Engineering,New York,L3,2023-12-16,filled,2024-03-02,2024-03-02
+R00357,Engineering,Bengaluru,L3,2023-12-17,filled,2024-02-21,2024-02-21
+R00358,Marketing,Bengaluru,L2,2023-12-18,filled,2024-02-24,2024-02-24
+R00359,Marketing,San Jose,L3,2023-12-19,filled,2024-02-10,2024-02-10
+R00360,Operations,Bengaluru,L2,2023-12-19,filled,2024-02-14,2024-02-14
+R00361,Operations,San Jose,L1,2023-12-24,filled,2024-02-02,2024-02-02
+R00362,Engineering,Austin,L1,2023-12-26,filled,2024-02-06,2024-02-06
+R00363,Customer Success,Austin,L3,2023-12-28,filled,2024-02-18,2024-02-18
+R00364,Engineering,New York,L2,2023-12-29,filled,2024-02-22,2024-02-22
+R00365,Engineering,Austin,L1,2024-01-01,filled,2024-02-07,2024-02-07
+R00366,People,New York,L3,2024-01-02,filled,2024-02-17,2024-02-17
+R00367,Engineering,Bengaluru,L3,2024-01-05,filled,2024-02-19,2024-02-19
+R00368,Operations,New York,L1,2024-01-06,filled,2024-02-29,2024-02-29
+R00369,Engineering,New York,L3,2024-01-06,filled,2024-03-09,2024-03-09
+R00370,Engineering,New York,L1,2024-01-06,cancelled,,2024-02-24
+R00371,Engineering,San Jose,L2,2024-01-08,filled,2024-02-23,2024-02-23
+R00372,Customer Success,San Jose,L2,2024-01-08,filled,2024-03-11,2024-03-11
+R00373,Operations,San Jose,L3,2024-01-09,filled,2024-03-13,2024-03-13
+R00374,Operations,New York,L1,2024-01-11,filled,2024-02-20,2024-02-20
+R00375,Sales,Austin,L1,2024-01-12,filled,2024-02-28,2024-02-28
+R00376,Marketing,San Jose,L3,2024-01-17,filled,2024-04-05,2024-04-05
+R00377,Engineering,New York,L2,2024-01-18,filled,2024-03-17,2024-03-17
+R00378,Sales,New York,L4,2024-01-18,filled,2024-04-21,2024-04-21
+R00379,Customer Success,Austin,L1,2024-01-19,filled,2024-02-29,2024-02-29
+R00380,Engineering,Austin,L4,2024-01-20,filled,2024-03-27,2024-03-27
+R00381,Engineering,San Jose,L1,2024-01-23,filled,2024-03-02,2024-03-02
+R00382,Engineering,New York,L1,2024-01-23,filled,2024-03-05,2024-03-05
+R00383,Engineering,London,L1,2024-01-23,filled,2024-03-05,2024-03-05
+R00384,Customer Success,Austin,L2,2024-01-24,filled,2024-03-15,2024-03-15
+R00385,Sales,London,L4,2024-01-24,filled,2024-03-27,2024-03-27
+R00386,Finance,New York,L3,2024-01-25,filled,2024-04-02,2024-04-02
+R00387,Customer Success,London,L2,2024-01-27,filled,2024-03-08,2024-03-08
+R00388,Sales,Austin,L4,2024-01-27,filled,2024-03-22,2024-03-22
+R00389,Customer Success,San Jose,L2,2024-01-27,filled,2024-03-22,2024-03-22
+R00390,Engineering,San Jose,L2,2024-02-02,filled,2024-03-30,2024-03-30
+R00391,Customer Success,San Jose,L3,2024-02-02,filled,2024-04-13,2024-04-13
+R00392,Engineering,New York,L4,2024-02-03,filled,2024-04-11,2024-04-11
+R00393,Engineering,New York,L2,2024-02-05,filled,2024-04-03,2024-04-03
+R00394,Customer Success,Bengaluru,L4,2024-02-05,filled,2024-04-03,2024-04-03
+R00395,Marketing,San Jose,L3,2024-02-06,cancelled,,2024-03-11
+R00396,Sales,San Jose,L1,2024-02-07,filled,2024-04-01,2024-04-01
+R00397,Engineering,San Jose,L3,2024-02-08,filled,2024-04-16,2024-04-16
+R00398,Finance,Bengaluru,L4,2024-02-08,filled,2024-04-18,2024-04-18
+R00399,Engineering,London,L3,2024-02-08,filled,2024-04-23,2024-04-23
+R00400,Operations,Austin,L4,2024-02-11,filled,2024-05-08,2024-05-08
+R00401,Engineering,Austin,L1,2024-02-12,filled,2024-04-01,2024-04-01
+R00402,Operations,Austin,L4,2024-02-13,filled,2024-04-16,2024-04-16
+R00403,Operations,San Jose,L2,2024-02-14,filled,2024-03-27,2024-03-27
+R00404,Sales,New York,L2,2024-02-15,filled,2024-04-11,2024-04-11
+R00405,Customer Success,San Jose,L2,2024-02-15,filled,2024-04-25,2024-04-25
+R00406,People,San Jose,L2,2024-02-16,filled,2024-04-07,2024-04-07
+R00407,Customer Success,London,L2,2024-02-17,filled,2024-04-04,2024-04-04
+R00408,Engineering,New York,L3,2024-02-18,filled,2024-04-24,2024-04-24
+R00409,Engineering,San Jose,L4,2024-02-22,filled,2024-05-13,2024-05-13
+R00410,Finance,New York,L5,2024-02-24,filled,2024-05-24,2024-05-24
+R00411,Sales,Austin,L3,2024-02-25,cancelled,,2024-04-19
+R00412,Sales,Austin,L3,2024-02-27,filled,2024-05-12,2024-05-12
+R00413,Engineering,London,L6,2024-02-28,filled,2024-06-13,2024-06-13
+R00414,Operations,San Jose,L3,2024-02-29,filled,2024-04-22,2024-04-22
+R00415,Engineering,Bengaluru,L4,2024-02-29,filled,2024-04-29,2024-04-29
+R00416,Engineering,San Jose,L2,2024-03-02,filled,2024-04-17,2024-04-17
+R00417,Sales,New York,L2,2024-03-02,filled,2024-04-17,2024-04-17
+R00418,Sales,San Jose,L2,2024-03-02,filled,2024-05-09,2024-05-09
+R00419,Engineering,San Jose,L3,2024-03-02,cancelled,,2024-04-13
+R00420,Customer Success,New York,L3,2024-03-03,filled,2024-05-02,2024-05-02
+R00421,Engineering,New York,L2,2024-03-03,filled,2024-05-12,2024-05-12
+R00422,Engineering,San Jose,L1,2024-03-04,filled,2024-04-11,2024-04-11
+R00423,Engineering,San Jose,L5,2024-03-04,filled,2024-05-21,2024-05-21
+R00424,Operations,Bengaluru,L2,2024-03-07,filled,2024-04-17,2024-04-17
+R00425,Marketing,New York,L1,2024-03-07,filled,2024-05-03,2024-05-03
+R00426,Engineering,Bengaluru,L1,2024-03-08,filled,2024-05-06,2024-05-06
+R00427,Engineering,San Jose,L2,2024-03-08,filled,2024-05-09,2024-05-09
+R00428,Engineering,San Jose,L3,2024-03-10,filled,2024-04-27,2024-04-27
+R00429,Sales,New York,L3,2024-03-10,filled,2024-05-20,2024-05-20
+R00430,Sales,Austin,L5,2024-03-10,filled,2024-06-03,2024-06-03
+R00431,Customer Success,New York,L2,2024-03-11,filled,2024-04-27,2024-04-27
+R00432,Customer Success,San Jose,L5,2024-03-12,filled,2024-06-07,2024-06-07
+R00433,Engineering,San Jose,L3,2024-03-15,filled,2024-05-28,2024-05-28
+R00434,Engineering,San Jose,L2,2024-03-16,filled,2024-04-29,2024-04-29
+R00435,Marketing,New York,L2,2024-03-16,filled,2024-05-14,2024-05-14
+R00436,Engineering,Bengaluru,L4,2024-03-17,filled,2024-05-25,2024-05-25
+R00437,Engineering,San Jose,L4,2024-03-17,filled,2024-05-26,2024-05-26
+R00438,Operations,Bengaluru,L3,2024-03-18,filled,2024-05-23,2024-05-23
+R00439,Finance,Austin,L2,2024-03-19,filled,2024-05-21,2024-05-21
+R00440,Engineering,Austin,L4,2024-03-19,filled,2024-05-31,2024-05-31
+R00441,Marketing,New York,L1,2024-03-20,filled,2024-05-03,2024-05-03
+R00442,Marketing,New York,L5,2024-03-20,filled,2024-06-17,2024-06-17
+R00443,Sales,Austin,L4,2024-03-23,filled,2024-05-24,2024-05-24
+R00444,Engineering,Bengaluru,L1,2024-03-24,filled,2024-05-14,2024-05-14
+R00445,Sales,Austin,L4,2024-03-24,filled,2024-06-22,2024-06-22
+R00446,Customer Success,San Jose,L3,2024-03-25,filled,2024-06-01,2024-06-01
+R00447,Engineering,San Jose,L4,2024-03-26,filled,2024-06-28,2024-06-28
+R00448,Customer Success,San Jose,L1,2024-03-27,filled,2024-05-22,2024-05-22
+R00449,Sales,New York,L5,2024-03-29,filled,2024-06-18,2024-06-18
+R00450,Engineering,Austin,L3,2024-03-31,filled,2024-05-25,2024-05-25
+R00451,Customer Success,Bengaluru,L2,2024-04-02,filled,2024-05-16,2024-05-16
+R00452,Sales,San Jose,L1,2024-04-02,cancelled,,2024-05-22
+R00453,People,San Jose,L1,2024-04-04,filled,2024-05-14,2024-05-14
+R00454,Marketing,New York,L2,2024-04-04,filled,2024-06-03,2024-06-03
+R00455,People,New York,L4,2024-04-04,filled,2024-06-25,2024-06-25
+R00456,Engineering,San Jose,L3,2024-04-06,filled,2024-06-21,2024-06-21
+R00457,Customer Success,London,L3,2024-04-07,filled,2024-05-23,2024-05-23
+R00458,Customer Success,New York,L2,2024-04-08,filled,2024-05-24,2024-05-24
+R00459,Marketing,San Jose,L2,2024-04-10,filled,2024-05-30,2024-05-30
+R00460,People,Austin,L4,2024-04-10,filled,2024-07-10,2024-07-10
+R00461,Customer Success,Austin,L2,2024-04-12,filled,2024-05-31,2024-05-31
+R00462,Engineering,Bengaluru,L1,2024-04-13,filled,2024-06-06,2024-06-06
+R00463,Engineering,London,L2,2024-04-14,filled,2024-06-20,2024-06-20
+R00464,Finance,New York,L4,2024-04-14,filled,2024-07-10,2024-07-10
+R00465,Marketing,New York,L3,2024-04-17,filled,2024-07-03,2024-07-03
+R00466,Sales,London,L2,2024-04-20,filled,2024-06-04,2024-06-04
+R00467,Customer Success,San Jose,L2,2024-04-23,filled,2024-06-19,2024-06-19
+R00468,Customer Success,New York,L3,2024-04-25,filled,2024-06-25,2024-06-25
+R00469,Operations,Austin,L3,2024-04-25,filled,2024-07-10,2024-07-10
+R00470,Engineering,New York,L2,2024-04-26,filled,2024-06-05,2024-06-05
+R00471,Customer Success,London,L3,2024-04-27,filled,2024-06-16,2024-06-16
+R00472,Engineering,Bengaluru,L2,2024-04-28,filled,2024-06-13,2024-06-13
+R00473,Engineering,San Jose,L3,2024-04-29,filled,2024-07-06,2024-07-06
+R00474,People,San Jose,L1,2024-04-30,filled,2024-06-05,2024-06-05
+R00475,Sales,London,L1,2024-04-30,filled,2024-06-10,2024-06-10
+R00476,Engineering,London,L2,2024-04-30,filled,2024-07-06,2024-07-06
+R00477,Sales,San Jose,L3,2024-04-30,filled,2024-07-15,2024-07-15
+R00478,Sales,Austin,L1,2024-05-03,filled,2024-06-23,2024-06-23
+R00479,Sales,Austin,L3,2024-05-05,filled,2024-07-02,2024-07-02
+R00480,Customer Success,San Jose,L4,2024-05-05,filled,2024-08-08,2024-08-08
+R00481,Marketing,New York,L2,2024-05-07,filled,2024-07-07,2024-07-07
+R00482,Engineering,San Jose,L2,2024-05-08,filled,2024-07-09,2024-07-09
+R00483,Marketing,New York,L3,2024-05-08,cancelled,,2024-07-04
+R00484,Sales,San Jose,L3,2024-05-10,filled,2024-07-11,2024-07-11
+R00485,Sales,Austin,L4,2024-05-11,filled,2024-08-09,2024-08-09
+R00486,Sales,New York,L3,2024-05-12,filled,2024-07-10,2024-07-10
+R00487,Customer Success,Bengaluru,L2,2024-05-15,filled,2024-07-07,2024-07-07
+R00488,Operations,Bengaluru,L4,2024-05-16,filled,2024-08-16,2024-08-16
+R00489,Finance,San Jose,L6,2024-05-17,filled,2024-08-25,2024-08-25
+R00490,Marketing,London,L5,2024-05-17,filled,2024-08-28,2024-08-28
+R00491,Marketing,San Jose,L1,2024-05-18,filled,2024-07-10,2024-07-10
+R00492,Marketing,New York,L1,2024-05-18,filled,2024-07-14,2024-07-14
+R00493,Engineering,Austin,L1,2024-05-18,cancelled,,2024-08-21
+R00494,Sales,New York,L1,2024-05-20,filled,2024-06-30,2024-06-30
+R00495,Sales,Bengaluru,L3,2024-05-20,filled,2024-07-10,2024-07-10
+R00496,Sales,New York,L3,2024-05-22,filled,2024-07-15,2024-07-15
+R00497,Sales,Austin,L5,2024-05-22,filled,2024-08-14,2024-08-14
+R00498,Sales,San Jose,L2,2024-05-23,filled,2024-07-16,2024-07-16
+R00499,Sales,Austin,L6,2024-05-24,filled,2024-08-28,2024-08-28
+R00500,Marketing,London,L2,2024-05-26,filled,2024-07-10,2024-07-10
+R00501,Marketing,New York,L4,2024-05-27,filled,2024-07-23,2024-07-23
+R00502,Marketing,Austin,L2,2024-05-27,filled,2024-07-26,2024-07-26
+R00503,Marketing,Bengaluru,L4,2024-05-27,filled,2024-08-09,2024-08-09
+R00504,Engineering,Bengaluru,L1,2024-05-28,filled,2024-07-12,2024-07-12
+R00505,Engineering,San Jose,L2,2024-05-28,filled,2024-07-14,2024-07-14
+R00506,Sales,San Jose,L2,2024-05-31,filled,2024-07-22,2024-07-22
+R00507,Operations,San Jose,L4,2024-05-31,filled,2024-08-29,2024-08-29
+R00508,Engineering,San Jose,L4,2024-06-01,filled,2024-08-13,2024-08-13
+R00509,Sales,London,L3,2024-06-02,filled,2024-07-21,2024-07-21
+R00510,Engineering,New York,L2,2024-06-02,filled,2024-07-23,2024-07-23
+R00511,Operations,San Jose,L3,2024-06-02,filled,2024-08-20,2024-08-20
+R00512,Engineering,San Jose,L2,2024-06-04,filled,2024-07-23,2024-07-23
+R00513,Sales,New York,L4,2024-06-08,filled,2024-08-07,2024-08-07
+R00514,Customer Success,San Jose,L3,2024-06-09,filled,2024-07-30,2024-07-30
+R00515,Sales,San Jose,L4,2024-06-09,filled,2024-08-25,2024-08-25
+R00516,Engineering,New York,L2,2024-06-10,filled,2024-08-09,2024-08-09
+R00517,Customer Success,Bengaluru,L4,2024-06-11,filled,2024-08-13,2024-08-13
+R00518,Engineering,Bengaluru,L2,2024-06-11,filled,2024-08-19,2024-08-19
+R00519,Engineering,Austin,L6,2024-06-11,filled,2024-08-27,2024-08-27
+R00520,Marketing,New York,L1,2024-06-13,filled,2024-07-26,2024-07-26
+R00521,Marketing,San Jose,L4,2024-06-13,filled,2024-09-15,2024-09-15
+R00522,Engineering,Bengaluru,L1,2024-06-17,filled,2024-07-31,2024-07-31
+R00523,Sales,San Jose,L2,2024-06-18,filled,2024-07-30,2024-07-30
+R00524,Engineering,San Jose,L5,2024-06-19,filled,2024-08-24,2024-08-24
+R00525,Engineering,San Jose,L2,2024-06-20,filled,2024-08-07,2024-08-07
+R00526,Engineering,New York,L4,2024-06-20,filled,2024-09-15,2024-09-15
+R00527,Sales,San Jose,L4,2024-06-21,filled,2024-09-02,2024-09-02
+R00528,Sales,New York,L2,2024-06-22,filled,2024-08-10,2024-08-10
+R00529,Customer Success,London,L2,2024-06-23,filled,2024-08-22,2024-08-22
+R00530,Engineering,New York,L3,2024-06-26,filled,2024-08-19,2024-08-19
+R00531,Customer Success,San Jose,L1,2024-06-29,filled,2024-08-11,2024-08-11
+R00532,Marketing,New York,L2,2024-06-30,filled,2024-08-23,2024-08-23
+R00533,Marketing,New York,L2,2024-07-01,filled,2024-08-29,2024-08-29
+R00534,Engineering,San Jose,L4,2024-07-03,filled,2024-09-12,2024-09-12
+R00535,Operations,San Jose,L3,2024-07-04,filled,2024-08-29,2024-08-29
+R00536,Finance,Austin,L1,2024-07-05,filled,2024-08-26,2024-08-26
+R00537,Engineering,Austin,L5,2024-07-05,filled,2024-09-12,2024-09-12
+R00538,Marketing,London,L1,2024-07-07,filled,2024-08-30,2024-08-30
+R00539,People,San Jose,L2,2024-07-08,filled,2024-08-27,2024-08-27
+R00540,Customer Success,San Jose,L4,2024-07-09,filled,2024-10-02,2024-10-02
+R00541,Engineering,New York,L3,2024-07-11,filled,2024-08-28,2024-08-28
+R00542,Finance,New York,L2,2024-07-13,filled,2024-09-20,2024-09-20
+R00543,Engineering,London,L4,2024-07-16,filled,2024-10-06,2024-10-06
+R00544,Engineering,San Jose,L4,2024-07-17,filled,2024-09-11,2024-09-11
+R00545,Marketing,San Jose,L5,2024-07-18,filled,2024-09-30,2024-09-30
+R00546,Marketing,New York,L4,2024-07-19,filled,2024-10-01,2024-10-01
+R00547,Engineering,Austin,L2,2024-07-20,filled,2024-09-22,2024-09-22
+R00548,Engineering,San Jose,L3,2024-07-20,filled,2024-09-27,2024-09-27
+R00549,Engineering,San Jose,L4,2024-07-20,filled,2024-10-05,2024-10-05
+R00550,Customer Success,New York,L3,2024-07-21,filled,2024-09-14,2024-09-14
+R00551,Operations,London,L2,2024-07-25,filled,2024-09-05,2024-09-05
+R00552,Sales,New York,L3,2024-07-25,filled,2024-09-22,2024-09-22
+R00553,Sales,New York,L3,2024-07-25,filled,2024-10-03,2024-10-03
+R00554,Sales,San Jose,L2,2024-07-29,filled,2024-09-19,2024-09-19
+R00555,Marketing,Bengaluru,L1,2024-07-30,filled,2024-09-11,2024-09-11
+R00556,Marketing,New York,L1,2024-07-30,filled,2024-09-15,2024-09-15
+R00557,Operations,Bengaluru,L4,2024-08-02,filled,2024-11-02,2024-11-02
+R00558,Sales,San Jose,L3,2024-08-04,filled,2024-10-22,2024-10-22
+R00559,People,London,L3,2024-08-06,filled,2024-10-05,2024-10-05
+R00560,Sales,Austin,L4,2024-08-07,filled,2024-10-16,2024-10-16
+R00561,Engineering,Austin,L3,2024-08-11,filled,2024-10-10,2024-10-10
+R00562,Sales,Austin,L4,2024-08-11,filled,2024-10-21,2024-10-21
+R00563,Engineering,Bengaluru,L1,2024-08-12,filled,2024-10-04,2024-10-04
+R00564,Sales,London,L2,2024-08-14,filled,2024-10-14,2024-10-14
+R00565,Customer Success,New York,L5,2024-08-14,filled,2024-11-07,2024-11-07
+R00566,Engineering,San Jose,L2,2024-08-15,filled,2024-09-28,2024-09-28
+R00567,Customer Success,New York,L2,2024-08-16,filled,2024-10-04,2024-10-04
+R00568,Customer Success,Bengaluru,L3,2024-08-17,filled,2024-10-16,2024-10-16
+R00569,Engineering,San Jose,L2,2024-08-19,filled,2024-10-09,2024-10-09
+R00570,Finance,Austin,L2,2024-08-19,filled,2024-10-19,2024-10-19
+R00571,Sales,Austin,L2,2024-08-21,filled,2024-10-24,2024-10-24
+R00572,Sales,Austin,L3,2024-08-23,filled,2024-10-20,2024-10-20
+R00573,Sales,New York,L2,2024-08-26,filled,2024-11-01,2024-11-01
+R00574,Engineering,Austin,L3,2024-08-26,filled,2024-11-06,2024-11-06
+R00575,Customer Success,San Jose,L4,2024-08-26,filled,2024-11-25,2024-11-25
+R00576,Marketing,Austin,L3,2024-08-27,filled,2024-11-03,2024-11-03
+R00577,Operations,London,L4,2024-08-28,cancelled,,2024-12-08
+R00578,Sales,London,L3,2024-08-29,filled,2024-10-23,2024-10-23
+R00579,Sales,Bengaluru,L3,2024-08-31,filled,2024-10-20,2024-10-20
+R00580,Finance,New York,L2,2024-08-31,filled,2024-10-31,2024-10-31
+R00581,Operations,New York,L1,2024-09-03,filled,2024-10-14,2024-10-14
+R00582,Marketing,San Jose,L1,2024-09-03,filled,2024-10-16,2024-10-16
+R00583,Sales,Austin,L3,2024-09-04,filled,2024-11-01,2024-11-01
+R00584,Engineering,New York,L4,2024-09-05,filled,2024-12-05,2024-12-05
+R00585,Customer Success,San Jose,L2,2024-09-07,filled,2024-11-03,2024-11-03
+R00586,Finance,San Jose,L2,2024-09-07,filled,2024-11-04,2024-11-04
+R00587,Sales,San Jose,L4,2024-09-11,filled,2024-12-04,2024-12-04
+R00588,Marketing,Bengaluru,L1,2024-09-12,filled,2024-11-04,2024-11-04
+R00589,Sales,Austin,L3,2024-09-12,filled,2024-11-24,2024-11-24
+R00590,People,San Jose,L2,2024-09-14,filled,2024-11-07,2024-11-07
+R00591,Sales,San Jose,L4,2024-09-14,filled,2024-11-08,2024-11-08
+R00592,Engineering,San Jose,L2,2024-09-16,filled,2024-11-10,2024-11-10
+R00593,Engineering,New York,L1,2024-09-17,filled,2024-10-24,2024-10-24
+R00594,Finance,London,L1,2024-09-19,filled,2024-11-10,2024-11-10
+R00595,Sales,San Jose,L3,2024-09-20,filled,2024-11-12,2024-11-12
+R00596,Sales,New York,L3,2024-09-20,filled,2024-11-30,2024-11-30
+R00597,Sales,London,L3,2024-09-22,filled,2024-12-06,2024-12-06
+R00598,Engineering,San Jose,L3,2024-09-23,filled,2024-12-02,2024-12-02
+R00599,People,Austin,L2,2024-09-24,filled,2024-11-21,2024-11-21
+R00600,Engineering,Austin,L4,2024-09-28,filled,2024-12-31,2024-12-31
+R00601,Customer Success,San Jose,L2,2024-09-29,filled,2024-11-25,2024-11-25
+R00602,Operations,San Jose,L5,2024-09-29,filled,2025-01-12,2025-01-12
+R00603,Customer Success,San Jose,L2,2024-09-30,filled,2024-12-03,2024-12-03
+R00604,Customer Success,Bengaluru,L2,2024-10-05,filled,2024-12-01,2024-12-01
+R00605,Marketing,San Jose,L4,2024-10-05,filled,2024-12-20,2024-12-20
+R00606,Operations,San Jose,L3,2024-10-05,filled,2024-12-24,2024-12-24
+R00607,Operations,Austin,L1,2024-10-10,filled,2024-11-14,2024-11-14
+R00608,Marketing,Bengaluru,L4,2024-10-10,filled,2024-12-08,2024-12-08
+R00609,Marketing,San Jose,L2,2024-10-10,filled,2024-12-18,2024-12-18
+R00610,Engineering,Austin,L3,2024-10-13,filled,2024-12-02,2024-12-02
+R00611,Engineering,San Jose,L2,2024-10-13,filled,2024-12-09,2024-12-09
+R00612,Marketing,San Jose,L4,2024-10-14,filled,2024-12-17,2024-12-17
+R00613,Engineering,Austin,L1,2024-10-17,filled,2024-12-10,2024-12-10
+R00614,Finance,New York,L5,2024-10-17,filled,2025-01-03,2025-01-03
+R00615,Customer Success,San Jose,L4,2024-10-19,filled,2025-01-18,2025-01-18
+R00616,Engineering,San Jose,L5,2024-10-21,filled,2024-12-31,2024-12-31
+R00617,Engineering,San Jose,L3,2024-10-25,filled,2024-12-13,2024-12-13
+R00618,People,Austin,L2,2024-10-26,filled,2024-12-12,2024-12-12
+R00619,Engineering,Bengaluru,L2,2024-10-26,filled,2024-12-13,2024-12-13
+R00620,Sales,San Jose,L3,2024-10-26,filled,2024-12-29,2024-12-29
+R00621,Marketing,London,L3,2024-10-26,filled,2025-01-08,2025-01-08
+R00622,Engineering,Austin,L3,2024-10-27,filled,2025-01-11,2025-01-11
+R00623,Marketing,Austin,L4,2024-10-29,cancelled,,2024-11-28
+R00624,Marketing,Austin,L2,2024-10-31,filled,2024-12-17,2024-12-17
+R00625,Marketing,San Jose,L4,2024-11-03,filled,2025-01-03,2025-01-03
+R00626,Finance,Austin,L1,2024-11-05,filled,2024-12-21,2024-12-21
+R00627,Engineering,Austin,L2,2024-11-05,filled,2025-01-07,2025-01-07
+R00628,Customer Success,San Jose,L2,2024-11-06,filled,2025-01-02,2025-01-02
+R00629,Marketing,New York,L3,2024-11-06,filled,2025-01-19,2025-01-19
+R00630,Customer Success,San Jose,L3,2024-11-13,filled,2025-01-02,2025-01-02
+R00631,Customer Success,New York,L3,2024-11-13,filled,2025-01-04,2025-01-04
+R00632,Finance,New York,L3,2024-11-15,filled,2025-01-17,2025-01-17
+R00633,Customer Success,Austin,L4,2024-11-16,filled,2025-02-11,2025-02-11
+R00634,Operations,New York,L2,2024-11-18,filled,2024-12-29,2024-12-29
+R00635,Customer Success,New York,L1,2024-11-19,filled,2024-12-24,2024-12-24
+R00636,Engineering,Austin,L2,2024-11-19,filled,2025-01-25,2025-01-25
+R00637,Customer Success,San Jose,L1,2024-11-20,filled,2025-01-11,2025-01-11
+R00638,Sales,Bengaluru,L4,2024-11-22,filled,2025-02-02,2025-02-02
+R00639,Marketing,San Jose,L4,2024-11-23,filled,2025-02-19,2025-02-19
+R00640,People,Austin,L2,2024-11-24,filled,2025-01-20,2025-01-20
+R00641,Engineering,San Jose,L3,2024-11-24,filled,2025-02-10,2025-02-10
+R00642,Operations,San Jose,L4,2024-11-24,filled,2025-02-18,2025-02-18
+R00643,Marketing,New York,L3,2024-11-25,filled,2025-01-12,2025-01-12
+R00644,Engineering,New York,L1,2024-11-25,filled,2025-01-19,2025-01-19
+R00645,Sales,San Jose,L4,2024-11-26,filled,2025-02-24,2025-02-24
+R00646,Sales,London,L4,2024-11-29,cancelled,,2025-01-28
+R00647,Marketing,Bengaluru,L2,2024-11-30,filled,2025-01-14,2025-01-14
+R00648,Sales,Bengaluru,L3,2024-11-30,filled,2025-01-27,2025-01-27
+R00649,Marketing,New York,L4,2024-12-01,filled,2025-01-29,2025-01-29
+R00650,Customer Success,Austin,L5,2024-12-01,filled,2025-02-09,2025-02-09
+R00651,Customer Success,Austin,L6,2024-12-01,filled,2025-02-15,2025-02-15
+R00652,Operations,San Jose,L1,2024-12-01,cancelled,,2025-02-15
+R00653,Engineering,San Jose,L4,2024-12-03,filled,2025-02-09,2025-02-09
+R00654,Sales,San Jose,L4,2024-12-03,cancelled,,2025-02-05
+R00655,Sales,San Jose,L2,2024-12-06,filled,2025-01-19,2025-01-19
+R00656,Operations,London,L1,2024-12-07,filled,2025-02-04,2025-02-04
+R00657,Operations,New York,L2,2024-12-09,filled,2025-01-26,2025-01-26
+R00658,Customer Success,San Jose,L3,2024-12-10,filled,2025-02-17,2025-02-17
+R00659,Operations,New York,L3,2024-12-11,filled,2025-02-06,2025-02-06
+R00660,Customer Success,San Jose,L3,2024-12-12,filled,2025-02-15,2025-02-15
+R00661,Engineering,San Jose,L2,2024-12-12,cancelled,,2025-04-05
+R00662,Sales,San Jose,L2,2024-12-14,filled,2025-02-08,2025-02-08
+R00663,Operations,San Jose,L1,2024-12-14,filled,2025-02-09,2025-02-09
+R00664,Customer Success,San Jose,L4,2024-12-15,filled,2025-03-15,2025-03-15
+R00665,Operations,San Jose,L1,2024-12-16,filled,2025-02-04,2025-02-04
+R00666,Customer Success,New York,L5,2024-12-16,filled,2025-03-10,2025-03-10
+R00667,Finance,London,L3,2024-12-17,filled,2025-02-04,2025-02-04
+R00668,Engineering,New York,L5,2024-12-19,filled,2025-03-30,2025-03-30
+R00669,Marketing,New York,L1,2024-12-20,filled,2025-02-09,2025-02-09
+R00670,Sales,San Jose,L3,2024-12-20,filled,2025-02-26,2025-02-26
+R00671,Engineering,Austin,L5,2024-12-20,filled,2025-03-21,2025-03-21
+R00672,Customer Success,New York,L3,2024-12-21,filled,2025-03-10,2025-03-10
+R00673,People,New York,L3,2024-12-22,filled,2025-02-22,2025-02-22
+R00674,Sales,New York,L3,2024-12-29,filled,2025-02-22,2025-02-22
+R00675,Marketing,New York,L3,2024-12-31,filled,2025-02-19,2025-02-19
+R00676,Engineering,San Jose,L3,2025-01-01,filled,2025-03-21,2025-03-21
+R00677,Engineering,San Jose,L3,2025-01-03,filled,2025-02-24,2025-02-24
+R00678,Operations,Bengaluru,L4,2025-01-05,filled,2025-03-11,2025-03-11
+R00679,Engineering,London,L1,2025-01-06,filled,2025-02-20,2025-02-20
+R00680,Sales,San Jose,L1,2025-01-06,filled,2025-02-22,2025-02-22
+R00681,Sales,San Jose,L3,2025-01-06,filled,2025-03-08,2025-03-08
+R00682,Sales,San Jose,L2,2025-01-06,filled,2025-03-13,2025-03-13
+R00683,Sales,San Jose,L3,2025-01-06,filled,2025-03-13,2025-03-13
+R00684,Operations,New York,L4,2025-01-09,filled,2025-03-08,2025-03-08
+R00685,Finance,New York,L3,2025-01-09,filled,2025-03-13,2025-03-13
+R00686,Finance,London,L2,2025-01-10,filled,2025-02-22,2025-02-22
+R00687,Engineering,San Jose,L5,2025-01-11,filled,2025-04-26,2025-04-26
+R00688,Customer Success,San Jose,L5,2025-01-12,filled,2025-03-27,2025-03-27
+R00689,Marketing,San Jose,L1,2025-01-14,filled,2025-03-14,2025-03-14
+R00690,Engineering,San Jose,L2,2025-01-18,filled,2025-03-27,2025-03-27
+R00691,Operations,London,L2,2025-01-19,filled,2025-03-05,2025-03-05
+R00692,Sales,San Jose,L2,2025-01-20,filled,2025-03-06,2025-03-06
+R00693,Finance,New York,L3,2025-01-20,filled,2025-03-06,2025-03-06
+R00694,Operations,San Jose,L2,2025-01-21,cancelled,,2025-03-30
+R00695,Engineering,San Jose,L3,2025-01-24,filled,2025-04-10,2025-04-10
+R00696,Engineering,Austin,L4,2025-01-25,filled,2025-04-10,2025-04-10
+R00697,Marketing,San Jose,L4,2025-01-25,filled,2025-04-26,2025-04-26
+R00698,Customer Success,New York,L1,2025-01-26,filled,2025-03-14,2025-03-14
+R00699,Engineering,San Jose,L3,2025-01-27,filled,2025-03-28,2025-03-28
+R00700,Sales,Bengaluru,L1,2025-01-27,filled,2025-03-28,2025-03-28
+R00701,Engineering,San Jose,L2,2025-01-28,filled,2025-03-11,2025-03-11
+R00702,Operations,Austin,L2,2025-01-28,filled,2025-03-27,2025-03-27
+R00703,Engineering,New York,L3,2025-01-29,filled,2025-04-11,2025-04-11
+R00704,Engineering,Bengaluru,L1,2025-01-30,filled,2025-03-10,2025-03-10
+R00705,Engineering,San Jose,L1,2025-02-02,filled,2025-03-24,2025-03-24
+R00706,Finance,London,L3,2025-02-03,filled,2025-04-14,2025-04-14
+R00707,Operations,New York,L3,2025-02-03,cancelled,,2025-03-20
+R00708,Engineering,San Jose,L1,2025-02-04,filled,2025-03-14,2025-03-14
+R00709,Engineering,San Jose,L2,2025-02-05,filled,2025-03-26,2025-03-26
+R00710,Engineering,Bengaluru,L3,2025-02-07,filled,2025-04-15,2025-04-15
+R00711,People,London,L3,2025-02-07,filled,2025-04-27,2025-04-27
+R00712,Engineering,San Jose,L3,2025-02-09,filled,2025-04-23,2025-04-23
+R00713,Sales,New York,L1,2025-02-10,filled,2025-03-17,2025-03-17
+R00714,Customer Success,New York,L2,2025-02-10,filled,2025-03-25,2025-03-25
+R00715,Operations,San Jose,L2,2025-02-10,filled,2025-04-11,2025-04-11
+R00716,Customer Success,San Jose,L1,2025-02-12,filled,2025-03-31,2025-03-31
+R00717,Marketing,London,L2,2025-02-12,filled,2025-04-18,2025-04-18
+R00718,Engineering,London,L3,2025-02-12,filled,2025-04-26,2025-04-26
+R00719,Finance,San Jose,L1,2025-02-13,filled,2025-04-12,2025-04-12
+R00720,Finance,Bengaluru,L2,2025-02-14,filled,2025-04-25,2025-04-25
+R00721,Finance,San Jose,L1,2025-02-16,filled,2025-03-25,2025-03-25
+R00722,Operations,Austin,L3,2025-02-16,filled,2025-04-05,2025-04-05
+R00723,Customer Success,San Jose,L2,2025-02-16,filled,2025-04-08,2025-04-08
+R00724,People,San Jose,L4,2025-02-16,filled,2025-04-20,2025-04-20
+R00725,Customer Success,Bengaluru,L5,2025-02-19,filled,2025-05-19,2025-05-19
+R00726,Engineering,London,L1,2025-02-19,cancelled,,2025-03-31
+R00727,People,New York,L3,2025-02-21,filled,2025-04-12,2025-04-12
+R00728,Finance,San Jose,L4,2025-02-21,filled,2025-05-12,2025-05-12
+R00729,Customer Success,London,L6,2025-02-22,filled,2025-06-04,2025-06-04
+R00730,Finance,New York,L4,2025-02-23,filled,2025-04-20,2025-04-20
+R00731,Operations,San Jose,L3,2025-02-25,filled,2025-04-18,2025-04-18
+R00732,Sales,San Jose,L2,2025-02-25,filled,2025-04-21,2025-04-21
+R00733,Marketing,Bengaluru,L5,2025-02-25,filled,2025-05-12,2025-05-12
+R00734,Engineering,Austin,L2,2025-02-26,filled,2025-05-07,2025-05-07
+R00735,Sales,San Jose,L3,2025-02-27,filled,2025-04-16,2025-04-16
+R00736,Sales,Austin,L1,2025-03-01,filled,2025-04-13,2025-04-13
+R00737,Finance,San Jose,L3,2025-03-01,filled,2025-05-11,2025-05-11
+R00738,Customer Success,San Jose,L1,2025-03-03,filled,2025-04-12,2025-04-12
+R00739,Operations,Bengaluru,L2,2025-03-03,filled,2025-04-27,2025-04-27
+R00740,Sales,San Jose,L1,2025-03-04,filled,2025-04-15,2025-04-15
+R00741,Finance,Austin,L2,2025-03-05,filled,2025-04-21,2025-04-21
+R00742,Engineering,Austin,L5,2025-03-06,filled,2025-05-22,2025-05-22
+R00743,Customer Success,San Jose,L3,2025-03-08,filled,2025-04-26,2025-04-26
+R00744,Engineering,Austin,L5,2025-03-08,filled,2025-05-23,2025-05-23
+R00745,Customer Success,Austin,L2,2025-03-09,filled,2025-04-27,2025-04-27
+R00746,Sales,San Jose,L1,2025-03-09,filled,2025-05-03,2025-05-03
+R00747,Customer Success,Austin,L1,2025-03-10,cancelled,,2025-04-28
+R00748,Sales,San Jose,L2,2025-03-11,filled,2025-05-20,2025-05-20
+R00749,Operations,London,L1,2025-03-15,filled,2025-04-19,2025-04-19
+R00750,Engineering,San Jose,L3,2025-03-18,filled,2025-06-01,2025-06-01
+R00751,Marketing,New York,L1,2025-03-19,filled,2025-05-10,2025-05-10
+R00752,Sales,San Jose,L1,2025-03-20,filled,2025-05-11,2025-05-11
+R00753,Sales,San Jose,L5,2025-03-21,filled,2025-06-25,2025-06-25
+R00754,Engineering,Austin,L3,2025-03-23,filled,2025-06-11,2025-06-11
+R00755,Engineering,San Jose,L1,2025-03-24,filled,2025-05-01,2025-05-01
+R00756,Sales,San Jose,L3,2025-03-24,cancelled,,2025-06-14
+R00757,Sales,San Jose,L3,2025-03-26,filled,2025-05-26,2025-05-26
+R00758,Engineering,New York,L4,2025-03-27,filled,2025-06-16,2025-06-16
+R00759,Operations,Bengaluru,L1,2025-03-29,filled,2025-05-13,2025-05-13
+R00760,Sales,San Jose,L1,2025-03-29,filled,2025-05-14,2025-05-14
+R00761,Engineering,Austin,L3,2025-04-01,filled,2025-05-30,2025-05-30
+R00762,Engineering,San Jose,L3,2025-04-02,filled,2025-05-31,2025-05-31
+R00763,Engineering,New York,L1,2025-04-03,filled,2025-05-11,2025-05-11
+R00764,Sales,New York,L1,2025-04-03,filled,2025-06-01,2025-06-01
+R00765,Engineering,San Jose,L4,2025-04-03,cancelled,,2025-07-12
+R00766,Engineering,San Jose,L2,2025-04-05,filled,2025-05-25,2025-05-25
+R00767,Engineering,San Jose,L5,2025-04-05,filled,2025-07-04,2025-07-04
+R00768,Finance,San Jose,L2,2025-04-06,filled,2025-06-02,2025-06-02
+R00769,Engineering,San Jose,L3,2025-04-06,filled,2025-06-08,2025-06-08
+R00770,Customer Success,New York,L3,2025-04-08,filled,2025-05-27,2025-05-27
+R00771,Engineering,Bengaluru,L3,2025-04-14,filled,2025-06-17,2025-06-17
+R00772,Engineering,New York,L1,2025-04-15,filled,2025-06-10,2025-06-10
+R00773,Marketing,Austin,L3,2025-04-15,filled,2025-07-04,2025-07-04
+R00774,Engineering,London,L1,2025-04-16,filled,2025-06-10,2025-06-10
+R00775,Sales,San Jose,L2,2025-04-18,filled,2025-05-30,2025-05-30
+R00776,Engineering,San Jose,L5,2025-04-18,filled,2025-06-26,2025-06-26
+R00777,Sales,San Jose,L5,2025-04-19,filled,2025-07-05,2025-07-05
+R00778,Sales,San Jose,L3,2025-04-20,cancelled,,2025-07-08
+R00779,Sales,San Jose,L1,2025-04-22,filled,2025-06-21,2025-06-21
+R00780,Customer Success,Austin,L1,2025-04-23,filled,2025-05-30,2025-05-30
+R00781,People,New York,L2,2025-04-23,filled,2025-06-02,2025-06-02
+R00782,Sales,San Jose,L4,2025-04-23,filled,2025-07-16,2025-07-16
+R00783,Engineering,London,L1,2025-04-24,filled,2025-06-08,2025-06-08
+R00784,People,Austin,L5,2025-04-24,filled,2025-07-31,2025-07-31
+R00785,Engineering,San Jose,L3,2025-04-25,filled,2025-06-20,2025-06-20
+R00786,Finance,New York,L5,2025-04-28,filled,2025-08-12,2025-08-12
+R00787,Sales,Austin,L2,2025-04-29,filled,2025-06-08,2025-06-08
+R00788,Customer Success,New York,L2,2025-05-01,filled,2025-06-21,2025-06-21
+R00789,Finance,New York,L3,2025-05-02,filled,2025-06-28,2025-06-28
+R00790,Engineering,New York,L4,2025-05-02,filled,2025-08-03,2025-08-03
+R00791,Engineering,San Jose,L1,2025-05-03,filled,2025-06-07,2025-06-07
+R00792,Sales,San Jose,L2,2025-05-04,filled,2025-06-14,2025-06-14
+R00793,Engineering,Austin,L1,2025-05-06,filled,2025-06-10,2025-06-10
+R00794,Engineering,New York,L3,2025-05-06,filled,2025-07-09,2025-07-09
+R00795,Customer Success,San Jose,L2,2025-05-06,filled,2025-07-12,2025-07-12
+R00796,Sales,San Jose,L3,2025-05-07,filled,2025-07-08,2025-07-08
+R00797,Engineering,New York,L4,2025-05-07,filled,2025-07-25,2025-07-25
+R00798,Operations,San Jose,L3,2025-05-07,filled,2025-07-26,2025-07-26
+R00799,Marketing,New York,L3,2025-05-10,filled,2025-06-29,2025-06-29
+R00800,Engineering,New York,L3,2025-05-10,filled,2025-07-06,2025-07-06
+R00801,Sales,Bengaluru,L1,2025-05-11,filled,2025-06-17,2025-06-17
+R00802,Engineering,London,L4,2025-05-11,filled,2025-07-13,2025-07-13
+R00803,Operations,San Jose,L3,2025-05-15,filled,2025-07-26,2025-07-26
+R00804,Engineering,Austin,L3,2025-05-16,filled,2025-07-01,2025-07-01
+R00805,People,San Jose,L3,2025-05-16,filled,2025-07-19,2025-07-19
+R00806,Sales,Bengaluru,L5,2025-05-17,filled,2025-08-26,2025-08-26
+R00807,Operations,London,L4,2025-05-19,filled,2025-08-05,2025-08-05
+R00808,Sales,San Jose,L3,2025-05-20,filled,2025-07-12,2025-07-12
+R00809,Engineering,New York,L2,2025-05-20,filled,2025-07-15,2025-07-15
+R00810,Engineering,San Jose,L4,2025-05-20,filled,2025-08-14,2025-08-14
+R00811,People,San Jose,L2,2025-05-21,filled,2025-07-09,2025-07-09
+R00812,Sales,New York,L1,2025-05-23,filled,2025-07-18,2025-07-18
+R00813,Customer Success,London,L4,2025-05-24,filled,2025-08-17,2025-08-17
+R00814,Customer Success,San Jose,L2,2025-05-25,filled,2025-07-23,2025-07-23
+R00815,Operations,San Jose,L2,2025-05-26,filled,2025-07-29,2025-07-29
+R00816,Marketing,New York,L3,2025-05-26,filled,2025-08-04,2025-08-04
+R00817,Customer Success,Bengaluru,L1,2025-05-27,filled,2025-07-07,2025-07-07
+R00818,Sales,New York,L4,2025-05-27,filled,2025-08-07,2025-08-07
+R00819,Sales,San Jose,L4,2025-05-27,filled,2025-08-26,2025-08-26
+R00820,Engineering,Bengaluru,L5,2025-05-28,filled,2025-08-24,2025-08-24
+R00821,Sales,San Jose,L1,2025-05-28,cancelled,,2025-08-29
+R00822,Engineering,San Jose,L1,2025-05-30,filled,2025-07-04,2025-07-04
+R00823,Operations,New York,L1,2025-06-02,filled,2025-07-16,2025-07-16
+R00824,Engineering,San Jose,L2,2025-06-02,filled,2025-08-07,2025-08-07
+R00825,Engineering,Austin,L2,2025-06-02,open,,
+R00826,Operations,New York,L3,2025-06-02,open,,
+R00827,Engineering,Austin,L5,2025-06-03,filled,2025-09-03,2025-09-03
+R00828,Sales,San Jose,L1,2025-06-04,filled,2025-07-18,2025-07-18
+R00829,Operations,New York,L2,2025-06-04,open,,
+R00830,Engineering,Austin,L2,2025-06-05,filled,2025-08-10,2025-08-10
+R00831,Sales,San Jose,L3,2025-06-05,filled,2025-08-16,2025-08-16
+R00832,Customer Success,London,L2,2025-06-06,open,,
+R00833,Finance,San Jose,L4,2025-06-07,filled,2025-09-07,2025-09-07
+R00834,Engineering,Austin,L1,2025-06-08,open,,
+R00835,Sales,London,L1,2025-06-10,filled,2025-07-22,2025-07-22
+R00836,Sales,San Jose,L3,2025-06-10,filled,2025-08-27,2025-08-27
+R00837,Sales,Bengaluru,L4,2025-06-11,cancelled,,2025-09-04
+R00838,Customer Success,New York,L4,2025-06-12,filled,2025-09-04,2025-09-04
+R00839,Sales,San Jose,L1,2025-06-13,filled,2025-07-31,2025-07-31
+R00840,Engineering,San Jose,L4,2025-06-13,cancelled,,2025-08-21
+R00841,Sales,San Jose,L3,2025-06-14,filled,2025-08-03,2025-08-03
+R00842,Customer Success,Austin,L4,2025-06-14,filled,2025-08-10,2025-08-10
+R00843,Engineering,London,L3,2025-06-14,filled,2025-08-16,2025-08-16
+R00844,Marketing,San Jose,L4,2025-06-15,filled,2025-09-15,2025-09-15
+R00845,Engineering,San Jose,L1,2025-06-16,filled,2025-08-04,2025-08-04
+R00846,Operations,London,L3,2025-06-17,filled,2025-08-27,2025-08-27
+R00847,Engineering,London,L4,2025-06-17,filled,2025-09-06,2025-09-06
+R00848,Operations,New York,L2,2025-06-17,open,,
+R00849,Engineering,London,L4,2025-06-18,filled,2025-08-18,2025-08-18
+R00850,Engineering,San Jose,L2,2025-06-18,open,,
+R00851,Engineering,San Jose,L1,2025-06-18,open,,
+R00852,Sales,San Jose,L5,2025-06-21,filled,2025-10-07,2025-10-07
+R00853,Marketing,London,L2,2025-06-23,filled,2025-08-08,2025-08-08
+R00854,Engineering,London,L1,2025-06-23,filled,2025-08-21,2025-08-21
+R00855,Engineering,San Jose,L3,2025-06-24,open,,
+R00856,Sales,Bengaluru,L2,2025-06-24,open,,
+R00857,Customer Success,San Jose,L2,2025-06-25,open,,
+R00858,Marketing,New York,L5,2025-06-25,open,,
+R00859,Engineering,San Jose,L3,2025-06-26,filled,2025-08-13,2025-08-13
+R00860,Sales,Austin,L4,2025-06-26,filled,2025-09-14,2025-09-14
+R00861,Marketing,San Jose,L4,2025-06-26,open,,
+R00862,Customer Success,New York,L2,2025-06-26,cancelled,,2025-10-12
+R00863,Sales,New York,L2,2025-06-27,filled,2025-08-20,2025-08-20
+R00864,Engineering,San Jose,L3,2025-06-27,open,,
+R00865,Sales,Austin,L3,2025-06-28,open,,
+R00866,Customer Success,San Jose,L5,2025-06-28,open,,
+R00867,Engineering,Austin,L2,2025-06-30,open,,
+R00868,Customer Success,New York,L3,2025-07-01,filled,2025-09-04,2025-09-04
+R00869,Customer Success,San Jose,L3,2025-07-01,filled,2025-09-10,2025-09-10
+R00870,Customer Success,New York,L4,2025-07-03,filled,2025-09-03,2025-09-03
+R00871,Operations,San Jose,L3,2025-07-03,filled,2025-09-15,2025-09-15
+R00872,Engineering,San Jose,L4,2025-07-03,open,,
+R00873,Finance,San Jose,L1,2025-07-04,open,,
+R00874,Engineering,San Jose,L2,2025-07-04,open,,
+R00875,Engineering,New York,L5,2025-07-05,filled,2025-09-09,2025-09-09
+R00876,Finance,New York,L1,2025-07-06,filled,2025-09-04,2025-09-04
+R00877,Operations,New York,L4,2025-07-07,filled,2025-09-16,2025-09-16
+R00878,Engineering,London,L2,2025-07-08,filled,2025-08-24,2025-08-24
+R00879,Sales,London,L3,2025-07-09,filled,2025-09-04,2025-09-04
+R00880,Operations,New York,L2,2025-07-09,filled,2025-09-13,2025-09-13
+R00881,Sales,Austin,L4,2025-07-09,filled,2025-09-18,2025-09-18
+R00882,Engineering,San Jose,L2,2025-07-09,open,,
+R00883,Sales,San Jose,L5,2025-07-11,filled,2025-09-16,2025-09-16
+R00884,Operations,New York,L1,2025-07-12,cancelled,,2025-09-04
+R00885,People,New York,L4,2025-07-13,filled,2025-10-11,2025-10-11
+R00886,Marketing,New York,L5,2025-07-13,open,,
+R00887,Customer Success,San Jose,L2,2025-07-14,filled,2025-08-28,2025-08-28
+R00888,Customer Success,New York,L1,2025-07-14,filled,2025-09-10,2025-09-10
+R00889,Marketing,San Jose,L3,2025-07-14,filled,2025-09-14,2025-09-14
+R00890,Engineering,London,L2,2025-07-16,open,,
+R00891,Engineering,New York,L1,2025-07-16,cancelled,,2025-10-20
+R00892,Marketing,Bengaluru,L2,2025-07-17,filled,2025-08-28,2025-08-28
+R00893,Sales,New York,L2,2025-07-17,filled,2025-09-06,2025-09-06
+R00894,People,London,L3,2025-07-17,filled,2025-09-07,2025-09-07
+R00895,Operations,San Jose,L1,2025-07-18,filled,2025-08-25,2025-08-25
+R00896,Sales,Austin,L3,2025-07-19,filled,2025-09-11,2025-09-11
+R00897,Marketing,Austin,L2,2025-07-20,open,,
+R00898,Sales,Austin,L3,2025-07-21,open,,
+R00899,Customer Success,San Jose,L3,2025-07-22,open,,
+R00900,Sales,San Jose,L2,2025-07-25,filled,2025-09-08,2025-09-08
+R00901,Customer Success,San Jose,L5,2025-07-26,open,,
+R00902,Engineering,San Jose,L2,2025-07-27,filled,2025-09-06,2025-09-06
+R00903,Sales,San Jose,L2,2025-07-27,filled,2025-09-20,2025-09-20
+R00904,Engineering,London,L4,2025-07-27,filled,2025-09-23,2025-09-23
+R00905,Engineering,London,L4,2025-07-27,filled,2025-10-09,2025-10-09
+R00906,Sales,Austin,L2,2025-07-28,filled,2025-09-10,2025-09-10
+R00907,People,Austin,L2,2025-07-28,open,,
+R00908,Sales,San Jose,L5,2025-07-28,open,,
+R00909,Sales,New York,L3,2025-07-30,open,,
+R00910,People,New York,L4,2025-07-30,open,,
+R00911,Customer Success,New York,L1,2025-07-30,cancelled,,2025-08-19
+R00912,Finance,London,L3,2025-07-31,filled,2025-09-15,2025-09-15
+R00913,Sales,Austin,L2,2025-07-31,filled,2025-10-09,2025-10-09
+R00914,Sales,San Jose,L3,2025-07-31,filled,2025-10-13,2025-10-13
+R00915,Sales,London,L1,2025-08-02,filled,2025-09-30,2025-09-30
+R00916,Marketing,San Jose,L3,2025-08-02,filled,2025-10-07,2025-10-07
+R00917,Sales,Bengaluru,L2,2025-08-03,filled,2025-09-23,2025-09-23
+R00918,Finance,San Jose,L2,2025-08-03,filled,2025-10-03,2025-10-03
+R00919,Engineering,New York,L4,2025-08-03,open,,
+R00920,Engineering,Austin,L1,2025-08-05,filled,2025-09-13,2025-09-13
+R00921,Engineering,London,L4,2025-08-05,open,,
+R00922,Sales,New York,L2,2025-08-05,open,,
+R00923,Operations,San Jose,L2,2025-08-06,open,,
+R00924,Engineering,San Jose,L5,2025-08-07,filled,2025-10-11,2025-10-11
+R00925,Customer Success,San Jose,L4,2025-08-08,filled,2025-10-02,2025-10-02
+R00926,Engineering,London,L6,2025-08-08,filled,2025-11-17,2025-11-17
+R00927,Engineering,Austin,L2,2025-08-09,filled,2025-09-27,2025-09-27
+R00928,Sales,San Jose,L2,2025-08-09,filled,2025-10-10,2025-10-10
+R00929,Sales,Austin,L4,2025-08-09,filled,2025-11-08,2025-11-08
+R00930,Sales,San Jose,L4,2025-08-11,open,,
+R00931,Sales,New York,L4,2025-08-11,open,,
+R00932,Engineering,Bengaluru,L3,2025-08-13,filled,2025-10-14,2025-10-14
+R00933,Sales,San Jose,L2,2025-08-13,open,,
+R00934,Engineering,Austin,L1,2025-08-14,open,,
+R00935,Engineering,San Jose,L2,2025-08-14,open,,
+R00936,Engineering,San Jose,L2,2025-08-15,filled,2025-10-24,2025-10-24
+R00937,Engineering,Bengaluru,L2,2025-08-15,open,,
+R00938,Engineering,London,L2,2025-08-15,open,,
+R00939,Sales,New York,L2,2025-08-16,filled,2025-09-26,2025-09-26
+R00940,Engineering,New York,L2,2025-08-16,filled,2025-10-11,2025-10-11
+R00941,Sales,San Jose,L3,2025-08-17,open,,
+R00942,Engineering,San Jose,L3,2025-08-17,open,,
+R00943,Sales,San Jose,L2,2025-08-19,open,,
+R00944,Engineering,San Jose,L5,2025-08-20,filled,2025-11-11,2025-11-11
+R00945,Engineering,Austin,L1,2025-08-20,open,,
+R00946,Engineering,New York,L3,2025-08-21,filled,2025-10-25,2025-10-25
+R00947,Marketing,New York,L1,2025-08-22,filled,2025-09-26,2025-09-26
+R00948,Sales,Bengaluru,L1,2025-08-22,filled,2025-09-30,2025-09-30
+R00949,Customer Success,New York,L2,2025-08-22,filled,2025-10-24,2025-10-24
+R00950,Engineering,San Jose,L6,2025-08-22,open,,
+R00951,Customer Success,Austin,L2,2025-08-23,filled,2025-10-17,2025-10-17
+R00952,Customer Success,San Jose,L3,2025-08-23,filled,2025-10-31,2025-10-31
+R00953,Engineering,San Jose,L5,2025-08-23,filled,2025-11-09,2025-11-09
+R00954,Sales,Austin,L5,2025-08-24,filled,2025-11-08,2025-11-08
+R00955,Engineering,New York,L4,2025-08-24,filled,2025-11-10,2025-11-10
+R00956,Engineering,San Jose,L1,2025-08-26,filled,2025-10-03,2025-10-03
+R00957,Sales,Bengaluru,L1,2025-08-26,filled,2025-10-10,2025-10-10
+R00958,Marketing,New York,L5,2025-08-26,open,,
+R00959,Customer Success,New York,L2,2025-08-28,filled,2025-10-22,2025-10-22
+R00960,Sales,London,L3,2025-08-29,filled,2025-11-16,2025-11-16
+R00961,Marketing,San Jose,L2,2025-08-29,open,,
+R00962,Marketing,Bengaluru,L4,2025-08-31,filled,2025-11-05,2025-11-05
+R00963,Customer Success,San Jose,L2,2025-08-31,open,,
+R00964,People,San Jose,L3,2025-08-31,open,,
+R00965,Engineering,Austin,L2,2025-09-02,filled,2025-10-23,2025-10-23
+R00966,Engineering,London,L3,2025-09-02,filled,2025-10-28,2025-10-28
+R00967,Sales,New York,L4,2025-09-02,filled,2025-11-23,2025-11-23
+R00968,Engineering,Austin,L4,2025-09-03,open,,
+R00969,Sales,San Jose,L2,2025-09-03,open,,
+R00970,Sales,San Jose,L4,2025-09-05,filled,2025-11-27,2025-11-27
+R00971,Customer Success,New York,L4,2025-09-05,open,,
+R00972,Sales,San Jose,L2,2025-09-06,open,,
+R00973,Customer Success,New York,L2,2025-09-08,filled,2025-10-27,2025-10-27
+R00974,Operations,Austin,L2,2025-09-09,filled,2025-10-21,2025-10-21
+R00975,Sales,London,L3,2025-09-09,filled,2025-11-09,2025-11-09
+R00976,Operations,San Jose,L3,2025-09-11,open,,
+R00977,Marketing,Bengaluru,L2,2025-09-12,filled,2025-11-13,2025-11-13
+R00978,Sales,New York,L2,2025-09-12,filled,2025-11-21,2025-11-21
+R00979,Marketing,San Jose,L1,2025-09-13,filled,2025-11-06,2025-11-06
+R00980,Operations,London,L2,2025-09-13,filled,2025-11-21,2025-11-21
+R00981,Engineering,New York,L3,2025-09-14,filled,2025-11-13,2025-11-13
+R00982,Sales,San Jose,L2,2025-09-15,filled,2025-11-22,2025-11-22
+R00983,Sales,San Jose,L3,2025-09-17,open,,
+R00984,People,Bengaluru,L1,2025-09-21,filled,2025-11-04,2025-11-04
+R00985,Sales,Bengaluru,L3,2025-09-21,filled,2025-11-28,2025-11-28
+R00986,People,San Jose,L6,2025-09-23,filled,2025-12-20,2025-12-20
+R00987,Sales,Bengaluru,L5,2025-09-24,filled,2025-12-19,2025-12-19
+R00988,Operations,San Jose,L3,2025-09-25,open,,
+R00989,Engineering,San Jose,L4,2025-09-27,filled,2025-12-08,2025-12-08
+R00990,Customer Success,New York,L1,2025-09-27,open,,
+R00991,Engineering,Austin,L3,2025-09-28,open,,
+R00992,Engineering,Austin,L4,2025-09-30,filled,2025-11-30,2025-11-30
+R00993,Operations,New York,L2,2025-10-01,filled,2025-11-27,2025-11-27
+R00994,Sales,San Jose,L6,2025-10-01,open,,
+R00995,Sales,New York,L2,2025-10-02,filled,2025-11-19,2025-11-19
+R00996,Operations,New York,L3,2025-10-02,filled,2025-12-18,2025-12-18
+R00997,Engineering,New York,L1,2025-10-03,filled,2025-11-08,2025-11-08
+R00998,Sales,Austin,L3,2025-10-03,filled,2025-11-29,2025-11-29
+R00999,Marketing,San Jose,L3,2025-10-03,open,,
+R01000,Customer Success,Austin,L3,2025-10-04,filled,2025-11-29,2025-11-29
+R01001,Engineering,Austin,L4,2025-10-05,filled,2025-12-18,2025-12-18
+R01002,Finance,San Jose,L2,2025-10-07,filled,2025-11-28,2025-11-28
+R01003,Finance,San Jose,L2,2025-10-07,filled,2025-12-02,2025-12-02
+R01004,People,Austin,L2,2025-10-09,open,,
+R01005,Operations,San Jose,L2,2025-10-10,open,,
+R01006,Finance,New York,L3,2025-10-11,filled,2025-12-18,2025-12-18
+R01007,Engineering,San Jose,L3,2025-10-12,filled,2025-12-29,2025-12-29
+R01008,Engineering,Austin,L2,2025-10-14,filled,2025-12-12,2025-12-12
+R01009,Sales,Austin,L4,2025-10-14,open,,
+R01010,Sales,New York,L2,2025-10-15,filled,2025-12-04,2025-12-04
+R01011,Engineering,San Jose,L4,2025-10-16,filled,2025-12-29,2025-12-29
+R01012,Customer Success,New York,L2,2025-10-17,filled,2025-11-27,2025-11-27
+R01013,Legal,Austin,L3,2025-10-17,filled,2025-12-05,2025-12-05
+R01014,People,Austin,L2,2025-10-17,filled,2025-12-26,2025-12-26
+R01015,Customer Success,San Jose,L3,2025-10-17,open,,
+R01016,Customer Success,San Jose,L2,2025-10-18,filled,2025-11-29,2025-11-29
+R01017,Engineering,New York,L5,2025-10-18,filled,2025-12-22,2025-12-22
+R01018,Operations,San Jose,L3,2025-10-19,filled,2025-12-09,2025-12-09
+R01019,Sales,Bengaluru,L4,2025-10-19,filled,2025-12-16,2025-12-16
+R01020,Customer Success,London,L2,2025-10-20,open,,
+R01021,Engineering,San Jose,L2,2025-10-21,filled,2025-12-04,2025-12-04
+R01022,Marketing,San Jose,L2,2025-10-22,open,,
+R01023,Customer Success,New York,L2,2025-10-24,filled,2025-12-15,2025-12-15
+R01024,Marketing,London,L3,2025-10-25,open,,
+R01025,Sales,San Jose,L2,2025-10-25,open,,
+R01026,Finance,New York,L2,2025-10-27,filled,2025-12-06,2025-12-06
+R01027,Sales,New York,L5,2025-10-28,open,,
+R01028,Engineering,San Jose,L2,2025-10-30,open,,
+R01029,Engineering,London,L3,2025-10-30,open,,
+R01030,Operations,San Jose,L3,2025-10-31,open,,
+R01031,Sales,San Jose,L3,2025-11-01,filled,2025-12-30,2025-12-30
+R01032,Sales,New York,L3,2025-11-01,open,,
+R01033,Sales,San Jose,L3,2025-11-02,open,,
+R01034,Customer Success,New York,L1,2025-11-03,open,,
+R01035,Sales,Bengaluru,L1,2025-11-05,filled,2025-12-10,2025-12-10
+R01036,Operations,London,L4,2025-11-08,open,,
+R01037,Operations,San Jose,L3,2025-11-09,filled,2025-12-29,2025-12-29
+R01038,Finance,Bengaluru,L2,2025-11-10,filled,2025-12-26,2025-12-26
+R01039,Finance,Austin,L1,2025-11-15,open,,
+R01040,Customer Success,San Jose,L2,2025-11-19,open,,
+R01041,Operations,London,L2,2025-11-19,open,,
+R01042,Customer Success,San Jose,L4,2025-11-20,open,,
+R01043,Operations,London,L3,2025-11-21,open,,
+R01044,Sales,New York,L3,2025-11-21,open,,
+R01045,Sales,New York,L2,2025-11-25,open,,
+R01046,Sales,Austin,L1,2025-11-25,open,,
+R01047,Engineering,San Jose,L1,2025-11-28,open,,
+R01048,Engineering,New York,L2,2025-12-04,open,,
+R01049,Operations,Austin,L2,2025-12-05,open,,
+R01050,People,San Jose,L3,2025-12-09,open,,
