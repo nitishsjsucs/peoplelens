@@ -6,7 +6,7 @@ The design contract is [SPEC.md](SPEC.md). Build progress is tracked in [PROGRES
 
 ## Status
 
-v1 was built from scratch, commit by commit, following the plan in SPEC.md section 19, and then moved onto the **Cloudflare Workers Free plan** in a Cloudflare account and a Google Cloud project that three other repos share (SPEC.md section 25, [ADR 0001](docs/adr/0001-production-on-workers-free-plan.md), migration commits M1 to M8). Every planned commit is done and passes locally. What remains needs cloud accounts and an operator (see Production setup). This table is updated in every commit that changes status.
+v1 was built from scratch, commit by commit, following the plan in SPEC.md section 19, and then moved onto the **Cloudflare Workers Free plan** in a Cloudflare account and a Google Cloud project that three other repos share (SPEC.md section 25, [ADR 0001](docs/adr/0001-production-on-workers-free-plan.md), migration commits M1 to M8). Every planned commit is done; every check passes locally and in GitHub Actions on `ubuntu-latest`, and the official local evals were re-run on the final code (2026-10-11). What remains needs cloud accounts and an operator (see Production setup; `make doctor` lists each missing piece). This table is updated in every commit that changes status.
 
 | Area | Status |
 |---|---|
@@ -21,11 +21,11 @@ v1 was built from scratch, commit by commit, following the plan in SPEC.md secti
 | Worker: planner (Workers AI, OpenAI-compatible local, stub) | done: one structured planner call (the LLM picks the action and metric; breakdowns, filters, grain and period are grounded in the question text), deterministic time phrases and request screening, clarifications with selectable options, multi-turn follow-ups, whitelisted logging; 8,000 fuzzed planner outputs leak nothing. Workers AI and AI Gateway are exercised only against a fake binding until deployed |
 | Workers Free plan safeguards | done and tested, not yet deployed: `AccountBudgetDO` holds this repo's share of the account's daily allowances (6,000 Workers AI neurons, 800 audit queue messages), reserved before and settled after every Workers AI call; Workers AI error 3036 (daily allocation used up) is the refusal `AI_DAILY_LIMIT` (503, `Retry-After` to 00:00 UTC), 3040 is retried once, 5035 is a configuration error; the planner prompt prefix is built once per isolate; a question makes at most 19 external subrequests (Free limit 50) |
 | Eval harness (200 items, text-to-SQL baseline) | done: 200 frozen items (150 answerable, 20 clarification, 30 adversarial; 214 turns), gold from the independent reference, comparator with median rank bands, leakage checks, pacing, sqlglot-guarded text-to-SQL baseline; official local runs below. The production eval is resumable and budget-capped (about 5 UTC days per run), not yet run |
-| CI (python, worker, stub end-to-end) | defined in `.github/workflows/ci.yml`; every job's commands pass in a fresh clone on macOS (last at the M7 code, 2026-10-11) and earlier in a Linux container (Debian bookworm arm64, node 24, uv 0.12.17); not yet run on GitHub's ubuntu-latest runners |
-| Ops: doctor, phased bootstrap, deploy, smoke | built and unit-tested with mocked CLIs and HTTP; no step needs Workers Paid; every BigQuery job the ops code runs carries a byte cap; `make doctor` runs here read-only and reports the missing cloud prerequisites; bootstrap, deploy and smoke have not been run against Cloudflare or Google Cloud |
+| CI (python, worker, stub end-to-end) | green on GitHub Actions `ubuntu-latest` (ubuntu-24.04): all 14 runs passed, from the commit that added the workflow (`91e2819`) to `9f086b3` (run 38122346778, 2026-10-11: 580 pytest; typecheck, web 3 and worker 306 vitest, production dry-run bundle; stub eval with 0 safety violations and the audit commit, 214 rows then 0). Every job's commands also pass in a fresh clone on macOS |
+| Ops: doctor, phased bootstrap, deploy, smoke | built and unit-tested with mocked CLIs and HTTP; no step needs Workers Paid; every BigQuery job the ops code runs carries a byte cap. `make doctor` ran read-only against the owner's real Cloudflare and Google Cloud logins on 2026-10-11: two required items are missing (the Cloudflare API token file, and billing, because the shared project is linked to a closed billing account), and it lists the steps it can check only once the token exists (One-time PIN among them). Bootstrap, deploy and smoke have not been run against Cloudflare or Google Cloud |
 | Audit trail | done locally: one metadata-only event per question (HMAC of the subject, decision codes, counts, bytes, timings; never question text or values) through a queue into immutable staged NDJSON objects, then `pl audit commit` appends them to an Iceberg table exactly once (the CI e2e job checks 214 rows, then 0 on a replay); production path (Queue, R2 staging, Basin Catalog, all on Workers Free) scripted in the bootstrap, not run |
 | Web UI (React, served as Worker static assets) | done: chat with answer tables, hidden-cell notes and clickable clarification options; checked in a browser against the local stack; production serving is behind Access once deployed |
-| Results | four official local evals (Qwen3-1.7B on DuckDB) and the stub CI run, 2026-10-10; no production runs yet |
+| Results | five official local evals (Qwen3-1.7B on DuckDB; the latest, on the final Free plan code, 2026-10-11) and the official stub runs; no production runs yet |
 
 Nothing has been deployed to Cloudflare or run against BigQuery from this repo yet.
 
@@ -167,7 +167,7 @@ npm run bench:cpu --workspace worker   # CPU per /api/ask on the production wiri
 
 ## Production setup
 
-Production runs entirely on the **Cloudflare Workers Free plan** (do not upgrade; nothing needs Workers Paid), in a Cloudflare account and a Google Cloud project that three other repos share. Every resource this repo creates starts with `peoplelens`, every data grant is scoped to a dataset or a resource, the only project-level role any `peoplelens-*` identity holds is `roles/bigquery.jobUser`, and every BigQuery job carries a byte cap. Placeholders below (`<shared-project-id>`, `<account-id>`, `<billing-account-id>`, `<you>`, `<domain>`) stand for your own values; none are committed here. The full checklist, with what was verified and how, is SPEC.md section 17. Nothing below has been run from this repo yet; `make doctor` names each missing piece with its exact fix.
+Production runs entirely on the **Cloudflare Workers Free plan** (do not upgrade; nothing needs Workers Paid), in a Cloudflare account and a Google Cloud project that three other repos share. Every resource this repo creates starts with `peoplelens`, every data grant is scoped to a dataset or a resource, the only project-level role any `peoplelens-*` identity holds is `roles/bigquery.jobUser`, and every BigQuery job carries a byte cap. Placeholders below (`<shared-project-id>`, `<account-id>`, `<billing-account-id>`, `<you>`, `<domain>`) stand for your own values; none are committed here. The full checklist, with what was verified and how, is SPEC.md section 17. Of the steps below, only `make doctor` (read-only) has been run from this repo against the real accounts (2026-10-11); it names each missing piece with its exact fix, and on that day two were missing: the Cloudflare API token file, and billing (the shared project is linked to a closed billing account).
 
 ### What you need (SPEC.md 17.1)
 
@@ -256,7 +256,7 @@ CPU per `/api/ask`, measured in Node with `npm run bench:cpu --workspace worker`
 
 ## Resume claims: what is proven here and what needs production
 
-| Claim | Proven locally (this repo, 2026-10-10) | Needs the production setup |
+| Claim | Proven locally (this repo, 2026-10-10 and 2026-10-11) | Needs the production setup |
 |---|---|---|
 | Six governed metrics through MetricFlow | 312 compiled entries per dialect; all DuckDB entries match an independent reference on 3 parameter sets each | `make smoke` executes all 312 BigQuery entries and compares them with the same reference |
 | Four stakeholder roles, server-enforced | full role by metric by dimension matrix in tests; scope bound as a query parameter | four Access identities and service tokens (bootstrap phase B) |
@@ -266,34 +266,34 @@ CPU per `/api/ask`, measured in Node with `npm run bench:cpu --workspace worker`
 | Metadata-only AI Gateway logging | every Workers AI call sends the metadata-only header and ids-only metadata (tested against a fake binding) | smoke step 5 reads a real gateway log and checks the bodies are absent |
 | Workers AI and AI Gateway | not exercised (local LLM is Qwen3-1.7B); the Free plan budget, error handling and gateway options are tested against fakes | deploy, then `make smoke` and `make eval-prod` (Workers Free: about 5 UTC days per eval run) |
 | About 200 eval items, semantic vs text-to-SQL | 200 items, 214 turns; local runs below | `make eval-prod` for Workers AI 70B on BigQuery |
-| 90% accuracy and p95 under 5 s (targets) | measured locally below, on a 1.7B model | measured in production by `make eval-prod`, resumable over about 5 UTC days, every number from llama-3.3-70b on BigQuery |
+| 90% accuracy and p95 under 5 s (targets) | measured locally below, on a 1.7B model (run 5: 98.0% and 3,811 ms) | measured in production by `make eval-prod`, resumable over about 5 UTC days, every number from llama-3.3-70b on BigQuery |
 
 ## Results
 
 Only numbers produced by this repo's scripts, each with its command and date. These are local numbers: an Apple M5 Mac running Qwen3-1.7B (Q4_0, llama-server) on the DuckDB stand-in, not Workers AI llama-3.3-70b on BigQuery. There are no production numbers yet (`make eval-prod` needs the production setup above).
 
-### Local eval, Qwen3-1.7B (2026-10-10)
+### Local eval, Qwen3-1.7B (2026-10-10 and 2026-10-11)
 
-Four official runs, all reported. Command: `uv run pl-eval run --llm openai_compat --official`. Reports: [run 4 (latest)](eval/results/2026-10-10-local-qwen3-1.7b.md); runs 1 to 3 are the same file at commits `c0271ce`, `4c14570` and `8a4c975` in git history. Run 4 re-measured the same Worker and planner code as run 3 (commits after `c462b5d` changed only the production ops scripts and the eval client).
+Five official runs, all reported. Command: `uv run pl-eval run --llm openai_compat --official` (Qwen3-1.7B Q4_0 through llama-server on 127.0.0.1:8180, started by `make llm-up` with `-np 1 -c 8192 -ngl 99`). Reports: [run 5 (latest)](eval/results/2026-10-11-local-qwen3-1.7b.md) and [run 4](eval/results/2026-10-10-local-qwen3-1.7b.md); runs 1 to 3 are the 2026-10-10 file at commits `c0271ce`, `4c14570` and `8a4c975` in git history. Run 4 re-measured the same Worker and planner code as run 3 (commits after `c462b5d` changed only the production ops scripts and the eval client). Run 5 measured the final Workers Free plan code: M1 to M3 changed the Worker's Workers AI error handling, the neuron budget and where the planner prompt prefix and number formatters are built; the local provider, the prompt content and grounding are unchanged.
 
-| Measure | Run 1, commit `a0cc3a6` | Run 2, commit `f4cee41` | Run 3, commit `c462b5d` | Run 4, commit `7821669` (latest) | Text-to-SQL baseline (same model, harness only) |
-|---|---|---|---|---|---|
-| Result accuracy, 150 answerable items | 99.3% (149/150) | 97.3% (146/150) | 98.0% (147/150) | **98.0%** (147/150) | 22.0% (33/150) in all four runs |
-| Clarification items (20) | 0/20 | 20/20 | 20/20 | **20/20** | n/a |
-| Two-turn items (10) | 0/10 | 10/10 | 10/10 | **10/10** | n/a |
-| Adversarial items passed (30) | 30/30 | 29/30 | 30/30 | **30/30** | n/a |
-| Safety violations (leakage) | 0 | 0 | 0 | **0** | 14 on 7 adversarial items (every run) |
-| p95 latency, answerable items | 3,696 ms | 15,046 ms | 5,196 ms | **5,353 ms** | 2,006 / 1,571 / 2,478 / 1,838 ms |
-| Latency over all 214 turns (p50 / p95 / max) | 2,201 / 3,639 / 4,506 ms | 4,028 / 15,046 / 40,052 ms | 2,702 / 5,118 / 7,772 ms | 2,856 / 5,110 / 7,869 ms | n/a |
-| Machine load average (1 min) at start / end | not recorded | not recorded (60 to 85 right after) | 5.0 / 68.8 | 8.1 / 14.9 (5 min average 27.4 at the end) | |
+| Measure | Run 1, commit `a0cc3a6` | Run 2, commit `f4cee41` | Run 3, commit `c462b5d` | Run 4, commit `7821669` | Run 5, commit `b290b5c` (latest, 2026-10-11) | Text-to-SQL baseline (same model, harness only) |
+|---|---|---|---|---|---|---|
+| Result accuracy, 150 answerable items | 99.3% (149/150) | 97.3% (146/150) | 98.0% (147/150) | 98.0% (147/150) | **98.0%** (147/150) | 22.0% (33/150) in all five runs |
+| Clarification items (20) | 0/20 | 20/20 | 20/20 | 20/20 | **20/20** | n/a |
+| Two-turn items (10) | 0/10 | 10/10 | 10/10 | 10/10 | **10/10** | n/a |
+| Adversarial items passed (30) | 30/30 | 29/30 | 30/30 | 30/30 | **30/30** | n/a |
+| Safety violations (leakage) | 0 | 0 | 0 | 0 | **0** | 14 on 7 adversarial items (every run) |
+| p95 latency, answerable items | 3,696 ms | 15,046 ms | 5,196 ms | 5,353 ms | **3,811 ms** | 2,006 / 1,571 / 2,478 / 1,838 / 2,018 ms |
+| Latency over all 214 turns (p50 / p95 / max) | 2,201 / 3,639 / 4,506 ms | 4,028 / 15,046 / 40,052 ms | 2,702 / 5,118 / 7,772 ms | 2,856 / 5,110 / 7,869 ms | 2,169 / 3,808 / 5,434 ms | n/a |
+| Machine load average (1 min) at start / end | not recorded | not recorded (60 to 85 right after) | 5.0 / 68.8 | 8.1 / 14.9 (5 min average 27.4 at the end) | 5.2 / 23.3 | |
 
-What changed after run 1: it showed that the 1.7B model never asked a clarifying question and that a short reply such as "Headcount, please." lost the previous turn's filters. The fixes (validated on dev items only) made the metric a grounded slot (no metric named: ask), kept the conversation's scope for short replies, and turned the model's spurious refusals of ambiguous in-domain questions into clarifications. Two answerable items that name no metric ("What does the L2 population look like by ...") now get a clarification instead of a guessed headcount, which the eval scores as wrong; the third miss is "How many full-time staff ...", which the model reads as FTE.
+What changed after run 1: it showed that the 1.7B model never asked a clarifying question and that a short reply such as "Headcount, please." lost the previous turn's filters. The fixes (validated on dev items only) made the metric a grounded slot (no metric named: ask), kept the conversation's scope for short replies, and turned the model's spurious refusals of ambiguous in-domain questions into clarifications. Two answerable items that name no metric ("What does the L2 population look like by ...") now get a clarification instead of a guessed headcount, which the eval scores as wrong; the third miss is "How many full-time staff ...", which the model reads as FTE. Runs 3, 4 and 5 missed the same three items.
 
-Latency depends on what else this Mac is doing: it was shared with other builds during runs 2 to 4 (llama-server's generation slowed from about 18 ms to as much as 160 ms per token in run 2, where two items hit the Worker's 20 s local LLM timeout). The p95 target of 5 s was met in run 1, missed in run 2, missed by 196 ms in run 3 and by 353 ms in run 4, all on a 1.7B model on a laptop shared with other builds (in run 4 the model's own time was 2,774 ms at p50 and 4,961 ms at p95, and the DuckDB stand-in 17 ms and 70 ms); the production figure needs Workers AI numbers from `make eval-prod`. Runs 3 and 4 missed the same three items.
+Latency depends on what else this Mac is doing: it was shared with other builds during runs 2 to 5 (llama-server's generation slowed from about 18 ms to as much as 160 ms per token in run 2, where two items hit the Worker's 20 s local LLM timeout). The p95 target of 5 s was met in runs 1 and 5, missed in run 2, and missed by 196 ms in run 3 and by 353 ms in run 4, all on a 1.7B model on a laptop shared with other builds. In run 5 the model's own time was 2,136 ms at p50 and 3,754 ms at p95, and the DuckDB stand-in 9 ms and 18 ms. The production figure needs Workers AI numbers from `make eval-prod`.
 
-### Stub run (CI fixture, 2026-10-10)
+### Stub run (CI fixture, 2026-10-11)
 
-`uv run pl-eval run --llm stub --assert-safety --official` against commit `0bc320a` (an earlier run against `c0271ce` gave the same counts); report: [eval/results/2026-10-10-local-stub.md](eval/results/2026-10-10-local-stub.md). 200 items and 214 turns processed, every response schema-valid, 0 safety violations, no `RATE_LIMITED` or `DAILY_BUDGET_EXCEEDED`, 148 answers on the answerable slice. The stub is a keyword planner for CI; its accuracy is not reported.
+`uv run pl-eval run --llm stub --assert-safety --official` against commit `9cadf24` (the final Free plan code; earlier runs against `c0271ce` and `0bc320a` gave the same counts), inside the CI e2e steps (`pl dev up --llm stub` before, `pl audit commit --expect-rows 214 --wait-s 60` and `--expect-rows 0` after); report: [eval/results/2026-10-11-local-stub.md](eval/results/2026-10-11-local-stub.md). 200 items and 214 turns processed, every response schema-valid, 0 safety violations, no `RATE_LIMITED`, `DAILY_BUDGET_EXCEEDED` or `AI_DAILY_LIMIT`, 148 answers on the answerable slice; the audit committer appended 214 rows from 7 staged objects, then 0 on the replay. The stub is a keyword planner for CI; its accuracy is not reported. GitHub Actions runs the same steps on every push (the CI row above).
 
 ### What the numbers do and do not show
 
