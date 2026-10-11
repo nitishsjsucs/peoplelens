@@ -164,22 +164,40 @@ def _cmd_audit_commit(args: argparse.Namespace) -> int:
     from peoplelens.warehouse.audit_commit import commit, local_store, staged_ids
     from peoplelens.warehouse.audit_sink import local_catalog
 
+    import shutil
+    from pathlib import Path
+
     store = local_store(AUDIT_STAGING_DIR)
+    if args.restage_from:
+        # Redeliver objects that were already committed (a replay): the committer must append nothing.
+        src = Path(args.restage_from)
+        if not src.is_dir():
+            print(f"--restage-from {src}: no such directory", file=sys.stderr)
+            return 1
+        shutil.copytree(src, AUDIT_STAGING_DIR, dirs_exist_ok=True)
     if args.expect_rows and args.wait_s > 0:
         # The local queue delivers batches every few seconds: wait until this run's events are staged.
         deadline = time.monotonic() + args.wait_s
         while len(staged_ids(store)) < args.expect_rows and time.monotonic() < deadline:
             time.sleep(1.0)
+    if args.keep_copy:
+        # A copy of exactly the objects this run commits (and then deletes), for a later --restage-from.
+        dest = Path(args.keep_copy)
+        if dest.exists():
+            shutil.rmtree(dest)
+        shutil.copytree(AUDIT_STAGING_DIR, dest)
     result = commit(store, local_catalog())
     print(json.dumps(result.as_dict(), sort_keys=True))
     ok = True
-    if args.expect_rows is not None:
-        if result.appended != args.expect_rows:
-            print(f"expected {args.expect_rows} appended rows, got {result.appended}", file=sys.stderr)
-            ok = False
-        if result.quarantined:
-            print(f"{len(result.quarantined)} staged objects failed the whitelist and were quarantined", file=sys.stderr)
-            ok = False
+    if args.expect_rows is not None and result.appended != args.expect_rows:
+        print(f"expected {args.expect_rows} appended rows, got {result.appended}", file=sys.stderr)
+        ok = False
+    if args.expect_already is not None and result.already_in_table != args.expect_already:
+        print(f"expected {args.expect_already} events already in the table, got {result.already_in_table}", file=sys.stderr)
+        ok = False
+    if (args.expect_rows is not None or args.expect_already is not None) and result.quarantined:
+        print(f"{len(result.quarantined)} staged objects failed the whitelist and were quarantined", file=sys.stderr)
+        ok = False
     return 0 if ok else 1
 
 
@@ -253,6 +271,11 @@ def build_parser() -> argparse.ArgumentParser:
     com = audit_sub.add_parser("commit", help="append the staged audit events to the local Iceberg table (dedupes on request_id)")
     com.add_argument("--expect-rows", type=int, default=None, help="fail unless exactly this many rows are appended")
     com.add_argument("--wait-s", type=float, default=60.0, help="with --expect-rows N: wait up to this long for N staged events")
+    com.add_argument("--expect-already", type=int, default=None,
+                     help="fail unless exactly this many staged events are found already in the table (a replay)")
+    com.add_argument("--keep-copy", default=None, metavar="DIR", help="copy the staged objects to DIR before committing them")
+    com.add_argument("--restage-from", default=None, metavar="DIR",
+                     help="copy the objects in DIR back into staging first (replays a --keep-copy)")
     com.set_defaults(func=_cmd_audit_commit)
 
     return parser

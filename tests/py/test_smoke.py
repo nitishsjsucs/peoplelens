@@ -349,6 +349,8 @@ def test_audit_step_checks_each_step_4_request_exactly_once(tmp_path):
     for rid in ids[18:]:  # two of them also put directly, as after a failed send
         store.put(f"staging/v1/dt=2026-10-11/direct-{rid}.ndjson", (json.dumps(ev(rid)) + "\n").encode())
     out = smoke.step_audit(ids, wait_s=0, sleep=lambda s: None, store=store, catalog=catalog)
-    assert out == {"ok": True, "asks": 27, "appended_first": 27, "appended_second": 0, "missing": [], "repeated": []}
+    # The second commit replays all 10 committed objects (1 batch, 9 direct): 27 events found, none appended.
+    assert out == {"ok": True, "asks": 27, "appended_first": 27, "replayed_objects": 10, "appended_second": 0,
+                   "already_in_table_second": 27, "missing": [], "repeated": []}
     missing = smoke.step_audit(ids + ["never-staged"], wait_s=0, sleep=lambda s: None, store=store, catalog=catalog)
     assert missing["ok"] is False and missing["missing"] == ["never-staged"]

@@ -150,13 +150,26 @@ def test_keys_outside_the_two_patterns_are_ignored(env):
 
 
 def test_the_dedupe_window_spans_two_days_before_and_one_after(env):
+    """The anti-join scans table rows whose ts lies in [earliest staged day - 2 days, latest staged
+    day + 1 day]. A redelivered event keeps its original ts, so its table row is always inside;
+    the margins are defensive. This pins both edges of the window: a table row just inside each
+    edge is found (its request_id is not appended again), one just outside is not."""
     store, catalog = env
-    store.put(direct_key("w1", day="2026-10-08"), ndjson(ev("w1", ts="2026-10-08T23:59:59.000Z")))
-    assert commit(store, catalog).appended == 1
-    # A replay of w1 staged with events two days later still finds it in the window.
-    store.put(batch_key("w1", "w2", day="2026-10-08"), ndjson(ev("w1", ts="2026-10-08T23:59:59.000Z"), ev("w2", ts="2026-10-10T08:00:00.000Z")))
+    table_rows = {
+        "lo_in": "2026-10-06T00:00:00.000Z",   # earliest staged day 2026-10-08 minus 2 days
+        "lo_out": "2026-10-05T23:59:59.999Z",
+        "hi_in": "2026-10-11T23:59:59.999Z",   # latest staged day 2026-10-10 plus 1 day
+        "hi_out": "2026-10-12T00:00:00.000Z",
+    }
+    store.put(batch_key(*table_rows, day="2026-10-06"), ndjson(*(ev(r, ts=t) for r, t in table_rows.items())))
+    assert commit(store, catalog).appended == 4
+    # The same request_ids staged again with ts on 2026-10-08 and 2026-10-10 (an artificial drift).
+    staged = [ev("lo_in", ts="2026-10-08T01:00:00.000Z"), ev("lo_out", ts="2026-10-08T01:00:00.000Z"),
+              ev("hi_in", ts="2026-10-10T23:00:00.000Z"), ev("hi_out", ts="2026-10-10T23:00:00.000Z")]
+    store.put(batch_key(*(e["request_id"] for e in staged), day="2026-10-08"), ndjson(*staged))
     result = commit(store, catalog)
-    assert result.appended == 1 and table_ids(catalog) == ["w1", "w2"]
+    assert result.already_in_table == 2 and result.appended == 2
+    assert table_ids(catalog) == sorted(["hi_in", "hi_out", "hi_out", "lo_in", "lo_out", "lo_out"])
 
 
 def test_staged_ids_counts_unique_request_ids(env):
@@ -195,6 +208,30 @@ def test_pl_audit_commit_checks_the_expected_row_count(tmp_path, monkeypatch, ca
     store.put(direct_key("c"), ndjson(ev("c")))
     assert cli.main(["audit", "commit", "--expect-rows", "5", "--wait-s", "0"]) == 1
     assert "expected 5 appended rows, got 1" in capsys.readouterr().err
+
+
+def test_pl_audit_commit_replays_a_kept_copy_and_appends_nothing(tmp_path, monkeypatch, capsys):
+    """What the CI e2e job runs: commit with --keep-copy, then redeliver every committed object."""
+    import peoplelens.paths as paths
+    from peoplelens.warehouse import audit_sink
+
+    monkeypatch.setattr(paths, "AUDIT_STAGING_DIR", tmp_path / "staging")
+    monkeypatch.setattr(audit_sink, "ICEBERG_DIR", tmp_path / "ice")
+    monkeypatch.setattr(audit_sink.local_catalog, "__defaults__", (tmp_path / "ice",))
+    store = local_store(tmp_path / "staging")
+    store.put(batch_key("a", "b", "c"), ndjson(ev("a"), ev("b"), ev("c")))
+    store.put(direct_key("c"), ndjson(ev("c")))
+    copy = tmp_path / "replay"
+    assert cli.main(["audit", "commit", "--expect-rows", "3", "--wait-s", "0", "--keep-copy", str(copy)]) == 0
+    assert store.list() == [] and len(list(copy.rglob("*.ndjson"))) == 2
+    capsys.readouterr()
+    assert cli.main(["audit", "commit", "--restage-from", str(copy), "--expect-rows", "0", "--expect-already", "3"]) == 0
+    result = json.loads(capsys.readouterr().out)
+    assert result["objects"] == 2 and result["events"] == 4 and result["appended"] == 0 and result["already_in_table"] == 3
+    assert table_ids(local_catalog(tmp_path / "ice")) == ["a", "b", "c"]
+    # Without the restage there is nothing to replay, and --expect-already says so.
+    assert cli.main(["audit", "commit", "--expect-rows", "0", "--expect-already", "3"]) == 1
+    assert "expected 3 events already in the table, got 0" in capsys.readouterr().err
 
 
 def test_pl_ops_audit_commit_needs_the_r2_keys_and_uses_rest_catalog_and_r2(tmp_path, monkeypatch, capsys):

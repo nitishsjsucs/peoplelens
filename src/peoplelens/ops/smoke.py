@@ -204,9 +204,10 @@ class CpuTail:
 
 def step_audit(request_ids: list[str], wait_s: float = 120.0, sleep=time.sleep, commit_fn=None, store=None, catalog=None) -> dict:
     """Step 8: each of step 4's request ids reaches the Iceberg table exactly once, also
-    after a second commit (replay appends none of them again)."""
+    after a replay: every object the first commit consumed is staged again and committed
+    a second time, which must append nothing."""
     from peoplelens.ops.cli import audit_target
-    from peoplelens.warehouse.audit_commit import commit, staged_ids
+    from peoplelens.warehouse.audit_commit import STAGING_PREFIX, commit, staged_ids, valid_key
     from peoplelens.warehouse.audit_sink import load_or_create_table
 
     if store is None or catalog is None:
@@ -219,14 +220,18 @@ def step_audit(request_ids: list[str], wait_s: float = 120.0, sleep=time.sleep, 
     deadline = time.monotonic() + wait_s
     while not wanted <= staged_ids(store) and time.monotonic() < deadline:  # the consumer batches up to 30 s
         sleep(5.0)
+    kept = {k: store.read(k) for k in store.list(STAGING_PREFIX) if valid_key(k)}
     first = commit_fn(store, catalog)
+    for key, data in kept.items():  # redeliver what was just committed
+        store.put(key, data)
     second = commit_fn(store, catalog)
     ids = load_or_create_table(catalog).scan(selected_fields=("request_id",)).to_arrow().column("request_id").to_pylist()
     counts = {i: ids.count(i) for i in wanted}
     missing = sorted(i for i, c in counts.items() if c == 0)
     repeated = sorted(i for i, c in counts.items() if c > 1)
-    return {"ok": not missing and not repeated and len(wanted) == SMOKE_QUESTIONS, "asks": len(wanted),
-            "appended_first": first.appended, "appended_second": second.appended,
+    return {"ok": not missing and not repeated and len(wanted) == SMOKE_QUESTIONS and second.appended == 0,
+            "asks": len(wanted), "appended_first": first.appended, "replayed_objects": len(kept),
+            "appended_second": second.appended, "already_in_table_second": second.already_in_table,
             "missing": missing[:5], "repeated": repeated[:5]}
 
 
