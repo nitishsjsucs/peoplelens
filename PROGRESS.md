@@ -41,33 +41,26 @@ Plan complete. Remaining work needs the owner: the production setup (README Prod
 
 | Check | Result |
 |---|---|
-| `uv sync --frozen` | pass (131 packages in uv.lock) |
-| `npm ci` | pass |
-| `uv run pl data generate --check` | pass |
+| `uv sync --frozen`, `npm ci` | pass (131 Python packages in uv.lock) |
+| `uv run pl data generate --check` | pass (seeds byte-identical to SHA256SUMS) |
 | `uv run pl dbt --dialect duckdb seed` then `build` (from a clean clone, no `.dev/`) | pass: 6 seeds, 14 models, 74 data tests (12 singular count tests) |
 | `uv run pl dbt --dialect bigquery_compile parse --no-partial-parse` | pass (offline, no credentials) |
 | `uv run pl mf validate` | pass (0 errors, 0 warnings) |
-| `mf query` sample (headcount and fte by department, Dec 2025; turnover, offer acceptance, time to fill by year) | matches the reference implementation |
-| `uv run pl catalog build --check` | pass: 312 entries per dialect, BigQuery compiled first, then DuckDB, about 23 s |
-| `uv run pytest -q` | 493 passed (includes the 312 x 3 parity sweep), about 21 s |
-| `uv run pl dev up --llm stub`, `pl ask` (5 questions), `pl dev down` | pass; ports 8794 and 9244 free afterwards, no workerd left |
-| `uv run pl-eval gold --check`, `uv run pl-eval generate --check` (as a pytest) | pass |
-| `uv run pl-eval run --llm stub --assert-safety` (trial, not official, report kept outside the repo) | pass: 200 items, 214 turns, 0 safety violations, 0 schema-invalid, 148 answers on the answerable slice (floor pinned at 143) |
-| CI dry run: each job's commands in a fresh `git clone` with `CI=true PL_STRICT=1 WRANGLER_SEND_METRICS=false` (python, worker, e2e) | pass on macOS; GitHub's ubuntu-latest run is pending the owner's push |
+| `uv run pl catalog build --check` | pass: 312 entries per dialect, BigQuery compiled first, then DuckDB |
+| `uv run pl-eval gold --check`; frozen eval set equals a fresh generation (pytest) | pass |
+| `uv run pytest -q` | 493 passed (includes the 312 x 3 parity sweep) |
+| `npm run typecheck` (worker and web) | pass |
+| `npm test` (web build, web vitest, worker vitest in workerd) | web 3 passed; worker 267 passed (includes 4 x 2,000 fuzzed planner outputs and a check that every templated eval and dev question resolves to its gold period and grain) |
+| `npx wrangler deploy --env production --dry-run --outdir .wrangler/dry` (CI=true, no token) | pass; 2,471 KiB (gzip 223 KiB) including the UI assets; BigQuery catalog only |
+| Fresh `git clone` at commit c462b5d, every CI job's commands with `CI=true PL_STRICT=1 WRANGLER_SEND_METRICS=false` (python, worker, e2e stub eval) | pass on macOS; GitHub's ubuntu-latest run is pending the owner's push |
+| `uv run pl dev up`, `pl ask`, `pl audit tail`, `pl dev down` | pass; ports 8794, 9244 and 8180 free afterwards, no process of ours left |
+| Web UI in a browser against `pl dev up --llm stub` | renders, accepts a local token, answers "Headcount by location" for the HRBP scope (1,000 people across five locations) |
 | `uv run pl-ops doctor --fast` on this Mac | runs; reports wrangler login, `.secrets/cloudflare.env` and gcloud as MISSING (expected: no cloud credentials here) |
 | `uv run pl-ops bootstrap --gcp-project peoplelens-demo01 --phase a --dry-run` | prints the phase A plan, changes nothing, stops at the missing Cloudflare token |
-| `uv run pl-eval run --llm openai_compat --official` (2026-10-10, commit a0cc3a6) | semantic 149/150 answerable correct, p95 3,696 ms, 30/30 adversarial, 0 safety violations, 0/20 clarification; baseline 33/150 |
-| `uv run pl-eval run --llm openai_compat --official` (2026-10-10, commit f4cee41) | semantic 146/150, 20/20 clarification, 10/10 two-turn, 29/30 adversarial, 0 safety violations; p95 15,046 ms under heavy machine load (other builds); baseline 33/150 |
-| `uv run pl-eval run --llm openai_compat --official` (2026-10-10, commit c462b5d) | semantic 147/150, 20/20 clarification, 10/10 two-turn, 30/30 adversarial, 0 safety violations; p95 5,196 ms (load average 5 at start, 69 at end); baseline 33/150 |
-| `uv run pl-eval run --llm stub --assert-safety --official` (2026-10-10, commit 0bc320a) | assertions pass: 200 items, 0 violations, 148 answers |
-| Fresh `git clone` at commit c462b5d, every CI job's commands with `CI=true PL_STRICT=1` | pass (python, worker, e2e stub eval) |
-| `uv run pl-eval run --llm stub --assert-safety --official` (2026-10-10, commit c0271ce) | assertions pass: 200 items, 0 violations, 148 answers |
-| `npm run typecheck` (worker and web) | pass |
-| `npm test` (web build, web vitest 3, worker vitest) | pass |
-| Local audit trail: `pl dev up --llm stub`, three `pl ask` calls, `pl audit tail` | three events in the local Iceberg table, metadata only |
-| Web UI in a browser against `pl dev up --llm stub` | renders, accepts a local token, answers "Headcount by location" for the HRBP scope (1,000 people across five locations), shows the narrative and table |
-| `npm test` (vitest in workerd via @cloudflare/vitest-plugin) | 255 passed (includes 4 x 2,000 fuzzed planner outputs and a check that all 207 templated eval and dev questions resolve to their gold period and grain) |
-| `npx wrangler deploy --env production --dry-run --outdir .wrangler/dry` (CI=true, no token) | pass; bundle 2,454 KiB (gzip 219 KiB), BigQuery catalog only |
+| `uv run pl-eval run --llm openai_compat --official`, run 1 (commit a0cc3a6) | semantic 149/150, 0/20 clarification, 30/30 adversarial, 0 safety violations, p95 3,696 ms; baseline 33/150 |
+| same, run 2 (commit f4cee41) | semantic 146/150, 20/20 clarification, 10/10 two-turn, 29/30 adversarial, 0 safety violations; p95 15,046 ms under heavy machine load; baseline 33/150 |
+| same, run 3 (commit c462b5d) | semantic 147/150, 20/20 clarification, 10/10 two-turn, 30/30 adversarial, 0 safety violations; p95 5,196 ms (load average 5 at start, 69 at end); baseline 33/150 |
+| `uv run pl-eval run --llm stub --assert-safety --official` (commits c0271ce and 0bc320a) | assertions pass both times: 200 items, 0 violations, 148 answers (floor pinned at 143) |
 
 ## Deviations from SPEC.md
 
@@ -100,6 +93,5 @@ Plan complete. Remaining work needs the owner: the production setup (README Prod
 - Catalog JSON is about 1.45 MB per dialect (spec estimated 0.85 MB) because every entry carries a where-filter for each approved dimension of its metric.
 - `turnover_rate` is `terminations / NULLIF(avg_headcount, 0)` (derived) with `avg_headcount` a ratio metric (`employee_months / snapshot_months`), so a group with no active employee-months yields NULL instead of a BigQuery division-by-zero error.
 - `src/peoplelens/synth/stats.py` added (not in the section 4 layout): counts computed from the CSVs on disk, used by `pl data stats` and the count tests, independent of the generator.
-
-- npm workspaces list only `worker` until the web UI commit (15) adds `web`, so `npm ci` works without an empty placeholder package.
+- The root `npm test` builds the web UI first, because the Worker's static-assets directory (`web/dist`) must exist for the vitest pool and `wrangler deploy`; `pl dev up` builds it when missing.
 - Makefile passes extra arguments through `ARGS` (for example `make bootstrap ARGS="--phase b"`), because make cannot forward flags such as `--phase` directly.
