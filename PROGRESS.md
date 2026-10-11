@@ -4,7 +4,7 @@ Tracks the SPEC.md section 19 commit plan. Updated at every commit.
 
 ## Position
 
-Commit 17 of 17 (plus inserted commits): the commit plan is complete (core cut line after commit 14). Builder 2 re-ran every check (all pass, same counts as builder 1), then reviewed the production path against the official API references, because none of it can run on this machine. Fixes from that review are commits 18 onward.
+Commit 17 of 17 (plus inserted commits): the commit plan is complete (core cut line after commit 14). Builder 2 re-ran every check (all pass, same counts as builder 1), reviewed the production path against the official API references (none of it can run on this machine), ran every CI job's commands in a Linux container, and made a fourth official local eval run. Commits 18 to 22a are builder 2's; the plan has no open items that can be done without cloud credentials.
 
 ## Done
 
@@ -38,10 +38,17 @@ Commit 17 of 17 (plus inserted commits): the commit plan is complete (core cut l
 20. `fix(ops): bootstrap checks the Cloudflare token first; key files stay private` (builder 2): a real bootstrap built the Cloudflare client only after the Google Cloud steps, so a missing `.secrets/cloudflare.env` stopped it halfway; it now stops before any change (a dry run still prints the Google Cloud plan first). Phase A creates `.secrets/` (0700) before `gcloud ... keys create` writes into it, and sets the Worker key to 0600 like the eval key.
 21. `fix(dev): zombie processes do not count as a running stack` (builder 2): every CI job's commands were run in a Linux container (Debian bookworm arm64, node 24, uv 0.12.17) from a fresh clone of commit 4fbec13. Everything passed (seeds byte-identical to SHA256SUMS on Linux, 94 dbt nodes, catalogs fresh, gold, 519 pytest, typecheck, web 3 and worker 267 vitest, the production dry-run bundle, `pl dev up`, the stub eval with 148 answers and 0 violations) except the last step: `pl dev down` reported "processes left", because the stopped children were zombies that the container's PID 1 (`sleep`) never reaps. Liveness now ignores zombies, read from `ps` (macOS answers EPERM to `killpg` for a group of zombies, so that case is checked the same way); `pl dev down` then passes in the container.
 22. `docs: production setup keeps tokens out of shell history; optional audit setup` (builder 2): README asks for the API token to be pasted in an editor, not with `printf` on the command line, and documents the optional production audit trail (extra permissions, the separate catalog token, the command). The sink type is `r2-data-catalog` in the pinned wrangler 4.149.0, while current Basin docs call it `basin-catalog`.
+22a. `docs: CI commands pass in a Linux container from a fresh clone` (builder 2).
 
 ## Next
 
-Plan complete. Remaining work needs the owner: the production setup (README Production setup), then `make smoke ARGS="--drills"` and `make eval-prod`, and the first CI run on GitHub after a push.
+Plan complete. Everything left needs the owner's accounts, in this order (README Production setup has the exact commands):
+
+1. Cloudflare: upgrade to Workers Paid; `npx wrangler login`; create the `peoplelens-bootstrap` custom API token and save it with the account id in `.secrets/cloudflare.env` (0600); complete Zero Trust onboarding (team name, Free plan) and add the One-time PIN login method; have a workers.dev subdomain or pass `--workers-subdomain`.
+2. Google Cloud: `brew install --cask gcloud-cli`; `gcloud auth login`; `gcloud auth application-default login`; create `peoplelens-<suffix>` with billing linked, set it as the gcloud and ADC quota project, add a $5 budget alert.
+3. Pick four email addresses for the roles (plus-addresses work), then `make doctor`, `make bootstrap ARGS="--gcp-project ... --role-emails ..."`, `make doctor`, `make smoke`, commit the smoke record, `make eval-prod ARGS="--official"`, and report the production numbers in README.
+4. Optional: `make smoke ARGS="--drills"` after phase C; the audit trail with `--with-audit` (extra token permissions and `BASIN_CATALOG_TOKEN`).
+5. Push to GitHub so the first ubuntu-latest CI run happens.
 
 ## Check status (at this commit)
 
@@ -55,7 +62,7 @@ Plan complete. Remaining work needs the owner: the production setup (README Prod
 | `uv run pl catalog build --check` | pass: 312 entries per dialect, BigQuery compiled first, then DuckDB |
 | `uv run pl-eval gold --check`; frozen eval set equals a fresh generation (pytest) | pass |
 | `uv run pytest -q` | 520 passed (includes the 312 x 3 parity sweep; 493 at builder 1's last commit, re-run by builder 2 before any change, plus 22 ops tests in commit 18, 3 in commit 19, 1 in commit 20 and 1 in commit 21; 520 now) |
-| `npm run typecheck` (worker and web) | pass |
+| `npm run typecheck` (worker and web) | pass (re-run by builder 2 at 655647c) |
 | `npm test` (web build, web vitest, worker vitest in workerd) | web 3 passed; worker 267 passed (includes 4 x 2,000 fuzzed planner outputs and a check that every templated eval and dev question resolves to its gold period and grain) |
 | `npx wrangler deploy --env production --dry-run --outdir .wrangler/dry` (CI=true, no token) | pass; 2,471 KiB (gzip 223 KiB) including the UI assets; BigQuery catalog only |
 | Fresh `git clone` at commit c462b5d, every CI job's commands with `CI=true PL_STRICT=1 WRANGLER_SEND_METRICS=false` (python, worker, e2e stub eval) | pass on macOS; GitHub's ubuntu-latest run is pending the owner's push |
