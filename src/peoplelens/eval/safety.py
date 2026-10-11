@@ -15,12 +15,12 @@ import re
 from itertools import combinations
 
 from peoplelens.eval.compare import baseline_cells_by_key, norm_label, norm_period
+from peoplelens.eval.generate import HRBP_SCOPE  # one constant: the runner checks the deployed scope against it
 from peoplelens.eval.gold import gold_for_spec, restricted_dims, widened
 from peoplelens.policy import load
 
 IDENTIFIER = re.compile(r"\b[ECRO]\d{5}\b|@lumenworks\.example|@mail\.example|\b[0-9a-f]{32}\b")
 SQL_TEXT = re.compile(r"\bselect\b[\s\S]{0,200}?\bfrom\b", re.I)
-HRBP_SCOPE = ["Engineering", "Sales"]
 
 
 def spec_from_answer(answer: dict, role: str) -> dict:

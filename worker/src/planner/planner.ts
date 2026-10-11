@@ -152,7 +152,10 @@ export async function plan(ctx: PlanContext): Promise<PlanResult> {
   let output: PlannerOutput | null = null;
   let result = { ...base };
   const sleep = ctx.sleep ?? ((ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms)));
-  for (let attempt = 1; attempt <= 2 && output === null; attempt++) {
+  // At most planner_max_attempts Workers AI calls per turn (each reserves its own neurons),
+  // so the production eval budgets every turn at attempts x planner_reserve_neurons.
+  const maxAttempts = policy.limits.free_plan.planner_max_attempts;
+  for (let attempt = 1; attempt <= maxAttempts && output === null; attempt++) {
     result.attempts = attempt;
     try {
       const call = await ctx.llm.plan(input);
@@ -170,7 +173,7 @@ export async function plan(ctx: PlanContext): Promise<PlanResult> {
         return { ...result, llmFailure: err.kind };
       }
       result.invalidOutput = true;
-      if (err instanceof LlmError && err.kind === "capacity" && attempt < 2) await sleep(CAPACITY_RETRY_MS);
+      if (err instanceof LlmError && err.kind === "capacity" && attempt < maxAttempts) await sleep(CAPACITY_RETRY_MS);
     }
   }
   if (output === null) {

@@ -69,6 +69,10 @@ Builder 4 (finishing round, 2026-10-11):
 
 37. `docs: GitHub Actions passed on the doctor commit`: run 38123513792 at b290b5c (python, worker, e2e; 589 pytest on ubuntu-24.04).
 
+Fixer (review round, 2026-10-11): four review lenses (correctness, security, honesty, Free plan fit) on 5ebc147. Every finding was re-verified before a change; rejected ones are listed under "Review findings not fixed".
+
+38. `fix(eval): production eval books items on their UTC day, budgets both planner attempts, keeps official resumes official, checks the HRBP scope`: (1) `make eval-prod` read the UTC day once per session, so a session running past 00:00 UTC (17:00 PDT) booked the new day's spending on the old day and a resume on the new day got a fresh baseline budget (reproduced with the checkpoint test harness: 6 items recorded on 2026-10-12, the 2026-10-13 baseline budget a full 2,000). The day is now read before every item and again when it finishes; an item that finishes after midnight is booked on the new day, and the session records `end_day`. (2) The planner makes up to two Workers AI attempts per turn, each reserving 200 neurons, but an item was admitted at 200 per turn; `free_plan.planner_max_attempts` (2) is now one constant used by the planner loop and by `item_worst_case` (400 per turn), so the worst case of a full eval is 18 UTC days, not 12 (typical still 5). (3) A resume of an official run from a dirty tree was accepted when `--official` was left out; the plan's own `official` flag now counts. (4) The eval's HRBP gold and safety checks assume the scope Engineering + Sales; `main_prod` now reads `/api/me` with the HRBP service token and refuses to start or resume with any other scope (`safety.py` imports the generator's constant instead of keeping a copy). New tests: a clock that crosses midnight, an HRBP token with another scope or an unreadable `/api/me`, a dirty resume without `--official`; both new runner tests fail on the previous runner.
+
 ## Next
 
 Everything left needs the owner's accounts and is run by the owner's operator, in this order (README Production setup and SPEC.md section 17 have the exact commands; nothing needs Workers Paid; `make doctor` lists each item with its fix):
@@ -77,7 +81,7 @@ Everything left needs the owner's accounts and is run by the owner's operator, i
 2. Google Cloud: the shared project is linked to a billing account that is closed (doctor, 2026-10-11), so billing is off. Reopen that account (Billing > Manage billing accounts, clear the Active filter > the account > Account management > Reopen billing account) or link an open one; then add a $5 budget alert.
 3. `make doctor ARGS="--gcp-project <shared-project-id>"` until it exits 0 (before the bootstrap only the token and billing are required); then `make bootstrap` with the four role plus-addresses; `make doctor` again.
 4. `make smoke` on a UTC day without a production eval; commit the smoke record.
-5. `make eval-prod ARGS="--official"`, then `make eval-prod ARGS="--official --resume"` once per UTC day until the report is written (about 5 days, 12 at most; agree eval days with the other repos); then a docs commit with the production numbers, command, dates and model.
+5. `make eval-prod ARGS="--official"`, then `make eval-prod ARGS="--official --resume"` once per UTC day until the report is written (about 5 days, 18 at most; agree eval days with the other repos); then a docs commit with the production numbers, command, dates and model.
 6. Optional: the audit trail (`--with-audit`, the R2 API token, `make audit-commit`, `make smoke ARGS="--with-audit"`) and `make smoke ARGS="--drills"` after phase C.
 
 ## Check status (at this commit)

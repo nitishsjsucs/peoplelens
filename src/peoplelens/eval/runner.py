@@ -335,6 +335,26 @@ def assert_safety(result: dict) -> int:
     return 1 if problems else 0
 
 
+def hrbp_scope_problem(client_factory, base_url: str, headers: dict) -> str | None:
+    """The HRBP service token must carry the scope the eval set was generated for
+    (generate.HRBP_SCOPE); with another scope the HRBP gold and the safety checks would
+    describe a different population. None when it matches."""
+    from peoplelens.eval.generate import HRBP_SCOPE
+
+    hrbp = headers.get("hr_business_partner")
+    if hrbp is None:
+        return "no hr_business_partner service token in .secrets/prod_eval.env; rerun bootstrap phase B"
+    me = client_factory(base_url, hrbp).me()
+    body = me.body if isinstance(me.body, dict) else {}
+    departments = (body.get("scope") or {}).get("departments")
+    if me.status == 200 and isinstance(departments, list) and sorted(departments) == sorted(HRBP_SCOPE):
+        return None
+    got = departments if me.status == 200 else "unreadable (HTTP %s)" % me.status
+    wanted = "+".join(HRBP_SCOPE)
+    return (f"the HRBP service token's scope is {got}, but the eval set was generated for {wanted}: "
+            f"rerun bootstrap phase B with hrbp=<email>:{wanted}")
+
+
 def _prod_baseline():
     from peoplelens.ops.prod_eval import prod_baseline  # production executor (BigQuery, eval SA) and Workers AI REST
 
@@ -379,13 +399,18 @@ def main_prod(args, *, client_factory=WorkerClient, baseline_factory=_prod_basel
     if health.status != 200:
         print(f"production Worker is not healthy behind Access: {health.status} {health.body}; run `make doctor`", file=sys.stderr)
         return 2
+    # The gold and the safety checks assume the HRBP scope the eval set was generated for.
+    scope_problem = hrbp_scope_problem(client_factory, base_url, headers)
+    if scope_problem:
+        print(scope_problem, file=sys.stderr)
+        return 2
 
     if args.resume:
         run = cp.RunDir.latest_unfinished(root)
         if run is None:
             print('no unfinished production eval to resume; start one with make eval-prod ARGS="--official"', file=sys.stderr)
             return 2
-        problems = cp.resume_problems(run.plan(), commit, dirty, hb, bool(args.official))
+        problems = cp.resume_problems(run.plan(), commit, dirty, hb, bool(args.official) or bool(run.plan().get("official")))
         if problems:
             for p in problems:
                 print(f"cannot resume {run.plan()['run_id']}: {p}", file=sys.stderr)
@@ -412,7 +437,7 @@ def main_prod(args, *, client_factory=WorkerClient, baseline_factory=_prod_basel
     by_id = {i["id"]: i for i in items}
     ordered = [by_id[i] for i in plan["items"] if i in by_id]
     with_baseline = bool(plan["baseline"])
-    day = cp.utc_day(clock())
+    session_day = day = cp.utc_day(clock())
     pacer = Pacer(per_minute=load().limits["eval_pacing_per_minute"])
     sql_llm = executor = None
     if with_baseline:
@@ -423,6 +448,9 @@ def main_prod(args, *, client_factory=WorkerClient, baseline_factory=_prod_basel
         for item in ordered:
             if item["id"] in run.done_ids():
                 continue
+            # The UTC day is read per item: a session can run past 00:00 UTC (17:00 PDT), and
+            # the new day's budget must count only the new day's spending.
+            day = cp.utc_day(clock())
             me = probe.me()
             if me.status != 200:
                 stop_reason = f"/api/me answered HTTP {me.status}"
@@ -443,6 +471,8 @@ def main_prod(args, *, client_factory=WorkerClient, baseline_factory=_prod_basel
                 except DailyAllocationError:
                     stop_reason = f"Workers AI REST answered 3036 during {item['id']}; that item was discarded"
                     break
+            # An item that ran across 00:00 UTC is booked on the later day, the one whose budget still matters.
+            day = max(day, cp.utc_day(clock()))
             run.record_item({
                 "id": item["id"],
                 "day": day,
@@ -454,8 +484,11 @@ def main_prod(args, *, client_factory=WorkerClient, baseline_factory=_prod_basel
     finally:
         if executor is not None:
             executor.close()
-    sessions = plan.get("sessions", []) + [{"day": day, "items": done_today, "duration_s": round(time.time() - started, 1),
-                                            "pacing_wait_s": round(pacer.waited_s, 1), "stopped": stop_reason}]
+    session = {"day": session_day, "items": done_today, "duration_s": round(time.time() - started, 1),
+               "pacing_wait_s": round(pacer.waited_s, 1), "stopped": stop_reason}
+    if day != session_day:
+        session["end_day"] = day
+    sessions = plan.get("sessions", []) + [session]
     run.update_plan(sessions=sessions)
     done = run.done_ids()
     if len(done) < len(ordered):

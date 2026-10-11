@@ -215,7 +215,7 @@ Production runs entirely on the **Cloudflare Workers Free plan** (do not upgrade
    make smoke                                   # writes eval/results/<date>-prod-smoke.json
    git add eval/results && git commit -m "eval: production smoke"
    ```
-7. Production eval, resumable over about 5 UTC days (12 at most), on one commit and one deployed build:
+7. Production eval, resumable over about 5 UTC days (18 at most, if every planner call were retried), on one commit and one deployed build:
    ```bash
    make eval-prod ARGS="--official"             # day 1 (an official run needs a clean tree and the deployed build = HEAD)
    make eval-prod ARGS="--official --resume"    # once per UTC day until the report is written

@@ -40,27 +40,35 @@ def gold():
 class World:
     """The production Worker as the eval sees it, behind Access."""
 
-    def __init__(self, build: str = HEAD, model: str = cp.PLANNER_MODEL, limit_on: set[str] | None = None):
+    def __init__(self, build: str = HEAD, model: str = cp.PLANNER_MODEL, limit_on: set[str] | None = None,
+                 hrbp_scope: list[str] | None = None, hrbp_me_status: int = 200):
         self.build, self.model = build, model
         self.limit_on = limit_on or set()
+        self.hrbp_scope = hrbp_scope or ["Engineering", "Sales"]
+        self.hrbp_me_status = hrbp_me_status
         self.asks: list[str] = []
         self.used = 0.0
         self.sessions = 0
 
     def client(self, base_url, headers):
-        return FakeWorker(self)
+        return FakeWorker(self, headers.get("CF-Access-Client-Id", ""))
 
 
 class FakeWorker:
-    def __init__(self, world: World):
+    def __init__(self, world: World, role: str = ""):
         self.w = world
+        self.role = role
 
     def health(self):
         return Reply(200, {"ok": True, "environment": "production", "warehouse": "bigquery", "llm_provider": "workers_ai",
                            "planner_model": self.w.model, "build_commit": self.w.build}, 1.0)
 
     def me(self):
-        return Reply(200, {"role": "executive", "ai_budget": {"day": "d", "used": self.w.used, "cap": 6000}}, 1.0)
+        if self.role == "hr_business_partner":
+            return Reply(self.w.hrbp_me_status, {"role": self.role, "scope": {"departments": self.w.hrbp_scope},
+                                                 "ai_budget": {"day": "d", "used": self.w.used, "cap": 6000}}, 1.0)
+        return Reply(200, {"role": self.role or "executive", "scope": {"departments": "all"},
+                           "ai_budget": {"day": "d", "used": self.w.used, "cap": 6000}}, 1.0)
 
     def session(self):
         self.w.sessions += 1
@@ -144,17 +152,19 @@ def test_daily_budget_formula():
 
 def test_item_worst_cases(items):
     by_id = {i["id"]: i for i in items}
-    assert cp.item_worst_case(by_id["A-headcount-01"], True) == cp.Budget(200, 130)
-    assert cp.item_worst_case(by_id["CL-11"], True) == cp.Budget(400, 0)  # clarification items run no baseline
-    assert cp.item_worst_case(by_id["AD-DF-01"], True) == cp.Budget(400, 260)
-    assert cp.item_worst_case(by_id["AD-DF-01"], False) == cp.Budget(400, 0)
+    # A planner turn may make two Workers AI calls (one retry), each reserving 200 neurons.
+    assert cp.FREE["planner_max_attempts"] == 2
+    assert cp.item_worst_case(by_id["A-headcount-01"], True) == cp.Budget(400, 130)
+    assert cp.item_worst_case(by_id["CL-11"], True) == cp.Budget(800, 0)  # clarification items run no baseline
+    assert cp.item_worst_case(by_id["AD-DF-01"], True) == cp.Budget(800, 260)
+    assert cp.item_worst_case(by_id["AD-DF-01"], False) == cp.Budget(800, 0)
     assert cp.neurons(BASE_USAGE) == 50.63
 
 
 def test_resume_skips_finished_items_and_assembles_one_report(tmp_path, items, gold):
     world = World()
-    # Day 1 at 700 neurons (500 semantic, 200 baseline): three items fit, the two-turn fourth does not.
-    assert run(tmp_path, items, gold, world, neurons_today=700) == 0
+    # Day 1 at 1,400 neurons (1,000 semantic, 400 baseline): three items fit, the two-turn fourth (800) does not.
+    assert run(tmp_path, items, gold, world, neurons_today=1400) == 0
     r = the_run(tmp_path)
     assert [x["id"] for x in r.records()] == IDS[:3]
     assert r.ledger()["2026-10-12"] == {"semantic": 330.0, "baseline": 101.26, "items": 3}
@@ -179,7 +189,7 @@ def test_resume_skips_finished_items_and_assembles_one_report(tmp_path, items, g
 
 def test_the_assembled_report_equals_a_single_session_report(tmp_path, items, gold):
     world = World()
-    assert run(tmp_path, items, gold, world, neurons_today=700) == 0
+    assert run(tmp_path, items, gold, world, neurons_today=1400) == 0
     assert run(tmp_path, items, gold, world, day=DAY2, resume=True) == 0
     r = the_run(tmp_path)
     report = json.loads(next((tmp_path / "results").glob("*.json")).read_text())
@@ -218,8 +228,8 @@ def test_a_rest_3036_mid_item_discards_the_item_and_stops(tmp_path, items, gold)
 
 
 def test_a_resume_on_another_commit_build_or_model_is_refused(tmp_path, items, gold, capsys):
-    # 470 neurons split 5:2 is 335.7 semantic and 134.3 baseline: exactly one item fits.
-    assert run(tmp_path, items, gold, World(), neurons_today=470) == 0
+    # 700 neurons split 5:2 is 500 semantic and 200 baseline: exactly one item fits (400 and 130).
+    assert run(tmp_path, items, gold, World(), neurons_today=700) == 0
     assert len(the_run(tmp_path).records()) == 1
     assert run(tmp_path, items, gold, World(), day=DAY2, resume=True, head="b" * 40) == 2
     assert "start a new run" in capsys.readouterr().err
@@ -228,6 +238,9 @@ def test_a_resume_on_another_commit_build_or_model_is_refused(tmp_path, items, g
     assert run(tmp_path, items, gold, World(model="@cf/meta/llama-3.1-8b-instruct-fp8"), day=DAY2, resume=True) == 2
     assert "planner model" in capsys.readouterr().err
     assert run(tmp_path, items, gold, World(), day=DAY2, resume=True, dirty=True) == 2
+    # Leaving out --official does not make a dirty resume of an official run acceptable.
+    assert run(tmp_path, items, gold, World(), day=DAY2, resume=True, dirty=True, official=False) == 2
+    assert "dirty" in capsys.readouterr().err
     assert len(the_run(tmp_path).records()) == 1  # nothing ran on a refused day
 
 
@@ -253,3 +266,62 @@ def test_rest_3036_is_recognized_by_code_or_message():
     assert not is_daily_allocation(429, b'{"errors": [{"code": 3040, "message": "Capacity temporarily exceeded"}]}')
     assert not is_daily_allocation(500, b"oops")
 
+
+
+def test_a_session_that_runs_past_midnight_utc_books_the_new_day(tmp_path, items, gold):
+    """00:00 UTC is 17:00 PDT: items finished after midnight count against the new day's budget."""
+    late = datetime(2026, 10, 12, 23, 59, 50, tzinfo=timezone.utc)
+    after = datetime(2026, 10, 13, 0, 5, tzinfo=timezone.utc)
+    clock = {"now": late}
+
+    class MidnightWorld(World):
+        def client(self, base_url, headers):
+            worker = super().client(base_url, headers)
+            ask = worker.ask
+
+            def tick_then_ask(session, text):
+                if len(self.asks) == 1 and clock["now"] == late:
+                    # The first item finished at 23:59:5x; the second starts then and finishes after midnight.
+                    clock["now"] = after
+                    self.used = 0.0  # AccountBudgetDO counts per UTC day
+                return ask(session, text)
+
+            worker.ask = tick_then_ask
+            return worker
+
+    world = MidnightWorld()
+    assert main_prod(
+        args(),
+        client_factory=world.client,
+        baseline_factory=lambda: (FakeSql(), FakeExecutor()),
+        identities_fn=lambda target: ("https://peoplelens.example.workers.dev",
+                                      {r: {"CF-Access-Client-Id": r} for r in ("people_analytics", "hr_business_partner", "talent_acquisition", "executive")}),
+        git=lambda: (HEAD, False),
+        now=lambda: clock["now"],
+        root=tmp_path / "eval-prod",
+        items=items,
+        gold=gold,
+        results_dir=tmp_path / "results",
+    ) == 0
+    r = the_run(tmp_path)
+    days = {x["id"]: x["day"] for x in r.records()}
+    assert days["A-headcount-01"] == "2026-10-12"
+    # A-headcount-02 started before midnight and finished after it: it is booked on the new day.
+    assert {days[i] for i in IDS[1:]} == {"2026-10-13"}
+    ledger = r.ledger()
+    # A-headcount-02, AD-DF-01 (two turns) and AD-PI-01 ran the baseline after midnight: 4 calls of 50.63.
+    assert ledger["2026-10-13"]["baseline"] == 202.52 and ledger["2026-10-12"]["baseline"] == 50.63
+    assert cp.daily_budget(ledger["2026-10-13"], 0).baseline == round(2000 - 202.52, 2)
+    (session,) = r.plan()["sessions"]
+    assert session["day"] == "2026-10-12" and session["end_day"] == "2026-10-13"
+
+
+def test_the_hrbp_token_must_carry_the_scope_the_eval_was_generated_for(tmp_path, items, gold, capsys):
+    assert run(tmp_path, items, gold, World(hrbp_scope=["Engineering", "Legal"])) == 2
+    err = capsys.readouterr().err
+    assert "Engineering+Sales" in err and "phase B" in err
+    assert run(tmp_path, items, gold, World(hrbp_me_status=403)) == 2
+    assert "HTTP 403" in capsys.readouterr().err
+    assert not (tmp_path / "eval-prod").exists()
+    # The scope order does not matter.
+    assert run(tmp_path, items, gold, World(hrbp_scope=["Sales", "Engineering"])) == 0

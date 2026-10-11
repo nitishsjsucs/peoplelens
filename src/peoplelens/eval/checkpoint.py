@@ -3,7 +3,7 @@
 On the Workers Free plan one production eval needs about 31,400 Workers AI neurons
 (about 60,700 at the upper bound) while the whole account gets 10,000 per UTC day,
 shared with three other repos. So `make eval-prod` checkpoints per item and spends
-at most a daily share, over about 5 UTC days (12 at most):
+at most a daily share, over about 5 UTC days (18 at most):
 
     .dev/eval-prod/<run_id>/plan.json       commit, deployed build, model, item order
     .dev/eval-prod/<run_id>/progress.jsonl  one line per finished item (semantic and
@@ -73,11 +73,14 @@ def daily_budget(spent_today: dict, ai_budget_used: float | None, neurons_today:
 
 
 def item_worst_case(item: dict, with_baseline: bool, free: dict = FREE) -> Budget:
-    """An item starts only if its worst case fits: 200 per turn through the planner and
-    130 per baseline turn (only answerable and adversarial items run the baseline)."""
+    """An item starts only if its worst case fits: every planner turn may make
+    planner_max_attempts Workers AI calls (one retry on invalid output or capacity), each
+    reserving planner_reserve_neurons, so 2 x 200 per turn; and 130 per baseline turn
+    (only answerable and adversarial items run the baseline)."""
     turns = len(item["turns"])
     base_turns = turns if with_baseline and item["slice"] in BASELINE_SLICES else 0
-    return Budget(float(turns * free["planner_reserve_neurons"]), float(base_turns * free["baseline_reserve_neurons"]))
+    per_turn = free["planner_max_attempts"] * free["planner_reserve_neurons"]
+    return Budget(float(turns * per_turn), float(base_turns * free["baseline_reserve_neurons"]))
 
 
 def fits(item: dict, budget: Budget, with_baseline: bool) -> bool:
@@ -179,9 +182,10 @@ class RunDir:
 
 
 def resume_problems(plan: dict, head: str, dirty: bool, health: dict, official: bool) -> list[str]:
-    """Why this day may not continue the run: every day runs on one commit and one deployed build."""
+    """Why this day may not continue the run: every day runs on one commit and one deployed build.
+    A run that started official stays official, with or without --official on the resume."""
     problems = []
-    if official and dirty:
+    if (official or plan.get("official")) and dirty:
         problems.append("the working tree is dirty (an official run needs a clean tree)")
     if head != plan["commit"]:
         problems.append(f"HEAD is {head[:12]}, but the run started on {plan['commit'][:12]}: start a new run")

@@ -128,17 +128,26 @@ def test_baseline_reservation_covers_the_largest_baseline_prompt():
     assert 120 < worst <= FREE["baseline_reserve_neurons"], worst
 
 
-def test_a_full_production_eval_fits_in_at_most_12_utc_days():
+def test_a_full_production_eval_fits_in_at_most_18_utc_days():
     its = items()
     planner_turns = sum(len(i["turns"]) for i in its)  # upper bound: 13 of these are screened and never reach the LLM
     baseline_turns = sum(len(i["turns"]) for i in its if i["slice"] in ("answerable", "adversarial"))
     assert (planner_turns, baseline_turns) == (214, 184)
-    semantic_days = math.ceil(planner_turns * FREE["planner_reserve_neurons"] / FREE["eval_semantic_neurons_per_day"])
+    # Every planner turn may make planner_max_attempts Workers AI calls (one retry), each reserving its own neurons.
+    per_turn = FREE["planner_max_attempts"] * FREE["planner_reserve_neurons"]
+    semantic_days = math.ceil(planner_turns * per_turn / FREE["eval_semantic_neurons_per_day"])
     baseline_days = math.ceil(baseline_turns * FREE["baseline_reserve_neurons"] / FREE["eval_baseline_neurons_per_day"])
-    assert max(semantic_days, baseline_days) <= 12, (semantic_days, baseline_days)
+    assert (semantic_days, baseline_days) == (18, 12)
+    assert max(semantic_days, baseline_days) <= 18, (semantic_days, baseline_days)
     # Typical usage (SPEC.md 25.5: 109.7 per planner call, 50.6 per baseline call) takes about 5 days.
     assert math.ceil(201 * 109.7 / FREE["eval_semantic_neurons_per_day"]) == 5
     assert math.ceil(184 * 50.6 / FREE["eval_baseline_neurons_per_day"]) == 5
+
+
+def test_the_planner_and_the_eval_agree_on_attempts_per_turn():
+    planner = (WORKER_DIR / "src" / "planner" / "planner.ts").read_text()
+    assert "free_plan.planner_max_attempts" in planner and "attempt <= maxAttempts" in planner
+    assert FREE["planner_max_attempts"] == 2
 
 
 def test_smoke_step_4_fits_the_workers_share():

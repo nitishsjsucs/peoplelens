@@ -115,6 +115,8 @@ export interface FreePlanLimits {
   account_neurons_per_day: number;
   worker_neurons_per_day: number;
   planner_reserve_neurons: number;
+  /** Workers AI calls per planner turn at most (one retry on invalid output or capacity). */
+  planner_max_attempts: number;
   baseline_reserve_neurons: number;
   eval_semantic_neurons_per_day: number;
   eval_baseline_neurons_per_day: number;

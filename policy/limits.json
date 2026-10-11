@@ -25,6 +25,7 @@
     "account_neurons_per_day": 10000,
     "worker_neurons_per_day": 6000,
     "planner_reserve_neurons": 200,
+    "planner_max_attempts": 2,
     "baseline_reserve_neurons": 130,
     "eval_semantic_neurons_per_day": 5000,
     "eval_baseline_neurons_per_day": 2000,
