@@ -35,9 +35,11 @@
     { "tag": "v2", "new_sqlite_classes": ["AccountBudgetDO"] }
   ],
   // Local audit trail: a Miniflare queue whose consumer is this Worker; the consumer
-  // forwards batches to the sidecar's pyiceberg table. Production adds the queue and
-  // the Basin Pipelines stream binding only through `make bootstrap ARGS="--with-audit"`
-  // (a generated config, because the stream id is account-specific).
+  // stages each batch as NDJSON through the sidecar (.dev/audit-staging), and
+  // `pl audit commit` appends it to the local pyiceberg table. Production adds the
+  // queue and the R2 staging bucket only through `make bootstrap ARGS="--with-audit"`
+  // (worker/wrangler.audit.generated.jsonc: a deploy that binds a missing queue or
+  // bucket fails). No config here may use Basin Pipelines (Workers Paid only).
   "queues": {
     "producers": [{ "binding": "AUDIT_QUEUE", "queue": "peoplelens-audit" }],
     "consumers": [{ "queue": "peoplelens-audit", "max_batch_size": 50, "max_batch_timeout": 2 }]

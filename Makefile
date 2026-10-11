@@ -7,7 +7,7 @@ NPM ?= npm
 ARGS ?=
 
 .PHONY: setup data dbt catalog test dev-up dev-down llm-up llm-down \
-	eval-local eval-stub doctor bootstrap deploy smoke eval-prod
+	eval-local eval-stub doctor bootstrap deploy smoke eval-prod audit-commit
 
 setup:
 	$(UV) sync --frozen
@@ -60,3 +60,7 @@ smoke:
 
 eval-prod:
 	$(UV) run pl-eval run --target prod --llm workers_ai $(ARGS)
+
+# optional production audit trail: R2 staging into Basin Catalog (needs the AUDIT_R2_* keys)
+audit-commit:
+	$(UV) run pl-ops audit commit $(ARGS)

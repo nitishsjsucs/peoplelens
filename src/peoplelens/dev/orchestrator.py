@@ -18,7 +18,7 @@ import urllib.request
 
 from peoplelens.dev import llm, procs
 from peoplelens.dev.keys import ACCESS_AUD, ACCESS_ISSUER, ensure_keys
-from peoplelens.paths import DEV_DIR, DUCKDB_PATH, POLICY_DIR, REPO_ROOT, WORKER_DIR
+from peoplelens.paths import AUDIT_STAGING_DIR, DEV_DIR, DUCKDB_PATH, POLICY_DIR, REPO_ROOT, WORKER_DIR
 
 STATE_DIR = DEV_DIR / "wrangler-state"
 DEV_VARS = WORKER_DIR / ".dev.vars"
@@ -72,6 +72,9 @@ def up(llm_provider: str = "stub", timeout: float = 90.0) -> int:
 
     _, jwks = ensure_keys()
     shutil.rmtree(STATE_DIR, ignore_errors=True)
+    # A fresh stack also starts with an empty audit staging directory, so `pl audit
+    # commit --expect-rows N` counts this run's events only (the Iceberg table is kept).
+    shutil.rmtree(AUDIT_STAGING_DIR, ignore_errors=True)
 
     token = secrets.token_urlsafe(32)
     sidecar_env = dict(os.environ, PL_WAREHOUSE_TOKEN=token)
@@ -101,7 +104,8 @@ def up(llm_provider: str = "stub", timeout: float = 90.0) -> int:
         "ROLE_BINDINGS_JSON": json.dumps(json.loads(bindings)),
         "WAREHOUSE_URL": f"http://127.0.0.1:{port}",
         "WAREHOUSE_TOKEN": token,
-        # local audit trail: Miniflare queue -> sidecar -> pyiceberg (.dev/iceberg)
+        # local audit trail: Miniflare queue -> consumer stages NDJSON through the sidecar
+        # (.dev/audit-staging) -> `pl audit commit` -> pyiceberg SqlCatalog (.dev/iceberg)
         "AUDIT_HMAC_KEY": secrets.token_urlsafe(32),
     }
     if llm_provider == "openai_compat":

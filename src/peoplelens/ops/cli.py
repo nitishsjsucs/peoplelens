@@ -1,4 +1,4 @@
-"""`pl-ops`: doctor, bootstrap (phases A, B, C), deploy, smoke, rotate-key."""
+"""`pl-ops`: doctor, bootstrap (phases A, B, C), deploy, smoke, audit commit, rotate-key."""
 
 from __future__ import annotations
 
@@ -64,7 +64,7 @@ def _bootstrap(args) -> int:
         if args.with_audit:
             from peoplelens.ops import bootstrap_audit
 
-            print("Audit trail: Queue, R2, Basin Catalog, Basin Pipelines stream, sink and pipeline")
+            print("Audit trail: Queue, R2 staging bucket, Basin Catalog (no Basin Pipelines: Workers Paid only)")
             bootstrap_audit.phase_audit(api or _api(), runner, plan)
         if "c" in phases:
             print("Phase C: governance (policy tags, masking)")
@@ -113,6 +113,36 @@ def _deploy(args) -> int:
     return 0
 
 
+AUDIT_R2_KEYS = ("CLOUDFLARE_ACCOUNT_ID", "AUDIT_R2_TOKEN", "AUDIT_R2_ACCESS_KEY_ID", "AUDIT_R2_SECRET_ACCESS_KEY")
+
+
+def _audit_commit(args) -> int:
+    """Production committer: R2 staging (S3 API) into Basin Catalog (Iceberg REST) with pyiceberg."""
+    from peoplelens.ops.bootstrap_audit import BUCKET
+    from peoplelens.ops.checks import CLOUDFLARE_ENV
+    from peoplelens.warehouse.audit_commit import commit, r2_store
+
+    env = read_env_file(CLOUDFLARE_ENV)
+    missing = [k for k in AUDIT_R2_KEYS if not env.get(k)]
+    if missing:
+        print(f"missing in .secrets/cloudflare.env: {', '.join(missing)} (an R2 API token with Admin Read & Write; SPEC.md 17.3)", file=sys.stderr)
+        return 2
+    state = load_state()
+    uri = args.catalog_uri or state.get("audit_catalog_uri")
+    warehouse = args.warehouse or state.get("audit_warehouse")
+    if not uri or not warehouse:
+        print('no Catalog URI and Warehouse: run `make bootstrap ARGS="... --with-audit"`, or pass --catalog-uri and --warehouse '
+              "(R2 > peoplelens-audit > Settings > Basin Catalog)", file=sys.stderr)
+        return 2
+    from pyiceberg.catalog.rest import RestCatalog
+
+    catalog = RestCatalog("peoplelens_audit", uri=uri, warehouse=warehouse, token=env["AUDIT_R2_TOKEN"])
+    store = r2_store(env["CLOUDFLARE_ACCOUNT_ID"], env["AUDIT_R2_ACCESS_KEY_ID"], env["AUDIT_R2_SECRET_ACCESS_KEY"], BUCKET)
+    result = commit(store, catalog)
+    print(json.dumps(result.as_dict(), sort_keys=True))
+    return 0
+
+
 def _smoke(args) -> int:
     from peoplelens.ops.smoke import run
 
@@ -145,6 +175,12 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--no-parity", action="store_true")
     s.add_argument("--drills", action="store_true", help="also run the masking demo and the time-travel recovery drill")
     s.set_defaults(func=_smoke)
+    audit = sub.add_parser("audit", help="optional production audit trail")
+    audit_sub = audit.add_subparsers(dest="audit_command", required=True)
+    ac = audit_sub.add_parser("commit", help="append staged audit events from R2 to the Basin Catalog Iceberg table (dedupes on request_id)")
+    ac.add_argument("--catalog-uri", default=None, help="Basin Catalog URI (default: recorded by bootstrap --with-audit)")
+    ac.add_argument("--warehouse", default=None, help="Basin Catalog warehouse name (default: recorded by bootstrap --with-audit)")
+    ac.set_defaults(func=_audit_commit)
     rk = sub.add_parser("rotate-key", help="alias for deploy --rotate-key")
     rk.add_argument("--dry-run", action="store_true")
     rk.set_defaults(func=lambda a: _deploy(argparse.Namespace(rotate_key=True, dry_run=a.dry_run)))

@@ -9,8 +9,10 @@ file through this small HTTP server:
 - executes only SQL whose sha256 is in the compiled DuckDB catalog, with exactly
   the parameters that entry declares
 
-POST /v1/query  {sql, params, dry_run} -> {columns, rows, estimated_bytes, elapsed_ms, estimate_note}
-POST /v1/audit  {records: [...]} -> {appended}   (metadata-only events into a local Iceberg table)
+POST /v1/query        {sql, params, dry_run} -> {columns, rows, estimated_bytes, elapsed_ms, estimate_note}
+POST /v1/audit/stage  {key, body} -> {stored}   (the local stand-in for the R2 audit staging bucket:
+                      writes .dev/audit-staging/<key> if absent; keys must match the two staging
+                      patterns; `pl audit commit` appends the staged events to the Iceberg table)
 GET  /v1/health -> {ok, catalog_entries}
 """
 
@@ -31,7 +33,7 @@ from pathlib import Path
 
 import duckdb
 
-from peoplelens.paths import DUCKDB_PATH, GENERATED_DIR
+from peoplelens.paths import AUDIT_STAGING_DIR, DUCKDB_PATH, GENERATED_DIR
 from peoplelens.warehouse.cost import ByteEstimator
 
 MAX_BODY_BYTES = 256 * 1024
@@ -94,15 +96,16 @@ def _jsonable(value: object) -> object:
 class Warehouse:
     """Shared state: one read-only DuckDB connection, the allowlist and the estimator."""
 
-    def __init__(self, db_path: Path, catalog_path: Path, token: str):
+    def __init__(self, db_path: Path, catalog_path: Path, token: str, staging_dir: Path = AUDIT_STAGING_DIR):
         if not token or len(token) < 16:
             raise ValueError(f"{TOKEN_ENV} must be set to a random token of at least 16 characters")
         self.token = token
         self.allowlist = load_allowlist(catalog_path)
         self.con = duckdb.connect(str(db_path), read_only=True)
         self._con_lock = threading.Lock()
+        self._stage_lock = threading.Lock()
         self.estimator = ByteEstimator(self.cursor)
-        self._audit = None
+        self.staging_dir = staging_dir
 
     def cursor(self) -> duckdb.DuckDBPyConnection:
         # A DuckDB connection is not safe to share across threads; cursors are.
@@ -153,20 +156,24 @@ class Warehouse:
         )
         return result
 
-    def audit(self, body: dict) -> dict:
-        """Append metadata-only audit events to the local Iceberg table (pyiceberg SqlCatalog)."""
-        from peoplelens.warehouse.audit_sink import AuditRecordError, AuditSink
+    def stage(self, body: dict) -> dict:
+        """Store one staged audit object (put-if-absent): the local stand-in for the R2 bucket."""
+        from peoplelens.warehouse.audit_commit import valid_key
 
-        records = body.get("records")
-        if not isinstance(records, list) or len(records) > 500:
-            raise RequestError(400, "BAD_REQUEST", "records must be a list of at most 500 events")
-        with self._con_lock:
-            if self._audit is None:
-                self._audit = AuditSink()
-        try:
-            return {"appended": self._audit.append(records)}
-        except AuditRecordError as exc:
-            raise RequestError(400, "BAD_AUDIT_RECORD", str(exc)) from exc
+        key, text = body.get("key"), body.get("body")
+        if not isinstance(key, str) or not valid_key(key):
+            raise RequestError(400, "BAD_AUDIT_KEY", "key must match staging/v1/dt=<day>/<32 hex>.ndjson or direct-<id>.ndjson")
+        if not isinstance(text, str) or not text:
+            raise RequestError(400, "BAD_REQUEST", "body must be a non-empty string")
+        path = self.staging_dir / key
+        with self._stage_lock:
+            if path.exists():
+                return {"stored": False}
+            path.parent.mkdir(parents=True, exist_ok=True)
+            tmp = path.with_suffix(".tmp")
+            tmp.write_text(text, encoding="utf-8")
+            tmp.replace(path)
+        return {"stored": True}
 
     def close(self) -> None:
         self.con.close()
@@ -212,8 +219,8 @@ def make_handler(warehouse: Warehouse):
                     raise RequestError(400, "BAD_REQUEST", "body must be an object")
                 if self.path == "/v1/query":
                     self._send(200, warehouse.query(body))
-                elif self.path == "/v1/audit":
-                    self._send(200, warehouse.audit(body))
+                elif self.path == "/v1/audit/stage":
+                    self._send(200, warehouse.stage(body))
                 else:
                     raise RequestError(404, "NOT_FOUND", "unknown route")
             except RequestError as exc:

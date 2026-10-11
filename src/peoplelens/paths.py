@@ -23,6 +23,10 @@ SHA256SUMS_PATH = SEEDS_DIR / "SHA256SUMS"
 DEV_DIR = REPO_ROOT / ".dev"
 WAREHOUSE_DIR = DEV_DIR / "warehouse"
 DUCKDB_PATH = WAREHOUSE_DIR / "peoplelens.duckdb"
+# local audit trail: staged NDJSON objects (the stand-in for the R2 bucket) and the
+# pyiceberg SqlCatalog (the stand-in for Basin Catalog)
+AUDIT_STAGING_DIR = DEV_DIR / "audit-staging"
+ICEBERG_DIR = DEV_DIR / "iceberg"
 WORKER_DIR = REPO_ROOT / "worker"
 GENERATED_DIR = WORKER_DIR / "src" / "generated"
 EVAL_DIR = REPO_ROOT / "eval"

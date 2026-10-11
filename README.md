@@ -22,7 +22,7 @@ v1 was built from scratch, commit by commit, following the plan in SPEC.md secti
 | Eval harness (200 items, text-to-SQL baseline) | done: 200 frozen items (150 answerable, 20 clarification, 30 adversarial; 214 turns), gold from the independent reference, comparator with median rank bands, leakage checks, pacing, sqlglot-guarded text-to-SQL baseline; official local runs below |
 | CI (python, worker, stub end-to-end) | defined in `.github/workflows/ci.yml`; every job's commands pass in a fresh clone on macOS and in a Linux container (Debian bookworm arm64, node 24, uv 0.12.17) with the CI environment; not yet run on GitHub's ubuntu-latest runners |
 | Ops: doctor, phased bootstrap, deploy, smoke | built and unit-tested with mocked CLIs and HTTP; the BigQuery, AI Gateway, Access, Workers and bq calls were rechecked against the official API references on 2026-10-10, which found and fixed defects that would have broken the production smoke, eval and first deploy or let the metadata-only logging check pass on a stored payload (PROGRESS.md commits 18 and 19); `make doctor` runs here and reports the missing cloud prerequisites; bootstrap, deploy and smoke have not been run against Cloudflare or Google Cloud |
-| Audit trail | done locally: one metadata-only event per question (HMAC of the subject, decision codes, counts, bytes, timings; never question text or values) through a queue into an Iceberg table; production path (Basin Pipelines and Basin Catalog) scripted in the bootstrap, not run |
+| Audit trail | done locally: one metadata-only event per question (HMAC of the subject, decision codes, counts, bytes, timings; never question text or values) through a queue into immutable staged NDJSON objects, then `pl audit commit` appends them to an Iceberg table exactly once (the CI e2e job checks 214 rows, then 0 on a replay); production path (Queue, R2 staging, Basin Catalog, all on Workers Free) scripted in the bootstrap, not run |
 | Web UI (React, served as Worker static assets) | done: chat with answer tables, hidden-cell notes and clickable clarification options; checked in a browser against the local stack; production serving is behind Access once deployed |
 | Results | four official local evals (Qwen3-1.7B on DuckDB) and the stub CI run, 2026-10-10; no production runs yet |
 
@@ -48,7 +48,10 @@ flowchart LR
   COST --> BQ[(BigQuery authorized views)]
   BQ --> SUP[Suppression k=10 plus complement rule]
   SUP --> NAR[Deterministic narrative]
-  W -.->|optional audit| Q[Queue peoplelens-audit] -.-> PIPE[Basin Pipelines] -.-> ICEP[(Basin Catalog Iceberg)]
+  W -.->|optional audit, one of 800 daily slots| Q[Queue peoplelens-audit]
+  Q -.->|consumer in the same Worker| R2S[(R2 peoplelens-audit:<br/>immutable NDJSON batches)]
+  W -.->|no slot left, or the send failed| R2S
+  R2S -.->|make audit-commit, pyiceberg,<br/>dedupe on request_id| ICEP[(Basin Catalog Iceberg)]
   subgraph BuildTime[Build time]
     GEN[Seeded generator] --> DBT[dbt models and MetricFlow semantic models]
     DBT --> MFC[MetricFlow compiler]
@@ -67,8 +70,8 @@ flowchart LR
   WD -->|stub, CI| STUB[Deterministic stub planner]
   WD --> SC[pl warehouse serve, 127.0.0.1 ephemeral port]
   SC --> DDB[(DuckDB file, read only)]
-  WD -.->|audit queue| SC
-  SC -.-> ICE[(pyiceberg SqlCatalog, .dev/iceberg)]
+  WD -.->|audit queue, consumer stages NDJSON| SC
+  SC -.->|.dev/audit-staging, then pl audit commit| ICE[(pyiceberg SqlCatalog, .dev/iceberg)]
   B[Browser UI, static assets] --> WD
 ```
 
@@ -89,10 +92,10 @@ Local pieces are stand-ins. DuckDB is not BigQuery, llama-server is not Workers 
 | Column security, masking | not emulated | BigQuery policy tags and data policies (phase C), masking demo in `make smoke ARGS="--drills"` | prod only, optional, not run |
 | Time travel and recovery | not emulated | dataset time-travel windows (phase A), runbook, recovery drill in `make smoke ARGS="--drills"` | prod only, not run |
 | Web UI | Vite build served by wrangler dev assets on 8794 (paste a token from `pl token`) | Workers static assets behind Cloudflare Access | local verified |
-| Audit trail (metadata only) | Miniflare queue, then the sidecar appends to a pyiceberg SqlCatalog Iceberg table (`uv run pl audit tail`) | Queue `peoplelens-audit`, Basin Pipelines stream, Basin Catalog Iceberg table `peoplelens.audit_events` (`make bootstrap ARGS="--with-audit ..."`) | local verified; production coded, not run |
+| Audit trail (metadata only) | Miniflare queue; the consumer stages NDJSON through the sidecar into `.dev/audit-staging`; `uv run pl audit commit` appends to a pyiceberg SqlCatalog table (`uv run pl audit tail`) | Queue `peoplelens-audit` (800 messages a day, then direct R2 puts), R2 staging bucket `peoplelens-audit`, `make audit-commit` into the Basin Catalog Iceberg table `peoplelens.audit_events` through pyiceberg RestCatalog (`make bootstrap ARGS="--with-audit ..."`); no Basin Pipelines (Workers Paid only) | local verified; production coded, not run |
 | Cloudflare Workflows | not used | not used | not used |
 
-Cloudflare Workflows: not used. Nothing in this product is a long-running durable multi-step process. Queues, R2 and Basin are used only by the optional audit trail.
+Cloudflare Workflows: not used. Nothing in this product is a long-running durable multi-step process. Queues, R2 and Basin Catalog are used only by the optional audit trail; Basin Pipelines is not used (it needs Workers Paid).
 
 ## Local setup
 
@@ -132,6 +135,7 @@ Approximate medians are compared by rank: a median passes when it lies between t
 make dev-up                       # local stack with the stub planner; the UI is at http://127.0.0.1:8794/ (or: make dev-up ARGS="--llm openai_compat")
 uv run pl ask "headcount by department" --role executive
 uv run pl chat --role hr_business_partner
+uv run pl audit commit && uv run pl audit tail   # staged audit events into the local Iceberg table, then the latest rows
 make dev-down                     # stops everything and checks ports 8794 and 9244 are free
 make llm-up / make llm-down       # llama-server with Qwen3-1.7B on 127.0.0.1:8180 (local stand-in for Workers AI)
 ```
@@ -201,7 +205,7 @@ Nothing below has been run yet: this machine has no Google Cloud CLI, no Google 
 
 ### Optional: the audit trail in production
 
-Not needed for anything on the resume. If you want it: add Queues Edit, Workers R2 Storage Edit and Basin Pipelines Edit to the `peoplelens-bootstrap` token; create a second custom token for the Iceberg sink with Basin Catalog Read and Edit, Basin Pipelines Read, Send and Edit, and Workers R2 Storage Read and Edit (the permissions the Basin Pipelines tutorial lists); add it to `.secrets/cloudflare.env` as `BASIN_CATALOG_TOKEN=<token>`; then run `make bootstrap ARGS="--gcp-project peoplelens-<suffix> --phase a --with-audit"`. Basin Pipelines needs Workers Paid. wrangler 4.149.0 (pinned here) names the sink type `r2-data-catalog`; newer docs call it `basin-catalog`.
+Not needed for anything on the resume, and it runs on Workers Free (no Basin Pipelines). If you want it: add Queues Edit and Workers R2 Storage Edit to the `peoplelens-bootstrap` token; run `make bootstrap ARGS="--gcp-project <project> --phase a --with-audit"` (lists first, then creates queue `peoplelens-audit`, R2 bucket `peoplelens-audit` and enables Basin Catalog on it, records its Catalog URI and Warehouse, and redeploys with the generated config and `AUDIT_HMAC_KEY`). To commit staged events into the Iceberg table, create an R2 API token with Admin Read & Write (R2 > Manage R2 API Tokens), add its token value, Access Key ID and Secret Access Key to `.secrets/cloudflare.env` as `AUDIT_R2_TOKEN`, `AUDIT_R2_ACCESS_KEY_ID` and `AUDIT_R2_SECRET_ACCESS_KEY`, then run `make audit-commit` whenever you want the table up to date. That token covers every bucket in the account, so keep it in `.secrets/` and rotate it after use.
 
 ### What the bootstrap does
 
@@ -213,7 +217,7 @@ Not needed for anything on the resume. If you want it: add Queues Edit, Workers 
 
 `make smoke` then dry-runs and executes all 312 BigQuery catalog entries and compares them with the reference implementation, checks that BigQuery itself refuses a job capped at 1 MiB `maximumBytesBilled`, asks questions as each of the four service tokens, and fetches one AI Gateway log (polling for up to a minute, because logs are written asynchronously) to confirm that custom metadata is present, that no request or response payload is stored, and that the question text appears nowhere in the log. It writes `eval/results/<date>-prod-smoke.json`. `make smoke ARGS="--drills"` adds the masking demo (as `peoplelens-analyst`, salaries come back masked; as you, they do not; needs phase C) and a time-travel recovery drill that deletes and restores a scratch copy of `dim_month` (never a real table). See `warehouse/bigquery/recovery/RUNBOOK.md`.
 
-Later deploys: `make deploy` (secrets persist), `make deploy ARGS="--rotate-key"` for a fresh service-account key. Every deploy rebuilds the web UI first, and once the audit trail is enabled every deploy keeps its queue and stream bindings. The ops scripts give wrangler the account id from `.secrets/cloudflare.env`, so the Worker lands in the same account the API token manages even when your login can see several accounts.
+Later deploys: `make deploy` (secrets persist), `make deploy ARGS="--rotate-key"` for a fresh service-account key. Every deploy rebuilds the web UI first, and once the audit trail is enabled every deploy keeps its queue and R2 bindings. The ops scripts give wrangler the account id from `.secrets/cloudflare.env`, so the Worker lands in the same account the API token manages even when your login can see several accounts.
 
 ## Resume claims: what is proven here and what needs production
 

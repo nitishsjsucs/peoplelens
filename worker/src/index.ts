@@ -1,7 +1,7 @@
 // Hono app: routes, auth middleware and wiring of the request pipeline.
 import { Hono } from "hono";
 import { type AskBody, type UserPort, ask } from "./ask";
-import { buildAuditEvent, forwardAuditBatch } from "./audit/audit";
+import { RETRY_DELAY_S, type StagingStore, buildAuditEvent, emitAudit, r2Store, sidecarStore, stageBatch } from "./audit/audit";
 import { ACCESS_HEADER, verifyAccessJwt } from "./auth/access";
 import { resolvePrincipal } from "./auth/principal";
 import type { CatalogFile } from "./catalog/catalog";
@@ -179,10 +179,23 @@ export function createApp(deps: AppDeps) {
       },
       body,
     );
-    if (c.env.AUDIT_QUEUE && c.env.AUDIT_HMAC_KEY) {
-      const queue = c.env.AUDIT_QUEUE;
-      const send = buildAuditEvent(result.body, principal, c.env.AUDIT_HMAC_KEY, now())
-        .then((event) => queue.send(event))
+    const store = stagingStore(c.env);
+    if (c.env.AUDIT_HMAC_KEY && (c.env.AUDIT_QUEUE || store)) {
+      const t = now();
+      const slots = budgetPort(c.env, "audit_queue_messages", POLICY.limits.free_plan.audit_queue_messages_per_day, t);
+      const send = buildAuditEvent(result.body, principal, c.env.AUDIT_HMAC_KEY, t)
+        .then((event) =>
+          emitAudit(event, {
+            queue: c.env.AUDIT_QUEUE,
+            store,
+            reserveSlot: async () => (await slots.reserve(1)).ok,
+            releaseSlot: () => slots.settle(1, 0),
+            now: t,
+          }),
+        )
+        .then((where) => {
+          if (where !== "queue") logEvent({ event: "audit_event", request_id: result.body.request_id, decision: where });
+        })
         .catch(() => logEvent({ event: "audit_error", request_id: result.body.request_id }));
       let waited = false;
       try {
@@ -205,22 +218,30 @@ function describeRole(p: Principal) {
   return { metrics: role.metrics, dimensions: role.dimensions, grains: role.grains };
 }
 
-/** Queue consumer for the audit trail: Basin Pipelines stream in production, the sidecar locally. */
-export async function handleAuditBatch(batch: MessageBatch<unknown>, env: Env, fetcher?: typeof fetch): Promise<void> {
-  const sinks: Parameters<typeof forwardAuditBatch>[1] = {};
-  if (env.AUDIT_STREAM) sinks.stream = env.AUDIT_STREAM;
-  else if (env.ENVIRONMENT !== "production" && env.WAREHOUSE_URL && env.WAREHOUSE_TOKEN) {
-    sinks.localUrl = env.WAREHOUSE_URL;
-    sinks.localToken = env.WAREHOUSE_TOKEN;
+/** The audit staging store: the R2 bucket in production, the local sidecar otherwise. */
+export function stagingStore(env: Env, fetcher?: typeof fetch): StagingStore | null {
+  if (env.AUDIT_BUCKET) return r2Store(env.AUDIT_BUCKET);
+  if (env.ENVIRONMENT !== "production" && env.WAREHOUSE_URL && env.WAREHOUSE_TOKEN) {
+    return sidecarStore(env.WAREHOUSE_URL, env.WAREHOUSE_TOKEN, fetcher);
   }
-  if (fetcher) sinks.fetcher = fetcher;
+  return null;
+}
+
+/**
+ * Queue consumer for the audit trail: writes the batch as one immutable,
+ * content-addressed NDJSON object to staging, then acks; on any failure (including
+ * a missing store) every message is retried after 60 s, up to the queue's max_retries.
+ */
+export async function handleAuditBatch(batch: MessageBatch<unknown>, env: Env, fetcher?: typeof fetch): Promise<void> {
+  const store = stagingStore(env, fetcher);
   try {
-    const where = await forwardAuditBatch(batch.messages.map((m) => m.body), sinks);
-    logEvent({ event: "audit_batch", decision: where, rows: batch.messages.length });
+    if (!store) throw new Error("no audit staging store is bound");
+    const staged = await stageBatch(batch.messages.map((m) => m.body), store);
+    logEvent({ event: "audit_batch", decision: staged ? `staged_${store.kind}` : "dropped_invalid", rows: staged?.rows ?? 0 });
     batch.ackAll();
   } catch {
     logEvent({ event: "audit_batch", decision: "retry", rows: batch.messages.length });
-    batch.retryAll();
+    batch.retryAll({ delaySeconds: RETRY_DELAY_S });
   }
 }
 

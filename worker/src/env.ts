@@ -14,9 +14,10 @@ export interface Env {
   /** This repo's share of the account's daily Free allowances (one instance). */
   ACCOUNT_BUDGET: DurableObjectNamespace<AccountBudgetDO>;
   AI?: Ai;
-  // optional metadata-only audit trail (below the core cut line)
+  // optional metadata-only audit trail (below the core cut line): the queue, and the
+  // R2 staging bucket in production (added by the generated --with-audit config)
   AUDIT_QUEUE?: Queue<unknown>;
-  AUDIT_STREAM?: { send(records: unknown[]): Promise<void> };
+  AUDIT_BUCKET?: R2Bucket;
   AUDIT_HMAC_KEY?: string;
   // vars
   ENVIRONMENT?: string;

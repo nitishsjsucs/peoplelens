@@ -84,6 +84,10 @@ jobs:
         run: uv run pl dev up --llm stub
       - name: Stub eval with safety assertions
         run: uv run pl-eval run --llm stub --assert-safety
+      - name: Audit trail, each audited ask exactly once (200 items, 214 asks)
+        run: uv run pl audit commit --expect-rows 214 --wait-s 60
+      - name: Audit trail, a replay appends nothing
+        run: uv run pl audit commit --expect-rows 0
       - name: Stop the local stack
         if: always()
         run: uv run pl dev down

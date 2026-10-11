@@ -1,9 +1,13 @@
-"""Local audit sink: metadata-only audit events appended to an Iceberg table with
-pyiceberg's SqlCatalog (sqlite). The local stand-in for Basin Pipelines writing
-to a Basin Catalog (R2 Data Catalog) Iceberg table; local only.
+"""Audit table schema, whitelist and catalogs for the metadata-only audit trail.
+
+The Iceberg table is peoplelens.audit_events: a pyiceberg SqlCatalog (sqlite,
+.dev/iceberg) locally, Basin Catalog (Iceberg REST) in production. Rows reach it
+only through the committer (warehouse/audit_commit.py), which validates every
+staged line with clean_record below.
 
 Only the whitelisted fields below are accepted, with their types checked, so a
-question text, an email or a result value can never be written.
+question text, an email or a result value can never be written. A test keeps
+FIELDS equal to the Worker's AUDIT_FIELDS (worker/src/audit/audit.ts).
 """
 
 from __future__ import annotations
@@ -13,9 +17,7 @@ from pathlib import Path
 
 import pyarrow as pa
 
-from peoplelens.paths import DEV_DIR
-
-ICEBERG_DIR = DEV_DIR / "iceberg"
+from peoplelens.paths import ICEBERG_DIR
 NAMESPACE = "peoplelens"
 TABLE = "audit_events"
 
@@ -90,41 +92,42 @@ def clean_record(raw: object) -> dict:
     return out
 
 
-class AuditSink:
-    def __init__(self, root: Path = ICEBERG_DIR):
-        from pyiceberg.catalog.sql import SqlCatalog
+def local_catalog(root: Path = ICEBERG_DIR):
+    """The local stand-in for Basin Catalog: pyiceberg SqlCatalog on sqlite."""
+    from pyiceberg.catalog.sql import SqlCatalog
 
-        root.mkdir(parents=True, exist_ok=True)
-        (root / "warehouse").mkdir(exist_ok=True)
-        self.catalog = SqlCatalog(
-            "peoplelens_local",
-            uri=f"sqlite:///{root / 'catalog.db'}",
-            warehouse=(root / "warehouse").resolve().as_uri(),
-        )
+    root.mkdir(parents=True, exist_ok=True)
+    (root / "warehouse").mkdir(exist_ok=True)
+    return SqlCatalog(
+        "peoplelens_local",
+        uri=f"sqlite:///{root / 'catalog.db'}",
+        warehouse=(root / "warehouse").resolve().as_uri(),
+    )
+
+
+def load_or_create_table(catalog):
+    """peoplelens.audit_events (unpartitioned; schema from FIELDS), created on first use."""
+    from pyiceberg.exceptions import NamespaceAlreadyExistsError, TableAlreadyExistsError
+
+    try:
+        catalog.create_namespace(NAMESPACE)
+    except NamespaceAlreadyExistsError:
+        pass
+    try:
+        return catalog.create_table(f"{NAMESPACE}.{TABLE}", schema=arrow_schema())
+    except TableAlreadyExistsError:
+        return catalog.load_table(f"{NAMESPACE}.{TABLE}")
+
+
+class AuditSink:
+    """Read access to the local audit table (`pl audit tail`)."""
+
+    def __init__(self, root: Path = ICEBERG_DIR):
+        self.catalog = local_catalog(root)
         self._lock = threading.Lock()
-        self._table = None
 
     def table(self):
-        if self._table is None:
-            from pyiceberg.exceptions import NamespaceAlreadyExistsError, TableAlreadyExistsError
-
-            try:
-                self.catalog.create_namespace(NAMESPACE)
-            except NamespaceAlreadyExistsError:
-                pass
-            try:
-                self._table = self.catalog.create_table(f"{NAMESPACE}.{TABLE}", schema=arrow_schema())
-            except TableAlreadyExistsError:
-                self._table = self.catalog.load_table(f"{NAMESPACE}.{TABLE}")
-        return self._table
-
-    def append(self, records: list) -> int:
-        rows = [clean_record(r) for r in records]
-        if not rows:
-            return 0
-        with self._lock:
-            self.table().append(pa.Table.from_pylist(rows, schema=arrow_schema()))
-        return len(rows)
+        return load_or_create_table(self.catalog)
 
     def tail(self, limit: int = 20) -> list[dict]:
         with self._lock:
