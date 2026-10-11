@@ -128,6 +128,7 @@ def phase_audit(api: CloudflareApi, runner: Runner, plan: Plan) -> None:
         deploy(runner, plan, secrets)
     except BootstrapError as exc:
         raise BootstrapError(f"audit deploy failed: {exc}") from exc
+    state = load_state()  # deploy() recorded deployed_commit; keep it
     state["audit_hmac_key_set"] = True
     save_state(state)
     plan.add("Worker redeployed with the audit queue, the R2 staging bucket and AUDIT_HMAC_KEY; commit staged events with `make audit-commit`")

@@ -14,3 +14,6 @@ peoplelens:
       priority: interactive
       job_execution_timeout_seconds: 600
       job_retries: 1
+      # Shared Google Cloud project (SPEC.md 25.4 E): every dbt query job is capped at
+      # 1 GiB billed (dbt-bigquery sets it on each job's maximum_bytes_billed).
+      maximum_bytes_billed: 1073741824

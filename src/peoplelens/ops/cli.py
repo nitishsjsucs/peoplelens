@@ -24,6 +24,8 @@ def _doctor(args) -> int:
     from peoplelens.ops.doctor import run
 
     groups = args.groups.split(",") if args.groups else ["local", "cloudflare", "gcp", "deployed", "governance"]
+    if args.with_audit and "audit" not in groups:
+        groups.append("audit")
     return run(groups, args.gcp_project, args.strict_governance, args.fast)
 
 
@@ -34,7 +36,7 @@ def _bootstrap(args) -> int:
     state = load_state()
     project = args.gcp_project or state.get("gcp_project")
     if not project:
-        print("pass --gcp-project peoplelens-<suffix> (SPEC.md 17.5)", file=sys.stderr)
+        print("pass --gcp-project <shared-project-id> (SPEC.md 17.5)", file=sys.stderr)
         return 2
     phases = [args.phase] if args.phase else ["a", "b", "c"]
     emails = None
@@ -116,29 +118,40 @@ def _deploy(args) -> int:
 AUDIT_R2_KEYS = ("CLOUDFLARE_ACCOUNT_ID", "AUDIT_R2_TOKEN", "AUDIT_R2_ACCESS_KEY_ID", "AUDIT_R2_SECRET_ACCESS_KEY")
 
 
-def _audit_commit(args) -> int:
-    """Production committer: R2 staging (S3 API) into Basin Catalog (Iceberg REST) with pyiceberg."""
+def audit_target(catalog_uri: str | None = None, warehouse: str | None = None):
+    """(R2 staging store, Basin Catalog RestCatalog) for the production audit committer,
+    or a message saying what is missing."""
     from peoplelens.ops.bootstrap_audit import BUCKET
     from peoplelens.ops.checks import CLOUDFLARE_ENV
-    from peoplelens.warehouse.audit_commit import commit, r2_store
+    from peoplelens.warehouse.audit_commit import r2_store
 
     env = read_env_file(CLOUDFLARE_ENV)
     missing = [k for k in AUDIT_R2_KEYS if not env.get(k)]
     if missing:
-        print(f"missing in .secrets/cloudflare.env: {', '.join(missing)} (an R2 API token with Admin Read & Write; SPEC.md 17.3)", file=sys.stderr)
-        return 2
+        return f"missing in .secrets/cloudflare.env: {', '.join(missing)} (an R2 API token with Admin Read & Write; SPEC.md 17.3)"
     state = load_state()
-    uri = args.catalog_uri or state.get("audit_catalog_uri")
-    warehouse = args.warehouse or state.get("audit_warehouse")
-    if not uri or not warehouse:
-        print('no Catalog URI and Warehouse: run `make bootstrap ARGS="... --with-audit"`, or pass --catalog-uri and --warehouse '
-              "(R2 > peoplelens-audit > Settings > Basin Catalog)", file=sys.stderr)
-        return 2
+    uri = catalog_uri or state.get("audit_catalog_uri")
+    wh = warehouse or state.get("audit_warehouse")
+    if not uri or not wh:
+        return ('no Catalog URI and Warehouse: run `make bootstrap ARGS="... --with-audit"`, or pass --catalog-uri and --warehouse '
+                "(R2 > peoplelens-audit > Settings > Basin Catalog)")
     from pyiceberg.catalog.rest import RestCatalog
 
-    catalog = RestCatalog("peoplelens_audit", uri=uri, warehouse=warehouse, token=env["AUDIT_R2_TOKEN"])
+    catalog = RestCatalog("peoplelens_audit", uri=uri, warehouse=wh, token=env["AUDIT_R2_TOKEN"])
     store = r2_store(env["CLOUDFLARE_ACCOUNT_ID"], env["AUDIT_R2_ACCESS_KEY_ID"], env["AUDIT_R2_SECRET_ACCESS_KEY"], BUCKET)
-    result = commit(store, catalog)
+    return store, catalog
+
+
+def _audit_commit(args) -> int:
+    """Production committer: R2 staging (S3 API) into Basin Catalog (Iceberg REST) with pyiceberg."""
+    from peoplelens.warehouse import audit_commit
+
+    target = audit_target(args.catalog_uri, args.warehouse)
+    if isinstance(target, str):
+        print(target, file=sys.stderr)
+        return 2
+    store, catalog = target
+    result = audit_commit.commit(store, catalog)
     print(json.dumps(result.as_dict(), sort_keys=True))
     return 0
 
@@ -146,17 +159,18 @@ def _audit_commit(args) -> int:
 def _smoke(args) -> int:
     from peoplelens.ops.smoke import run
 
-    return run(parity=not args.no_parity, drills=args.drills)
+    return run(parity=not args.no_parity, drills=args.drills, with_audit=args.with_audit)
 
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="pl-ops", description="PeopleLens production operations")
     sub = p.add_subparsers(dest="command", required=True)
     d = sub.add_parser("doctor", help="check every prerequisite and print what is missing")
-    d.add_argument("--groups", default="", help="comma list: local,cloudflare,gcp,deployed,governance")
+    d.add_argument("--groups", default="", help="comma list: local,cloudflare,gcp,deployed,governance,audit")
     d.add_argument("--gcp-project", default=None)
     d.add_argument("--strict-governance", action="store_true")
     d.add_argument("--fast", action="store_true", help="skip the catalog freshness compile (about 25 s)")
+    d.add_argument("--with-audit", action="store_true", help="also check the optional audit trail (Basin Catalog, generated config, R2 keys)")
     d.set_defaults(func=_doctor)
     b = sub.add_parser("bootstrap", help="create every cloud resource (phases A, B, C; idempotent, resumable)")
     b.add_argument("--phase", choices=["a", "b", "c"])
@@ -174,6 +188,7 @@ def build_parser() -> argparse.ArgumentParser:
     s = sub.add_parser("smoke", help="production smoke checks (needs phases A and B)")
     s.add_argument("--no-parity", action="store_true")
     s.add_argument("--drills", action="store_true", help="also run the masking demo and the time-travel recovery drill")
+    s.add_argument("--with-audit", action="store_true", help="step 8: commit the staged audit events and check each step 4 request is in the table once")
     s.set_defaults(func=_smoke)
     audit = sub.add_parser("audit", help="optional production audit trail")
     audit_sub = audit.add_subparsers(dest="audit_command", required=True)

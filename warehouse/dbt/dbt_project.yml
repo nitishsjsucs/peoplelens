@@ -10,6 +10,13 @@ macro-paths: ["macros"]
 target-path: "target"
 clean-targets: ["target", "dbt_packages"]
 
+# On BigQuery every dbt job carries the label app=peoplelens (dbt-bigquery turns a
+# JSON-object query comment into job labels when job-label is true), so jobs in the
+# shared Google Cloud project can be told apart and budgeted. DuckDB ignores labels.
+query-comment:
+  comment: '{"app": "peoplelens"}'
+  job-label: true
+
 vars:
   # Bootstrap phase C sets this to true after the taxonomy, data policies and
   # fine-grained reader grants exist. It never has an effect on DuckDB.

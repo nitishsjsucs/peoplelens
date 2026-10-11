@@ -84,3 +84,21 @@ def test_missing_token_is_a_clear_error():
 
     with pytest.raises(drills.DrillError, match="access token"):
         drills.masking_demo("peoplelens-abc123", NoAuth(), masking_http([], []))
+
+
+def test_every_drill_query_is_capped_and_labeled_in_the_shared_project():
+    bodies = []
+    bq = FakeBigQuery()
+
+    def recording(url, body, token):
+        bodies.append(body)
+        return bq(url, body, token)
+
+    drills.time_travel_drill("peoplelens-abc123", TokenRunner(), recording, sleep=lambda s: None)
+    drills.masking_demo("peoplelens-abc123", TokenRunner(), lambda url, body, token: (bodies.append(body), {"rows": [{"f": [{"v": "0"}]}]})[1])
+    assert len(bodies) >= 8
+    for body in bodies:
+        assert body["maximumBytesBilled"] == str(100 * 1024 * 1024)
+        assert body["labels"] == {"app": "peoplelens", "purpose": "drill"}
+    # drill tables live in peoplelens_core and are prefixed drill_
+    assert all("peoplelens_core.drill_" in b["query"] for b in bodies if b["query"].split()[0] in ("CREATE", "DELETE", "DROP"))

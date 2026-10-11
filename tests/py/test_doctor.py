@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import json
+
 import pytest
 
 from peoplelens.ops import checks, doctor
@@ -101,7 +103,8 @@ def test_cloudflare_reports_missing_permissions_and_console_steps(cf_env):
     assert c["Zero Trust organization"].status == MISSING
     assert c["One-time PIN login method"].status == MISSING
     assert c["workers.dev subdomain"].status == MISSING
-    assert c["Workers Paid plan"].status == WARN and not c["Workers Paid plan"].required
+    # Production runs on Workers Free: nothing to check about a paid plan (SPEC.md 25).
+    assert not any("paid" in name.lower() for name in c)
 
 
 def test_cloudflare_without_token_file(tmp_path, monkeypatch):
@@ -164,3 +167,77 @@ def test_run_exit_codes(monkeypatch, capsys):
     assert doctor.run(["governance"], None, strict_governance=True, fast=True, runner=ScriptRunner({})) == 1
     out = capsys.readouterr().out
     assert "GROUP" in out and "STATUS" in out and "FIX" in out
+
+
+IAM_POLICY = {
+    "bindings": [
+        {"role": "roles/bigquery.jobUser", "members": ["serviceAccount:peoplelens-worker@p.iam.gserviceaccount.com",
+                                                       "serviceAccount:peoplelens-eval@p.iam.gserviceaccount.com"]},
+        {"role": "roles/owner", "members": ["user:owner@example.com"]},
+        {"role": "roles/bigquery.dataViewer", "members": ["serviceAccount:otherrepo-reader@p.iam.gserviceaccount.com"]},
+    ]
+}
+
+
+def test_gcp_shared_project_isolation():
+    import json
+
+    base = {
+        "gcloud config get-value account": Result(0, "me@x.example"),
+        "gcloud auth application-default print-access-token": Result(0, "ya29"),
+        "gcloud config get-value project": Result(0, "shared-project-123"),
+    }
+    name = "shared project: peoplelens-* hold no project role but roles/bigquery.jobUser"
+    ok = by_name(doctor.gcp_checks(ScriptRunner({**base, "gcloud projects get-iam-policy": Result(0, json.dumps(IAM_POLICY))}), None))
+    assert ok[name].status == OK and ok[name].required  # other repos' members are not ours to judge
+    leaky = {**IAM_POLICY, "bindings": IAM_POLICY["bindings"] + [
+        {"role": "roles/bigquery.dataViewer", "members": ["serviceAccount:peoplelens-eval@p.iam.gserviceaccount.com"]}]}
+    bad = by_name(doctor.gcp_checks(ScriptRunner({**base, "gcloud projects get-iam-policy": Result(0, json.dumps(leaky))}), None))
+    assert bad[name].status == MISSING
+    assert bad[name].detail == "peoplelens-eval@p.iam.gserviceaccount.com roles/bigquery.dataViewer"
+    assert "remove-iam-policy-binding" in bad[name].fix
+    unreadable = by_name(doctor.gcp_checks(ScriptRunner({**base, "gcloud projects get-iam-policy": Result(1, "", "PERMISSION_DENIED")}), None))
+    assert unreadable[name].status == MISSING
+    assert doctor.ALLOWED_PROJECT_ROLES == ["roles/bigquery.jobUser"]
+    assert "<shared-project-id>" in by_name(doctor.gcp_checks(ScriptRunner({}), None))["project set"].fix
+
+
+def test_deployed_reports_build_commit_and_ai_budget(tmp_path, monkeypatch):
+    monkeypatch.setattr(checks, "STATE_PATH", tmp_path / "state.json")
+    env = tmp_path / "prod_eval.env"
+    env.write_text("EXECUTIVE_CLIENT_ID=c.access\nEXECUTIVE_CLIENT_SECRET=s\n")
+    monkeypatch.setattr(doctor, "PROD_EVAL_ENV", env)
+    monkeypatch.setattr(doctor, "EVAL_KEY", tmp_path / "eval.json")
+    checks.save_state({"worker_url": "https://peoplelens.lumen.workers.dev", "deployed_commit": "a" * 40})
+
+    def http(url, headers=None):
+        if url.endswith("/api/health"):
+            return 200, {"ok": True, "build_commit": "b" * 40}, ""
+        if headers:
+            return 200, {"role": "executive", "ai_budget": {"day": "2026-10-11", "used": 120, "cap": 6000}}, ""
+        return 302, {}, "https://lumen.cloudflareaccess.com/cdn-cgi/access/login"
+
+    c = by_name(doctor.deployed_checks(ScriptRunner({"npx wrangler secret list": Result(0, "[]")}), None, None, http=http))
+    assert c["/api/health build_commit is the deployed commit"].status == MISSING
+    assert c["/api/me reports this repo's Workers AI share (ai_budget)"].status == OK
+    assert "120 of 6000" in c["/api/me reports this repo's Workers AI share (ai_budget)"].detail
+
+
+def test_audit_group(tmp_path, monkeypatch, cf_env):
+    from peoplelens.ops import bootstrap_audit
+
+    monkeypatch.setattr(doctor, "CLOUDFLARE_ENV", cf_env)
+    cfg = tmp_path / "wrangler.audit.generated.jsonc"
+    monkeypatch.setattr(bootstrap_audit, "GENERATED_CONFIG", cfg)
+    get = "npx wrangler basin catalog get peoplelens-audit"
+    active = "Catalog URI:  https://catalog.cloudflarestorage.com/a/peoplelens-audit\nWarehouse:    a_peoplelens-audit\nStatus:       active\n"
+    cfg.write_text(json.dumps({"env": {"production": {"queues": {}, "r2_buckets": []}}}))
+    c = by_name(doctor.audit_checks(ScriptRunner({get: Result(0, active)})))
+    assert c["Basin Catalog active on peoplelens-audit"].status == OK
+    assert c["generated config has no pipelines key (Workers Paid only)"].status == OK
+    assert c["R2 API token for make audit-commit"].status == WARN  # optional until make audit-commit
+    cfg.write_text(json.dumps({"env": {"production": {"pipelines": [{"binding": "AUDIT_STREAM"}]}}}))
+    c = by_name(doctor.audit_checks(ScriptRunner({get: Result(0, "Basin Catalog is not enabled for bucket 'peoplelens-audit'.")})))
+    assert c["Basin Catalog active on peoplelens-audit"].status == MISSING
+    assert c["generated config has no pipelines key (Workers Paid only)"].status == MISSING
+

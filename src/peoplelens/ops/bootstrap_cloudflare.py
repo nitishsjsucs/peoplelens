@@ -46,6 +46,10 @@ def ensure_gateway(api: CloudflareApi, plan: Plan, dry_run: bool) -> None:
         return
     action, _ = api.ensure_gateway(GATEWAY_ID)
     plan.add(f"AI Gateway {GATEWAY_ID}: {action}")
+    if action != "unchanged":
+        state = load_state()
+        state["gateway_settings_form"] = "without log_management" if action.endswith("without log_management") else "full"
+        save_state(state)
 
 
 def deploy(runner: Runner, plan: Plan, secrets: dict[str, str] | None = None) -> None:
@@ -83,6 +87,11 @@ def deploy(runner: Runner, plan: Plan, secrets: dict[str, str] | None = None) ->
             DEPLOY_SECRETS.unlink()
     if not res.ok:
         raise BootstrapError(f"wrangler deploy failed: {(res.stderr or res.stdout).strip()[-600:]}")
+    if not runner.dry_run:
+        # doctor compares it with /api/health.build_commit
+        state = load_state()
+        state["deployed_commit"] = commit
+        save_state(state)
 
 
 def phase_a_cloudflare(api: CloudflareApi, project: str, runner: Runner, plan: Plan,
@@ -96,6 +105,7 @@ def phase_a_cloudflare(api: CloudflareApi, project: str, runner: Runner, plan: P
     elif not state.get("worker_key_deployed") and not runner.dry_run:
         raise BootstrapError("no worker key to deploy; rerun phase A (it creates .secrets/worker-key.json)")
     deploy(runner, plan, secrets)
+    state = {**state, **load_state()}  # deploy() recorded deployed_commit; keep it
     if WORKER_KEY.exists() and not runner.dry_run:
         os.remove(WORKER_KEY)
         state["worker_key_deployed"] = True

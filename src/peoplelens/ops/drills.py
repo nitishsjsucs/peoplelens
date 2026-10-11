@@ -24,6 +24,9 @@ from peoplelens.ops.bootstrap_gcp import sa_email
 from peoplelens.ops.checks import Runner
 
 BQ = "https://bigquery.googleapis.com/bigquery/v2"
+# Shared Google Cloud project (SPEC.md 25.4 E): every drill query is capped and labeled.
+DRILL_MAX_BYTES = 100 * 1024 * 1024
+LABELS = {"app": "peoplelens", "purpose": "drill"}
 
 
 class DrillError(RuntimeError):
@@ -41,7 +44,8 @@ def _token(runner: Runner, impersonate: str | None = None) -> str:
 
 
 def _query(project: str, token: str, sql: str, http=None) -> list[list]:
-    body = {"query": sql, "useLegacySql": False, "location": "US", "timeoutMs": 30000}
+    body = {"query": sql, "useLegacySql": False, "location": "US", "timeoutMs": 30000,
+            "maximumBytesBilled": str(DRILL_MAX_BYTES), "labels": dict(LABELS)}
     if http is not None:
         out = http(f"{BQ}/projects/{project}/queries", body, token)
     else:

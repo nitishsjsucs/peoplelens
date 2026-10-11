@@ -30,7 +30,9 @@ SERVICE_ACCOUNTS = {
     "peoplelens-eval": "PeopleLens eval baseline (reads peoplelens_semantic)",
     "peoplelens-analyst": "PeopleLens masking demo (reads peoplelens_core)",
 }
-# Read-only roles; tests assert this list never gains a write role.
+# The only project-level role in the shared project (job creation cannot be granted per
+# dataset, and the role reads no data); every data grant is dataset- or resource-scoped.
+# Tests assert this never gains another role; doctor checks the live IAM policy.
 PROJECT_ROLES = {
     "peoplelens-worker": ["roles/bigquery.jobUser"],
     "peoplelens-eval": ["roles/bigquery.jobUser"],
@@ -50,13 +52,20 @@ def render_sql(name: str, project: str) -> str:
     return (GOVERNANCE_DIR / name).read_text().replace("{project}", project)
 
 
+# Shared Google Cloud project (SPEC.md 25.4 E): no job runs uncapped. Governance DDL and
+# DCL bill nothing; the cap and the label are there so every job is bounded and attributable.
+GOVERNANCE_MAX_BYTES = 100 * 1024 * 1024
+JOB_LABEL = "app:peoplelens"
+
+
 def bq_script(name: str, project: str) -> list[str]:
     """`bq` command for one governance SQL script, in the documented form
     `bq [global flags] query [query flags] 'SQL'`. The SQL is passed as the query
     argument (not on stdin) with comment lines removed, so the argument never starts
     with `--` and cannot be read as a flag."""
     sql = "\n".join(line for line in render_sql(name, project).splitlines() if not line.lstrip().startswith("--")).strip()
-    return ["bq", f"--project_id={project}", "--location=US", "query", "--use_legacy_sql=false", sql]
+    return ["bq", f"--project_id={project}", "--location=US", "query", "--use_legacy_sql=false",
+            f"--maximum_bytes_billed={GOVERNANCE_MAX_BYTES}", f"--label={JOB_LABEL}", sql]
 
 
 def _check(res, what: str) -> None:

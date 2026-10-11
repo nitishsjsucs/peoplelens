@@ -3,7 +3,12 @@
 Output: GROUP | CHECK | STATUS (OK, MISSING, WARN, SKIP) | FIX, where FIX is the
 exact command or console path (SPEC.md 17.2 to 17.6). Exits non-zero when a
 required check in an applicable group fails. Governance never fails the run
-unless --strict-governance is passed.
+unless --strict-governance is passed; the audit group runs only with --with-audit.
+
+Production runs on the Cloudflare Workers Free plan (nothing needs Workers Paid, so
+there is no plan check) in a Google Cloud project shared with three other repos, so
+the gcp group also checks that no peoplelens-* identity holds a project-level role
+other than roles/bigquery.jobUser (SPEC.md 25.4 E).
 """
 
 from __future__ import annotations
@@ -17,7 +22,7 @@ import urllib.request
 from pathlib import Path
 
 from peoplelens.dev.client import USER_AGENT
-from peoplelens.ops.bootstrap_gcp import APIS, SERVICE_ACCOUNTS, sa_email
+from peoplelens.ops.bootstrap_gcp import APIS, PROJECT_ROLES, SERVICE_ACCOUNTS, sa_email
 from peoplelens.ops.checks import (
     CLOUDFLARE_ENV,
     EVAL_KEY,
@@ -139,8 +144,23 @@ def cloudflare_checks(runner: Runner, api: CloudflareApi | None) -> list[Check]:
         sub = results["Workers Scripts (subdomain)"]
         out.append(Check(g, "workers.dev subdomain", OK if sub else MISSING,
                          "pick one in Workers & Pages, or pass --workers-subdomain <name> to make bootstrap", sub or ""))
-    out.append(Check(g, "Workers Paid plan", WARN, "Workers & Pages > Plans > Workers Paid (needed for make eval-prod; not readable by API)", required=False))
     return out
+
+
+ALLOWED_PROJECT_ROLES = sorted({r for roles in PROJECT_ROLES.values() for r in roles})
+
+
+def project_role_violations(policy: dict) -> list[str]:
+    """`member role` pairs where a peoplelens-* service account holds a project-level role
+    other than roles/bigquery.jobUser (the shared project's isolation rule)."""
+    out = []
+    for binding in policy.get("bindings") or []:
+        role = binding.get("role", "")
+        for member in binding.get("members") or []:
+            name = member.split(":", 1)[-1]
+            if name.startswith("peoplelens-") and role not in ALLOWED_PROJECT_ROLES:
+                out.append(f"{name} {role}")
+    return sorted(out)
 
 
 def gcp_checks(runner: Runner, project: str | None) -> list[Check]:
@@ -158,7 +178,7 @@ def gcp_checks(runner: Runner, project: str | None) -> list[Check]:
     cfg = runner.run(["gcloud", "config", "get-value", "project"]).stdout.strip()
     project = project or cfg or None
     if not project:
-        out.append(Check(g, "project set", MISSING, "gcloud config set project peoplelens-<suffix> (SPEC.md 17.5)"))
+        out.append(Check(g, "project set", MISSING, "gcloud config set project <shared-project-id> (SPEC.md 17.5)"))
         return out
     out.append(Check(g, "project set", OK, detail=project))
     bill = runner.run(["gcloud", "billing", "projects", "describe", project, "--format=value(billingEnabled)"])
@@ -174,6 +194,19 @@ def gcp_checks(runner: Runner, project: str | None) -> list[Check]:
     blocked = pol.ok and '"enforce": true' in pol.stdout.replace("True", "true")
     out.append(Check(g, "service-account key creation allowed", WARN if blocked or not pol.ok else OK,
                      "if your project sits under an organization, allow key creation for this project (SPEC.md 17.5)", required=False))
+    iam = runner.run(["gcloud", "projects", "get-iam-policy", project, "--format=json"])
+    name = "shared project: peoplelens-* hold no project role but roles/bigquery.jobUser"
+    try:
+        policy = json.loads(iam.stdout) if iam.ok else None
+    except json.JSONDecodeError:
+        policy = None
+    if policy is None:
+        out.append(Check(g, name, MISSING, f"gcloud projects get-iam-policy {project} (needs resourcemanager.projects.getIamPolicy)",
+                         (iam.stderr or "").strip()[:60]))
+    else:
+        bad = project_role_violations(policy)
+        fix = "remove it: gcloud projects remove-iam-policy-binding <project> --member=serviceAccount:<sa> --role=<role> (grant data access per dataset instead)"
+        out.append(Check(g, name, OK if not bad else MISSING, fix, "; ".join(bad)))
     return out
 
 
@@ -226,7 +259,9 @@ def deployed_checks(runner: Runner, api: CloudflareApi | None, project: str | No
         try:
             gw = api.gateway(GATEWAY_ID)
             good = bool(gw) and gw.get("authentication") is True and gw.get("collect_logs") is True
-            out.append(Check(g, "AI Gateway peoplelens (authenticated, logging)", OK if good else MISSING, "make bootstrap ARGS=\"--phase a ...\""))
+            form = state.get("gateway_settings_form")
+            out.append(Check(g, "AI Gateway peoplelens (authenticated, logging)", OK if good else MISSING, "make bootstrap ARGS=\"--phase a ...\"",
+                             f"accepted settings: {form}" if form else ""))
         except CloudflareError as exc:
             out.append(Check(g, "AI Gateway peoplelens", MISSING, "add AI Gateway: Edit to the token", str(exc)[:60]))
     secrets = runner.run(["npx", "wrangler", "secret", "list", "--env", "production", "--format", "json"], cwd=WORKER_DIR)
@@ -247,6 +282,13 @@ def deployed_checks(runner: Runner, api: CloudflareApi | None, project: str | No
     status, body, _ = http(f"{url}/api/health", svc)
     if status == 200:
         out.append(Check(g, "/api/health", OK))
+        deployed = state.get("deployed_commit")
+        build = body.get("build_commit")
+        if deployed:
+            out.append(Check(g, "/api/health build_commit is the deployed commit", OK if build == deployed else MISSING,
+                             "make deploy (from a clean tree)", f"{build} vs {deployed}"))
+        else:
+            out.append(Check(g, "/api/health build_commit", OK if build else WARN, "make deploy", str(build), required=False))
     elif status == 503:
         out.append(Check(g, "/api/health", MISSING, "make bootstrap ARGS=\"--phase b ...\"", f"503, missing {', '.join(body.get('missing', []))}"))
     else:
@@ -259,11 +301,39 @@ def deployed_checks(runner: Runner, api: CloudflareApi | None, project: str | No
         status, body, _ = http(f"{url}/api/me", svc)
         out.append(Check(g, "service token resolves to its role", OK if status == 200 and body.get("role") == "executive" else MISSING,
                          "make bootstrap ARGS=\"--phase b ...\"", f"HTTP {status} {body.get('role', '')}"))
+        budget = body.get("ai_budget") if status == 200 else None
+        has_budget = isinstance(budget, dict) and isinstance(budget.get("cap"), int)
+        out.append(Check(g, "/api/me reports this repo's Workers AI share (ai_budget)", OK if has_budget else MISSING, "make deploy",
+                         f"{budget.get('used')} of {budget.get('cap')} neurons used today" if has_budget else ""))
     else:
         out.append(Check(g, "eval service tokens saved", MISSING, "make bootstrap ARGS=\"--phase b ...\" (writes .secrets/prod_eval.env)"))
     out.append(Check(g, "eval service-account key", OK if EVAL_KEY.exists() else MISSING, "make bootstrap ARGS=\"--phase a ...\""))
     if EVAL_KEY.exists() and mode_too_open(EVAL_KEY):
         out.append(Check(g, "eval key mode 0600", WARN, f"chmod 600 {EVAL_KEY}", required=False))
+    return out
+
+
+def audit_checks(runner: Runner) -> list[Check]:
+    """Optional audit trail (SPEC.md 25.4 A): Basin Catalog active on the bucket, the
+    generated deploy config free of Basin Pipelines, and the committer's R2 keys."""
+    from peoplelens.ops.bootstrap_audit import BUCKET, GENERATED_CONFIG, parse_catalog
+
+    g = "audit"
+    fix = 'make bootstrap ARGS="--gcp-project <p> --phase a --with-audit"'
+    info = parse_catalog(runner.run(["npx", "wrangler", "basin", "catalog", "get", BUCKET], cwd=WORKER_DIR).stdout)
+    active = info.get("status", "").lower() == "active"
+    out = [Check(g, f"Basin Catalog active on {BUCKET}", OK if active else MISSING, fix, info.get("status", "not enabled"))]
+    if GENERATED_CONFIG.exists():
+        text = GENERATED_CONFIG.read_text()
+        out.append(Check(g, "generated config has no pipelines key (Workers Paid only)", MISSING if '"pipelines"' in text else OK, fix))
+    else:
+        out.append(Check(g, "generated config (worker/wrangler.audit.generated.jsonc)", MISSING, fix))
+    env = read_env_file(CLOUDFLARE_ENV)
+    keys = ("AUDIT_R2_TOKEN", "AUDIT_R2_ACCESS_KEY_ID", "AUDIT_R2_SECRET_ACCESS_KEY")
+    missing = [k for k in keys if not env.get(k)]
+    out.append(Check(g, "R2 API token for make audit-commit", OK if not missing else WARN,
+                     "R2 > Manage R2 API Tokens > Admin Read & Write; add the three AUDIT_R2_* lines to .secrets/cloudflare.env (SPEC.md 17.3)",
+                     ", ".join(missing), required=False))
     return out
 
 
@@ -301,6 +371,8 @@ def run(groups: list[str], project: str | None, strict_governance: bool, fast: b
         checks += gcp_checks(runner, project)
     if "deployed" in groups:
         checks += deployed_checks(runner, api, project)
+    if "audit" in groups:
+        checks += audit_checks(runner)
     if "governance" in groups:
         gov = governance_checks(runner, project)
         if strict_governance:

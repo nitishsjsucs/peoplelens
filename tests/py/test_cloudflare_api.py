@@ -112,3 +112,40 @@ def test_transport_keeps_non_json_bodies_instead_of_crashing():
     finally:
         server.shutdown()
         server.server_close()
+
+
+def test_gateway_create_is_retried_without_log_management_when_rejected():
+    from peoplelens.ops.cloudflare_api import CORE_GATEWAY_SETTINGS
+
+    bodies = []
+
+    def transport(method, url, body, headers):
+        if method == "GET":
+            return Response(404, {"success": False, "errors": [{"message": "not found"}]})
+        bodies.append(body)
+        if "log_management" in body:
+            return Response(400, {"success": False, "errors": [{"message": "log_management is not supported for this gateway"}]})
+        return ok({"id": "peoplelens", **CORE_GATEWAY_SETTINGS})
+
+    action, gw = CloudflareApi("acc123", "tok", transport).ensure_gateway()
+    assert action == "created without log_management"
+    assert bodies[0] == {"id": "peoplelens", **GATEWAY_SETTINGS}
+    assert bodies[1] == {"id": "peoplelens", **CORE_GATEWAY_SETTINGS}
+    assert bodies[1]["authentication"] is True and "log_management_strategy" not in bodies[1]
+
+
+def test_a_gateway_without_log_fields_is_not_rewritten_forever():
+    from peoplelens.ops.cloudflare_api import CORE_GATEWAY_SETTINGS
+
+    t = FakeTransport({("GET", f"{ACC}/ai-gateway/gateways/peoplelens"): ok({"id": "peoplelens", **CORE_GATEWAY_SETTINGS})})
+    assert CloudflareApi("acc123", "tok", t).ensure_gateway()[0] == "unchanged"
+
+
+def test_other_gateway_errors_are_not_retried():
+    def transport(method, url, body, headers):
+        if method == "GET":
+            return Response(404, {"success": False, "errors": [{"message": "not found"}]})
+        return Response(403, {"success": False, "errors": [{"message": "Authentication error"}]})
+
+    with pytest.raises(CloudflareError):
+        CloudflareApi("acc123", "tok", transport).ensure_gateway()

@@ -32,6 +32,10 @@ GATEWAY_SETTINGS = {
     "log_management": 10000,
     "log_management_strategy": "DELETE_OLDEST",
 }
+# Gateways created on or after 2026-09-24 keep logs under Workers Logs pricing, so these two
+# fields may apply only to legacy logs, and the API may reject them (SPEC.md 17.6 step 8, U).
+GATEWAY_LOG_FIELDS = ("log_management", "log_management_strategy")
+CORE_GATEWAY_SETTINGS = {k: v for k, v in GATEWAY_SETTINGS.items() if k not in GATEWAY_LOG_FIELDS}
 
 
 class CloudflareError(RuntimeError):
@@ -125,14 +129,28 @@ class CloudflareApi:
         return self.result("GET", "/ai-gateway/gateways") or []
 
     def ensure_gateway(self, gateway_id: str = GATEWAY_ID) -> tuple[str, dict]:
-        """Create the gateway, or converge its settings. Returns (action, gateway)."""
+        """Create the gateway, or converge its settings. Returns (action, gateway).
+
+        If the API rejects the body (400 or 422), the write is retried once without the
+        two log_management fields and the action says so; bootstrap records which form
+        was accepted and doctor reports it. Drift in those two fields is ignored when
+        the gateway does not report them."""
         existing = self.gateway(gateway_id)
         if existing is None:
-            return "created", self.result("POST", "/ai-gateway/gateways", {"id": gateway_id, **GATEWAY_SETTINGS})
-        drift = {k: v for k, v in GATEWAY_SETTINGS.items() if existing.get(k) != v}
+            return self._write_gateway("POST", "/ai-gateway/gateways", gateway_id, "created")
+        compared = GATEWAY_SETTINGS if existing.get("log_management") is not None else CORE_GATEWAY_SETTINGS
+        drift = {k: v for k, v in compared.items() if existing.get(k) != v}
         if not drift:
             return "unchanged", existing
-        return "updated", self.result("PUT", f"/ai-gateway/gateways/{gateway_id}", {"id": gateway_id, **GATEWAY_SETTINGS})
+        return self._write_gateway("PUT", f"/ai-gateway/gateways/{gateway_id}", gateway_id, "updated")
+
+    def _write_gateway(self, method: str, path: str, gateway_id: str, action: str) -> tuple[str, dict]:
+        try:
+            return action, self.result(method, path, {"id": gateway_id, **GATEWAY_SETTINGS})
+        except CloudflareError as exc:
+            if exc.status not in (400, 422):
+                raise
+            return f"{action} without log_management", self.result(method, path, {"id": gateway_id, **CORE_GATEWAY_SETTINGS})
 
     def gateway_log(self, log_id: str, gateway_id: str = GATEWAY_ID) -> dict | None:
         return self.result("GET", f"/ai-gateway/gateways/{gateway_id}/logs/{log_id}", allow_404=True)

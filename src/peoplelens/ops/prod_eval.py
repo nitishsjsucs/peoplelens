@@ -22,6 +22,8 @@ READONLY_SCOPE = "https://www.googleapis.com/auth/bigquery.readonly"
 BQ_API = "https://bigquery.googleapis.com/bigquery/v2"
 PLACEHOLDER = "`peoplelens-project-id`"
 BASELINE_MAX_BYTES = 200 * 1024 * 1024
+# Shared Google Cloud project (SPEC.md 25.4 E): every executed job carries a byte cap.
+PARITY_MAX_BYTES = 200 * 1024 * 1024
 MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
 LOCATION = "US"
 
@@ -88,20 +90,24 @@ def dry_run_bytes(bq: EvalBigQuery, sql: str, params: list) -> int:
 
 def run_entry(bq: EvalBigQuery, entry: dict, values: dict, project: str, *, dry_run: bool = False,
               max_bytes: int | None = None, use_cache: bool = True):
-    """Execute (or dry-run) one BigQuery catalog entry. Returns (columns, rows, bytes processed)."""
+    """Execute (or dry-run) one BigQuery catalog entry. Returns (columns, rows, bytes processed).
+
+    An executed job always carries maximumBytesBilled (the shared project's rule); a dry
+    run bills nothing and needs none."""
     from google.cloud import bigquery
 
     sql = entry["sql"].replace(PLACEHOLDER, f"`{project}`")
     params = query_parameters(values)
     if dry_run:
         return [], [], dry_run_bytes(bq, sql, params)
+    if not max_bytes:
+        raise ValueError("every executed BigQuery job needs max_bytes (maximumBytesBilled)")
     cfg = bigquery.QueryJobConfig(
         query_parameters=params,
         use_query_cache=use_cache,
         labels={"app": "peoplelens", "purpose": "smoke"},
+        maximum_bytes_billed=max_bytes,
     )
-    if max_bytes is not None:
-        cfg.maximum_bytes_billed = max_bytes
     result = bq.client.query_and_wait(sql, job_config=cfg, location=LOCATION, wait_timeout=60)
     columns = [f.name for f in result.schema]
     rows = [tuple(r.values()) for r in result]

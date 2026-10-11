@@ -151,6 +151,7 @@ def phase_b(api: CloudflareApi, emails: dict[str, dict], runner: Runner, plan: P
     # 15. redeploy with the Access secrets, then verify
     deploy(runner, plan, {"ACCESS_TEAM_DOMAIN": team, "ACCESS_AUD": aud or "", "ROLE_BINDINGS_JSON": payload})
     if not runner.dry_run:
+        state = load_state()  # deploy() recorded deployed_commit; keep it
         state.update({"access_team_domain": team, "access_app_id": app_id, "access_aud": aud})
         save_state(state)
         plan.add(f"unauthenticated /api/me: {check_protected(state['worker_url'])}")

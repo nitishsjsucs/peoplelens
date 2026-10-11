@@ -218,3 +218,137 @@ def test_service_token_step_reports_a_rejected_role_and_keeps_going(tmp_path, mo
     assert all(out["roles"][r]["ok"] for r in ("people_analytics", "talent_acquisition", "executive"))
     assert out["roles"]["executive"]["legal_suppressed"] and out["roles"]["executive"]["complement_suppressed"]
     assert out["gateway_logs"][0] == ("L1", "What is the headcount in 2025?")
+
+
+def test_an_executed_entry_always_carries_a_byte_cap():
+    bq = prod_eval.EvalBigQuery("peoplelens-abc123", FakeClient(), FakeHttp())
+    with pytest.raises(ValueError, match="max_bytes"):
+        prod_eval.run_entry(bq, ENTRY, VALUES, "peoplelens-abc123")
+    assert bq.client.calls == []
+
+
+def test_parity_runs_every_entry_with_the_200_mib_cap(monkeypatch):
+    seen = []
+
+    def fake_run_entry(client, entry, values, project, **kw):
+        seen.append(kw)
+        return [], [], 0
+
+    monkeypatch.setattr(smoke, "run_entry", fake_run_entry)
+    monkeypatch.setattr(smoke, "compare", lambda *a, **k: [])
+    out = smoke.step_parity(object(), "peoplelens-abc123")
+    assert out["ok"] and len(seen) == 312
+    assert all(kw == {"max_bytes": 200 * 1024 * 1024} for kw in seen)
+    assert prod_eval.PARITY_MAX_BYTES == 200 * 1024 * 1024
+
+
+class MeClient:
+    def __init__(self, status=200, budget=None):
+        self.status, self.budget = status, budget
+
+    def __call__(self, base_url, headers):
+        return self
+
+    def me(self):
+        from peoplelens.dev.client import Reply
+
+        body = {"role": "executive"}
+        if self.budget is not None:
+            body["ai_budget"] = self.budget
+        return Reply(self.status, body, 1.0)
+
+
+def test_neuron_preflight_needs_4800_left_today():
+    assert smoke.SMOKE_PLANNER_CALLS * 185.6 <= smoke.SMOKE_MIN_NEURONS <= 6000  # upper bound per planner call, SPEC.md 25.5
+    ok = smoke.step_neuron_preflight("https://w", MeClient(budget={"day": "2026-10-11", "used": 1200, "cap": 6000}))
+    assert ok["ok"] and ok["left"] == 4800
+    short = smoke.step_neuron_preflight("https://w", MeClient(budget={"day": "2026-10-11", "used": 1201, "cap": 6000}))
+    assert not short["ok"] and "00:00 UTC" in short["message"]
+    stale = smoke.step_neuron_preflight("https://w", MeClient())
+    assert not stale["ok"] and "make deploy" in stale["message"]
+
+
+def test_tail_outcomes_reads_single_line_and_pretty_printed_events():
+    text = ('{"outcome": "exception", "scriptName": "peoplelens", "logs": []}\n'
+            + json.dumps({"outcome": "exceededCpu", "scriptName": "peoplelens", "event": {"request": {"url": "https://x/api/ask"}}}, indent=2)
+            + "\nnot json\n{\"outcome\": \"ok\"}")
+    assert smoke.tail_outcomes(text) == ["exception", "exceededCpu", "ok"]
+    assert smoke.tail_outcomes("") == []
+
+
+def test_cpu_step_runs_wrangler_tail_and_fails_on_exceeded_cpu():
+    class FakeProc:
+        pid = 999_999_999
+
+        def __init__(self, out):
+            self.out = out
+
+        def terminate(self):
+            pass
+
+        def communicate(self, timeout=None):
+            return self.out, ""
+
+        def kill(self):
+            pass
+
+    launched = {}
+
+    def popen(cmd, **kw):
+        launched["cmd"], launched["kw"] = cmd, kw
+        return FakeProc('{"outcome": "exceededCpu"}\n{"outcome": "exception"}\n')
+
+    tail = smoke.CpuTail(popen=popen, settle_s=0)
+    tail.start()
+    out = tail.stop()
+    assert launched["cmd"] == ["npx", "wrangler", "tail", "peoplelens", "--env", "production", "--format", "json", "--status", "error"]
+    assert "CLOUDFLARE_API_TOKEN" not in launched["kw"]["env"] and launched["kw"]["start_new_session"] is True
+    assert out["ok"] is False and out["exceeded_cpu"] == 1 and out["error_events"] == 2
+    clean = smoke.CpuTail(popen=lambda cmd, **kw: FakeProc(""), settle_s=0)
+    clean.start()
+    assert clean.stop() == {"ok": True, "error_events": 0, "exceeded_cpu": 0, "outcomes": [], "method": " ".join(smoke.TAIL_CMD)}
+
+
+def test_service_token_step_asks_27_questions_and_collects_their_request_ids(monkeypatch):
+    from peoplelens.dev.client import Reply
+
+    class Client:
+        n = 0
+
+        def __init__(self, base_url, headers):
+            pass
+
+        def session(self):
+            return "s"
+
+        def ask(self, session, text):
+            Client.n += 1
+            if "gender" in text:
+                return Reply(200, {"request_id": f"r{Client.n}", "type": "refusal", "refusal": {"code": "DIMENSION_NOT_APPROVED"}}, 1)
+            rows = [{"department": "Legal", "suppressed": True}]
+            return Reply(200, {"request_id": f"r{Client.n}", "type": "answer",
+                               "answer": {"rows": rows, "suppressed_cells": {"complement": 1}}, "meta": {}}, 1)
+
+    ids: list[str] = []
+    out = smoke.step_service_tokens("https://w", client_factory=Client, request_ids=ids)
+    assert out["ok"] is True
+    assert len(ids) == smoke.SMOKE_QUESTIONS == 27 and len(set(ids)) == 27
+
+
+def test_audit_step_checks_each_step_4_request_exactly_once(tmp_path):
+    from peoplelens.warehouse.audit_commit import local_store
+    from peoplelens.warehouse.audit_sink import FIELDS, local_catalog
+
+    store, catalog = local_store(tmp_path / "staging"), local_catalog(tmp_path / "ice")
+    ids = [f"0b9c1f9e-7a3b-4f00-9c1e-{n:012d}" for n in range(27)]
+
+    def ev(rid):
+        return {**{f: None for f in FIELDS}, "ts": "2026-10-11T12:00:00.000Z", "request_id": rid, "role": "executive", "action": "answer"}
+
+    store.put("staging/v1/dt=2026-10-11/" + "c" * 32 + ".ndjson", "".join(json.dumps(ev(i)) + "\n" for i in ids[:20]).encode())
+    for rid in ids[18:]:  # two of them also put directly, as after a failed send
+        store.put(f"staging/v1/dt=2026-10-11/direct-{rid}.ndjson", (json.dumps(ev(rid)) + "\n").encode())
+    out = smoke.step_audit(ids, wait_s=0, sleep=lambda s: None, store=store, catalog=catalog)
+    assert out == {"ok": True, "asks": 27, "appended_first": 27, "appended_second": 0, "missing": [], "repeated": []}
+    missing = smoke.step_audit(ids + ["never-staged"], wait_s=0, sleep=lambda s: None, store=store, catalog=catalog)
+    assert missing["ok"] is False and missing["missing"] == ["never-staged"]

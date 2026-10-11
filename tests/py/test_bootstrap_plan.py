@@ -317,3 +317,28 @@ def test_a_real_bootstrap_checks_the_cloudflare_token_before_touching_google_clo
     with pytest.raises(SystemExit, match="cloudflare.env"):
         cli.main(["bootstrap", "--gcp-project", "peoplelens-abc123", "--phase", "a"])
     assert ran == []
+
+
+def test_shared_project_names_grants_and_caps():
+    """One Google Cloud project serves four repos (SPEC.md 25.4 E): prefixed names, scoped
+    grants, roles/bigquery.jobUser as the only project-level role, and every job capped."""
+    import yaml
+
+    from peoplelens.paths import DBT_PROJECT_DIR
+
+    assert all(name.startswith("peoplelens-") for name in bootstrap_gcp.SERVICE_ACCOUNTS)
+    assert {r for roles in bootstrap_gcp.PROJECT_ROLES.values() for r in roles} == {"roles/bigquery.jobUser"}
+    for script in ("01_datasets.sql", "02_dataset_grants.sql"):
+        cmd = bootstrap_gcp.bq_script(script, "shared-project-123")
+        assert "--maximum_bytes_billed=104857600" in cmd and "--label=app:peoplelens" in cmd
+        assert cmd.index("--maximum_bytes_billed=104857600") > cmd.index("query")  # a query flag, after the command
+        datasets = set(re.findall(r"`shared-project-123`\.(\w+)", cmd[-1]))
+        assert datasets and all(d.startswith("peoplelens_") for d in datasets), datasets
+    grants = bootstrap_gcp.render_sql("02_dataset_grants.sql", "shared-project-123")
+    assert "ON PROJECT" not in grants.upper() and "ON SCHEMA" in grants.upper()
+    profile = yaml.safe_load((DBT_PROJECT_DIR / "profiles" / "bigquery" / "profiles.yml").read_text())
+    assert profile["peoplelens"]["outputs"]["bigquery"]["maximum_bytes_billed"] == 1073741824
+    project = yaml.safe_load((DBT_PROJECT_DIR / "dbt_project.yml").read_text())
+    assert project["query-comment"]["job-label"] is True
+    assert json.loads(project["query-comment"]["comment"]) == {"app": "peoplelens"}
+
