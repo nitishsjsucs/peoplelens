@@ -1,7 +1,8 @@
 import { z } from "zod";
 import { describe, expect, it } from "vitest";
-import { TOOLS, listDimensionValues, listMetrics } from "../src/tools/registry";
-import { EXEC, HRBP } from "./helpers/principals";
+import { ApiError } from "../src/policy/types";
+import { TOOLS, type Tool, describeMetric, invokeTool, listDimensionValues, listMetrics, runGovernedQuery } from "../src/tools/registry";
+import { EXEC, HRBP, RECRUITER } from "./helpers/principals";
 
 function propertyNames(schema: unknown, out: string[] = []): string[] {
   if (!schema || typeof schema !== "object") return out;
@@ -46,5 +47,28 @@ describe("tool registry", () => {
     expect(values.values).toEqual(["Engineering", "Sales"]);
     const none = (await listDimensionValues.run({ dimension: "employment_type" }, { principal: EXEC })) as { values: string[] };
     expect(none.values).toEqual([]);
+  });
+
+  it("invokeTool runs only registered read-only tools", async () => {
+    const listed = (await invokeTool(listMetrics, {}, { principal: EXEC })) as { metrics: unknown[] };
+    expect(listed.metrics).toHaveLength(6);
+    // a look-alike that is not the registered object, and a copy that drops readOnly, are refused
+    const lookalike: Tool<Record<string, never>> = { ...listMetrics };
+    const writable = { ...listMetrics, readOnly: false } as unknown as Tool<Record<string, never>>;
+    for (const tool of [lookalike, writable]) {
+      await expect(invokeTool(tool, {}, { principal: EXEC })).rejects.toMatchObject({ code: "INTERNAL" });
+    }
+    // run_governed_query has no implementation of its own: only the /api/ask pipeline wires one
+    await expect(
+      invokeTool(runGovernedQuery, { metric: "headcount", groupBy: [], grain: "none", timeRange: { start: "2025-12-01", end: "2025-12-31" }, filters: [] }, { principal: EXEC }),
+    ).rejects.toThrow("runQuery is not wired");
+  });
+
+  it("describe_metric refuses a metric outside the caller's role", async () => {
+    const turnover = (await invokeTool(describeMetric, { metric: "turnover_rate" }, { principal: HRBP })) as { id: string; dimensions: string[] };
+    expect(turnover).toMatchObject({ id: "turnover_rate", dimensions: ["department", "location", "job_level", "tenure_band"] });
+    const err = await invokeTool(describeMetric, { metric: "compensation_summary" }, { principal: RECRUITER }).catch((e: unknown) => e);
+    expect(err).toBeInstanceOf(ApiError);
+    expect(err).toMatchObject({ status: 403, code: "METRIC_NOT_ALLOWED" });
   });
 });

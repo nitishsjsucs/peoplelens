@@ -239,6 +239,31 @@ describe("Workers AI daily allowance (Free plan)", () => {
   });
 });
 
+describe("catalog routes (the read-only tools list_metrics, describe_metric, list_dimension_values)", () => {
+  it("serve each tool for the caller's role and refuse unknown or disallowed names", async () => {
+    const h = harness(keys);
+    const H = ROLE_EMAILS.hr_business_partner;
+    const R = ROLE_EMAILS.talent_acquisition;
+    const catalog = await h.call(R, "/api/catalog");
+    expect(catalog.status).toBe(200);
+    expect((catalog.json as Json).metrics.map((m: Json) => m.id)).toEqual(["headcount", "offer_acceptance_rate", "time_to_fill_days"]);
+    const fill = await h.call(R, "/api/catalog/metrics/time_to_fill_days");
+    expect(fill.status).toBe(200);
+    expect(fill.json).toMatchObject({ id: "time_to_fill_days", unit: "days", dimensions: ["department", "location", "job_level"] });
+    const pay = await h.call(R, "/api/catalog/metrics/compensation_summary");
+    expect(pay.status).toBe(403);
+    expect((pay.json as Json).refusal.code).toBe("METRIC_NOT_ALLOWED");
+    expect((await h.call(R, "/api/catalog/metrics/salary")).status).toBe(404);
+    const depts = await h.call(H, "/api/catalog/dimensions/department/values");
+    expect(depts.json).toEqual({ dimension: "department", values: ["Engineering", "Sales"] });
+    const types = await h.call(R, "/api/catalog/dimensions/employment_type/values");
+    expect(types.json).toEqual({ dimension: "employment_type", values: [] });
+    expect((await h.call(H, "/api/catalog/dimensions/gender/values")).status).toBe(404);
+    // the catalog routes never reach the warehouse
+    expect(h.warehouse.calls).toHaveLength(0);
+  });
+});
+
 function planJsonFor(metric: string, groupBy: string[]): Record<string, unknown> {
   return planJson({ metric, group_by: groupBy });
 }

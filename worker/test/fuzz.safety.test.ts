@@ -8,6 +8,7 @@ import { type AskResponse, ask } from "../src/ask";
 import type { LlmClient, PlanCall } from "../src/llm/types";
 import { POLICY, roleDimensions } from "../src/policy/policy";
 import { DIMENSION_IDS, GRAINS, METRIC_IDS, type MetricId, ROLE_IDS, type RoleId } from "../src/policy/types";
+import { type ToolInvoker, invokeTool } from "../src/tools/registry";
 import { DUCK_CATALOG } from "./helpers/app";
 import { FakeWarehouse, type Person, closingPopulation } from "./helpers/fakeWarehouse";
 import { MemoryUser } from "./helpers/memoryUser";
@@ -201,6 +202,18 @@ describe("fuzzed planner outputs never leak", () => {
           const user = new MemoryUser();
           const session = await user.createSession(0);
           const warehouse = new FakeWarehouse(PEOPLE);
+          // record every tool the pipeline runs, and how many warehouse calls each one made
+          const toolCalls: string[] = [];
+          let callsInQueryTool = 0;
+          const tools: ToolInvoker = async (tool, input, ctx) => {
+            toolCalls.push(tool.name);
+            const before = warehouse.calls.length;
+            try {
+              return await invokeTool(tool, input, ctx);
+            } finally {
+              if (tool.name === "run_governed_query") callsInQueryTool += warehouse.calls.length - before;
+            }
+          };
           let t = 1_760_000_000_000;
           const res = await ask(
             {
@@ -212,6 +225,7 @@ describe("fuzzed planner outputs never leak", () => {
               principal: principal(role),
               requestId: `fuzz-${n}`,
               now: () => (t += 1000),
+              tools,
             },
             { session_id: session, message: question },
           );
@@ -220,6 +234,13 @@ describe("fuzzed planner outputs never leak", () => {
           checkNoLeak(res.body, role);
           // nothing but compiled catalog SQL ever reached the warehouse
           for (const c of warehouse.calls) expect(DUCK_CATALOG.entries[c.q.catalogKey]?.sql).toBe(c.q.sql);
+          // ...and only from inside the read-only tool run_governed_query; an answer always comes
+          // from that tool and a clarification is always shown through ask_clarification
+          expect(callsInQueryTool).toBe(warehouse.calls.length);
+          for (const name of toolCalls) expect(["run_governed_query", "ask_clarification"]).toContain(name);
+          expect(toolCalls.filter((x) => x === "run_governed_query").length).toBeLessThanOrEqual(1);
+          if (res.body.type === "answer") expect(toolCalls).toEqual(["run_governed_query"]);
+          expect(toolCalls.filter((x) => x === "ask_clarification").length).toBe(res.body.type === "clarification" ? 1 : 0);
         }),
         { numRuns: 2000, seed: 20231 + ROLE_IDS.indexOf(role) },
       );

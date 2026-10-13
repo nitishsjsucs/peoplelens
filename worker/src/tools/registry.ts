@@ -1,14 +1,23 @@
 // Tools the server can invoke. Every tool is read-only, and none accepts SQL:
 // run_governed_query takes a QueryIntent that the policy engine validates and
 // maps to a compiled catalog entry. The planner picks an action; the server
-// decides which tool runs.
+// decides which tool runs, and runs it only through invokeTool, which refuses any
+// tool that is not in TOOLS or not declared read-only. The routes that reach them:
+// POST /api/ask (run_governed_query for a query, ask_clarification for a
+// clarification), GET /api/catalog (list_metrics), GET /api/catalog/metrics/:metric
+// (describe_metric) and GET /api/catalog/dimensions/:dimension/values
+// (list_dimension_values). Inputs are checked before the call: route parameters
+// against the tool's input schema, a QueryIntent by the policy engine inside
+// run_governed_query (a malformed intent gets a refusal code, not a schema error).
 import { z } from "zod";
 import { POLICY, roleDimensions } from "../policy/policy";
-import { DIMENSION_IDS, GRAINS, METRIC_IDS, type Principal, type QueryIntent } from "../policy/types";
+import { ApiError, DIMENSION_IDS, GRAINS, METRIC_IDS, type Principal, type QueryIntent } from "../policy/types";
 import { DIMENSION_VALUES } from "../policy/validate";
 
 export interface ToolCtx {
   principal: Principal;
+  /** The governed pipeline behind run_governed_query (validation, catalog entry, cost
+   * guard, execution, suppression); /api/ask wires it. */
   runQuery?: (intent: QueryIntent) => Promise<unknown>;
 }
 
@@ -54,6 +63,10 @@ export const describeMetric: Tool<{ metric: (typeof METRIC_IDS)[number] }> = {
   description: "Definition, unit and approved dimensions of one governed metric.",
   inputSchema: z.object({ metric: z.enum(METRIC_IDS) }),
   async run(input, ctx) {
+    const role = POLICY.roles[ctx.principal.role];
+    if (!role.metrics.includes(input.metric)) {
+      throw new ApiError(403, "METRIC_NOT_ALLOWED", "That metric is not available to your role.", role.metrics);
+    }
     const m = POLICY.metrics[input.metric];
     return { id: m.id, label: m.label, definition: m.definition, unit: m.unit, dimensions: roleDimensions(POLICY, ctx.principal.role, m.id) };
   },
@@ -98,3 +111,14 @@ export const askClarification: Tool<{ question: string; options: { id: string; l
 };
 
 export const TOOLS = [listMetrics, describeMetric, listDimensionValues, runGovernedQuery, askClarification] as const;
+
+/** How the server runs a tool. Tests pass a recording invoker that delegates to invokeTool. */
+export type ToolInvoker = <I>(tool: Tool<I>, input: I, ctx: ToolCtx) => Promise<unknown>;
+
+/** The only way the server runs a tool: it must be one of TOOLS and declared read-only. */
+export const invokeTool: ToolInvoker = async (tool, input, ctx) => {
+  if (!(TOOLS as readonly unknown[]).includes(tool) || tool.readOnly !== true) {
+    throw new ApiError(500, "INTERNAL", `refusing to run ${String(tool.name)}: not a registered read-only tool`);
+  }
+  return tool.run(input, ctx);
+};

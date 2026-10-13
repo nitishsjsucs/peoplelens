@@ -1,7 +1,9 @@
 // The /api/ask pipeline (SPEC.md section 3.3): rate limit, plan (one LLM call),
 // validate, resolve the catalog entry, cost guard, execute main query and
 // complement probes, suppress, narrate, record the turn. Every safeguard after
-// planning is server-side and independent of the LLM.
+// planning is server-side and independent of the LLM. The planner only picks an
+// action: the server runs a query through the read-only tool run_governed_query and
+// shows a clarification through ask_clarification (tools/registry.ts, invokeTool).
 import { narrate } from "./answer/narrative";
 import { type BoundQuery, type Dialect, bindQuery } from "./catalog/bind";
 import { type CatalogFile, catalogKey, lookupEntry } from "./catalog/catalog";
@@ -17,6 +19,7 @@ import { POLICY } from "./policy/policy";
 import { ApiError, type Policy, type Principal, type QueryIntent, type RefusalCode } from "./policy/types";
 import { DIMENSION_VALUES, type DimensionValues, type Validated, validateIntent } from "./policy/validate";
 import type { BudgetDecision, PendingClarification, RateDecision, SessionState, TurnRecord } from "./session/userDO";
+import { type ToolCtx, type ToolInvoker, askClarification, invokeTool, runGovernedQuery } from "./tools/registry";
 import type { RunResult, Warehouse } from "./warehouse/types";
 
 export interface UserPort {
@@ -40,6 +43,8 @@ export interface AskDeps {
   now: () => number;
   policy?: Policy;
   values?: DimensionValues;
+  /** Runs the read-only tools; defaults to invokeTool (tests record the calls). */
+  tools?: ToolInvoker;
 }
 
 export interface AskBody {
@@ -166,6 +171,8 @@ export async function ask(deps: AskDeps, body: AskBody): Promise<AskResult> {
   const policy = deps.policy ?? POLICY;
   const values = deps.values ?? DIMENSION_VALUES;
   const limits = policy.limits;
+  const invoke = deps.tools ?? invokeTool;
+  const toolCtx: ToolCtx = { principal: deps.principal };
   const t0 = deps.now();
   const meta: AskMeta = {
     latency_ms: 0,
@@ -236,13 +243,17 @@ export async function ask(deps: AskDeps, body: AskBody): Promise<AskResult> {
     );
   };
 
-  const clarification = (pending: PendingClarification) => {
+  // A clarification reaches the user through the ask_clarification tool; the option
+  // patches stay in the session and never leave the Worker.
+  const clarification = async (pending: PendingClarification) => {
     meta.decision = meta.decision ?? "CLARIFY";
+    const shown = (await invoke(
+      askClarification,
+      { question: pending.question, options: pending.options.map((o) => ({ id: o.id, label: o.label })) },
+      toolCtx,
+    )) as { question: string; options: { id: string; label: string }[] };
     turnRecord = { ts: deps.now(), type: "clarification", intent: null, pending, code: null, catalogKey: null };
-    return finish(200, {
-      type: "clarification",
-      clarification: { question: pending.question, options: pending.options.map((o) => ({ id: o.id, label: o.label })) },
-    });
+    return finish(200, { type: "clarification", clarification: { question: shown.question, options: shown.options } });
   };
 
   // 0. request shape
@@ -312,111 +323,117 @@ export async function ask(deps: AskDeps, body: AskBody): Promise<AskResult> {
     intent = planned.intent;
   }
 
-  // 4. validate against the role policy
-  const validation = validateIntent(intent, deps.principal, policy, values);
-  if (!validation.ok) {
-    const v = validation.violation;
-    if (v.clarify) {
-      meta.decision = v.code;
-      return clarification({
-        question: v.clarify.question,
-        options: v.clarify.options.map((o) => ({ id: o.id, label: o.label, patch: { grain: o.patch.grain ?? "none" } })),
-        base: draftOf(intent),
-      });
+  // Every query runs through the read-only tool run_governed_query, whose implementation
+  // is runQuery below (steps 4 to 10), so no warehouse call happens outside the tool.
+  return (await invoke(runGovernedQuery, intent, { ...toolCtx, runQuery })) as AskResult;
+
+  async function runQuery(intent: QueryIntent): Promise<AskResult> {
+    // 4. validate against the role policy
+    const validation = validateIntent(intent, deps.principal, policy, values);
+    if (!validation.ok) {
+      const v = validation.violation;
+      if (v.clarify) {
+        meta.decision = v.code;
+        return clarification({
+          question: v.clarify.question,
+          options: v.clarify.options.map((o) => ({ id: o.id, label: o.label, patch: { grain: o.patch.grain ?? "none" } })),
+          base: draftOf(intent),
+        });
+      }
+      return refusal(v.code, v.message, v.alternatives);
     }
-    return refusal(v.code, v.message, v.alternatives);
-  }
-  const validated: Validated = validation.value;
+    const validated: Validated = validation.value;
 
-  // 5. resolve the compiled catalog entry
-  const key = catalogKey(validated);
-  meta.catalog_key = key;
-  const entry = lookupEntry(deps.catalog, key);
-  if (!entry) throw new ApiError(500, "INTERNAL", "no catalog entry for a validated intent");
+    // 5. resolve the compiled catalog entry
+    const key = catalogKey(validated);
+    meta.catalog_key = key;
+    const entry = lookupEntry(deps.catalog, key);
+    if (!entry) throw new ApiError(500, "INTERNAL", "no catalog entry for a validated intent");
 
-  // 6. row bound before any execution
-  const rows = rowUpperBound(entry, validated, values);
-  if (rows > limits.max_rows) {
-    return refusal(
-      "RESULT_TOO_LARGE",
-      `That would return up to ${rows} rows (limit ${limits.max_rows}). Try a coarser grain, a shorter period or fewer breakdowns.`,
-      ["quarter", "year", "one breakdown dimension"],
+    // 6. row bound before any execution
+    const rows = rowUpperBound(entry, validated, values);
+    if (rows > limits.max_rows) {
+      return refusal(
+        "RESULT_TOO_LARGE",
+        `That would return up to ${rows} rows (limit ${limits.max_rows}). Try a coarser grain, a shorter period or fewer breakdowns.`,
+        ["quarter", "year", "one breakdown dimension"],
+      );
+    }
+
+    // 7. complement probes, binding, dry runs and the cost guard
+    const probes = complementProbes(validated);
+    meta.probes = probes.length;
+    const queries: BoundQuery[] = [validated, ...probes.map((p) => p.validated)].map((v) =>
+      bindQuery(entry, v, deps.dialect, deps.projectId, policy, values),
     );
+    let estimates: number[];
+    try {
+      estimates = (await Promise.all(queries.map((q) => deps.warehouse.dryRun(q)))).map((e) => e.estimatedBytes);
+    } catch (err) {
+      if (err instanceof ApiError && err.code === "COST_LIMIT_EXCEEDED") return refusal(err.code, err.message);
+      throw err;
+    }
+    meta.estimated_bytes = estimates.reduce((s, e) => s + e, 0);
+    if (deps.warehouse.kind !== "bigquery") meta.estimate_note = "local estimate of BigQuery on-demand bytes, not a BigQuery dry run";
+    const cost = await checkCost(estimates, deps.principal, limits, deps.user, deps.now());
+    if (!cost.ok) return refusal(cost.code, cost.message);
+
+    // 8. execute the main query and the probes in parallel; probes never leave the Worker
+    const labels = { app: "peoplelens", role: deps.principal.role, catalog_key_hash: await sha16(key) };
+    let results: RunResult[];
+    try {
+      results = await Promise.all(
+        queries.map((q) => deps.warehouse.run(q, { maxBytesBilled: cost.perQueryCap, timeoutMs: limits.query_timeout_ms, labels })),
+      );
+    } catch (err) {
+      if (err instanceof ApiError && err.code === "COST_LIMIT_EXCEEDED") return refusal(err.code, err.message);
+      throw err;
+    }
+    meta.warehouse_ms = Math.max(...results.map((r) => r.elapsedMs));
+    const billed = results.every((r) => r.billedBytes !== null) ? results.reduce((s, r) => s + (r.billedBytes ?? 0), 0) : null;
+    meta.billed_bytes = billed;
+    await deps.user.settleBytes(cost.day, cost.reservedBytes, billed);
+
+    // 9. suppression: primary, complement rule, complementary, hidden sum
+    const k = limits.min_cohort;
+    const colmap = entry.columns as { dimensions: Record<string, string>; time: string | null; values: string[]; cohort: string };
+    const mainCells = toCells(results[0] ?? { columns: [], rows: [] }, colmap, entry.group_by);
+    const probeCells = results.slice(1).map((r) => toCells(r, colmap, entry.group_by));
+    const { suppressKeys } = applyComplementRule(mainCells, probeCells, { k });
+    const suppressed = suppressCells(mainCells, { dims: entry.group_by, k, forced: suppressKeys });
+
+    // 10. answer (compensation measures rounded to $1,000 first: SPEC.md 9.5 rule 7)
+    const metric = policy.metrics[validated.metric];
+    const shownRows = roundForDisclosure(suppressed.rows, metric);
+    const columns: NonNullable<AskResponse["answer"]>["columns"] = [
+      ...validated.groupBy.map((d) => ({ name: d, kind: "dimension" as const })),
+      ...(validated.grain !== "none" ? [{ name: "period", kind: "time" as const }] : []),
+      ...metric.mf_metrics.map((m) => {
+        const step = metric.disclosure_round?.[m];
+        return { name: m, kind: "measure" as const, unit: metric.unit, ...(step ? { rounded_to: step } : {}) };
+      }),
+    ];
+    const answerRows: AnswerRow[] = shownRows.map((r) => {
+      const row: AnswerRow = {};
+      for (const d of validated.groupBy) row[d] = r.dims[d] ?? null;
+      if (validated.grain !== "none") row["period"] = r.period;
+      for (const m of metric.mf_metrics) row[m] = r.values[m] ?? null;
+      row["suppressed"] = r.suppressed;
+      return row;
+    });
+    meta.decision = "ANSWER";
+    turnRecord = { ts: deps.now(), type: "answer", intent: validated.intent, pending: null, code: null, catalogKey: key };
+    return finish(200, {
+      type: "answer",
+      answer: {
+        metric: metric.id,
+        intent: intentJson(validated.intent),
+        definition: metric.definition,
+        columns,
+        rows: answerRows,
+        suppressed_cells: suppressed.counts,
+        narrative: narrate(metric, validated.intent, shownRows, suppressed.counts, policy),
+      },
+    });
   }
-
-  // 7. complement probes, binding, dry runs and the cost guard
-  const probes = complementProbes(validated);
-  meta.probes = probes.length;
-  const queries: BoundQuery[] = [validated, ...probes.map((p) => p.validated)].map((v) =>
-    bindQuery(entry, v, deps.dialect, deps.projectId, policy, values),
-  );
-  let estimates: number[];
-  try {
-    estimates = (await Promise.all(queries.map((q) => deps.warehouse.dryRun(q)))).map((e) => e.estimatedBytes);
-  } catch (err) {
-    if (err instanceof ApiError && err.code === "COST_LIMIT_EXCEEDED") return refusal(err.code, err.message);
-    throw err;
-  }
-  meta.estimated_bytes = estimates.reduce((s, e) => s + e, 0);
-  if (deps.warehouse.kind !== "bigquery") meta.estimate_note = "local estimate of BigQuery on-demand bytes, not a BigQuery dry run";
-  const cost = await checkCost(estimates, deps.principal, limits, deps.user, deps.now());
-  if (!cost.ok) return refusal(cost.code, cost.message);
-
-  // 8. execute the main query and the probes in parallel; probes never leave the Worker
-  const labels = { app: "peoplelens", role: deps.principal.role, catalog_key_hash: await sha16(key) };
-  let results: RunResult[];
-  try {
-    results = await Promise.all(
-      queries.map((q) => deps.warehouse.run(q, { maxBytesBilled: cost.perQueryCap, timeoutMs: limits.query_timeout_ms, labels })),
-    );
-  } catch (err) {
-    if (err instanceof ApiError && err.code === "COST_LIMIT_EXCEEDED") return refusal(err.code, err.message);
-    throw err;
-  }
-  meta.warehouse_ms = Math.max(...results.map((r) => r.elapsedMs));
-  const billed = results.every((r) => r.billedBytes !== null) ? results.reduce((s, r) => s + (r.billedBytes ?? 0), 0) : null;
-  meta.billed_bytes = billed;
-  await deps.user.settleBytes(cost.day, cost.reservedBytes, billed);
-
-  // 9. suppression: primary, complement rule, complementary, hidden sum
-  const k = limits.min_cohort;
-  const colmap = entry.columns as { dimensions: Record<string, string>; time: string | null; values: string[]; cohort: string };
-  const mainCells = toCells(results[0] ?? { columns: [], rows: [] }, colmap, entry.group_by);
-  const probeCells = results.slice(1).map((r) => toCells(r, colmap, entry.group_by));
-  const { suppressKeys } = applyComplementRule(mainCells, probeCells, { k });
-  const suppressed = suppressCells(mainCells, { dims: entry.group_by, k, forced: suppressKeys });
-
-  // 10. answer (compensation measures rounded to $1,000 first: SPEC.md 9.5 rule 7)
-  const metric = policy.metrics[validated.metric];
-  const shownRows = roundForDisclosure(suppressed.rows, metric);
-  const columns: NonNullable<AskResponse["answer"]>["columns"] = [
-    ...validated.groupBy.map((d) => ({ name: d, kind: "dimension" as const })),
-    ...(validated.grain !== "none" ? [{ name: "period", kind: "time" as const }] : []),
-    ...metric.mf_metrics.map((m) => {
-      const step = metric.disclosure_round?.[m];
-      return { name: m, kind: "measure" as const, unit: metric.unit, ...(step ? { rounded_to: step } : {}) };
-    }),
-  ];
-  const answerRows: AnswerRow[] = shownRows.map((r) => {
-    const row: AnswerRow = {};
-    for (const d of validated.groupBy) row[d] = r.dims[d] ?? null;
-    if (validated.grain !== "none") row["period"] = r.period;
-    for (const m of metric.mf_metrics) row[m] = r.values[m] ?? null;
-    row["suppressed"] = r.suppressed;
-    return row;
-  });
-  meta.decision = "ANSWER";
-  turnRecord = { ts: deps.now(), type: "answer", intent: validated.intent, pending: null, code: null, catalogKey: key };
-  return finish(200, {
-    type: "answer",
-    answer: {
-      metric: metric.id,
-      intent: intentJson(validated.intent),
-      definition: metric.definition,
-      columns,
-      rows: answerRows,
-      suppressed_cells: suppressed.counts,
-      narrative: narrate(metric, validated.intent, shownRows, suppressed.counts, policy),
-    },
-  });
 }

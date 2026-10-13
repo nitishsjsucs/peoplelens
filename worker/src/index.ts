@@ -14,7 +14,7 @@ import { ACCOUNT_BUDGET_NAME, type BudgetCounter, utcDay } from "./session/budge
 import { logEvent } from "./log";
 import { POLICY } from "./policy/policy";
 import { ApiError, type Principal } from "./policy/types";
-import { listMetrics } from "./tools/registry";
+import { describeMetric, invokeTool, listDimensionValues, listMetrics } from "./tools/registry";
 import { BigQueryWarehouse } from "./warehouse/bigquery";
 import { GoogleTokenSource, parseServiceAccountKey } from "./warehouse/googleAuth";
 import { LocalDuckDbWarehouse } from "./warehouse/localDuckdb";
@@ -154,7 +154,21 @@ export function createApp(deps: AppDeps) {
     });
   });
 
-  app.get("/api/catalog", async (c) => c.json(await listMetrics.run({}, { principal: c.get("principal") })));
+  // The catalog routes run the read-only tools list_metrics, describe_metric and
+  // list_dimension_values; route parameters are checked against each tool's input schema.
+  app.get("/api/catalog", async (c) => c.json(await invokeTool(listMetrics, {}, { principal: c.get("principal") })));
+
+  app.get("/api/catalog/metrics/:metric", async (c) => {
+    const input = describeMetric.inputSchema.safeParse({ metric: c.req.param("metric") });
+    if (!input.success) throw new ApiError(404, "NOT_FOUND", "unknown metric");
+    return c.json(await invokeTool(describeMetric, input.data, { principal: c.get("principal") }));
+  });
+
+  app.get("/api/catalog/dimensions/:dimension/values", async (c) => {
+    const input = listDimensionValues.inputSchema.safeParse({ dimension: c.req.param("dimension") });
+    if (!input.success) throw new ApiError(404, "NOT_FOUND", "unknown dimension");
+    return c.json(await invokeTool(listDimensionValues, input.data, { principal: c.get("principal") }));
+  });
 
   app.post("/api/sessions", async (c) => {
     const id = await userPort(c.env, c.get("principal")).createSession(now());
